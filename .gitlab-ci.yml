@@ -27,7 +27,7 @@ stages:
 
 lint:
   image: node:14.18.3
-  stage: test
+  stage: lint
   script:
     - npm ci
     - npm run lint
