@@ -6,6 +6,7 @@ ENV NUXT_APP_BASE_URL=${NUXT_APP_BASE_URL}
 ARG NUXT_APP_SENTRY_DSN
 ENV NUXT_APP_SENTRY_DSN=${NUXT_APP_SENTRY_DSN}
 
+RUN mkdir -p /app
 EXPOSE 3000
 WORKDIR /app
 
@@ -14,5 +15,4 @@ RUN npm install
 
 COPY . .
 
-# RUN npm run build
-CMD [ "npm", "run", "dev" ]
+RUN npm run build
