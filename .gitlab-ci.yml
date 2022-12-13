@@ -75,6 +75,7 @@ deploy-develop:
   variables:
     ENV: 'develop'
   script:
+    - chmod +x ./deploy/run.sh
     - ./deploy/run.sh $DEVELOP_USER $DEVELOP_HOST
   only:
     - develop
@@ -85,6 +86,7 @@ deploy-master:
   variables:
     ENV: 'master'
   script:
+    - chmod +x ./deploy/run.sh
     - ./deploy/run.sh $MASTER_USER $MASTER_HOST
   only:
     - master
