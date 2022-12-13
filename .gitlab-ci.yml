@@ -4,6 +4,7 @@ variables:
   SSH_OPT: '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
 stages:
+  - lint
   - build
   - deploy
 
