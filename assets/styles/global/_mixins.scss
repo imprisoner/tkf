@@ -1,0 +1,59 @@
+@mixin font-face($font-family, $url, $weight) {
+	@font-face {
+		font-family: "#{$font-family}";
+		src: url("~/assets/fonts/#{$url}.woff") format("woff");
+		font-weight: #{$weight};
+		font-display: swap;
+	}
+}
+
+
+@mixin caret {
+  &::after {
+    content: '';
+    background: url(/assets/svg/icons/chevron-down.svg) center / cover no-repeat;
+    width: 20px;
+    height: 20px;
+    transition: transform .3s ease;
+    @include max-width('xl') {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+// TODO
+
+@mixin shadow {
+  box-shadow: 2px 2px 12px 6px #f1f1f1;
+}
+
+@mixin brand-shadow {
+  box-shadow: 0px 7px 13px rgba(0, 0, 0, 0.05);
+}
+
+@mixin max-width($breakpoint) { 
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (max-width: #{map-get($breakpoints, $breakpoint) - 1}) {
+      @content;
+    }
+  }
+ 
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoints}`. "
+        + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}
+
+@mixin min-width($breakpoint) { 
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: #{map-get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  }
+ 
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}

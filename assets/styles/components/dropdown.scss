@@ -1,0 +1,45 @@
+@import '../global/mixins';
+
+.dropdown {
+  position: relative;
+  width: 100%;
+  
+  &__trigger {
+    input {
+      margin: unset;
+      text-align: center;
+      max-width: calc(100% - 60px);
+      padding: unset;
+      flex: 1;
+
+      @include max-width('md') {
+        max-width: unset;
+      }
+    }
+  }
+
+
+  &__list {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-color: white;
+    @include brand-shadow;
+
+    @include max-width('md') {
+      top: 50px
+    }
+
+    .btn {
+      color: $input;
+      justify-content: start;
+      text-align: left;
+      &:hover {
+        color: black;
+        background-color: $neutral;
+      }
+    }
+  }
+}

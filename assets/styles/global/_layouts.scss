@@ -1,0 +1,38 @@
+@include min-width('xl') {
+  .main-layout {
+    display: grid;
+    grid-template-areas:
+      'header'
+      'navbar'
+      'content'
+      'footer';
+
+    .header {
+      grid-area: header;
+    }
+
+    .navbar {
+      grid-area: navbar;
+    }
+
+    >main {
+      grid-area: content;
+    }
+
+    .footer {
+      grid-area: footer;
+    }
+  }
+// 
+}
+// catalog
+
+.catalog {
+  padding-top: 96px;
+
+  @include max-width('lg') {
+    padding-top: 24px;
+  }
+
+}
+

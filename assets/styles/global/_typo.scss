@@ -1,0 +1,59 @@
+body * {
+  font-family: Montserrat;
+  font-style: normal;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 41px;
+
+  @include max-width('md') {
+    font-size: 24px;
+    line-height: 29px;
+  }
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 41px;
+
+  @include max-width('md') {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+
+  @include max-width('md') {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+h4 {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+
+  @include max-width('md') {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.text-16 {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+
+  @include max-width('md') {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

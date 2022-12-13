@@ -1,0 +1,165 @@
+$w: 100%;
+$h: 16px;
+
+@mixin track() {
+  width: 100%;
+  height: 100%;
+  // background: rgba(30, 30, 30, 0.12);
+  // background: none;
+  /* get rid of Firefox track background */
+}
+
+@mixin thumb() {
+  border: none;
+  width: $h;
+  height: $h;
+  border-radius: 9999px;
+  background: white;
+  pointer-events: auto;
+  outline: 2px solid #82868B;
+
+}
+
+
+.range-slider {
+  &__wrap {
+    --dif: calc(var(--max) - var(--min));
+    display: grid;
+    grid-template: 74px / 1fr 1fr;
+    overflow: hidden;
+    position: relative;
+    margin: 1em auto;
+    width: $w;
+    align-items: center;
+    background: white;
+    padding: 0 4px;
+
+    &::before,
+    &::after {
+      grid-column: 1/ span 2;
+      grid-row: 1;
+      height: 6px;
+      background: black;
+      content: '';
+      z-index: 1;
+    }
+
+    &::before {
+      margin-left: calc((var(--a) - var(--min))/var(--dif)*100%);
+      width: calc((var(--b) - var(--a))/var(--dif)*100%);
+    }
+
+    &::after {
+      margin-left: calc((var(--b) - var(--min))/var(--dif)*100%);
+      width: calc((var(--a) - var(--b))/var(--dif)*100%);
+    }
+  }
+
+  &__track {
+    grid-column: 1/ span 2;
+    grid-row: 1;
+    height: 6px;
+    background: rgba(30, 30, 30, 0.12);
+    border-radius: 3px;
+    margin: 0 -2px;
+  }
+
+  input[type='range'] {
+
+    &::-webkit-slider-runnable-track,
+    &::-webkit-slider-thumb,
+    & {
+      -webkit-appearance: none;
+    }
+
+    grid-column: 1/ span 2;
+    grid-row: 1;
+    z-index: 1;
+    background: none;
+    color: #000;
+    pointer-events: none;
+
+    &::-webkit-slider-runnable-track {
+      @include track
+    }
+
+    &::-moz-range-track {
+      @include track
+    }
+
+    &::-webkit-slider-thumb {
+      @include thumb
+    }
+
+    &::-moz-range-thumb {
+      @include thumb
+    }
+
+    &:focus {
+      z-index: 2;
+    }
+
+  }
+
+  &__label {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #6E6B7B;
+    position: absolute;
+    bottom: 0;
+
+    &[for="a"] {
+      left: 0;
+    }
+
+    &[for="b"] {
+      right: 0;
+    }
+  }
+
+  &__top-label {
+    position: absolute;
+    top: 0;
+    width: 44px;
+    height: 22px;
+    background: $neutral;
+    text-align: center;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: #6E6B7B;
+
+
+    &::after {
+      counter-reset: c calc(var(--c) / 400);
+      content: counter(c);
+    }
+
+    &[for="a"] {
+      transform: translateX(-30%);
+    }
+    &[for="b"] {
+      transform: translateX(30%);
+    }
+  }
+
+  &__bottom-label {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #6E6B7B;
+    position: absolute;
+    bottom: 0;
+    &::after {
+      counter-reset: c var(--c);
+      content: counter(c) 'USD';
+    }
+    &[for="a"] {
+      transform: translateX(-30%);
+    }
+    &[for="b"] {
+      transform: translateX(30%);
+    }
+  }
+}
