@@ -49,7 +49,7 @@ build-develop:
   script:
     - >
       docker build
-      --build-arg NUXT_APP_BASE_URL="$DEV_API_BASE_URL"
+      --build-arg VUE_APP_BASE_URL="$DEV_API_BASE_URL"
       --pull -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:develop-latest"
       . -f ./Dockerfile
     - docker push "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:develop-latest"
@@ -62,7 +62,7 @@ build-master:
   script:
     - >
       docker build
-      --build-arg NUXT_APP_BASE_URL="$PROD_API_BASE_URL"
+      --build-arg VUE_APP_BASE_URL="$PROD_API_BASE_URL"
       --pull -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:master-latest"
       . -f ./Dockerfile
     - docker push "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:master-latest"
