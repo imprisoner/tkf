@@ -29,7 +29,7 @@ lint:
   image: node:14.18.3
   stage: lint
   script:
-    - npm ci
+    - npm install
     - npm run lint
   only:
     - merge_request
@@ -38,7 +38,7 @@ lint-style:
   image: node:14.18.3
   stage: lint
   script:
-    - npm ci
+    - npm install
     - npm run lint:style -- --no-fix
   only:
     - merge_request
