@@ -1,0 +1,90 @@
+image: docker:20.10
+
+variables:
+  SSH_OPT: '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+
+stages:
+  - lint
+  - build
+  - deploy
+
+.before_script_deploy:
+  before_script:
+    - 'which ssh-agent || ( apk add --update --no-cache git openssh-client )'
+    - eval $(ssh-agent -s)
+    - echo "$PRODUCTION_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - echo "$DEVELOP_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+
+    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+
+    - docker version
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
+
+lint:
+  image: node:14.18.3
+  stage: lint
+  script:
+    - npm ci
+    - npm run lint
+  only:
+    - merge_request
+
+lint-style:
+  image: node:14.18.3
+  stage: lint
+  script:
+    - npm ci
+    - npm run lint:style -- --no-fix
+  only:
+    - merge_request
+
+build-develop:
+  extends: .before_script_deploy
+  stage: build
+  script:
+    - >
+      docker build
+      --build-arg VUE_APP_API_BASE_URL="$DEV_API_BASE_URL"
+      --pull -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:develop-latest"
+      . -f ./Dockerfile
+    - docker push "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:develop-latest"
+  only:
+    - develop
+
+build-master:
+  extends: .before_script_deploy
+  stage: build
+  script:
+    - >
+      docker build
+      --build-arg VUE_APP_API_BASE_URL="$PROD_API_BASE_URL"
+      --pull -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:master-latest"
+      . -f ./Dockerfile
+    - docker push "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:master-latest"
+  only:
+    - master
+
+deploy-develop:
+  extends: .before_script_deploy
+  stage: deploy
+  variables:
+    ENV: 'develop'
+  script:
+    - ./deploy/run.sh $DEVELOP_USER $DEVELOP_HOST
+  only:
+    - develop
+
+deploy-master:
+  extends: .before_script_deploy
+  stage: deploy
+  variables:
+    ENV: 'master'
+  script:
+    - ./deploy/run.sh $MASTER_USER $MASTER_HOST
+  only:
+    - master

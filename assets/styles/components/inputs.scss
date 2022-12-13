@@ -1,0 +1,38 @@
+.input-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  .btn {
+    flex-shrink: 0;
+  }
+
+  &__field {
+    display: flex;
+    align-items: center;
+    padding-left: 22px;
+    padding-right: 22px;
+    height: 60px;
+    background-color: $neutral;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    flex: 1;
+
+    @include max-width('lg') {
+      padding-left: 15px;
+      padding-right: 15px;
+      height: 40px;
+    }
+
+    @include max-width('md') {
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 12px;
+    }
+
+    &::placeholder {
+      color: $input;
+    }
+  }
+}

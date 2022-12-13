@@ -1,0 +1,14 @@
+.lots-found {
+  color: $input;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  &::after,
+  &::before {
+    content: '';
+    width: 1px;
+    height: 26px;
+    background-color: $light-gray;
+  }
+}

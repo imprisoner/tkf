@@ -1,0 +1,38 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  
+  @include max-width('md') {
+    gap: 4px;
+  }
+
+  li, a {
+    display: flex;
+    align-items: center;
+  }
+
+  li {
+    color: $input;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    gap: 8px;
+
+    @include max-width('md') {
+      font-size: 10px;
+      line-height: 16px;
+    }
+
+    &.current {
+      color: black;
+    }
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+
+}

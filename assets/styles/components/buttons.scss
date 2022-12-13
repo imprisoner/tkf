@@ -1,0 +1,122 @@
+@import '../global/mixins';
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  padding: 0 32px;
+  background-color: transparent;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 18px;
+  border: none;
+
+  @include max-width('lg') {
+    font-size: 12px;
+    line-height: 14px;
+    padding: 12px 14px;
+    height: 40px;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+
+    @include max-width('lg') {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &-black {
+    background-color: black;
+    color: white;
+  }
+
+  &-gray {
+    background-color: $light-gray;
+  }
+
+  &-white {
+    background-color: white;
+    color: black;
+  }
+
+  &-neutral {
+    background-color: $neutral;
+    color: black;
+  }
+
+  &-text-sm {
+    font-size: 14px;
+    line-height: 18px;
+    padding: 0 20px;
+  }
+
+  &-square {
+    width: 60px;
+    height: 60px;
+    padding: unset;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    @include max-width('lg') {
+      width: 40px;
+      height: 40px;
+
+      svg {
+        width: 17px;
+        height: 17px;
+      }
+    }
+  }
+
+  &-square.filled-icon {
+    color: $input;
+  }
+
+  &-square.stroked-icon {
+    color: black;
+  }
+
+  &-block {
+    width: 100%;
+  }
+
+  &-caret {
+    @include caret;
+  }
+}
+
+.iconic-btn {
+  display: inline-block;
+  background-color: transparent;
+}
+
+.link-btn {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  span {
+    white-space: nowrap;
+  }
+}

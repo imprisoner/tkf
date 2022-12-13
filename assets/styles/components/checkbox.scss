@@ -1,0 +1,74 @@
+.cb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  @include max-width('md') {
+    gap: 4px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__wrap {
+    width: 18px;
+    height: 18px;
+    background-color: $light-gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      display: none;
+    }
+
+    @include max-width('md') {
+      background: transparent;
+      color: $light-gray;
+      svg {
+        display: initial;
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+
+  &__label-text {
+
+    span {
+      color: $input;
+    }
+
+    @include max-width('md') {
+      color: $input;
+    }
+  }
+
+
+  input {
+    display: none;
+  }
+
+  input:checked~&__wrap {
+    background-color: black;
+    color: white;
+
+    svg {
+      display: initial;
+      width: 12px;
+      height: 12px;
+    }
+
+    @include max-width('md') {
+      background-color: transparent;
+      svg {
+        color: $input;
+      }
+    }
+  }
+
+  input:checked~&__label-text {
+    color: black;
+  }
+}
