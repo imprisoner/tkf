@@ -9,5 +9,5 @@ ENV VUE_APP_SENTRY_DSN=${VUE_APP_SENTRY_DSN}
 WORKDIR /app
 COPY . ./
 
-RUN npm ci
+RUN npm install
 RUN npm run build
