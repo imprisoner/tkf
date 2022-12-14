@@ -1,0 +1,18 @@
+FROM node:16.17
+
+ARG VUE_APP_BASE_URL
+ENV VUE_APP_BASE_URL=${VUE_APP_BASE_URL}
+
+ARG VUE_APP_SENTRY_DSN
+ENV VUE_APP_SENTRY_DSN=${VUE_APP_SENTRY_DSN}
+
+RUN mkdir -p /app
+EXPOSE 3000
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+RUN npm run build

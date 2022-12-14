@@ -1,0 +1,18 @@
+version: '3.7'
+
+networks:
+  time-keeper:
+    external: true
+
+services:
+  client:
+    restart: always
+    image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:develop-latest
+    command: npm run start
+    expose:
+      - 3000
+    environment:
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=3000
+    networks:
+      - time-keeper
