@@ -3,7 +3,6 @@
 
   @include max-width('xl') {
     padding: 0 14px;
-
   }
 }
 
@@ -17,15 +16,11 @@
   }
 }
 
-
-@each $suffix,
-$resolution in $breakpoints {
+@each $suffix, $resolution in $breakpoints {
   @for $i from 0 through 12 {
-
-    @if $suffix =="xs" {
-      @if $i ==0 {}
-
-      @else {
+    @if $suffix == 'xs' {
+      @if $i ==0 {
+      } @else {
         .col-#{$i} {
           grid-column-end: span $i;
         }
@@ -34,13 +29,10 @@ $resolution in $breakpoints {
       .offset-#{$i} {
         grid-column-start: $i + 1;
       }
-    }
-
-    @else {
+    } @else {
       @media (min-width: $resolution) {
-        @if $i ==0 {}
-
-        @else {
+        @if $i ==0 {
+        } @else {
           .col-#{$suffix}-#{$i} {
             grid-column-end: span $i;
           }

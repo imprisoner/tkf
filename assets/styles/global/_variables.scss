@@ -1,21 +1,21 @@
 // colors
-$input: #6E6B7B;
-$shadow: #F1F1F1;
-$stripe: #2F2F2F;
-$neutral: #F8F8F8;
-$light-gray: #EAEAEA;
+$input: #6e6b7b;
+$shadow: #f1f1f1;
+$stripe: #2f2f2f;
+$neutral: #f8f8f8;
+$light-gray: #eaeaea;
 $white-85p: rgba(255, 255, 255, 0.85);
-$deep-green: #14685E;
-$scrollbar-color: #2F2F2F43; 
+$deep-green: #14685e;
+$scrollbar-color: #2f2f2f43;
 // breakpoints
 
 $breakpoints: (
-  "xs": 320px,
-  "sm": 576px,
-  "md": 768px,
-  "lg": 1024px,
-  "xl": 1280px,
-  "xxl": 1440px
+  'xs': 320px,
+  'sm': 576px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px,
+  'xxl': 1440px,
 );
 
 // border

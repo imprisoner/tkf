@@ -8,19 +8,26 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@import "@/assets/styles/global/_variables.scss"; @import "@/assets/styles/global/_mixins.scss";'
-        }
-      }
+          additionalData:
+            '@import "@/assets/styles/global/_variables.scss"; @import "@/assets/styles/global/_mixins.scss";',
+        },
+      },
     },
-    plugins: [
-      svgLoader({})
-    ],
+    plugins: [svgLoader({})],
   },
   // build: {
   //   transpile: ['swiper']
   // },
   modules: ['@nuxtjs/device'],
   device: {
-    refreshOnResize: true
+    refreshOnResize: true,
   },
+  runtimeConfig: {
+    // Private keys are only available on the server
+    apiSecret: '123',
+    // Public keys that are exposed to the client
+    public: {
+      apiBase: process.env.VUE_APP_API_BASE_URL || '/api'
+    }
+  }
 })

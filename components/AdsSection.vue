@@ -1,10 +1,15 @@
 <template>
   <section class="ads-section container">
-    <div class="row">
-      <div class="col-md-6 col-lg-5 col-12 aspect--17-11" v-for="banner, i in banners" :class="{ 'offset-lg-1': !(i % 2) }">
+    <div v-if="banners" class="row">
+      <div
+        v-for="(banner, i) in banners"
+        :key="i"
+        class="col-md-6 col-lg-5 col-12 aspect--17-11"
+        :class="{ 'offset-lg-1': !(i % 2) }"
+      >
         <nuxt-link class="card" :to="banner.link">
           <div class="card__img">
-            <img class="img-resp" :src="banner.image">
+            <img class="img-resp" :src="banner.image" />
           </div>
           <span class="card__num">{{ `0${i}` }}</span>
           <div class="card__content">
@@ -18,19 +23,22 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  banners: Array
-})
+  const props = defineProps({
+    banners: {
+      type: Array,
+      default: () => [],
+    },
+  })
 </script>
 
 <style lang="scss" scoped>
-.ads-section {
-  @include max-width('md') {
-    .row {
-      display: flex;
-      flex-direction: column;
-      row-gap: 20px
+  .ads-section {
+    @include max-width('md') {
+      .row {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+      }
     }
   }
-}
 </style>
