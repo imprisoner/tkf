@@ -3,12 +3,13 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  
+
   @include max-width('md') {
     gap: 4px;
   }
 
-  li, a {
+  li,
+  a {
     display: flex;
     align-items: center;
   }
@@ -34,5 +35,4 @@
     width: 14px;
     height: 14px;
   }
-
 }

@@ -10,7 +10,7 @@
     padding: 14px 12px;
     @include caret;
 
-    >* {
+    > * {
       font-weight: 400;
       font-size: 12px;
       line-height: 16px;
@@ -34,5 +34,5 @@
 }
 
 .p-rel {
-  position: relative
+  position: relative;
 }

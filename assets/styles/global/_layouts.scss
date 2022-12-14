@@ -15,7 +15,7 @@
       grid-area: navbar;
     }
 
-    >main {
+    > main {
       grid-area: content;
     }
 
@@ -23,7 +23,7 @@
       grid-area: footer;
     }
   }
-// 
+  //
 }
 // catalog
 
@@ -33,6 +33,4 @@
   @include max-width('lg') {
     padding-top: 24px;
   }
-
 }
-

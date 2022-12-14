@@ -1,6 +1,6 @@
 @import '../global/mixins';
 
-.btn {
+.button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,32 +34,32 @@
     cursor: pointer;
   }
 
-  &-black {
+  &--black {
     background-color: black;
     color: white;
   }
 
-  &-gray {
+  &--gray {
     background-color: $light-gray;
   }
 
-  &-white {
+  &--white {
     background-color: white;
     color: black;
   }
 
-  &-neutral {
+  &--neutral {
     background-color: $neutral;
     color: black;
   }
 
-  &-text-sm {
+  &--text-sm {
     font-size: 14px;
     line-height: 18px;
     padding: 0 20px;
   }
 
-  &-square {
+  &--square {
     width: 60px;
     height: 60px;
     padding: unset;
@@ -80,29 +80,30 @@
     }
   }
 
-  &-square.filled-icon {
+  &--square.filled-icon {
     color: $input;
   }
 
-  &-square.stroked-icon {
+  &--square.stroked-icon {
     color: black;
   }
 
-  &-block {
+  &--block {
     width: 100%;
   }
 
-  &-caret {
+  &--caret {
     @include caret;
+  }
+  
+  &--iconic {
+    display: inline-block;
+    background-color: transparent;
   }
 }
 
-.iconic-btn {
-  display: inline-block;
-  background-color: transparent;
-}
 
-.link-btn {
+.link-button {
   background-color: transparent;
   display: flex;
   align-items: center;

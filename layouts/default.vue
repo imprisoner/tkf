@@ -3,13 +3,9 @@
     <ui-header></ui-header>
     <slot></slot>
     <ui-footer></ui-footer>
- </div>
+  </div>
 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -1,0 +1,12 @@
+node_modules
+dist
+.nuxt
+.output
+
+backups
+assets
+public
+
+*.css
+.json
+.*.json

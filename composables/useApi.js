@@ -1,7 +1,8 @@
 export default function (path, options) {
-  const baseURL = 'http://185.20.226.229/api/v1'
+  const { public: { apiBase: baseUrl } } = useRuntimeConfig()
+ 
   return useFetch(path, {
-    baseURL,
-    ...options
+    baseUrl,
+    ...options,
   })
 }

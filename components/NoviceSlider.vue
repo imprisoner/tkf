@@ -1,12 +1,12 @@
 <template>
   <swiper v-bind="config">
-    <swiper-slide v-for="lot in slides">
+    <swiper-slide v-for="(lot, i) in slides" :key="i">
       <div class="product-card novice-card">
-        <div class="btn btn-square btn-neutral">
+        <div class="button button--square button--neutral">
           <base-icon name="heart"></base-icon>
         </div>
         <div class="product-card__img">
-          <img class="img-resp" :src="lot.image" alt="watches">
+          <img class="img-resp" :src="lot.image" alt="watches" />
         </div>
         <h6 class="product-card__title">
           {{ lot.name }}
@@ -19,30 +19,31 @@
 </template>
 
 <script setup>
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation } from 'swiper'
+  import { Swiper, SwiperSlide } from 'swiper/vue'
+  import { Navigation } from 'swiper'
 
-defineProps({
-  slides: Array
-})
+  defineProps({
+    slides: {
+      type: Array,
+      default: () => [],
+    },
+  })
 
-const config = {
-  modules: [Navigation],
-  navigation: {
-    prevEl: '.offers-section__novice-slider-nav .slider-nav__prev',
-    nextEl: '.offers-section__novice-slider-nav .slider-nav__next'
-  },
-  slidesPerView: 2,
-  spaceBetween: 20,
-  breakpoints: {
-    1280: {
-      slidesPerView: 3,
-      spaceBetween: 30,
-    }
+  const config = {
+    modules: [Navigation],
+    navigation: {
+      prevEl: '.offers-section__novice-slider-nav .slider-nav__prev',
+      nextEl: '.offers-section__novice-slider-nav .slider-nav__next',
+    },
+    slidesPerView: 2,
+    spaceBetween: 20,
+    breakpoints: {
+      1280: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
   }
-}
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
