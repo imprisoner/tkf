@@ -34,14 +34,14 @@ lint:
   only:
     - merge_request
 
-lint-style:
-  image: node:14.18.3
-  stage: lint
-  script:
-    - npm install
-    - npm run lint:style -- --no-fix
-  only:
-    - merge_request
+# lint-style:
+#   image: node:14.18.3
+#   stage: lint
+#   script:
+#     - npm install
+#     - npm run lint:style -- --no-fix
+#   only:
+#     - merge_request
 
 build-develop:
   extends: .before_script_deploy
