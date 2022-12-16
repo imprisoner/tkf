@@ -11,7 +11,7 @@
           <div class="card__img">
             <img class="img-resp" :src="banner.image" />
           </div>
-          <span class="card__num">{{ `0${i}` }}</span>
+          <span class="card__num">{{ `0${i + 1}` }}</span>
           <div class="card__content">
             <h3>{{ banner.title }}</h3>
             <p class="text-16">{{ banner.description }}</p>
