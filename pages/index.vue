@@ -16,7 +16,7 @@
         </div>
       </div>
     </section>
-    <ads-section :banners="banners"></ads-section>
+    <SAdsSection :banners="banners"/>
     <section class="brands-slider container">
       <div class="row">
         <div class="offset-xl-1 col-md-6 col-12">

@@ -131,7 +131,7 @@
     </div>
     <div class="row">
         <div class="offset-md-1 col-md-10 col-12">
-            <button class="btn btn-block btn-neutral btn-caret" type="button">Показать ещё</button>
+            <button class="button button--block button--neutral button--caret" type="button">Показать ещё</button>
         </div>
     </div>
 </div>
@@ -268,7 +268,7 @@
     }
   }
 
-  .btn-caret {
+  .button-caret {
     flex-direction: row-reverse;
   }
 }

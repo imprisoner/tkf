@@ -1,7 +1,7 @@
 <template>
   <a class="card card-square" :class="classname" :href=link>
-    <div class="card-btn btn-square btn-gray stroked-icon">
-        <img class="img-resp" :src=image />
+    <img class="img-resp" :src=image />
+      <div class="button button--square button--gray stroked-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 fill-rule="evenodd"
