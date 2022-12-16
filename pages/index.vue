@@ -349,7 +349,6 @@
             brandsCards,
         };
     },
-    components: { SOffersSection }
 }
 </script>
 
