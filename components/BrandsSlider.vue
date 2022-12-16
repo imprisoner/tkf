@@ -26,7 +26,7 @@
 
   defineProps({
     slides: {
-      type: Array,
+      type: [Array, Object],
       default: () => [],
     },
   })

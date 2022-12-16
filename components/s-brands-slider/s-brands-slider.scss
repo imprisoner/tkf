@@ -1,0 +1,33 @@
+.s-brands-slider {
+  background-color: $neutral;
+  position: relative;
+  padding-top: 110px;
+  padding-bottom: 123px;
+
+  @include max-width('md') {
+    padding-top: 30px;
+    padding-bottom: 60px;
+  }
+
+  .row {
+    row-gap: 80px;
+
+    @include max-width('md') {
+      row-gap: 30px;
+    }
+  }
+
+  &__nav {
+    justify-self: end;
+  }
+
+  .slider-nav {
+    display: flex;
+
+    @include max-width('md') {
+      position: absolute;
+      right: 14px;
+      bottom: -20px;
+    }
+  }
+}

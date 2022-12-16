@@ -1,0 +1,43 @@
+.s-intro-main {
+  margin-bottom: 100px;
+
+  @include max-width('lg') {
+    margin-bottom: 80px;
+  }
+
+  @include max-width('md') {
+    padding-top: 32px;
+    margin-bottom: 48px;
+  }
+
+  .socials {
+    margin-top: 72px;
+    margin-bottom: 46px;
+
+    @include max-width('lg') {
+      margin: 22px 0;
+    }
+
+    @include max-width('md') {
+      display: none;
+    }
+  }
+
+  article {
+    @include max-width('md') {
+      padding-bottom: 42px;
+    }
+
+    h1 {
+      margin-bottom: 24px;
+    }
+
+    p {
+      margin-bottom: 30px;
+
+      @include max-width('md') {
+        margin-bottom: 24px;
+      }
+    }
+  }
+}

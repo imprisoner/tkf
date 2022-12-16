@@ -1,0 +1,128 @@
+.s-about-section {
+  margin-bottom: 264px;
+
+  @include max-width('lg') {
+    margin-bottom: 120px;
+  }
+
+  &__description {
+    margin-bottom: 104px;
+
+    @include max-width('lg') {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      margin-bottom: 60px;
+    }
+
+    @include max-width('md') {
+      margin-bottom: 24px;
+      gap: 16px;
+    }
+
+    > div:last-child {
+      display: flex;
+      gap: 58px;
+
+      @include max-width('lg') {
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+
+    p {
+      color: $input;
+    }
+  }
+
+  &__cards {
+    margin-bottom: 240px;
+
+    @include max-width('xl') {
+      margin-bottom: 120px;
+    }
+
+    @include max-width('lg') {
+      row-gap: 30px;
+    }
+
+    @include max-width('md') {
+      margin-bottom: 64px;
+    }
+    .card--square {
+      background-color: $neutral;
+
+      h5 {
+        color: black;
+        font-size: 22px;
+        line-height: 27px;
+
+        @include max-width('md') {
+          font-size: 12px;
+          line-height: 15px;
+        }
+      }
+    }
+
+    .button {
+      cursor: default;
+    }
+  }
+
+  &__cards-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+
+    @include max-width('xl') {
+      grid-template-columns: repeat(2, 1fr);
+      // grid-template-columns: auto;
+    }
+
+    @include max-width('sm') {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+  }
+  .row:last-child {
+    align-items: center;
+
+    h2 {
+      margin-bottom: 48px;
+
+      @include max-width('md') {
+        margin-bottom: 16px;
+      }
+    }
+
+    @include max-width('md') {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__img {
+    @include max-width('md') {
+      display: flex;
+      flex-direction: column;
+      order: 1;
+      margin-top: 24px;
+      height: 300px;
+      width: 100%;
+    }
+
+    div {
+      aspect-ratio: 7 / 5;
+      background-color: $shadow;
+
+      @include max-width('md') {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    img {
+      object-fit: contain;
+    }
+  }
+}
