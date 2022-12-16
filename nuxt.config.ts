@@ -27,7 +27,8 @@ export default defineNuxtConfig({
     apiSecret: '123',
     // Public keys that are exposed to the client
     public: {
-      apiBase: process.env.VUE_APP_API_BASE_URL || '/api'
-    }
-  }
+      // TODO: подсталвять в зависимости от prod/dev
+      apiBase: 'http://185.20.226.229/api/v1',
+    },
+  },
 })

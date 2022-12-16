@@ -2,17 +2,16 @@
   <swiper v-bind="config">
     <swiper-slide v-for="(brand, i) in slides" :key="i">
       <div class="brands-logo aspect--1-1">
-        <img class="brands-logo__img img-resp" :src="brand.image" />
+        <img class="brands-logo__img img-resp" :src="brand.image || stubBrandImageUrl" />
         <div class="brands-logo__overlay card card--square">
           <div
             class="brands-logo__arrow button button--square button--gray stroked-icon"
           >
             <base-icon name="arrow-down-right"></base-icon>
           </div>
-          <nuxt-link to="/brands">
+          <nuxt-link :to="`/brands/${brand.id}`">
             <h5 class="brands-logo__title">
-              Смотреть<br />
-              весь список
+              {{ brand.name }}
             </h5>
           </nuxt-link>
         </div>
@@ -31,6 +30,8 @@
       default: () => [],
     },
   })
+
+  const stubBrandImageUrl = '/img/brand_stub.png'
 
   const config = {
     modules: [Navigation, FreeMode],
