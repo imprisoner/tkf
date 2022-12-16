@@ -157,6 +157,7 @@
 <script setup>
   import { Swiper, SwiperSlide } from 'swiper/vue'
   import { Navigation } from 'swiper'
+  import { loadBrands } from '@/api/brands'
 
   // dummy data
 
@@ -488,48 +489,8 @@
     },
   ]
 
-  const brandsCards = [
-    {
-      id: 0,
-      name: 'Rolex',
-      image: '/img/brand_rolex.png',
-    },
-    {
-      id: 1,
-      name: 'Rolex',
-      image: '/img/brand_rolex.png',
-    },
-    {
-      id: 2,
-      name: 'Rolex',
-      image: '/img/brand_rolex.png',
-    },
-    {
-      id: 3,
-      name: 'Rolex',
-      image: '/img/brand_rolex.png',
-    },
-    {
-      id: 4,
-      name: 'Rolex',
-      image: '/img/brand_rolex.png',
-    },
-    {
-      id: 5,
-      name: 'Rolex',
-      image: '/img/brand_rolex.png',
-    },
-    {
-      id: 6,
-      name: 'Rolex',
-      image: '/img/brand_rolex.png',
-    },
-    {
-      id: 7,
-      name: 'Rolex',
-      image: '/img/brand_rolex.png',
-    },
-  ]
+  const brandsCards = await loadBrands({ isShowOnMain: true })
+
 </script>
 
 <style lang="scss" scoped>

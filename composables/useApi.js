@@ -1,8 +1,8 @@
 export default function (path, options) {
   const { public: { apiBase: baseUrl } } = useRuntimeConfig()
  
-  return useFetch(path, {
-    baseUrl,
+  // baseUrl не работает
+  return useFetch(`${baseUrl}${path}`, {
     ...options,
   })
 }
