@@ -1,4 +1,4 @@
-FROM node:16.17
+FROM node:16.19-alpine
 
 ARG VUE_APP_BASE_URL
 ENV VUE_APP_BASE_URL=${VUE_APP_BASE_URL}
@@ -11,6 +11,7 @@ EXPOSE 3000
 WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm install
 
 COPY . .
