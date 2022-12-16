@@ -4,7 +4,7 @@ variables:
   SSH_OPT: '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
 stages:
-  # - lint
+  - lint
   - build
   - deploy
 
@@ -26,7 +26,7 @@ stages:
     - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
 
 lint:
-  image: node:14.18.3
+  image: node:16.19-alpine
   stage: lint
   script:
     - npm install
@@ -35,7 +35,7 @@ lint:
     - merge_request
 
 # lint-style:
-#   image: node:14.18.3
+#   image: node:16.19-alpine
 #   stage: lint
 #   script:
 #     - npm install
