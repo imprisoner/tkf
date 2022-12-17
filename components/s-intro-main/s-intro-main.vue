@@ -17,14 +17,11 @@
   </section>
 </template>
 
-<script>
+<script setup>
   import './s-intro-main.scss';
 
-  export default {
-    props: {
-      offersCards: {
-        type: [Object, Array],
-      }
-    }
-  }
+  const props = defineProps({
+    offersCards: Array,
+    default: () => [],
+  })
 </script>

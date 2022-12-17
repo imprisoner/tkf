@@ -14,14 +14,11 @@
   </section>
 </template>
 
-<script>
+<script setup>
   import './s-brands-slider.scss';
 
-  export default {
-    props: {
-      brandsCards: {
-        type: [Object, Array],
-      },
-    },
-  }
+  const props = defineProps({
+    brandsCards: Array,
+    default: () => [],
+  })
 </script>

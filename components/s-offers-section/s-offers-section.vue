@@ -63,14 +63,11 @@
   </section>
 </template>
 
-<script>
+<script setup>
   import './s-offers-section.scss';
 
-  export default {
-    props: {
-      offersCards: {
-        type: [Object, Array],
-      },
-    },   
-  }
+  const props = defineProps({
+    offersCards: Array,
+    default: () => [],
+  })
 </script>

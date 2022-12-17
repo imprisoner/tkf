@@ -62,6 +62,6 @@
   </section>
 </template>
 
-<script>
+<script setup>
   import './s-about-section.scss';
 </script>
