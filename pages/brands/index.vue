@@ -1,14 +1,15 @@
 <template>
   <main id="brands-page" class="catalog">
     <SCatalogTop />
-    <SBrandsSection :brands-cards="brandsCards" />
+    <SBrandsSection :brands-cards="brandsMainCards" />
     <SAlphabet />
   </main>
 </template>
 
 <script setup>
-  import { loadBrands } from '@/api/brands'
-  const brandsCards = await loadBrands({ isShowOnMain: true })
+  import { getBrands } from '@/api/getBrands'
+
+  const brandsMainCards = await getBrands({ isShowOnMain: true })
 </script>
 
 <style lang="scss">

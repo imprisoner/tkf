@@ -9,7 +9,7 @@
       </div>
       <div class="offset-xl-1 col-xl-10 col-12">
         <swiper v-bind="config">
-          <swiper-slide v-for="(brand, i) in brandsCards" :key="i">
+          <swiper-slide v-for="(brand, i) in brandsMainCards" :key="i">
             <brands-card
               :id="brand.id"
               :image="brand.image"
@@ -26,6 +26,9 @@
   import { Swiper, SwiperSlide } from 'swiper/vue'
   import { Navigation, FreeMode } from 'swiper'
   import './s-brands-slider.scss'
+  import { getBrands } from '@/api/getBrands'
+
+  const brandsMainCards = await getBrands({ isShowOnMain: true })
 
   const props = defineProps({
     brandsCards: {
@@ -58,47 +61,4 @@
   }
 </script>
 
-<style lang="scss">
-  .brands-logo {
-    &__overlay {
-      position: absolute;
-      top: 0;
-      padding: 36px;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      opacity: 0;
-      transition: opacity 0.8s ease;
-
-      @include max-width('md') {
-        padding: 14px;
-      }
-    }
-
-    &:hover &__img {
-      opacity: 0;
-    }
-
-    &:hover &__overlay {
-      background: black;
-      opacity: 1;
-      z-index: 2;
-    }
-
-    &__title {
-      @include max-width('md') {
-        font-size: 10px;
-        line-height: 12px;
-      }
-    }
-
-    &__arrow {
-      background: rgba(255, 255, 255, 0.45);
-      cursor: default;
-      @include max-width('md') {
-        width: 24px;
-        height: 24px;
-      }
-    }
-  }
-</style>
+<style lang="scss"></style>

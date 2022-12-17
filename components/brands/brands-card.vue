@@ -41,6 +41,7 @@
 <style lang="scss">
   .brands-logo {
     &__overlay {
+      padding: 36px;
       position: absolute;
       top: 0;
       right: 0;
