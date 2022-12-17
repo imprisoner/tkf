@@ -5,12 +5,12 @@
       <article class="container lot">
           <div class="row lot__top">
               <div class="lot__imagebox imagebox offset-lg-1 col-lg-5 col-md-6 col-12">
-                  <div class="imagebox__image"><img class="img-resp" src="/img/watches_main_tr.png" /></div>
+                  <div class="imagebox__image"><img class="img-resp" src="/img/watches_main_tr.png" alt=""/></div>
                   <div class="imagebox__thumbnails">
-                      <div class="imagebox__thumb"><img class="img-resp" src="/img/watches_main_tr.png" /></div>
-                      <div class="imagebox__thumb"><img class="img-resp" src="/img/watches_main_tr.png" /></div>
-                      <div class="imagebox__thumb"><img class="img-resp" src="/img/watches_main_tr.png" /></div>
-                      <div class="imagebox__thumb"><img class="img-resp" src="/img/watches_main_tr.png" /></div>
+                      <div class="imagebox__thumb"><img class="img-resp" src="/img/watches_main_tr.png" alt="" /></div>
+                      <div class="imagebox__thumb"><img class="img-resp" src="/img/watches_main_tr.png" alt="" /></div>
+                      <div class="imagebox__thumb"><img class="img-resp" src="/img/watches_main_tr.png" alt="" /></div>
+                      <div class="imagebox__thumb"><img class="img-resp" src="/img/watches_main_tr.png" alt="" /></div>
                   </div>
               </div>
               <div class="lot__details details offset-lg-7 col-lg-5 col-xl-4 col-12">

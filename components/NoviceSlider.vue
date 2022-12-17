@@ -6,7 +6,7 @@
           <base-icon name="heart"></base-icon>
         </div>
         <div class="product-card__img">
-          <img class="img-resp" :src="lot.image" alt="watches" />
+          <img class="img-resp" :src="lot.image" alt="lot.name" />
         </div>
         <h6 class="product-card__title">
           {{ lot.name }}

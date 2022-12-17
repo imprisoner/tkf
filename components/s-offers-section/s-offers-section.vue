@@ -17,7 +17,7 @@
       <div class="s-offers-section__ads-1 offset-lg-1 col-lg-5 col-md-6">
         <a class="card" href="#">
           <div class="card__img">
-            <img class="img-resp" src="/img/watches_on_arm.png" />
+            <img class="img-resp" src="/img/watches_on_arm.png" alt="Лучшие предложения"/>
           </div>
           <span class="card__num">01</span>
           <div class="card__content">
@@ -29,7 +29,7 @@
       <div class="s-offers-section__ads-2 offset-6 col-lg-5 col-md-6">
         <a class="card aspect--17-11" href="#">
           <div class="card__img">
-            <img class="img-resp" src="/img/watches_on_arm.png" />
+            <img class="img-resp" src="/img/watches_on_arm.png" alt="Лучшие предложения" />
           </div>
           <span class="card__num">01</span>
           <div class="card__content">
@@ -39,7 +39,7 @@
         </a>
         <a class="card aspect--17-11" href="#">
           <div class="card__img">
-            <img class="img-resp" src="/img/watches_on_arm.png" />
+            <img class="img-resp" src="/img/watches_on_arm.png" alt="Лучшие предложения" />
           </div>
           <span class="card__num">01</span>
           <div class="card__content">

@@ -1,12 +1,12 @@
 <template>
   <div class="socials">
-    <a href="#">
+    <a href="#" aria-label="instagram" rel="nofollow" target="_blank">
       <base-icon name="instagram"></base-icon>
     </a>
-    <a href="#">
+    <a href="#" aria-label="twitter" rel="nofollow" target="_blank">
       <base-icon name="twitter"></base-icon>
     </a>
-    <a href="#">
+    <a href="#" aria-label="facebook" rel="nofollow" target="_blank">
       <base-icon name="facebook"></base-icon>
     </a>
   </div>

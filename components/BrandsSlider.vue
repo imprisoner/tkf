@@ -2,7 +2,7 @@
   <swiper v-bind="config">
     <swiper-slide v-for="(brand, i) in slides" :key="i">
       <div class="brands-logo aspect--1-1">
-        <img class="brands-logo__img img-resp" :src="brand.image || stubBrandImageUrl" />
+        <img class="brands-logo__img img-resp" :src="brand.image || stubBrandImageUrl" :alt="brand.name"/>
         <div class="brands-logo__overlay card card--square">
           <div
             class="brands-logo__arrow button button--square button--gray stroked-icon"

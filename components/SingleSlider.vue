@@ -6,7 +6,7 @@
   >
     <swiper-slide v-for="(lot, i) in slides" :key="i">
       <div class="single-slider__img">
-        <img class="img-resp" :src="lot.image" />
+        <img class="img-resp" :src="lot.image" :alt="lot.name"/>
       </div>
       <div class="single-slider__title">
         <h3>{{ lot.name }}</h3>
