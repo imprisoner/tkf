@@ -1,5 +1,5 @@
 <template>
-  <swiper v-bind="config">
+  <swiper v-bind="config" @swiper="onSwiper">
     <swiper-slide v-for="(lot, i) in slides" :key="i">
       <div class="product-card novice-card">
         <div class="button button--square button--neutral">
@@ -29,6 +29,8 @@
     },
   })
 
+  const emits = defineEmits(['swiper'])
+
   const config = {
     modules: [Navigation],
     navigation: {
@@ -43,6 +45,10 @@
         spaceBetween: 30,
       },
     },
+  }
+
+  function onSwiper(swiper) {
+    emits('swiper', {swiper, name: 'novice'})
   }
 </script>
 

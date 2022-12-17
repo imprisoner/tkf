@@ -5,11 +5,10 @@
         <h2>Мировые бренды</h2>
       </div>
       <div class="s-brands-slider__nav offset-9 col-xl-2 col-md-3">
-        <!-- Fix: не работает навигация -->
-        <slider-nav></slider-nav>
+        <slider-nav @prev="slidePrev" @next="slideNext"></slider-nav>
       </div>
       <div class="offset-xl-1 col-xl-10 col-12">
-        <brands-slider :slides="brandsMainCards"></brands-slider>
+        <brands-slider :slides="brandsMainCards" @swiper="onSwiper"></brands-slider>
       </div>
     </div>
   </section>
@@ -20,4 +19,17 @@
   import { getBrands } from '@/api/getBrands'
 
   const brandsMainCards = await getBrands({ isShowOnMain: true });
+
+  const slider = ref(null)
+
+  function onSwiper(swiperInstance) {
+    slider.value = swiperInstance
+  }
+
+  function slidePrev() {
+    slider.value.slidePrev()
+  }
+  function slideNext() {
+    slider.value.slideNext()
+  }
 </script>
