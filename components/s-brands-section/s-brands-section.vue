@@ -5,8 +5,9 @@
         <div class="brands-section__wall row">
           <brands-card
             v-for="brand in brandsCards"
-            :image="brand.image"
             :id="brand.id"
+            :key="brand.id"
+            :image="brand.image"
             :name="brand.name"
           />
         </div>

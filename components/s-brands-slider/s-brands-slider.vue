@@ -11,8 +11,8 @@
         <swiper v-bind="config">
           <swiper-slide v-for="(brand, i) in brandsCards" :key="i">
             <brands-card
-              :image="brand.image"
               :id="brand.id"
+              :image="brand.image"
               :name="brand.name"
             />
           </swiper-slide>

@@ -29,7 +29,8 @@
     },
     id: {
       type: Number,
-      default: '',
+      default: 0,
+      required: true,
     },
     name: {
       type: String,
