@@ -21,12 +21,12 @@
                       </div>
                       <h3 class="details__price">$3 404 <span>204 280 ₽</span></h3>
                       <div class="details__tags">
-                          <span class="details__tag btn btn-text-sm">Новые</span>
-                          <span class="details__tag btn btn-text-sm">В наличии</span>
-                          <span class="details__tag btn btn-text-sm">Очень красивое</span>
+                          <span class="details__tag button button--text-sm">Новые</span>
+                          <span class="details__tag button button--text-sm">В наличии</span>
+                          <span class="details__tag button button--text-sm">Очень красивое</span>
                       </div>
                   </div>
-                  <a class="details__link btn btn-black btn-block" href="#">Купить на сайте продавца</a>
+                  <a class="details__link button button--black button--block" href="#">Купить на сайте продавца</a>
                   <div class="details__descr">
                       <h4>Описание товара</h4>
                       <p class="text-16 details__text">
@@ -72,7 +72,7 @@
                       <p class="features__val">Без оригинальных документов и коробки</p>
                   </div>
               </div>
-              <div class="btn btn-gray btn-block btn-caret col-12">Показать ещё</div>
+              <div class="button button--gray button--block btn-caret col-12">Показать ещё</div>
           </div>
           <div class="lot__seller seller row">
               <div class="seller__wrap offset-lg-1 col-md-6 col-12">
@@ -81,7 +81,7 @@
                       <h3>Ломбард Самый Лучший</h3>
                       <address class="seller__address">Россия, г. Москва, ул. Зорге 21 ст. 1</address>
                   </div>
-                  <a class="seller__positions btn btn-black" href="#">
+                  <a class="seller__positions button button--black" href="#">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
                               fill-rule="evenodd"

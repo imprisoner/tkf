@@ -55,7 +55,7 @@ export default {
 
   }
 
-  .btn {
+  .button {
     svg {
       width: 16px;
       height: 16px;
@@ -85,7 +85,7 @@ export default {
       }
     }
 
-    .btn {
+    .button {
       display: none;
     }
 

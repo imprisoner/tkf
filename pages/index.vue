@@ -1,9 +1,9 @@
 <template>
   <main class="main-page">
-    <SIntroMain :offersCards="offersCards" />
+    <SIntroMain :offers-cards="offersCards" />
     <SAdsSection :banners="banners" />
-    <SBrandsSlider :brandsCards="brandsCards" />
-    <SOffersSection :offersCards="offersCards" />
+    <SBrandsSlider :brands-cards="brandsCards" />
+    <SOffersSection :offers-cards="offersCards" />
     <SAboutSection />
   </main>
 </template>
