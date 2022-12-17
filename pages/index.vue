@@ -2,7 +2,7 @@
   <main class="main-page">
     <SIntroMain :offers-cards="offersCards" />
     <SAdsSection :banners="banners" />
-    <SBrandsSlider :brands-cards="brandsCards" />
+    <SBrandsSlider />
     <SOffersSection :offers-cards="offersCards" />
     <SAboutSection />
   </main>

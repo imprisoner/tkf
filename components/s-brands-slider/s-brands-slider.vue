@@ -17,7 +17,7 @@
 
 <script setup>
   import './s-brands-slider.scss';
-  import { loadBrands } from '@/api/brands'
+  import { getBrands } from '@/api/getBrands'
 
-  const brandsMainCards = await loadBrands({ isShowOnMain: true });
+  const brandsMainCards = await getBrands({ isShowOnMain: true });
 </script>

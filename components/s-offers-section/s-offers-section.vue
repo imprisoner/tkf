@@ -31,7 +31,7 @@
           <div class="card__img">
             <img class="img-resp" src="/img/watches_on_arm.png" alt="Лучшие предложения" />
           </div>
-          <span class="card__num">01</span>
+          <span class="card__num">02</span>
           <div class="card__content">
             <h3>Лучшие предложения</h3>
             <p class="text-16">People also search for this items</p>
@@ -41,7 +41,7 @@
           <div class="card__img">
             <img class="img-resp" src="/img/watches_on_arm.png" alt="Лучшие предложения" />
           </div>
-          <span class="card__num">01</span>
+          <span class="card__num">03</span>
           <div class="card__content">
             <h3>Лучшие предложения</h3>
             <p class="text-16">People also search for this items</p>
