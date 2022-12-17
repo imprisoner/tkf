@@ -1,0 +1,28 @@
+.a-breadcrumbs {
+  display: flex;
+  align-items: center;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+
+    &::after {
+      content: url('~/assets/svg/icons/arrow-breadcrumbs.svg');
+      display: block;
+      margin-left: 8px;
+    }
+
+    &:last-child {
+      pointer-events: none;
+      
+      &::after {
+        display: none;
+      }
+    }
+
+    &-icon {
+      width: 16px;
+    }
+  }
+}
