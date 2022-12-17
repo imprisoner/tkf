@@ -8,14 +8,18 @@
           <a class="button button--black error__backdrop" href="#">Назад</a>
         </div>
         <div class="error__icon col-md-7 col-12">
-          <base-icon name="crystal-xl"></base-icon>
+          <base-icon name="crystal_xl"></base-icon>
         </div>
       </div>
     </div>
   </main>
 </template>
 
-<script setup></script>
+<script setup>
+  definePageMeta({
+    layout: 'error',
+  })
+</script>
 
 <style lang="scss" scoped>
   .error {

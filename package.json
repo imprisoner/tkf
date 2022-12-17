@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@nuxtjs/device": "^3.0.0",
+    "nuxt-device": "^2.1.0",
     "swiper": "^8.4.5",
     "vite-svg-loader": "^3.6.0"
   }

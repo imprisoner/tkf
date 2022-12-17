@@ -91,9 +91,7 @@
   })
 
   function onSliderInit({ swiper, name }) {
-    console.log(name, '\n', swiper)
     sliders[name] = swiper
-    console.log(sliders[name])
   }
 
   function slidePrev(name) {
