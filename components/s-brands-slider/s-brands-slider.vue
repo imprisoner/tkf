@@ -5,10 +5,11 @@
         <h2>Мировые бренды</h2>
       </div>
       <div class="s-brands-slider__nav offset-9 col-xl-2 col-md-3">
+        <!-- Fix: не работает навигация -->
         <slider-nav></slider-nav>
       </div>
       <div class="offset-xl-1 col-xl-10 col-12">
-        <brands-slider :slides="brandsCards"></brands-slider>
+        <brands-slider :slides="brandsMainCards"></brands-slider>
       </div>
     </div>
   </section>
@@ -16,12 +17,7 @@
 
 <script setup>
   import './s-brands-slider.scss';
+  import { loadBrands } from '@/api/brands'
 
-  const props = defineProps({
-    brandsCards: {
-      type: Array,
-      default: () => [],
-    },
-  })
-
+  const brandsMainCards = await loadBrands({ isShowOnMain: true });
 </script>
