@@ -1,5 +1,5 @@
 <template>
-    <main id="goods-page" class="catalog">
+    <main id="search">
         <section class="catalog-top container">
             <div class="row">
                 <div class="catalog-top__breadcrumbs offset-lg-1 col-lg-10 col-12">
@@ -17,7 +17,7 @@
                             ></path>
                         </svg>
                     </button>
-                    <div class="link-btn">
+                    <div class="link-button">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 fill-rule="evenodd"
@@ -33,83 +33,21 @@
         </section>
 
         <SGoodSection />
-
-        <SAdsSection :banners="banners"/>
-
-        <div class="container brands-title">
-            <div class="row">
-                <div class="offset-lg-1 col-lg-12"><h2>Все бренды швейцарских часов</h2></div>
-            </div>
-        </div>
-
-        <SAlphabet />
-
-        <div class="container cats-title">
-            <div class="row">
-                <div class="offset-lg-1 col-lg-12"><h2>Категории швейцарских часов</h2></div>
-            </div>
-        </div>
-
-        <SCategoriesSection />
-        <SDescrSection />
     </main>
 </template>
 
 <script setup>
-const banners = [
-        {
-            title: 'Лучшие предложения 1',
-            description: 'People also search for this items',
-            link: '#',
-            image: '/img/watches_1.png',
-        },
-        {
-            title: 'Лучшие предложения 2',
-            description: 'People also search for this items',
-            link: '#',
-            image: '/img/watches_2.png',
-        },
-    ]
+
 </script>
 
 <style lang="scss" scoped>
-#goods-page {
-  .goods-section {
-    margin-bottom: 200px;
-  }
+    #search {
+        padding-top: 96px;
+        padding-bottom: 212px;
 
-  .ads-section {
-    margin-bottom: 226px;
-  }
-
-  .brands-title {
-    margin-bottom: 72px;
-  }
-
-  .cats-title {
-    margin-bottom: 80px;
-  }
-
-  .alphabet {
-    margin-bottom: 224px;
-  }
-
-  .categories-section {
-    margin-bottom: 200px;
-  }
-
-  .descr-section {
-    margin-bottom: 152px;
-  }
-
-  @include max-width('md') {
-    .goods-section, .ads-section, .alphabet, .categories-section {
-      margin-bottom: 64px;
+        @include max-width('md') {
+            padding-top: 24px;
+            padding-bottom: 64px;
+        }
     }
-
-    .brands-title, .cats-title {
-      margin-bottom: 24px;
-    }
-  }
-}
 </style>

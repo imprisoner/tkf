@@ -1,8 +1,11 @@
 <template>
-  <swiper v-bind="config">
+  <swiper v-bind="config" @swiper="onSwiper">
     <swiper-slide v-for="(brand, i) in slides" :key="i">
       <div class="brands-logo aspect--1-1">
-        <img class="brands-logo__img img-resp" :src="brand.image || stubBrandImageUrl" />
+        <img
+          class="brands-logo__img img-resp"
+          :src="brand.image || stubBrandImageUrl"
+        />
         <div class="brands-logo__overlay card card--square">
           <div
             class="brands-logo__arrow button button--square button--gray stroked-icon"
@@ -26,19 +29,17 @@
 
   defineProps({
     slides: {
-      type: [Array, Object],
+      type: Array,
       default: () => [],
     },
   })
+
+  const emits = defineEmits(['swiper'])
 
   const stubBrandImageUrl = '/img/brand_stub.png'
 
   const config = {
     modules: [Navigation, FreeMode],
-    navigation: {
-      prevEl: '.brands-slider__nav .slider-nav__prev',
-      nextEl: '.brands-slider__nav .slider-nav__next',
-    },
     spaceBetween: 30,
     slidesPerView: 4,
     breakpoints: {
@@ -54,6 +55,10 @@
         slidesPerView: 4,
       },
     },
+  }
+
+  function onSwiper(swiper) {
+    emits('swiper', swiper)
   }
 </script>
 

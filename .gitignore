@@ -8,6 +8,4 @@ node_modules
 .env
 dist
 backups
-
-#/
-components/ui/navbar
+yarn.lock

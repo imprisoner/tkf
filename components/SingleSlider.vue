@@ -15,7 +15,7 @@
     </swiper-slide>
 
     <div class="single-slider__controls">
-      <slider-nav outer></slider-nav>
+      <slider-nav inner vertical></slider-nav>
       <span class="single-slider__count">
         {{ counter.current }}
         <small>/{{ counter.total }}</small>
@@ -76,10 +76,6 @@
     &__content {
       height: 100%;
     }
-
-    // &__slider {
-    //   position: relative;
-    // }
 
     &__content {
       background-color: $shadow;
@@ -152,9 +148,9 @@
       display: flex;
       width: 55%;
 
-      .slider-nav {
-        display: block;
-      }
+      // .slider-nav {
+      //   display: block;
+      // }
 
       @include max-width('xl') {
         left: 0;

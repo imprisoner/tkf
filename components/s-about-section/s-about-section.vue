@@ -63,5 +63,5 @@
 </template>
 
 <script setup>
-  import './s-about-section.scss';
+  import './s-about-section.scss'
 </script>

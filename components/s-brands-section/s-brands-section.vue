@@ -34,34 +34,5 @@
 </template>
 
 <script>
-export default {
-  setup () {
-
-
-    return {}
-  }
-}
+import './s-brands-section.scss';
 </script>
-
-<style lang="scss" scoped>
-.brands-section {
-  &__wall {
-    row-gap: 24px;
-  }
-
-  .card-square {
-    position: relative;
-    padding: unset;
-    box-shadow: 0px 7px 13px rgba(0, 0, 0, 0.05);
-
-    img {
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      z-index: -1;
-    }
-  }
-}
-</style>

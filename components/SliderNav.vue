@@ -1,5 +1,5 @@
 <template>
-  <div class="slider-nav">
+  <div class="slider-nav" :class="verticalClass">
     <button
       class="button button--square button--gray slider-nav__prev"
       type="button"
@@ -21,14 +21,25 @@
   import { useSwiper } from 'swiper/vue'
 
   const props = defineProps({
-    outer: Boolean,
+    inner: {
+      type: Boolean,
+      default: false,
+    },
+    vertical: {
+      type: Boolean,
+      default: false,
+    },
   })
 
-  let swiper, prev, next
+  const emits = defineEmits(['prev', 'next'])
 
-  if (props.outer) {
+  let swiper
+
+  if (props.inner) {
     swiper = useSwiper()
   }
+
+  let prev, next
 
   if (swiper) {
     prev = () => {
@@ -38,7 +49,24 @@
       swiper.value.slideNext()
     }
   } else {
-    prev = () => false
-    next = () => false
+    prev = () => {
+      emits('prev')
+    }
+    next = () => {
+      emits('next')
+    }
   }
+
+  const verticalClass = reactive({
+    'slider-nav--vertical': props.vertical,
+  })
 </script>
+<style lang="scss" scoped>
+  .slider-nav {
+    display: flex;
+
+    &--vertical {
+      display: block;
+    }
+  }
+</style>
