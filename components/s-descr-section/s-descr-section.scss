@@ -1,0 +1,80 @@
+.descr-section {
+
+  @include max-width('md') {
+    padding-bottom: 32px;
+    position: relative;
+    .row {
+      row-gap: 24px;
+    }
+  }
+
+  &__img {
+    color: $neutral;
+    margin-right: -30px;
+
+    @include max-width('lg') {
+      margin-right: unset;
+    }
+
+    @include max-width('md') {
+      order: 1;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    justify-content: center;
+
+    @include max-width('lg') {
+      gap: 24px;
+    }
+
+    p,
+    small {
+      color: $input;
+    }
+
+    small {
+      font-size: 14px;
+      line-height: 17px;
+      opacity: 0.57;
+
+      @include max-width('md') {
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 12px;
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+      }
+    }
+
+    h2 {
+      @include max-width('md') {
+        margin-bottom: 16px;
+      }
+    }
+  }
+
+  .logo {
+    @include max-width('md') {
+      font-size: 12px;
+      line-height: 15px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .button-caret {
+    flex-direction: row-reverse;
+  }
+}

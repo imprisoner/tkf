@@ -9,11 +9,11 @@
           >
             <base-icon name="arrow-down-right"></base-icon>
           </div>
-          <nuxt-link :to="`/brands/${brand.id}`">
+          <NuxtLink :to="`/brands/${brand.id}`">
             <h5 class="brands-logo__title">
               {{ brand.name }}
             </h5>
-          </nuxt-link>
+          </NuxtLink>
         </div>
       </div>
     </swiper-slide>
@@ -26,7 +26,7 @@
 
   defineProps({
     slides: {
-      type: Array,
+      type: [Array, Object],
       default: () => [],
     },
   })

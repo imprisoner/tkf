@@ -1,0 +1,156 @@
+.s-offers-section {
+  padding-top: 140px;
+  padding-bottom: 146px;
+
+  @include max-width('lg') {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  @include max-width('md') {
+    padding-top: unset;
+    padding-bottom: unset;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .row {
+    @include max-width('md') {
+      display: flex;
+      flex-direction: column;
+
+      &:first-child {
+        position: relative;
+        padding-bottom: 64px;
+      }
+    }
+  }
+
+  // for both sliders
+
+  .slider-nav {
+    @include max-width('md') {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      display: flex;
+    }
+  }
+
+  .slider-nav {
+    justify-content: end;
+  }
+
+  &__title {
+    margin-bottom: 64px;
+
+    @include max-width('md') {
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-bottom: 12px;
+
+      @include max-width('md') {
+        margin-bottom: 4px;
+      }
+    }
+  }
+
+  &__slider-nav {
+    justify-self: end;
+
+    @include max-width('md') {
+      margin-bottom: unset;
+      order: 1;
+    }
+  }
+
+  &__slider {
+    margin-bottom: 160px;
+
+    @include max-width('md') {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__ads-1 {
+    @include max-width('md') {
+      margin-bottom: 64px;
+    }
+  }
+
+  &__ads-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    @include max-width('md') {
+      order: 2;
+      gap: 20px;
+    }
+  }
+
+  &__novice-title {
+    margin-top: 148px;
+    margin-bottom: 100px;
+
+    @include max-width('md') {
+      margin-top: unset;
+      margin-bottom: 24px;
+    }
+  }
+
+  &__novice-slider-nav {
+    margin-top: 148px;
+    justify-self: end;
+
+    @include max-width('md') {
+      margin-top: unset;
+      margin-bottom: 104px;
+      order: 1;
+      position: relative;
+      // bottom: 20px;
+
+      .slider-nav {
+        bottom: -20px;
+      }
+    }
+  }
+
+  &__novice-slider {
+    padding-bottom: 156px;
+    margin-bottom: 212px;
+    position: relative;
+
+    @include max-width('xl') {
+      margin-bottom: 120px;
+    }
+
+    @include max-width('lg') {
+      margin-bottom: unset;
+      padding-bottom: 56px;
+    }
+
+    &::before {
+      content: '';
+      background-color: $neutral;
+      position: absolute;
+      width: calc(100vw - 56px);
+      top: 30px;
+      right: calc(1px - 50vw + 50% + 28px - 1px);
+      bottom: 0;
+      z-index: -1;
+
+      @include max-width('xl') {
+        width: calc(100vw - 28px);
+        right: calc(1px - 50vw + 50% + 14px - 1px);
+      }
+
+      @include max-width('md') {
+        top: 20px;
+      }
+    }
+  }
+}

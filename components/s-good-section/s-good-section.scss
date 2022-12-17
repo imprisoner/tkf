@@ -1,0 +1,54 @@
+.goods-section {
+
+  &__top {
+    margin-bottom: 32px;
+    @include max-width('md') {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__filters {
+    margin-bottom: 40px;
+  }
+
+  &__button-group {
+    justify-self: end;
+    display: flex;
+
+    @include max-width('md') {
+      display: none;
+    }
+  }
+
+  &__wall {
+    row-gap: 88px;
+    margin-bottom: 64px;
+
+    @include max-width('md') {
+      row-gap: 16px;
+      column-gap: 10px;
+      margin-bottom: 16px;
+    }
+  }
+
+
+  &__card-centered {
+    justify-self: center;
+    width: calc((((100% - 30px * 3) / 4) * 3) + 30px * 2);
+
+    @include max-width('lg') {
+      width: unset;
+    }
+  }
+
+  &__bottom {
+    .button--block {
+      flex-direction: row-reverse;
+      margin-bottom: 64px;
+
+      @include max-width('md') {
+        margin-bottom: 24px;
+      }
+    }
+  }
+}
