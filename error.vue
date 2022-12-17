@@ -17,7 +17,7 @@
               Назад
             </button>
           </div>
-          <div class="error__icon col-sm-7 col-12">
+          <div class="error__icon col-md-7 col-12">
             <base-icon name="crystal_xl"></base-icon>
           </div>
         </div>
