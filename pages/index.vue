@@ -341,7 +341,7 @@
     },
   ]
 
-  const brandsCards = await loadBrands({ isShowOnMain: true });
+  const brandsCards = await loadBrands({ isShowOnMain: true })
 </script>
 
 <style lang="scss" scoped>
