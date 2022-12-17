@@ -2,7 +2,7 @@
   <section class="goods-section container">
     <div class="row goods-section__top">
       <div class="goods-section__filters offset-lg-1 col-lg-10 col-md-12">
-        <s-good-section-filters />
+        <SGoodSectionFilters />
       </div>
       <div
         class="goods-section__sort col-md-4 offset-lg-1 col-xl-3 col-sm-6 col-12"
