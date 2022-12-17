@@ -32,7 +32,6 @@
                   </div>
               </div>
           </div>
-          <pre>{{ lot }}</pre>
           <div class="lot__features features row">
               <h4 class="offset-lg-1 col-lg-11 col-12">Характеристики</h4>
               <div class="row offset-lg-1 col-lg-11 col-12">
