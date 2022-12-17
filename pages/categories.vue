@@ -1,6 +1,12 @@
 <template>
   <main id="categories-page" class="catalog">
-    <SCatalogTop :breadcrumbs="breadcrumbs" />
+    <SCatalogTop
+      :breadcrumbs="breadcrumbs"
+      :title="title"
+      :categories="categories"
+      :btnShow="btnShow"
+      :count="98"
+    />
     <SCategoriesSection />
   </main>
 </template>
@@ -11,7 +17,20 @@
       text: 'Швейцарские часы',
       href: '',
     }
-  ]
+  ];
+  const title = 'Rolex';
+  const categories = [
+    {
+      name: 'Rolex',
+    },
+    {
+      name: 'Rolex',
+    },
+    {
+      name: 'Rolex',
+    },
+  ];
+  const btnShow = false;
 </script>
 
 <style lang="scss" scoped>

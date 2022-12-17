@@ -4,10 +4,13 @@
           <div class="s-catalog-top__breadcrumbs offset-lg-1 col-lg-10 col-12">
             <ABreadcrumbs :breadcrumbs="breadcrumbs" />
           </div>
-          <div class="s-catalog-top__title offset-lg-1 col-lg-10 col-12">
-              <h2>Все бренды швейцарских часов</h2>
-              <span class="text-16">найдено 98 товаров</span>
-          </div>
+          <MCatalogInfo 
+            :breadcrumbs="breadcrumbs"
+            :title="title"
+            :categories="categories"
+            :btnShow="btnShow" 
+            :count="count" 
+          />
       </div>
   </section>
 </template>
@@ -17,7 +20,19 @@
   import ABreadcrumbs from '~/components/ui/a-breadcrumbs/a-breadcrumbs';
 
   const props = defineProps({
-    breadcrumbs: Array,
-    default: () => [],
+    breadcrumbs: {
+      type: Array,
+      default: () => [],
+    },
+    title: String,
+    count: Number,
+    categories: {
+      type: Array,
+      default: () => [],
+    },
+    btnShow: {
+      type: Boolean,
+      default: false,
+    },
   })
 </script>
