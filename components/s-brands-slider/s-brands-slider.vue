@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-  import './s-brands-slider.scss';
+  import './s-brands-slider.scss'
 
   const props = defineProps({
     brandsCards: {
@@ -23,5 +23,4 @@
       default: () => [],
     },
   })
-
 </script>
