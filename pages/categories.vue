@@ -1,17 +1,22 @@
 <template>
   <main id="categories-page" class="catalog">
-    <SCatalogTop />
+    <SCatalogTop :breadcrumbs="breadcrumbs" />
     <SCategoriesSection />
   </main>
 </template>
 
 <script setup>
-
+  const breadcrumbs = [
+    {
+      text: 'Швейцарские часы',
+      href: '',
+    }
+  ]
 </script>
 
 <style lang="scss" scoped>
 #categories-page {
-  .catalog-top {
+  .s-catalog-top {
     margin-bottom: 72px;
   }
 
