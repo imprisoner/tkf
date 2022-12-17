@@ -48,7 +48,7 @@
     <div class="row">
       <div class="s-about-section__img offset-xl-1 col-md-6">
         <div>
-          <img class="img-resp" src="~/assets/img/watches_main_tr.png" />
+          <img class="img-resp" src="~/assets/img/watches_main_tr.png" alt=""/>
         </div>
       </div>
       <div class="offset-7 col-xl-4 col-md-5 offset-xl-8">

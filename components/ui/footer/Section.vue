@@ -1,6 +1,6 @@
 <template>
-  <div class="footer-nav__section">
-    <h6 class="mobile-caret footer-nav__heading" @click="toggle">
+  <div class="footer-nav__section" @click="toggle">
+    <h6 class="mobile-caret footer-nav__heading" >
       {{ heading }}
     </h6>
     <ul class="footer-nav__list" :class="activeClass">

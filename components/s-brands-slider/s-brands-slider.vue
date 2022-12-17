@@ -8,21 +8,17 @@
         <slider-nav @prev="slidePrev" @next="slideNext"></slider-nav>
       </div>
       <div class="offset-xl-1 col-xl-10 col-12">
-        <brands-slider :slides="brandsCards" @swiper="onSwiper"></brands-slider>
+        <brands-slider :slides="brandsMainCards" @swiper="onSwiper"></brands-slider>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-  import './s-brands-slider.scss'
+  import './s-brands-slider.scss';
+  import { getBrands } from '@/api/getBrands'
 
-  defineProps({
-    brandsCards: {
-      type: Array,
-      default: () => [],
-    },
-  })
+  const brandsMainCards = await getBrands({ isShowOnMain: true });
 
   const slider = ref(null)
 

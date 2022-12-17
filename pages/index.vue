@@ -2,15 +2,13 @@
   <main class="main-page">
     <SIntroMain :offers-cards="offersCards" />
     <SAdsSection :banners="banners" />
-    <SBrandsSlider :brands-cards="brandsCards" />
+    <SBrandsSlider />
     <SOffersSection :offers-cards="offersCards" />
     <SAboutSection />
   </main>
 </template>
 
 <script setup>
-  import { loadBrands } from '@/api/brands'
-
   // dummy data
 
   const banners = [
@@ -340,8 +338,6 @@
       image: '/img/watches_main_tr.png',
     },
   ]
-
-  const brandsCards = await loadBrands({ isShowOnMain: true })
 </script>
 
 <style lang="scss" scoped>

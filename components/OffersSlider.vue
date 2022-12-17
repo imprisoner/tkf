@@ -1,7 +1,7 @@
 <template>
   <swiper v-bind="config" @swiper="onSwiper">
     <swiper-slide v-for="(lot, i) in slides" :key="i">
-      <product-card
+      <MProductCard
         :title="lot.name"
         :brand="lot.brand.name"
         :model="lot.model.name"
@@ -14,7 +14,7 @@
         :country="lot.city_location.country.name"
         :city="lot.city_location.name"
       >
-      </product-card>
+      </MProductCard>
     </swiper-slide>
   </swiper>
 </template>
