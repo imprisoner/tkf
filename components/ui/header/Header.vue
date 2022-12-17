@@ -22,7 +22,10 @@
 </template>
 
 <script setup>
-  const searchActive = ref(false)
+  const header = ref()
+  onMounted(() => {
+    useHeaderHeight().value = header.value.offsetHeight
+  })
 </script>
 
 <style lang="scss">
