@@ -7,7 +7,7 @@
         class="col-md-6 col-lg-5 col-12 aspect--17-11"
         :class="{ 'offset-lg-1': !(i % 2) }"
       >
-        <nuxt-link class="card" :to="banner.link">
+        <NuxtLink class="card" :to="banner.link">
           <div class="card__img">
             <img class="img-resp" :src="banner.image" />
           </div>
@@ -16,13 +16,15 @@
             <h3>{{ banner.title }}</h3>
             <p class="text-16">{{ banner.description }}</p>
           </div>
-        </nuxt-link>
+        </NuxtLink>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
+import './s-ads-section.scss';
+
   const props = defineProps({
     banners: {
       type: Array,
@@ -30,15 +32,3 @@
     },
   })
 </script>
-
-<style lang="scss" scoped>
-  .ads-section {
-    @include max-width('md') {
-      .row {
-        display: flex;
-        flex-direction: column;
-        row-gap: 20px;
-      }
-    }
-  }
-</style>

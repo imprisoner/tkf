@@ -1,6 +1,6 @@
 <template>
   <header class="header container">
-    <nuxt-link class="logo" href="/"><b>Time</b>Keeper</nuxt-link>
+    <NuxtLink class="logo" href="/"><b>Time</b>Keeper</NuxtLink>
     <!--  -->
     <ui-header-search></ui-header-search>
     <!--  -->

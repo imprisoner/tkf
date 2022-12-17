@@ -1,0 +1,25 @@
+.categories-section {
+  &__wall {
+    row-gap: 24px;
+  }
+
+  .card-square {
+    position: relative;
+    background: rgba(0, 0, 0, 0.42);
+
+    @include max-width('md') {
+      aspect-ratio: unset;
+      gap: 8px;
+      padding: 16px;
+    }
+
+    img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+    }
+  }
+}

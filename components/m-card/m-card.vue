@@ -25,6 +25,8 @@
 </template>
 
 <script setup>
+import './m-card.scss';
+
   defineProps({
     title: {
       type: String,
@@ -44,93 +46,3 @@
     },
   })
 </script>
-
-<style lang="scss" scoped>
-.card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 36px;
-  color: white;
-  height: 100%;
-  width: 100%;
-  position: relative;
-
-  @include max-width('md') {
-    padding: 16px;
-  }
-
-  &__img {
-    &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.17) 0.26%, rgba(0, 0, 0, 0.45) 100%);
-    }
-
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-
-    // img {
-    //   width: 100%;
-    //   height: 100%;
-    //   object-fit: cover;
-    // }
-  }
-
-  &__num {
-    font-weight: 500;
-    font-size: 44px;
-    line-height: 54px;
-    color: $white-85p;
-  }
-
-  &__content {
-    h3 {
-      margin-bottom: 8px;
-    }
-  }
-
-  &__overlay {
-    display: none;
-
-    &:hover {
-      display: flex;
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-    }
-  }
-
-}
-
-.card {
-  &-square {
-    aspect-ratio: 1 / 1;
-  }
-
-  @include max-width('md') {
-    padding: 20px;
-  }
-
-  h5 {
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 29px;
-
-    @include max-width('xxl') {
-      font-size: 12px;
-      line-height: 15px;
-    }
-  }
-}
-</style>
