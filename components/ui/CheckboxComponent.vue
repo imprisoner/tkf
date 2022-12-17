@@ -24,12 +24,21 @@
   </label>
 </template>
 
-<script setup lang="ts">
-  const props = defineProps<{
-    label: string
-    value: number | string
-    checked: boolean
-  }>()
+<script setup>
+  defineProps({
+    label: {
+      type: String,
+      default: '',
+    },
+    value: {
+      type: [Number, String],
+      default: '',
+    },
+    checked: {
+      type: Boolean,
+      default: false,
+    },
+  })
 
   const emit = defineEmits(['change'])
 </script>
