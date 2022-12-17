@@ -7,50 +7,7 @@
       <div
         class="goods-section__sort col-md-4 offset-lg-1 col-xl-3 col-sm-6 col-12"
       >
-        <form class="dropdown">
-          <div class="dropdown__trigger input-group">
-            <input
-              class="button button--neutral"
-              type="text"
-              readonly
-              value="Сначала новые"
-            />
-            <button
-              class="button button--square button--gray icon-stroked"
-              type="button"
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M18.7 9.7L12.7 15.7C12.5 15.9 12.3 16 12 16C11.7 16 11.5 15.9 11.3 15.7L5.3 9.7C4.9 9.3 4.9 8.7 5.3 8.3C5.7 7.9 6.3 7.9 6.7 8.3L12 13.6L17.3 8.3C17.7 7.9 18.3 7.9 18.7 8.3C19.1 8.7 19.1 9.3 18.7 9.7Z"
-                  fill="black"
-                ></path>
-              </svg>
-            </button>
-          </div>
-          <ul class="dropdown__list">
-            <li>
-              <button class="button button--block" type="button">
-                Сначала новые
-              </button>
-            </li>
-            <li>
-              <button class="button button--block" type="button">
-                По возрастанию цены
-              </button>
-            </li>
-            <li>
-              <button class="button button--block" type="button">
-                По убыванию цены
-              </button>
-            </li>
-          </ul>
-        </form>
+        <SGoodSectionSort @sort="handleSort" />
       </div>
       <div class="goods-section__button-group offset-md-9 col-lg-2 col-md-3">
         <div class="button button--square button--black">30</div>
@@ -137,4 +94,6 @@
 
 <script setup>
   import './s-good-section.scss'
+
+  const handleSort = () => false
 </script>
