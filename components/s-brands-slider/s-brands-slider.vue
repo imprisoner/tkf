@@ -18,7 +18,10 @@
   import './s-brands-slider.scss';
 
   const props = defineProps({
-    brandsCards: Array,
-    default: () => [],
+    brandsCards: {
+      type: Array,
+      default: () => [],
+    },
   })
+
 </script>

@@ -103,10 +103,6 @@
 </template>
 
 <script setup>
-definePageMeta({
-  layout: 'error'
-})
-
 defineProps(['error'])
 
 const handleClearError = () => clearError({ redirect: '/'})
