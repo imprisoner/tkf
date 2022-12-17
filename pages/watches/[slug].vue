@@ -1,38 +1,34 @@
 <template>
   <main id="lot-page" class="catalog">
       <SCatalogTop />
-
       <article class="container lot">
           <div class="row lot__top">
               <div class="lot__imagebox imagebox offset-lg-1 col-lg-5 col-md-6 col-12">
-                  <div class="imagebox__image"><img class="img-resp" src="/img/watches_main_tr.png" /></div>
+                  <div class="imagebox__image">
+                    <img class="img-resp" :src="lot.image" alt=""/>
+                  </div>
                   <div class="imagebox__thumbnails">
-                      <div class="imagebox__thumb"><img class="img-resp" src="/img/watches_main_tr.png" /></div>
-                      <div class="imagebox__thumb"><img class="img-resp" src="/img/watches_main_tr.png" /></div>
-                      <div class="imagebox__thumb"><img class="img-resp" src="/img/watches_main_tr.png" /></div>
-                      <div class="imagebox__thumb"><img class="img-resp" src="/img/watches_main_tr.png" /></div>
+                      <div class="imagebox__thumb"><img class="img-resp" :src="lot.image" alt="" /></div>
                   </div>
               </div>
               <div class="lot__details details offset-lg-7 col-lg-5 col-xl-4 col-12">
                   <div class="details__top">
                       <div class="details__title">
-                          <h3>Franck Muller Casablanca</h3>
-                          <p>Platinum PT950 Salmon Dial</p>
+                          <h3>{{ lot.model.name }}</h3>
+                          <p>{{ lot.brand.name }}</p>
                       </div>
-                      <h3 class="details__price">$3 404 <span>204 280 ₽</span></h3>
-                      <div class="details__tags">
+                      <h3 class="details__price">${{ lot.price_usd }} <span v-if="lot.price_rub">{{ lot.price_rub }} ₽</span></h3>
+                      <!-- Todo  - нет в беке-->
+                      <div v-if="lot.tags" class="details__tags">
                           <span class="details__tag button button--text-sm">Новые</span>
                           <span class="details__tag button button--text-sm">В наличии</span>
                           <span class="details__tag button button--text-sm">Очень красивое</span>
                       </div>
                   </div>
-                  <a class="details__link button button--black button--block" href="#">Купить на сайте продавца</a>
-                  <div class="details__descr">
+                  <a class="details__link button button--black button--block" :href="lot.original_link" target="_blank">Купить на сайте продавца</a>
+                  <div v-if="lot.description" class="details__descr">
                       <h4>Описание товара</h4>
-                      <p class="text-16 details__text">
-                          Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня повышение уровня гражданского
-                          сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня
-                      </p>
+                      <p class="text-16 details__text">{{ lot.description }}</p>
                   </div>
               </div>
           </div>
@@ -43,38 +39,42 @@
                       <p class="features__prop">Тип</p>
                       <p class="features__val">Автоподзавод</p>
                       <p class="features__prop">Пол</p>
-                      <p class="features__val">Мужские часы/часы унисекс</p>
+                      <p class="features__val">{{ lot.gender }}</p>
                       <p class="features__prop">Состояние</p>
-                      <p class="features__val">Очень хорошее (Ношеные, следы ношения отсутствуют либо едва заметны)</p>
+                      <p class="features__val">{{ lot.condition }}</p>
                       <p class="features__prop">Бренд</p>
-                      <p class="features__val">Franck Muller</p>
+                      <p class="features__val">{{ lot.brand.name }}</p>
                       <p class="features__prop">Год выпуска</p>
-                      <p class="features__val">Неизвестно</p>
+                      <p class="features__val">{{ lot.production_year == '' || lot.production_year == null ? 'неизвестно' : lot.production_year }}</p>
                       <p class="features__prop">Материал корпуса</p>
-                      <p class="features__val">Платина</p>
+                      <p class="features__val">{{ lot.body_material }}</p>
                       <p class="features__prop">Материал браслета</p>
-                      <p class="features__val">Кожа аллигатора</p>
+                      <p class="features__val">{{ lot.strap_material }}</p>
                   </div>
                   <div class="features__col col-xl-6 col-12">
                       <p class="features__prop">Водонепроницаемость</p>
-                      <p class="features__val">3 атм</p>
+                      <p class="features__val">{{ lot.is_waterproof == false ? 'Нет' : 'Да' }}</p>
                       <p class="features__prop">Цвет циферблата</p>
-                      <p class="features__val">Oранжевый</p>
+                      <p class="features__val">{{ lot.watch_face_color }}</p>
                       <p class="features__prop">Тип механизма</p>
-                      <p class="features__val">Автоподзавод</p>
+                      <p class="features__val">{{ lot.mechanism_type }}</p>
                       <p class="features__prop">Функции</p>
-                      <p class="features__val">Franck Muller</p>
+                      <p class="features__val">
+                        <span v-for="(item, i) in lot.function_list" :key="i">{{item}}</span>
+                      </p>
                       <p class="features__prop">Запас хода</p>
                       <p class="features__val">126</p>
                       <p class="features__prop">Калибр</p>
-                      <p class="features__val">2800</p>
+                      <p class="features__val">{{ lot.caliber }}</p>
                       <p class="features__prop">Комплектация</p>
-                      <p class="features__val">Без оригинальных документов и коробки</p>
+                      <p class="features__val">{{ lot.complete_set }}</p>
                   </div>
               </div>
-              <div class="button button--gray button--block btn-caret col-12">Показать ещё</div>
+              <!-- ? для чего тут?-->
+              <!-- <div class="button button--gray button--block button--caret col-12">Показать ещё</div> -->
           </div>
-          <div class="lot__seller seller row">
+          <!-- Todo  - нет в беке-->
+          <div v-if="lot.seller" class="lot__seller seller row">
               <div class="seller__wrap offset-lg-1 col-md-6 col-12">
                   <div class="seller__info">
                       <h6 class="seller__subtitle text-16">Продавец</h6>
@@ -99,7 +99,9 @@
 </template>
 
 <script setup>
-
+const { slug } = useRoute().params
+const uri = 'http://185.20.226.229/api/v1/lots/watches/' + slug
+const { data: lot } = await useFetch(uri, { key: slug })
 </script>
 
 <style lang="scss" scoped>
@@ -323,7 +325,7 @@
       }
     }
 
-    .btn-caret {
+    .button--caret {
       flex-direction: row-reverse;
       display: none;
 

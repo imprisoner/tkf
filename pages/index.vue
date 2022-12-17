@@ -11,8 +11,6 @@
 <script setup>
   import { loadBrands } from '@/api/brands'
 
-  // dummy data
-
   const banners = [
     {
       title: 'Лучшие предложения 1',
@@ -340,7 +338,6 @@
       image: '/img/watches_main_tr.png',
     },
   ]
-
   const brandsCards = await loadBrands({ isShowOnMain: true })
 </script>
 

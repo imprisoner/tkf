@@ -9,7 +9,7 @@
       >
         <NuxtLink class="card" :to="banner.link">
           <div class="card__img">
-            <img class="img-resp" :src="banner.image" />
+            <img class="img-resp" :src="banner.image" alt="banner.title"/>
           </div>
           <span class="card__num">{{ `0${i + 1}` }}</span>
           <div class="card__content">

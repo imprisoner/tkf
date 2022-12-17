@@ -1,12 +1,12 @@
 <template>
-  <swiper v-bind="config">
+  <swiper v-bind="config" @swiper="onSwiper">
     <swiper-slide v-for="(lot, i) in slides" :key="i">
       <div class="product-card novice-card">
         <div class="button button--square button--neutral">
           <base-icon name="heart"></base-icon>
         </div>
         <div class="product-card__img">
-          <img class="img-resp" :src="lot.image" alt="watches" />
+          <img class="img-resp" :src="lot.image" alt="lot.name" />
         </div>
         <h6 class="product-card__title">
           {{ lot.name }}
@@ -29,6 +29,8 @@
     },
   })
 
+  const emits = defineEmits(['swiper'])
+
   const config = {
     modules: [Navigation],
     navigation: {
@@ -43,6 +45,10 @@
         spaceBetween: 30,
       },
     },
+  }
+
+  function onSwiper(swiper) {
+    emits('swiper', {swiper, name: 'novice'})
   }
 </script>
 

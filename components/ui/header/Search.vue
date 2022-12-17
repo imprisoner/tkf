@@ -3,7 +3,7 @@
     <button class="button" type="button" @click="toggle">
       <base-icon name="search"></base-icon>
     </button>
-    <input id="header_search" type="text" />
+    <input id="header_search" type="text" aria-label="Search"/>
   </div>
 </template>
 

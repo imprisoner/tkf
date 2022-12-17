@@ -1,17 +1,41 @@
 <template>
   <main id="categories-page" class="catalog">
-    <SCatalogTop />
+    <SCatalogTop
+      :breadcrumbs="breadcrumbs"
+      :title="title"
+      :categories="categories"
+      :btn-show="btnShow"
+      :count="98"
+    />
     <SCategoriesSection />
   </main>
 </template>
 
 <script setup>
-
+  const breadcrumbs = [
+    {
+      text: 'Швейцарские часы',
+      href: '',
+    }
+  ];
+  const title = 'Rolex';
+  const categories = [
+    {
+      name: 'Rolex',
+    },
+    {
+      name: 'Rolex',
+    },
+    {
+      name: 'Rolex',
+    },
+  ];
+  const btnShow = false;
 </script>
 
 <style lang="scss" scoped>
 #categories-page {
-  .catalog-top {
+  .s-catalog-top {
     margin-bottom: 72px;
   }
 
