@@ -1,0 +1,52 @@
+.m-catalog-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 24px;
+
+  >span {
+    color: $input;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    &::after,
+    &::before {
+      content: '';
+      width: 1px;
+      height: 26px;
+      background-color: $light-gray;
+    }
+  }
+
+  &__categories {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__category {
+    margin-right: 4px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .link-button {
+    justify-content: center;
+    margin-left: auto;
+
+    @include max-width('md') {
+      font-size: 12px;
+      line-height: 16px;
+      margin-left: 0;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+}

@@ -5,12 +5,16 @@
     @real-index-change="onIndexChange"
   >
     <swiper-slide v-for="(lot, i) in slides" :key="i">
-      <div class="single-slider__img">
-        <img class="img-resp" :src="lot.image" />
+      <div>
+        <img
+          class="single-slider__img img-resp"
+          :src="lot.image"
+          :alt="lot.name"
+        />
       </div>
       <div class="single-slider__title">
-        <h3>{{ lot.name }}</h3>
-        <p>{{ lot.model.name }}</p>
+        <h3 class="single-slider__name">{{ lot.name }}</h3>
+        <p class="single-slider__model">{{ lot.model.name }}</p>
       </div>
     </swiper-slide>
 
@@ -18,7 +22,7 @@
       <slider-nav inner vertical></slider-nav>
       <span class="single-slider__count">
         {{ counter.current }}
-        <small>/{{ counter.total }}</small>
+        <small class="single-slider__total">/{{ counter.total }}</small>
       </span>
       <div class="single-slider__scrollbar swiper-scrollbar"></div>
     </div>
@@ -89,7 +93,7 @@
       right: 0;
     }
 
-    &__img img {
+    &__img {
       object-fit: contain;
     }
 
@@ -115,30 +119,24 @@
         padding: 20px;
         row-gap: 4px;
       }
-
-      h3 {
-        margin-bottom: 8px;
-      }
-
-      p {
-        font-size: 14px;
-        line-height: 17px;
-      }
+    }
+    &__name {
+      margin-bottom: 8px;
 
       @include max-width('lg') {
-        h3 {
-          font-size: 18px;
-          line-height: 22px;
-        }
-
-        p {
-          font-size: 12px;
-          line-height: 15px;
-        }
+        font-size: 18px;
+        line-height: 22px;
       }
     }
 
-    // controls
+    &__model {
+      font-size: 14px;
+      line-height: 17px;
+      @include max-width('lg') {
+        font-size: 12px;
+        line-height: 15px;
+      }
+    }
 
     &__controls {
       position: absolute;
@@ -147,10 +145,6 @@
       z-index: 1;
       display: flex;
       width: 55%;
-
-      // .slider-nav {
-      //   display: block;
-      // }
 
       @include max-width('xl') {
         left: 0;
@@ -177,12 +171,11 @@
       position: absolute;
       right: 0;
       top: 16px;
-
-      small {
-        font-size: 12px;
-        line-height: 21px;
-        color: #00000030;
-      }
+    }
+    &__total {
+      font-size: 12px;
+      line-height: 21px;
+      color: #00000030;
     }
   }
 </style>

@@ -55,11 +55,12 @@
         display: none;
       }
 
-      span {
-        white-space: nowrap;
-        font-size: 12px;
-        line-height: 15px;
-      }
+    }
+
+    &__info-item {
+      white-space: nowrap;
+      font-size: 12px;
+      line-height: 15px;
     }
 
     &__price {

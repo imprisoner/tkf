@@ -1,47 +1,43 @@
 .alphabet {
-  &__ltrs {
-    &-subgrid {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      height: 44px;
+  &__button {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    background-color: transparent;
+    text-transform: capitalize;
 
-      @include max-width('md') {
-        width: calc(7 * 40px);
-        justify-content: start;
-        height: unset;
-        margin: 0 auto;
-      }
-    }
-
-    button {
-      font-weight: 600;
+    @include max-width('md') {
       font-size: 20px;
       line-height: 24px;
-      // height: 100%;
-      // aspect-ratio: 1 / 1;
-      background-color: transparent;
-      text-transform: capitalize;
+      width: 40px;
+      height: 40px;
 
-      @include max-width('md') {
-        font-size: 20px;
-        line-height: 24px;
-        width: 40px;
-        height: 40px;
-
-        &:first-child {
-          order: 1;
-        }
-
-        &:nth-child(7) {
-          margin-right: 40px;
-        }
-
+      &:first-child {
+        order: 1;
       }
 
-      &:hover {
-        cursor: pointer;
+      &:nth-child(7) {
+        margin-right: 40px;
       }
+
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__subgrid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 44px;
+
+    @include max-width('md') {
+      width: calc(7 * 40px);
+      justify-content: start;
+      height: unset;
+      margin: 0 auto;
     }
   }
 
@@ -74,7 +70,7 @@
     }
   }
 
-  &__list {
+  &__list-wrapper {
     row-gap: 24px;
 
     @include max-width('md') {
@@ -82,13 +78,13 @@
     }
   }
 
-  &__list ul {
+  &__list {
     display: flex;
     flex-direction: column;
     gap: 6px;
   }
 
-  &__list li {
+  &__list-item {
     color: $input;
 
     &:hover {
@@ -98,9 +94,7 @@
     @include max-width('lg') {
       overflow: hidden;
 
-      a {
-        white-space: nowrap;
-      }
+      
     }
 
     @include max-width('md') {
@@ -112,7 +106,11 @@
     }
   }
 
-  &__more {
+  &__link {
+      white-space: nowrap;
+  }
+
+  &__more-wrapper {
     display: none;
 
     @include max-width('md') {
@@ -120,7 +118,7 @@
     }
   }
 
-  .button--caret {
+   &__more {
     flex-direction: row-reverse;
   }
 }

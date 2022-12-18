@@ -1,9 +1,9 @@
 <template>
   <div class="footer-nav__section">
-    <h6 class="mobile-caret footer-nav__heading" @click="toggle">
+    <h6 class="footer-nav__heading" :role="isButton" @click="toggle">
       {{ heading }}
     </h6>
-    <ul class="footer-nav__list" :class="activeClass">
+    <ul v-if="isShowing" class="footer-nav__list">
       <li v-for="(link, i) in links" :key="i" class="footer-nav__list-item">
         <a :href="link.href">{{ link.text }}</a>
       </li>
@@ -25,14 +25,25 @@
     },
   })
 
-  const hasClicked = ref(false)
-  const activeClass = reactive({
-    show: hasClicked,
-  })
+  const triggerClicked = ref(false)
 
   function toggle() {
-    if (isMobile) hasClicked.value = !hasClicked.value
+    if (isMobile) {
+      triggerClicked.value = !triggerClicked.value
+    }
   }
+
+  const isShowing = computed(() => {
+    if (!isMobile) {
+      return true
+    }
+
+    return triggerClicked.value
+  })
+
+  const isButton = computed(() => {
+    return isMobile ? 'button' : null
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -65,10 +76,6 @@
       line-height: 21px;
       color: $input;
 
-      @include max-width('md') {
-        display: none;
-      }
-
       &.show {
         display: block;
       }
@@ -89,12 +96,10 @@
       font-size: 14px;
       line-height: 18px;
       margin-bottom: 16px;
+      @include mobile-caret('md');
 
       @include max-width('md') {
         margin-bottom: unset;
-      }
-
-      @include max-width('md') {
         padding: 12px 16px;
       }
     }

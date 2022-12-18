@@ -1,11 +1,14 @@
 <template>
   <footer class="footer">
     <div class="footer__top container">
-      <div class="row">
-        <div class="footer__contacts col-md-3 col-xxl-2 offset-1">
+      <div class="footer__top-wrapper row">
+        <div
+          v-if="!isMobile"
+          class="footer__contacts col-md-3 col-xxl-2 offset-1"
+        >
           <div class="logo footer__logo"><b>Time</b>Keeper</div>
-          <a class="button button--black" href="#">Войти</a>
-          <a class="phone" href="tel:+79099999999">8 909 999 99 99</a>
+          <a class="footer__button button button--black" href="#">Войти</a>
+          <a class="footer__phone" href="tel:+79099999999">8 909 999 99 99</a>
         </div>
         <nav
           class="footer__nav col-md-8 col-xxl-7 offset-lg-5 col-md-10 offset-md-1"
@@ -17,13 +20,13 @@
             :links="section.links"
           ></ui-footer-section>
         </nav>
-        <div class="footer__socials col-4 offset-lg-1 offset-md-8">
-          <ui-socials></ui-socials>
+        <div class="footer__socials-wrapper col-4 offset-lg-1 offset-md-8">
+          <ui-socials class="footer__socials"></ui-socials>
         </div>
       </div>
     </div>
     <div class="footer__bottom container">
-      <div class="row">
+      <div class="footer__bottom-wrapper row">
         <nav class="footer__bottom-nav col-8 offset-1">
           <ul>
             <li><a href="#">Политика конфиденциальности</a></li>
@@ -39,6 +42,8 @@
   </footer>
 </template>
 <script setup>
+  const { isMobile } = useDevice()
+
   const sections = reactive([
     {
       title: 'Для рекламодателей',
@@ -122,19 +127,19 @@
         background: white;
         padding: unset;
       }
+    }
 
-      & > .row {
-        row-gap: 100px;
+    &__top-wrapper {
+      row-gap: 100px;
 
-        @include max-width('md') {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          row-gap: 30px;
+      @include max-width('md') {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 30px;
 
-          & > * {
-            width: 100%;
-          }
+        & > * {
+          width: 100%;
         }
       }
     }
@@ -144,16 +149,15 @@
     }
 
     &__contacts {
-      .button {
-        margin-bottom: 32px;
-      }
-
       @include max-width('md') {
         display: none;
       }
     }
 
-    .phone {
+    &__button {
+      margin-bottom: 32px;
+    }
+    &__phone {
       font-weight: 500;
       font-size: 17px;
       line-height: 28px;
@@ -173,29 +177,9 @@
         gap: unset;
         border-top: $border;
       }
-
-      ul {
-        font-size: 14px;
-        line-height: 21px;
-        color: $input;
-
-        @include max-width('md') {
-          display: none;
-        }
-      }
-
-      li {
-        margin-bottom: 8px;
-
-        @include max-width('md') {
-          padding: 12px 24px;
-          margin-bottom: unset;
-          border-bottom: $border;
-        }
-      }
     }
 
-    &__socials {
+    &__socials-wrapper {
       display: flex;
       align-items: center;
       gap: 20px;
@@ -203,11 +187,7 @@
       @include max-width('lg') {
         align-items: baseline;
         padding-top: 20px;
-
-        svg {
-          width: 14px;
-          height: 14px;
-        }
+        justify-content: center;
       }
 
       @include max-width('md') {
@@ -215,15 +195,17 @@
       }
     }
 
-    .socials {
+    &__socials {
       @include max-width('md') {
         width: 100%;
         justify-content: space-between;
+      }
+    }
 
-        svg {
-          width: 14px;
-          height: 14px;
-        }
+    &__socials .social__link {
+      @include max-width('lg') {
+        width: 14px;
+        height: 14px;
       }
     }
 
@@ -238,15 +220,15 @@
       @include max-width('md') {
         padding: 35px 14px 45px;
       }
+    }
 
-      .row {
-        align-items: center;
+    &__bottom-wrapper {
+      align-items: center;
 
-        @include max-width('md') {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-        }
+      @include max-width('md') {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
       }
     }
 
