@@ -9,3 +9,7 @@ node_modules
 dist
 backups
 yarn.lock
+
+#/
+
+components/m-image-box

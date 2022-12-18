@@ -1,9 +1,13 @@
 <template>
-  <div class="header-search" :class="{ show: showSearch }">
-    <button class="button" type="button" @click="toggle">
+  <div class="header-search" :class="{ 'header-search--active': showSearch }">
+    <button class="header-search__button button" type="button" @click="toggle">
       <base-icon name="search"></base-icon>
     </button>
-    <input id="header_search" type="text" aria-label="Search"/>
+    <input
+      id="header-search__field header_search"
+      type="text"
+      aria-label="Search"
+    />
   </div>
 </template>
 
@@ -22,7 +26,7 @@
     flex: 1;
     position: relative;
 
-    .button {
+    &__button {
       height: unset;
       padding: unset;
       z-index: 1;
@@ -30,28 +34,22 @@
       position: absolute;
     }
 
-    input {
-      // display: none;
+    &__field {
       transition: all 0.5s ease;
       width: 0;
       border: none;
       padding-left: 25px;
-      // height: 100%;
     }
 
-    &.show {
-      .button {
-        // position: absolute;
-        transform: translate(0, -4px);
-      }
+    &--active &__button {
+      transform: translate(0, -4px);
+    }
 
-      input {
-        height: 30px;
-        display: flex;
-        width: 100%;
-        border-bottom: 1px solid black;
-        // transform: translate(-20px, 0);
-      }
+    &--active &__field {
+      height: 30px;
+      display: flex;
+      width: 100%;
+      border-bottom: 1px solid black;
     }
   }
 </style>
