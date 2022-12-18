@@ -1,9 +1,22 @@
-.ads-section {
+.s-ads-section {
   @include max-width('md') {
+    margin-bottom: 64px;
+
     .row {
       display: flex;
       flex-direction: column;
       row-gap: 20px;
+    }
+  }
+
+  &--column {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    @include max-width('md') {
+      order: 2;
+      gap: 20px;
     }
   }
 }
