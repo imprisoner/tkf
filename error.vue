@@ -6,7 +6,7 @@
         <div class="error__wrap row">
           <div class="error__content offset-lg-1 col-lg-4 col-md-5 col-12">
             <span class="error__code">{{ error.statusCode }}</span>
-            <h3 v-if="error.statusCode == 404" class="error__message">
+            <h3 v-if="error.statusCode === 404" class="error__message">
               Страница не найдена
             </h3>
             <h3 v-else class="error__message">Что-то пошло не так</h3>
@@ -27,7 +27,12 @@
 </template>
 
 <script setup>
-  defineProps(['error'])
+  defineProps({
+    error: {
+      type: String,
+      required: true,
+    },
+  })
 
   const handleClearError = () => clearError({ redirect: '/' })
 </script>
@@ -35,6 +40,7 @@
 <style lang="scss" scoped>
   #error-page {
     position: relative;
+
     .error {
       &__wrap {
         position: absolute;
@@ -46,7 +52,7 @@
         padding-bottom: 220px;
         min-height: 100vh;
         @include max-width('md') {
-          padding-bottom: 160px;
+          padding-bottom: 106px;
         }
       }
 
@@ -90,12 +96,17 @@
         }
       }
 
-      &__icon svg {
-        @include max-width('xl') {
-          width: 100%;
-        }
-        @include max-width('md') {
-          height: auto;
+      &__icon {
+        max-width: 636px;
+        max-height: 503px;
+
+        svg {
+          @include max-width('xl') {
+            width: 100%;
+          }
+          @include max-width('md') {
+            height: auto;
+          }
         }
       }
     }

@@ -1,6 +1,6 @@
 <template>
   <section class="navbar-menu__section">
-    <div class="navbar-menu__subtitle mobile-caret" :class="triggerActiveClass">
+    <div class="navbar-menu__subtitle" :class="triggerActiveClass">
       <h4 class="navbar-menu__subtitle-text" @click="toggleList()">
         {{ title }}
       </h4>
@@ -91,6 +91,7 @@
         @include max-width('xl') {
           display: initial;
           color: black;
+          font-size: 12px;
         }
       }
     }
@@ -100,8 +101,9 @@
       gap: 8px;
       margin-bottom: 16px;
       @include max-width('xl') {
-        padding: 12px 14px;
+        // padding: 12px 14px;
         margin-bottom: unset;
+        @include mobile-caret('xl');
       }
 
       &.active::after {
@@ -114,11 +116,9 @@
       }
     }
 
-    @include max-width('xl') {
-      &__section {
-        &::after {
-          transform: rotate(180deg);
-        }
+    &__section::after {
+      @include max-width('xl') {
+        transform: rotate(180deg);
       }
     }
 

@@ -52,7 +52,7 @@
     .card--square {
       background-color: $neutral;
 
-      h5 {
+      &__title {
         color: black;
         font-size: 22px;
         line-height: 27px;

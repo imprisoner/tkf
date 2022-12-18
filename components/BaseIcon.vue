@@ -1,5 +1,5 @@
 <template>
-  <component :is="icon"></component>
+  <component :is="icon"> </component>
 </template>
 <script setup>
   const props = defineProps({

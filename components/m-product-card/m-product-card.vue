@@ -15,10 +15,10 @@
     </NuxtLink>
     <p class="product-card__desc">{{ model }}</p>
     <div class="product-card__info">
-      <span>Материал корпуса</span>
-      <span>{{ material }}</span>
-      <span>Местоположение</span>
-      <span>{{ `${country}, ${city}` }}</span>
+      <span class="product-card__info-item">Материал корпуса</span>
+      <span class="product-card__info-item">{{ material }}</span>
+      <span class="product-card__info-item">Местоположение</span>
+      <span class="product-card__info-item">{{ `${country}, ${city}` }}</span>
     </div>
     <strong class="product-card__price">
       ${{ usd }}
@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import './m-product-card.scss'
+  import './m-product-card.scss'
 
   defineProps({
     title: {
