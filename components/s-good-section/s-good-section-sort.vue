@@ -1,5 +1,5 @@
 <template>
-  <form class="dropdown">
+  <form :class="['dropdown', { expanded: isExpanded }]">
     <div class="dropdown__trigger input-group">
       <input
         class="button button--neutral"
@@ -10,12 +10,12 @@
       <button
         class="button button--square button--gray icon-stroked"
         type="button"
-        @click="toggleDropdown"
+        @click.stop="toggleDropdown"
       >
         <BaseIcon name="chevron-down" />
       </button>
     </div>
-    <ul class="dropdown__list" v-show="isExpanded">
+    <ul v-show="isExpanded" class="dropdown__list">
       <li v-for="item in sortTypes" :key="item.value">
         <button
           class="button button--block"
@@ -53,11 +53,16 @@
 
   const toggleDropdown = () => {
     isExpanded.value = !isExpanded.value
+
+    if (isExpanded.value) {
+      window.addEventListener('click', () => (isExpanded.value = false), {
+        once: true,
+      })
+    }
   }
 
   const handleSelection = (type) => {
     selectedType.value = type
-    toggleDropdown()
     emit('sort', type.value)
   }
 </script>

@@ -205,13 +205,19 @@
     }
   }
 
-  @include max-width('md') {
     .lots-found {
+      margin-left: 16px;
       @include max-width('md') {
-        &::before,
-        &::after {
+        margin-left: 0;
+      }
+
+      &::after {
+        content: none;
+      }
+
+      &::before {
+        @include max-width('md') {
           content: none;
-        }
       }
     }
   }

@@ -45,7 +45,7 @@
             ]"
             @click="toggleFilterItem(item)"
           >
-            <div class="filters__list-button button button--text-sm">
+            <div class="filters__list-btn button button--text-sm">
               <BaseIcon :name="item.icon" />
               <span>{{ item.label }}</span>
               <BaseIcon
@@ -85,12 +85,23 @@
           </h4>
           <div class="filter__popular-list">
             <button
-              v-for="popularBrand in 6"
+              v-for="popularBrand in getPopularBrands"
               :key="popularBrand"
-              class="filter__popular-item button button--text-sm"
+              :class="[
+                'filter__popular-item',
+                'button',
+                'button--text-sm',
+                { active: selected.indexOf(popularBrand.value) >= 0 },
+              ]"
               type="button"
+              @click="
+                handleBrandSelection(
+                  popularBrand.value,
+                  selected.indexOf(popularBrand.value) === -1
+                )
+              "
             >
-              Casio
+              {{ popularBrand.label }}
             </button>
           </div>
         </div>
@@ -167,16 +178,58 @@
     {
       label: 'A. Lange & Söhne',
       value: 0,
+      isPopular: true,
     },
     {
       label: 'A. Lange & Söhne',
       value: 1,
+      isPopular: true,
     },
     {
       label: 'A. Lange & Söhne',
       value: 2,
+      isPopular: true,
+    },
+    {
+      label: 'A. Lange & Söhne',
+      value: 3,
+      isPopular: true,
+    },
+    {
+      label: 'A. Lange & Söhne',
+      value: 4,
+      isPopular: false,
+    },
+    {
+      label: 'A. Lange & Söhne',
+      value: 5,
+      isPopular: false,
+    },
+    {
+      label: 'A. Lange & Söhne',
+      value: 6,
+      isPopular: false,
+    },
+    {
+      label: 'A. Lange & Söhne',
+      value: 7,
+      isPopular: false,
+    },
+    {
+      label: 'A. Lange & Söhne',
+      value: 8,
+      isPopular: true,
+    },
+    {
+      label: 'A. Lange & Söhne',
+      value: 9,
+      isPopular: true,
     },
   ])
+
+  const getPopularBrands = computed(() => {
+    return brandsList.value.filter((brand) => brand.isPopular)
+  })
 
   const selected = ref([])
 
