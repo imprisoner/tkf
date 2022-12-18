@@ -5,31 +5,60 @@
         <h2>Мировые бренды</h2>
       </div>
       <div class="s-brands-slider__nav offset-9 col-xl-2 col-md-3">
-        <slider-nav @prev="slidePrev" @next="slideNext"></slider-nav>
+        <slider-nav></slider-nav>
       </div>
       <div class="offset-xl-1 col-xl-10 col-12">
-        <brands-slider :slides="brandsMainCards" @swiper="onSwiper"></brands-slider>
+        <swiper v-bind="config">
+          <swiper-slide v-for="(brand, i) in brandsMainCards" :key="i">
+            <brands-card
+              :id="brand.id"
+              :image="brand.image"
+              :name="brand.name"
+            />
+          </swiper-slide>
+        </swiper>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-  import './s-brands-slider.scss';
+  import { Swiper, SwiperSlide } from 'swiper/vue'
+  import { Navigation, FreeMode } from 'swiper'
+  import './s-brands-slider.scss'
   import { getBrands } from '@/api/getBrands'
 
-  const brandsMainCards = await getBrands({ isShowOnMain: true });
+  const brandsMainCards = await getBrands({ isShowOnMain: true })
 
-  const slider = ref(null)
+  const props = defineProps({
+    brandsCards: {
+      type: Array,
+      default: () => [],
+    },
+  })
 
-  function onSwiper(swiperInstance) {
-    slider.value = swiperInstance
-  }
-
-  function slidePrev() {
-    slider.value.slidePrev()
-  }
-  function slideNext() {
-    slider.value.slideNext()
+  const config = {
+    modules: [Navigation, FreeMode],
+    navigation: {
+      prevEl: '.brands-slider__nav .slider-nav__prev',
+      nextEl: '.brands-slider__nav .slider-nav__next',
+    },
+    spaceBetween: 30,
+    slidesPerView: 4,
+    breakpoints: {
+      320: {
+        freeMode: {
+          enabled: true,
+        },
+        slidesPerView: 2,
+        spaceBetween: 10,
+      },
+      768: {},
+      1280: {
+        slidesPerView: 4,
+      },
+    },
   }
 </script>
+
+<style lang="scss"></style>

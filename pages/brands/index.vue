@@ -1,37 +1,44 @@
 <template>
   <main id="brands-page" class="catalog">
     <SCatalogTop />
-    <SBrandsSection/>
+    <SBrandsSection :brands-cards="brandsMainCards" />
     <SAlphabet />
   </main>
 </template>
 
 <script setup>
+  import { getBrands } from '@/api/getBrands'
 
+  const brandsMainCards = await getBrands({ isShowOnMain: true })
 </script>
 
-<style lang="scss" scoped>
-#brands-page {
-  .catalog-top {
-    margin-bottom: 72px;
-  }
-
-  .brands-section {
-    margin-bottom: 64px;
-  }
-
-  @include max-width('md') {
+<style lang="scss">
+  #brands-page {
     .catalog-top {
-      margin-bottom: 24px;
+      margin-bottom: 72px;
+      &__title {
+        span {
+          display: none;
+        }
+      }
     }
-  }
 
-  .alphabet {
-    margin-bottom: 165px;
+    .brands-section {
+      margin-bottom: 64px;
+    }
 
     @include max-width('md') {
-      margin-bottom: 120px;
+      .catalog-top {
+        margin-bottom: 24px;
+      }
+    }
+
+    .alphabet {
+      margin-bottom: 165px;
+
+      @include max-width('md') {
+        margin-bottom: 120px;
+      }
     }
   }
-}
 </style>
