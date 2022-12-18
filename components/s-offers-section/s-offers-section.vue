@@ -29,8 +29,14 @@
       type: Array,
       default: () => [],
     },
-    title: String, 
-    subtitle: String,
+    title: {
+      type: String,
+      default: ''
+    },
+    subtitle: {
+      type: String,
+      default: ''
+    },
   })
 
   const sliders = reactive({

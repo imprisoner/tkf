@@ -22,7 +22,7 @@
 <script setup>
   const stubBrandImageUrl = '/img/brand_stub.png'
 
-  const props = defineProps({
+  defineProps({
     image: {
       type: String,
       default: '',

@@ -23,32 +23,32 @@
           <div class="button button--square button--gray stroked-icon">
             <base-icon name="thumbs-up"></base-icon>
           </div>
-          <h5>Актуальные новинки</h5>
+          <h5 class="card--square__title">Актуальные новинки</h5>
         </div>
         <div class="card card--square">
           <div class="button button--square button--gray stroked-icon">
             <base-icon name="package"></base-icon>
           </div>
-          <h5>Ломбард</h5>
+          <h5 class="card--square__title">Ломбард</h5>
         </div>
         <div class="card card--square">
           <div class="button button--square button--gray stroked-icon">
             <base-icon name="package"></base-icon>
           </div>
-          <h5>Преимущество</h5>
+          <h5 class="card--square__title">Преимущество</h5>
         </div>
         <div class="card card--square">
           <div class="button button--square button--gray stroked-icon">
             <base-icon name="star"></base-icon>
           </div>
-          <h5>Преимущество</h5>
+          <h5 class="card--square__title">Преимущество</h5>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="s-about-section__img offset-xl-1 col-md-6">
         <div>
-          <img class="img-resp" src="~/assets/img/watches_main_tr.png" alt=""/>
+          <img class="img-resp" src="~/assets/img/watches_main_tr.png" alt="" />
         </div>
       </div>
       <div class="offset-7 col-xl-4 col-md-5 offset-xl-8">

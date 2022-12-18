@@ -20,7 +20,7 @@
 <script setup>
   import './s-intro-main.scss';
 
-  const props = defineProps({
+  defineProps({
     offersCards: {
       type: Array,
       default: () => [],

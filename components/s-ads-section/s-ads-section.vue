@@ -4,8 +4,8 @@
 
       <template v-for="(banner, i) in banners" :key="i">
         <div
-          class="offset-lg-1 col-lg-5 col-md-6"
           v-if="i === 0 && !(banners % 2)"
+          class="offset-lg-1 col-lg-5 col-md-6"
         >
           <NuxtLink class="card" :to="banner[1].link">
             <div class="card__img">
@@ -25,7 +25,7 @@
           class="s-ads-section--column offset-6 col-lg-5 col-md-6"
         >
           <template v-for="(banner, i) in banners" :key="i">
-            <NuxtLink class="card card aspect--17-11" :to="banner[1].link" v-if="i > 0">
+            <NuxtLink v-if="i > 0" class="card card aspect--17-11" :to="banner[1].link">
               <div class="card__img">
                 <img class="img-resp" :src="banner[1].image" alt="banner.title"/>
               </div>
@@ -45,7 +45,7 @@
 <script setup>
 import './s-ads-section.scss';
 
-  const props = defineProps({
+  defineProps({
     banners: {
       type: Array,
       default: () => [],
