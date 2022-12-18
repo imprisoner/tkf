@@ -3,68 +3,28 @@
     <div class="row">
       <div class="offset-lg-1 col-lg-10 col-12">
         <div class="brands-section__wall row">
-          <a class="card card--square col-lg-3 col-6" href="#">
-            <img
-              class="card--square__img img-resp"
-              src="/img/brand_rolex.png"
-              alt=""
-            />
-          </a>
-          <a class="card card--square col-lg-3 col-6" href="#">
-            <img
-              class="card--square__img img-resp"
-              src="/img/brand_rolex.png"
-              alt=""
-            />
-          </a>
-          <a class="card card--square col-lg-3 col-6" href="#">
-            <img
-              class="card--square__img img-resp"
-              src="/img/brand_rolex.png"
-              alt=""
-            />
-          </a>
-          <a class="card card--square col-lg-3 col-6" href="#">
-            <img
-              class="card--square__img img-resp"
-              src="/img/brand_rolex.png"
-              alt=""
-            />
-          </a>
-          <a class="card card--square col-lg-3 col-6" href="#">
-            <img
-              class="card--square__img img-resp"
-              src="/img/brand_rolex.png"
-              alt=""
-            />
-          </a>
-          <a class="card card--square col-lg-3 col-6" href="#">
-            <img
-              class="card--square__img img-resp"
-              src="/img/brand_rolex.png"
-              alt=""
-            />
-          </a>
-          <a class="card card--square col-lg-3 col-6" href="#">
-            <img
-              class="card--square__img img-resp"
-              src="/img/brand_rolex.png"
-              alt=""
-            />
-          </a>
-          <a class="card card--square col-lg-3 col-6" href="#">
-            <img
-              class="card--square__img img-resp"
-              src="/img/brand_rolex.png"
-              alt=""
-            />
-          </a>
+          <brands-card
+            v-for="brand in brandsCards"
+            :id="brand.id"
+            :key="brand.id"
+            :image="brand.image"
+            :name="brand.name"
+          />
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
   import './s-brands-section.scss'
+
+  defineProps({
+    brandsCards: {
+      type: Array,
+      default: () => [],
+    },
+  })
 </script>
+
+<style lang="scss" scoped></style>
