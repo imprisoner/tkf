@@ -31,21 +31,29 @@
       </div>
     </div>
 
-    <div class="goods-section__wall">
-      <div v-for="lot in lotsList" :key="lot.id" class="goods-section__card">
-        <m-product-card
-          :image="lot.image"
-          :title="lot.name"
-          :slug="lot.slug"
-          :brand="lot.brand_name"
-          :city="lot.city_name"
-          :material="lot.material_name"
-          :country="lot.country_name"
-        />
-        <!--        :model="lot."-->
-        <!--        :usd="lot."-->
-        <!--        :rub="lot."-->
-        <!--        :repository="lot."-->
+    <div class="row">
+      <div class="offset-lg-1 col-lg-10 col-12">
+        <div class="goods-section__wall">
+          <div
+            v-for="lot in lotsList"
+            :key="lot.id"
+            class="goods-section__card"
+          >
+            <m-product-card
+              :image="lot.image"
+              :title="lot.name"
+              :slug="lot.slug"
+              :brand="lot.brand_name"
+              :city="lot.city_name"
+              :material="lot.material_name"
+              :country="lot.country_name"
+            />
+            <!--        :model="lot."-->
+            <!--        :usd="lot."-->
+            <!--        :rub="lot."-->
+            <!--        :repository="lot."-->
+          </div>
+        </div>
       </div>
     </div>
 
