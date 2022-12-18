@@ -1,49 +1,54 @@
 <template>
   <section class="goods-section container">
     <div class="row goods-section__top">
-      <div class="goods-section__filters offset-lg-1 col-lg-10 col-md-12">
-        <SGoodSectionFilters />
-      </div>
+      <!--      <div class="goods-section__filters offset-lg-1 col-lg-10 col-md-12">-->
+      <!--        <SGoodSectionFilters />-->
+      <!--      </div>-->
       <div
         class="goods-section__sort col-md-4 offset-lg-1 col-xl-3 col-sm-6 col-12"
       >
         <SGoodSectionSort @sort="handleSort" />
       </div>
       <div class="goods-section__button-group offset-md-9 col-lg-2 col-md-3">
-        <div class="button button--square button--black">30</div>
-        <div class="button button--square button--gray">60</div>
-        <div class="button button--square button--neutral">120</div>
+        <div
+          class="button button--square button--black"
+          @click="emit('updateLimit', 30)"
+        >
+          30
+        </div>
+        <div
+          class="button button--square button--gray"
+          @click="emit('updateLimit', 60)"
+        >
+          60
+        </div>
+        <div
+          class="button button--square button--neutral"
+          @click="emit('updateLimit', 120)"
+        >
+          120
+        </div>
       </div>
     </div>
-    <div class="row goods-section__wall">
-      <div class="goods-section__card col-md-4 col-lg-3 offset-lg-1 col-6">
-        <m-product-card image="/img/watches_main_tr.png" />
-      </div>
-      <div class="goods-section__card-centered col-md-4 col-6">
-        <m-product-card image="/img/watches_main_tr.png" />
-      </div>
-      <div class="goods-section__card col-md-4 col-lg-3 col-6">
-        <m-product-card image="/img/watches_main_tr.png" />
-      </div>
-      <div class="goods-section__card col-md-4 col-lg-3 offset-lg-1 col-6">
-        <m-product-card image="/img/watches_main_tr.png" />
-      </div>
-      <div class="goods-section__card-centered col-md-4 col-6">
-        <m-product-card image="/img/watches_main_tr.png" />
-      </div>
-      <div class="goods-section__card col-md-4 col-lg-3 col-6">
-        <m-product-card image="/img/watches_main_tr.png" />
-      </div>
-      <div class="goods-section__card col-md-4 col-lg-3 offset-lg-1 col-6">
-        <m-product-card image="/img/watches_main_tr.png" />
-      </div>
-      <div class="goods-section__card-centered col-md-4 col-6">
-        <m-product-card image="/img/watches_main_tr.png" />
-      </div>
-      <div class="goods-section__card col-md-4 col-lg-3 col-6">
-        <m-product-card image="/img/watches_main_tr.png" />
+
+    <div class="goods-section__wall">
+      <div v-for="lot in lotsList" :key="lot.id" class="goods-section__card">
+        <m-product-card
+          :image="lot.image"
+          :title="lot.name"
+          :slug="lot.slug"
+          :brand="lot.brand_name"
+          :city="lot.city_name"
+          :material="lot.material_name"
+          :country="lot.country_name"
+        />
+        <!--        :model="lot."-->
+        <!--        :usd="lot."-->
+        <!--        :rub="lot."-->
+        <!--        :repository="lot."-->
       </div>
     </div>
+
     <div class="row goods-section__bottom">
       <div class="col-12 col-md-10 offset-md-1">
         <button
@@ -54,18 +59,7 @@
         </button>
         <div class="pagination">
           <button class="button button--square" type="button">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15.7 17.3C16.1 17.7 16.1 18.3 15.7 18.7C15.5 18.9 15.3 19 15 19C14.7 19 14.5 18.9 14.3 18.7L8.3 12.7C7.9 12.3 7.9 11.7 8.3 11.3L14.3 5.3C14.7 4.9 15.3 4.9 15.7 5.3C16.1 5.7 16.1 6.3 15.7 6.7L10.4 12L15.7 17.3Z"
-                fill="black"
-              ></path>
-            </svg>
+            <base-icon name="chevron-left" />
           </button>
           <button class="button button--square current" type="button">1</button>
           <button class="button button--square" type="button">2</button>
@@ -73,18 +67,7 @@
           <button class="button button--square" type="button">...</button>
           <button class="button button--square" type="button">100</button>
           <button class="button button--square button--neutral" type="button">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15.7 12.7L9.7 18.7C9.5 18.9 9.3 19 9 19C8.7 19 8.5 18.9 8.3 18.7C7.9 18.3 7.9 17.7 8.3 17.3L13.6 12L8.3 6.7C7.9 6.3 7.9 5.7 8.3 5.3C8.7 4.9 9.3 4.9 9.7 5.3L15.7 11.3C16.1 11.7 16.1 12.3 15.7 12.7Z"
-                fill="black"
-              ></path>
-            </svg>
+            <base-icon name="chevron-right" />
           </button>
         </div>
       </div>
@@ -96,4 +79,13 @@
   import './s-good-section.scss'
 
   const handleSort = () => false
+
+  const props = defineProps({
+    lotsList: {
+      type: Array,
+      default: () => [],
+    },
+  })
+
+  const emit = defineEmits(['updateLimit'])
 </script>
