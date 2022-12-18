@@ -7,15 +7,21 @@
       id="header-search__field header_search"
       type="text"
       aria-label="Search"
+      @change="search"
     />
   </div>
 </template>
 
 <script setup>
   const showSearch = ref(false)
-
+  const router = useRouter
   function toggle() {
     showSearch.value = !showSearch.value
+  }
+
+  function search(e) {
+    const searchString = e.target.value
+    navigateTo(`/search?search_string=${searchString}`)
   }
 </script>
 
