@@ -4,7 +4,7 @@
       :breadcrumbs="breadcrumbs"
       :title="title"
       :categories="categories"
-      :btnShow="btnShow"
+      :btn-show="btnShow"
       :count="98"
     />
     <SCategoriesSection />

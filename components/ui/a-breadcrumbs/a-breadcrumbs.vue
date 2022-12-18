@@ -7,7 +7,7 @@
             </div>
           </nuxt-link>
       </li>
-      <li class="a-breadcrumbs__item" v-for="(breadcrumb, id) in breadcrumbs" :key="id">
+      <li v-for="(breadcrumb, id) in breadcrumbs" :key="id" class="a-breadcrumbs__item">
         <nuxt-link :to="breadcrumb.route"> {{ breadcrumb.text }} </nuxt-link>
       </li>
   </ul>

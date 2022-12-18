@@ -8,7 +8,7 @@
             :breadcrumbs="breadcrumbs"
             :title="title"
             :categories="categories"
-            :btnShow="btnShow" 
+            :btn-show="btnShow" 
             :count="count" 
           />
       </div>

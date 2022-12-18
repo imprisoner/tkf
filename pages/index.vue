@@ -2,14 +2,16 @@
   <main class="main-page">
     <SIntroMain :offers-cards="offersCards" />
     <SAdsSection :banners="banners" />
-    <SBrandsSlider />
+    <SBrandsSlider :brands-cards="brandsMainCards" />
     <SOffersSection :offers-cards="offersCards" />
     <SAboutSection />
   </main>
 </template>
 
 <script setup>
-  // dummy data
+  import { getBrands } from '@/api/getBrands'
+
+  const brandsMainCards = await getBrands({ isShowOnMain: true })
 
   const banners = [
     {
