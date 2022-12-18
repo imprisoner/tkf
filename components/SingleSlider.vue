@@ -13,8 +13,8 @@
         />
       </div>
       <div class="single-slider__title">
-        <h3 class="single-slider__name">{{ lot.name }}</h3>
-        <p class="single-slider__model">{{ lot.model.name }}</p>
+        <h3 class="single-slider__name">{{ lot.brand_name }}</h3>
+        <p class="single-slider__model">{{ lot.model_name }}</p>
       </div>
     </swiper-slide>
 
@@ -35,8 +35,8 @@
 
   const props = defineProps({
     slides: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: () => {},
     },
   })
 

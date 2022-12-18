@@ -1,20 +1,7 @@
 <template>
   <swiper v-bind="config" @swiper="onSwiper">
     <swiper-slide v-for="(lot, i) in slides" :key="i">
-      <MProductCard
-        :title="lot.name"
-        :brand="lot.brand.name"
-        :model="lot.model.name"
-        :slug="lot.slug"
-        :repository="'watches'"
-        :image="lot.image"
-        :usd="lot.price_usd"
-        :rub="lot.price_rub"
-        :material="lot.body_material"
-        :country="lot.city_location.country.name"
-        :city="lot.city_location.name"
-      >
-      </MProductCard>
+      <MProductCard :lot="lot" />
     </swiper-slide>
   </swiper>
 </template>
@@ -25,8 +12,8 @@
 
   defineProps({
     slides: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: () => {},
     },
   })
 

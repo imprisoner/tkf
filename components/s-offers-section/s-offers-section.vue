@@ -12,10 +12,10 @@
         ></slider-nav>
       </div>
       <div class="s-offers-section__slider offset-xl-1 col-xl-10 col-md-12">
-        <offers-slider
+        <m-offers-slider
           :slides="offersCards"
           @swiper="onSliderInit"
-        ></offers-slider>
+        ></m-offers-slider>
       </div>
     </div>
   </section>
@@ -26,8 +26,8 @@
 
   defineProps({
     offersCards: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: () => {},
     },
     title: {
       type: String,

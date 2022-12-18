@@ -19,4 +19,12 @@
       gap: 20px;
     }
   }
+
+  .card {
+    padding: 36px;
+
+    @include max-width('md') {
+      padding: 16px;
+    }
+  }
 }

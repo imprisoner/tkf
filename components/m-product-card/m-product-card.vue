@@ -4,26 +4,32 @@
       <base-icon name="heart"></base-icon>
     </div>
     <div class="product-card__img">
-      <img class="img-resp" :src="image" :alt="title" />
+      <img class="img-resp" :src="lot.image || stubBrandImageUrl" :alt="title" />
     </div>
-    <!-- Todo - добавить вывод ссылки -->
+    <!--TODO понять куда ведут ссылки-->
     <NuxtLink to="#">
       <h6 class="product-card__title">
-        {{ title }}
-        <span>{{ brand }}</span>
+        <!--TODO дождаться доработки с бэка-->
+        {{ lot.model_name }}
+        <span>{{ lot.brand_name }}</span>
       </h6>
     </NuxtLink>
-    <p class="product-card__desc">{{ model }}</p>
+    <p class="product-card__desc">{{ lot.name }}</p>
     <div class="product-card__info">
-      <span class="product-card__info-item">Материал корпуса</span>
-      <span class="product-card__info-item">{{ material }}</span>
-      <span class="product-card__info-item">Местоположение</span>
-      <span class="product-card__info-item">{{ `${country}, ${city}` }}</span>
+      <template v-if="lot.material_name">
+        <span class="product-card__info-item">Материал корпуса</span>
+        <span class="product-card__info-item">{{ lot.material_name }}</span>
+      </template>
+      <template v-if="lot.country_name && lot.city_name">
+        <span class="product-card__info-item">Местоположение</span>
+        <span class="product-card__info-item">{{ `${lot.country_name}, ${lot.city_name}` }}</span>
+      </template>
     </div>
-    <strong class="product-card__price">
+    <!--TODO дождаться доработки с бэка-->
+    <!-- <strong class="product-card__price">
       ${{ usd }}
       <span>{{ rub }} ₽</span>
-    </strong>
+    </strong> -->
   </div>
 </template>
 
@@ -31,49 +37,11 @@
   import './m-product-card.scss'
 
   defineProps({
-    title: {
-      type: String,
-      default: 'title',
-    },
-    slug: {
-      type: String,
-      default: 'slug',
-    },
-    model: {
-      type: String,
-      default: 'model',
-    },
-    brand: {
-      type: String,
-      default: 'brand',
-    },
-    image: {
-      type: String,
-      default: 'image',
-    },
-    material: {
-      type: String,
-      default: 'material',
-    },
-    country: {
-      type: String,
-      default: 'country',
-    },
-    city: {
-      type: String,
-      default: 'city',
-    },
-    usd: {
-      type: String,
-      default: '0',
-    },
-    rub: {
-      type: String,
-      default: '0',
-    },
-    repository: {
-      type: String,
-      default: 'repository',
+    lot: {
+      type: Object,
+      default: () => {},
     },
   })
+  
+  const stubBrandImageUrl = '/img/brand_stub.png';
 </script>
