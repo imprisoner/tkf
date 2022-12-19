@@ -4,7 +4,7 @@
       <base-icon name="heart"></base-icon>
     </div>
     <div class="product-card__img">
-      <img class="img-resp" :src="image" :alt="title" />
+      <img class="img-resp" :src="image || stubBrandImageUrl" :alt="title" />
     </div>
     <!-- Todo - добавить вывод ссылки -->
     <NuxtLink to="#">
@@ -29,6 +29,7 @@
 
 <script setup>
   import './m-product-card.scss'
+  const stubBrandImageUrl = '/img/brand_stub.png'
 
   defineProps({
     title: {
