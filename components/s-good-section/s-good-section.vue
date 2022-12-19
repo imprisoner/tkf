@@ -39,19 +39,7 @@
             :key="lot.id"
             class="goods-section__card"
           >
-            <m-product-card
-              :image="lot.image"
-              :title="lot.name"
-              :slug="lot.slug"
-              :brand="lot.brand_name"
-              :city="lot.city_name"
-              :material="lot.material_name"
-              :country="lot.country_name"
-            />
-            <!--        :model="lot."-->
-            <!--        :usd="lot."-->
-            <!--        :rub="lot."-->
-            <!--        :repository="lot."-->
+            <m-product-card :lot="lot" />
           </div>
         </div>
       </div>

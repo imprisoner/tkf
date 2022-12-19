@@ -1,8 +1,8 @@
 <template>
     <main id="goods-page" class="catalog">
-        <SCatalogTop />
+        <SCatalogTop :count="lotsResponse.count"/>
 
-        <SGoodSection />
+        <SGoodSection :lots-list="lotsResponse.results"/>
 
         <!-- <SAdsSection :banners="banners"/> -->
 
@@ -26,10 +26,31 @@
             :title="titleDescriptionSection"
             :text="textDescriptionSection"
         />
+        {{ lotsResponse }}
     </main>
 </template>
 
 <script setup>
+    import { getWatchesBrand } from '@/api/getWatchesBrand';
+    const { id } = useRoute().params
+    const watchesBrand = await getWatchesBrand();
+    const perPageLimit = ref(30)
+    const page = ref(0)
+    const getOffset = computed(() => perPageLimit.value * page.value)
+
+    const getQueryParams = computed(() => {
+      return {
+        limit: perPageLimit.value,
+        offset: perPageLimit.value * (page.value - 1),
+        brand: id,
+        // ordering: ordering.value.value,
+      }
+    })
+
+    const { data: lotsResponse } = await getWatchesBrand(
+      getQueryParams.value
+    )
+
     // const banners = [
     //     {
     //         title: 'Лучшие предложения 1',
