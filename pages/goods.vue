@@ -34,7 +34,7 @@
 
         <SGoodSection />
 
-        <SAdsSection :banners="banners"/>
+        <!-- <SAdsSection :banners="banners"/> -->
 
         <div class="container brands-title">
             <div class="row">
@@ -51,25 +51,31 @@
         </div>
 
         <SCategoriesSection />
-        <SDescrSection />
+
+        <SDescrSection
+          :title="titleDescriptionSection"
+          :text="textDescriptionSection"
+        />
     </main>
 </template>
 
 <script setup>
-const banners = [
-        {
-            title: 'Лучшие предложения 1',
-            description: 'People also search for this items',
-            link: '#',
-            image: '/img/watches_1.png',
-        },
-        {
-            title: 'Лучшие предложения 2',
-            description: 'People also search for this items',
-            link: '#',
-            image: '/img/watches_2.png',
-        },
-    ]
+    // const banners = [
+    //     {
+    //         title: 'Лучшие предложения 1',
+    //         description: 'People also search for this items',
+    //         link: '#',
+    //         image: '/img/watches_1.png',
+    //     },
+    //     {
+    //         title: 'Лучшие предложения 2',
+    //         description: 'People also search for this items',
+    //         link: '#',
+    //         image: '/img/watches_2.png',
+    //     },
+    // ]
+    const titleDescriptionSection = 'Описание раздела'
+    const textDescriptionSection = 'Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия.'
 </script>
 
 <style lang="scss" scoped>

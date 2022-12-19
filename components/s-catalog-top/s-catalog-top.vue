@@ -30,7 +30,7 @@
     },
     count: {
       type: String,
-      default: '',
+      default: '0',
     },
     categories: {
       type: Array,

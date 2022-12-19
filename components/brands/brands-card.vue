@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="`/brand/${id}`">
+  <NuxtLink :to="`/brands/${id}`">
     <div class="card card-square col-lg-3 col-6 brands-logo aspect--1-1">
       <img
         class="brands-logo__img img-resp"
