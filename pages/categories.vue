@@ -15,7 +15,7 @@
   const breadcrumbs = [
     {
       text: 'Швейцарские часы',
-      href: '',
+      href: '/categories',
     }
   ];
   const title = 'Rolex';

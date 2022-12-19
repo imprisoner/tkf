@@ -18,8 +18,8 @@
         <div class="lot__details details offset-lg-7 col-lg-5 col-xl-4 col-12">
           <div class="details__top">
             <div class="details__title">
-              <!-- <h3>{{ lot.model.name }}</h3>
-              <p>{{ lot.brand.name }}</p> -->
+              <h3>{{ lot.model.name }}</h3>
+              <p>{{ lot.brand.name }}</p>
             </div>
             <h3 class="details__price">
               ${{ lot.price_usd }}
@@ -120,7 +120,7 @@
       </div>
       <div class="lot__seller seller row">
         <div class="seller__wrap offset-lg-1 col-md-6 col-12">
-          <div class="seller__info">
+          <div class="seller__info" v-if="lot.city_location">
             <h6 class="seller__subtitle text-16">Продавец</h6>
             <!-- Todo: нет в беке -->
             <!-- <h3>Ломбард Самый Лучший</h3> -->
@@ -158,6 +158,19 @@
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/watches/' + slug
   const { data: lot } = await useFetch(uri, { key: slug })
+  const breadcrumbs = [];
+  const routes = useRoute().fullPath.split('/');
+  let url = '/';
+
+  for(let i = 0; i < routes.length; i++) {
+    if (routes[i] !== '') {
+      url += `${routes[i]}/`;
+      breadcrumbs.push({
+        text: routes[i] === 'watches' ? 'Каталог часов' : lot._value.name,
+        route: url,
+      });
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
