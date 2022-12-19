@@ -30,7 +30,7 @@
 
   const brandsMainCards = await getBrands({ isShowOnMain: true })
 
-  const props = defineProps({
+  defineProps({
     brandsCards: {
       type: Array,
       default: () => [],

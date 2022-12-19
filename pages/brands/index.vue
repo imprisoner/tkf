@@ -1,6 +1,6 @@
 <template>
   <main id="brands-page" class="catalog">
-    <SCatalogTop :title="title" />
+    <SCatalogTop :title="title" :breadcrumbs="breadcrumbs" />
     <SBrandsSection :brands-cards="brandsMainCards" />
     <SAlphabet />
   </main>
@@ -8,6 +8,13 @@
 
 <script setup>
   import { getBrands } from '@/api/getBrands'
+
+  const breadcrumbs = [
+    {
+      text: 'Швейцарские часы',
+      href: '',
+    },
+  ]
 
   const brandsMainCards = await getBrands({ isShowOnMain: true })
   const title = 'Все бренды швейцарских часов'

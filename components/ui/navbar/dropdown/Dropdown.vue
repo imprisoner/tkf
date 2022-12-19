@@ -2,7 +2,7 @@
   <div class="navbar__dropdown" :class="activeClass">
     <component
       :is="trigger"
-      class="button navbar__dropdown-trigger"
+      class="button navbar__dropdown-trigger dropdown-trigger"
       :class="triggerClasses"
       :to="hasDropdown ? null : link"
       :type="type"
@@ -25,11 +25,14 @@
           />
         </div>
         <nuxt-link
-          class="button navbar-menu__bottom-link"
+          class="button navbar-menu__bottom-link bottom-link"
           :class="bottomLinkClass"
           :to="`/lots/${repository}`"
         >
-          <base-icon :name="bottomLinkIcon"></base-icon>
+          <base-icon
+            :name="bottomLinkIcon"
+            class="botton-link__icon"
+          ></base-icon>
           <span>Показать все {{ title.toLowerCase() }}</span>
         </nuxt-link>
       </div>
@@ -78,7 +81,7 @@
   }))
   const triggerClasses = computed(() => ({
     'button--black': props.isActive && isMobileOrTablet,
-    active: props.isActive,
+    active: props.isActive && !isMobileOrTablet,
   }))
 
   const type = props.link ? null : 'button'
@@ -133,24 +136,22 @@
 
     @include max-width('xl') {
       width: 100%;
-
-      .button {
-        width: 100%;
-        justify-content: start;
-        border-bottom: $border;
-        line-height: 16px;
-        height: unset;
-
-        &::after {
-          margin-left: auto;
-        }
-      }
     }
   }
 
   .navbar__dropdown-trigger {
-    .button__caret {
-      transition: transform 0.3s ease;
+    @include max-width('xl') {
+      width: 100%;
+      justify-content: start;
+      border-bottom: $border;
+      line-height: 16px;
+      height: unset;
+      font-size: 12px;
+      padding: 12px 14px;
+    }
+
+    &.active {
+      background-color: #ffffffe5;
     }
     &.active .button__caret {
       transform: rotate(180deg);
@@ -192,15 +193,18 @@
         order: 1;
       }
     }
+  }
+  .bottom-link {
+    @include max-width('xl') {
+      border-bottom: $border;
+    }
 
-    &__bottom-link {
-      svg {
-        @include max-width('xl') {
-          order: 1;
-          width: 16px;
-          height: 16px;
-          margin-left: auto;
-        }
+    &__icon {
+      @include max-width('xl') {
+        order: 1;
+        width: 16px;
+        height: 16px;
+        margin-left: auto;
       }
     }
   }

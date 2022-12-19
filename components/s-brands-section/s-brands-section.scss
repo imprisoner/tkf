@@ -4,14 +4,16 @@
     row-gap: 24px;
   }
 
-  .card-square {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: unset;
+  .card--square {
     box-shadow: 0px 7px 13px rgba(0, 0, 0, 0.05);
-    img {
-      width: 100%;
+
+    &__img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
     }
   }
 }

@@ -4,6 +4,11 @@
   flex-wrap: wrap;
   gap: 15px;
   margin-top: 24px;
+  margin-bottom: 16px;
+
+  @include min-width('lg') {
+    margin-bottom: 40px;
+  }
 
   >span {
     color: $input;
@@ -37,6 +42,10 @@
   .link-button {
     justify-content: center;
     margin-left: auto;
+
+    @include min-width('lg') {
+      display: none;
+    }
 
     @include max-width('md') {
       font-size: 12px;

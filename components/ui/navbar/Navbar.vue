@@ -171,6 +171,11 @@
     z-index: 5;
     transition: padding 0.5s;
 
+    @include max-width('xl') {
+      background-color: $neutral;
+      position: static;
+    }
+
     &--sticked {
       @include shadow;
       padding: unset;
@@ -182,10 +187,124 @@
       align-items: center;
       padding: 24px;
       position: relative;
+      @include max-width('xl') {
+        padding: unset;
+        background-color: unset;
+        position: static;
+      }
     }
 
     &__fav {
       margin-left: auto;
+
+      @include max-width('xl') {
+        margin-left: unset;
+      }
+    }
+
+    &__dropdowns {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      @include max-width('xl') {
+        flex-direction: column;
+        align-items: start;
+        flex: 1;
+        width: 100%;
+        gap: unset;
+
+        height: 100%;
+        width: 82.5%;
+        background-color: white;
+        padding: unset;
+        overflow-y: scroll;
+      }
+    }
+
+    &__drawer-close {
+      @include max-width('xl') {
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 82.5%;
+      }
+    }
+
+    &__menu-trigger,
+    &__search-trigger {
+      @include max-width('xl') {
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    &__search-trigger {
+      @include max-width('xl') {
+        margin-left: 20px;
+      }
+    }
+
+    &__mobile-logo {
+      @include max-width('xl') {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+
+    &__mobile-overlay {
+      @include max-width('xl') {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.47);
+        padding: unset;
+        z-index: 5;
+      }
+    }
+
+    @include max-width('xl') {
+      // background-color: $neutral;
+      // position: static;
+
+      // &__wrap {
+      //   padding: unset;
+      //   background-color: unset;
+      //   position: static;
+      // }
+
+      // &__dropdowns {
+      // flex-direction: column;
+      // align-items: start;
+      // flex: 1;
+      // width: 100%;
+      // gap: unset;
+      // }
+
+      // &__mobile-logo {
+      //   display: block;
+      //   margin: 0 auto;
+      // }
+
+      // &__cart-trigger {
+      //   display: flex;
+      // }
+
+      // &__dropdowns {
+      //   height: 100%;
+      //   width: 82.5%;
+      //   background-color: white;
+      //   padding: unset;
+      //   overflow-y: scroll;
+      // }
+
+      // &__fav {
+      //   margin-left: unset;
+      // }
     }
   }
   .navbar-search {
@@ -205,83 +324,5 @@
   // NEW
 
   .navbar {
-    &__dropdowns {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    @include max-width('xl') {
-      background-color: $neutral;
-      position: static;
-
-      &__wrap {
-        padding: unset;
-        background-color: unset;
-        position: static;
-      }
-
-      &__dropdowns {
-        flex-direction: column;
-        align-items: start;
-        flex: 1;
-        width: 100%;
-        gap: unset;
-      }
-
-      &__drawer-close {
-        display: flex;
-        position: absolute;
-        top: 0;
-        left: 82.5%;
-      }
-
-      &__menu-trigger,
-      &__search-trigger {
-        display: block;
-
-        svg {
-          width: 20px;
-          height: 20px;
-        }
-      }
-
-      &__search-trigger {
-        margin-left: 20px;
-      }
-
-      &__mobile-logo {
-        display: block;
-        margin: 0 auto;
-      }
-
-      &__cart-trigger {
-        display: flex;
-      }
-
-      &__mobile-overlay {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.47);
-        padding: unset;
-        z-index: 5;
-      }
-
-      &__dropdowns {
-        height: 100%;
-        width: 82.5%;
-        background-color: white;
-        padding: unset;
-        overflow-y: scroll;
-      }
-
-      &__fav {
-        margin-left: unset;
-      }
-    }
   }
 </style>

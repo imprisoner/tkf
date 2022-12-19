@@ -4,6 +4,16 @@
   position: relative;
   width: 100%;
 
+  &.expanded {
+    .dropdown__trigger {
+      .button {
+        svg {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
   &__trigger {
     input {
       margin: unset;
@@ -14,6 +24,12 @@
 
       @include max-width('md') {
         max-width: unset;
+      }
+    }
+
+    .button {
+      svg {
+        transition: 0.3s;
       }
     }
   }

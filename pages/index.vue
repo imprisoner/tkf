@@ -1,32 +1,35 @@
 <template>
   <main class="main-page">
     <SIntroMain :offers-cards="offersCards" />
-    <SAdsSection :banners="banners" />
-    <SBrandsSlider :brands-cards="brandsMainCards" />
-    <SOffersSection :offers-cards="offersCards" />
+    <SAdsSection :banners="bannersTop" />
+    <SBrandsSlider />
+    <SOffersSection :offers-cards="offersCards" :title="titleOffers" :subtitle="subtitleOffers" />
+    <SAdsSection :banners="bannersBottom" />
+    <SOffersSection :offers-cards="offersCards" :title="titleNew" :subtitle="subtitleNew" />
     <SAboutSection />
+    {{ banners }}
   </main>
 </template>
 
 <script setup>
-  import { getBrands } from '@/api/getBrands'
+  import { getBanners } from '@/api/getBanners';
 
-  const brandsMainCards = await getBrands({ isShowOnMain: true })
+  const bannersTop = [];
+  const bannersBottom = [];
+  const titleOffers = 'Лучшие предложения';
+  const subtitleOffers = 'People also search for this items';
+  const titleNew = 'Новинки';
+  const subtitleNew = 'People also search for this items';
 
-  const banners = [
-    {
-      title: 'Лучшие предложения 1',
-      description: 'People also search for this items',
-      link: '#',
-      image: '/img/watches_1.png',
-    },
-    {
-      title: 'Лучшие предложения 2',
-      description: 'People also search for this items',
-      link: '#',
-      image: '/img/watches_2.png',
-    },
-  ]
+  const banners = await getBanners({ page: 'MAIN' }).then((response) => {
+    Object.entries(response._value).forEach((banner, i) => {
+      if (i <= 1) {
+        bannersTop.push(banner);
+      } else {
+        bannersBottom.push(banner);
+      }
+    })
+  });
 
   const offersCards = [
     {
@@ -339,7 +342,7 @@
       price_usd: '3 404',
       image: '/img/watches_main_tr.png',
     },
-  ]
+  ];
 </script>
 
 <style lang="scss" scoped>

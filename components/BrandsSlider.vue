@@ -2,14 +2,21 @@
   <swiper v-bind="config" @swiper="onSwiper">
     <swiper-slide v-for="(brand, i) in slides" :key="i">
       <div class="brands-logo aspect--1-1">
-        <img class="brands-logo__img img-resp" :src="brand.image || stubBrandImageUrl" :alt="brand.name"/>
-        <NuxtLink :to="`/brands/${brand.id}`" class="brands-logo__overlay card card--square">
+        <img
+          class="brands-logo__img img-resp"
+          :src="brand.image || stubBrandImageUrl"
+          :alt="brand.name"
+        />
+        <NuxtLink
+          :to="`/brands/${brand.id}`"
+          class="brands-logo__overlay card card--square"
+        >
           <div
             class="brands-logo__arrow button button--square button--gray stroked-icon"
           >
             <base-icon name="arrow-down-right"></base-icon>
           </div>
-          <h5 class="brands-logo__title">
+          <h5 class="card--square__title brands-logo__title">
             {{ brand.name }}
           </h5>
         </NuxtLink>

@@ -52,3 +52,21 @@
         + "Please make sure it is defined in `$breakpoints` map.";
   }
 }
+
+@mixin mobile-caret($resolution) {
+  @include max-width($resolution) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: $border;
+    margin-bottom: unset;
+    padding: 14px 12px;
+    @include caret;
+
+    > * {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
+}

@@ -3,7 +3,7 @@
     row-gap: 24px;
   }
 
-  .card-square {
+  .card--square {
     position: relative;
     background: rgba(0, 0, 0, 0.42);
 
@@ -13,7 +13,7 @@
       padding: 16px;
     }
 
-    img {
+    &__img {
       position: absolute;
       left: 0;
       top: 0;

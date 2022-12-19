@@ -19,7 +19,7 @@
 <script setup>
   import './s-brands-section.scss'
 
-  const props = defineProps({
+  defineProps({
     brandsCards: {
       type: Array,
       default: () => [],

@@ -44,6 +44,13 @@
     }
   }
 
+  &__item {
+    display: none;
+  }
+  &__item.is-visible {
+    display: grid;
+  }
+
   &__body {
     row-gap: 48px;
     padding: 56px 0;
@@ -52,12 +59,12 @@
       padding: 24px 0 16px;
       gap: unset;
     }
-  }
-  &__item {
-    display: none;
-  }
-  &__item.is-visible {
-    display: block;
+
+    > div:nth-child(1),
+    div:nth-child(2),
+    div:nth-child(3) {
+      display: grid;
+    }
   }
 
   &__title {
