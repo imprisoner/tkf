@@ -6,7 +6,7 @@
     <SOffersSection :offers-cards="bestOffers" :title="titleOffers" :subtitle="subtitleOffers" />
     <SAdsSection :banners="bannersBottom" />
     <SOffersSection :offers-cards="newOffers" :title="titleNew" :subtitle="subtitleNew" />
-    <SAboutSection :aboutInfo="aboutInfo" />
+    <SAboutSection :about-info="aboutInfo" />
   </main>
 </template>
 

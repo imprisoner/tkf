@@ -68,7 +68,7 @@
   defineProps({
     aboutInfo: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
   })
 </script>

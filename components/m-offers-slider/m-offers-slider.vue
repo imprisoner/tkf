@@ -13,7 +13,7 @@
   defineProps({
     slides: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
   })
 

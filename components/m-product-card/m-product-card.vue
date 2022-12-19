@@ -39,7 +39,7 @@
   defineProps({
     lot: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
   })
   

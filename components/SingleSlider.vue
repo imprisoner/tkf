@@ -36,7 +36,7 @@
   const props = defineProps({
     slides: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
   })
 

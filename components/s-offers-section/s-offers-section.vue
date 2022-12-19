@@ -27,7 +27,7 @@
   defineProps({
     offersCards: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
     title: {
       type: String,
