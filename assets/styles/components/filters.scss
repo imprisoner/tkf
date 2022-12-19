@@ -224,9 +224,13 @@
 }
 
 .filter {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 32px;
+
+  &.show {
+    display: flex;
+  }
 
   @include max-width('md') {
     display: none;

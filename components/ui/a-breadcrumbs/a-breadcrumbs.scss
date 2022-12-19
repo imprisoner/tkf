@@ -7,6 +7,10 @@
     align-items: center;
     margin-right: 5px;
 
+    &:not(:last-child) {
+      color: #6E6B7B;
+    }
+
     &::after {
       content: url('~/assets/svg/icons/arrow-breadcrumbs.svg');
       display: block;
