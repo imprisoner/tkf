@@ -3,7 +3,7 @@
     <div class="row">
       <div class="offset-lg-1 col-lg-10 col-12">
         <div class="brands-section__wall row">
-          <brands-card
+          <s-brands-card
             v-for="brand in brandsCards"
             :id="brand.id"
             :key="brand.id"
