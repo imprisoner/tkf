@@ -36,7 +36,6 @@
         &:nth-child(7) {
           margin-right: 40px;
         }
-
       }
 
       &:hover {
@@ -54,13 +53,19 @@
       gap: unset;
     }
   }
+  &__item {
+    display: none;
+  }
+  &__item.is-visible {
+    display: block;
+  }
 
   &__title {
     font-weight: 500;
     font-size: 44px;
     line-height: 54px;
     padding-left: 3px;
-
+    text-transform: uppercase;
 
     @include max-width('md') {
       display: flex;

@@ -1,6 +1,6 @@
 <template>
   <main id="brands-page" class="catalog">
-    <SCatalogTop />
+    <SCatalogTop :title="title" />
     <SBrandsSection :brands-cards="brandsMainCards" />
     <SAlphabet />
   </main>
@@ -10,6 +10,7 @@
   import { getBrands } from '@/api/getBrands'
 
   const brandsMainCards = await getBrands({ isShowOnMain: true })
+  const title = 'Все бренды швейцарских часов'
 </script>
 
 <style lang="scss">
@@ -24,7 +25,7 @@
     }
 
     .brands-section {
-      margin-bottom: 64px;
+      margin: 49px 0 64px;
     }
 
     @include max-width('md') {
