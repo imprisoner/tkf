@@ -11,7 +11,6 @@
 </template>
 
 <script setup>
-  console.log
   const breadcrumbs = [
     {
       text: 'Ювелирные украшения',
