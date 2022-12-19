@@ -26,7 +26,6 @@
             :title="titleDescriptionSection"
             :text="textDescriptionSection"
         />
-        {{ lotsResponse }}
     </main>
 </template>
 
