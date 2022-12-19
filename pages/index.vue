@@ -13,12 +13,6 @@
 
 <script setup>
   import { getBanners } from '@/api/getBanners';
-  import useSeo from '@/composables/useSeo'
-  const route = useRoute()
-
-  useHead({
-    ...useSeo(route.name)
-  })
 
   const bannersTop = [];
   const bannersBottom = [];
