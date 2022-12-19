@@ -88,5 +88,6 @@
   }
   .card-square {
     cursor: pointer;
+    filter: drop-shadow(0px 7px 13px rgba(0, 0, 0, 0.05));
   }
 </style>
