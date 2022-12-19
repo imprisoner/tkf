@@ -10,7 +10,7 @@
       <div class="offset-xl-1 col-xl-10 col-12">
         <swiper v-bind="config">
           <swiper-slide v-for="(brand, i) in brandsMainCards" :key="i">
-            <brands-card
+            <s-brands-card
               :id="brand.id"
               :image="brand.image"
               :name="brand.name"

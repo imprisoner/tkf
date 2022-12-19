@@ -1,5 +1,5 @@
 <template>
-  <a class="card card--square" :class="classname" :href="link">
+  <a class="card card--square col-md-3" :class="classname" :href="link">
     <img class="card--square__img img-resp" :src="image" :alt="title" />
     <div class="button button--square button--gray stroked-icon">
       <base-icon name="arrow-down-right"></base-icon>
