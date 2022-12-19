@@ -1,7 +1,7 @@
 import useApi from '@/composables/useApi'
 
-export function getLotsBySearchString(params) {
-  return useApi('/lots/search/', {
+export function getWatchesBrand(params) {
+  return useApi('/lots/watches/', {
     query: {
       ...params,
     },

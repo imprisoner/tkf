@@ -11,7 +11,7 @@
 
   const breadcrumbs = [
     {
-      text: 'Швейцарские часы',
+      text: 'Все бренды',
       href: '',
     },
   ]

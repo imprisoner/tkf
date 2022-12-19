@@ -1,14 +1,16 @@
 <template>
     <main id="goods-page" class="catalog">
-        <SCatalogTop :count="lotsResponse.count"/>
+        <SCatalogTop />
 
-        <SGoodSection :lots-list="lotsResponse.results"/>
+        <SGoodSection />
 
         <!-- <SAdsSection :banners="banners"/> -->
 
         <div class="container brands-title">
             <div class="row">
-                <div class="offset-lg-1 col-lg-12"><h2>Все бренды швейцарских часов</h2></div>
+                <div class="offset-lg-1 col-lg-12">
+                    <h2>Все бренды ювелирных украшений</h2>
+                </div>
             </div>
         </div>
 
@@ -16,7 +18,9 @@
 
         <div class="container cats-title">
             <div class="row">
-                <div class="offset-lg-1 col-lg-12"><h2>Категории швейцарских часов</h2></div>
+                <div class="offset-lg-1 col-lg-12">
+                    <h2>Категории ювелирных украшений</h2>
+                </div>
             </div>
         </div>
 
@@ -30,26 +34,6 @@
 </template>
 
 <script setup>
-    import { getWatchesBrand } from '@/api/getWatchesBrand';
-    const { id } = useRoute().params
-    const watchesBrand = await getWatchesBrand();
-    const perPageLimit = ref(30)
-    const page = ref(0)
-    const getOffset = computed(() => perPageLimit.value * page.value)
-
-    const getQueryParams = computed(() => {
-      return {
-        limit: perPageLimit.value,
-        offset: perPageLimit.value * (page.value - 1),
-        brand: id,
-        // ordering: ordering.value.value,
-      }
-    })
-
-    const { data: lotsResponse } = await getWatchesBrand(
-      getQueryParams.value
-    )
-
     // const banners = [
     //     {
     //         title: 'Лучшие предложения 1',
