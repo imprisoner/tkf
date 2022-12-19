@@ -88,7 +88,7 @@
 
   const handleSort = () => false
 
-  const props = defineProps({
+  defineProps({
     lotsList: {
       type: Array,
       default: () => [],

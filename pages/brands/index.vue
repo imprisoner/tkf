@@ -1,6 +1,6 @@
 <template>
   <main id="brands-page" class="catalog">
-    <SCatalogTop />
+    <SCatalogTop :title="title" :breadcrumbs="breadcrumbs" />
     <SBrandsSection :brands-cards="brandsMainCards" />
     <SAlphabet />
   </main>
@@ -9,7 +9,15 @@
 <script setup>
   import { getBrands } from '@/api/getBrands'
 
+  const breadcrumbs = [
+    {
+      text: 'Все бренды',
+      href: '',
+    },
+  ]
+
   const brandsMainCards = await getBrands({ isShowOnMain: true })
+  const title = 'Все бренды швейцарских часов'
 </script>
 
 <style lang="scss">
@@ -24,7 +32,7 @@
     }
 
     .brands-section {
-      margin-bottom: 64px;
+      margin: 49px 0 64px;
     }
 
     @include max-width('md') {

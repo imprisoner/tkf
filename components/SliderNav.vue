@@ -1,14 +1,14 @@
 <template>
   <div class="slider-nav" :class="verticalClass">
     <button
-      class="button button--square button--gray slider-nav__prev"
+      class="button button--square slider-nav__prev"
       type="button"
       @click="prev()"
     >
       <base-icon name="chevron-left"></base-icon>
     </button>
     <button
-      class="button button--square button--white stroked-icon slider-nav__next"
+      class="button button--square slider-nav__next"
       type="button"
       @click="next()"
     >
@@ -65,6 +65,12 @@
   .slider-nav {
     display: flex;
 
+    .button{
+      background-color: $white;
+      &:hover{
+        background-color: $gray-100;
+      }
+    }
     &--vertical {
       display: block;
     }

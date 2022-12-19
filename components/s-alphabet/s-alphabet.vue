@@ -1,271 +1,58 @@
 <template>
   <div class="alphabet container">
     <div class="row">
-      <div class="alphabet__letters offset-lg-1 col-lg-10 col-12">
-        <div class="alphabet__subgrid">
+      <div class="alphabet__ltrs offset-lg-1 col-lg-10 col-12">
+        <div class="alphabet__ltrs-subgrid">
+          <button class="alphabet__button" type="button">0-9</button>
           <button
-            v-for="(letter, i) in letters"
-            :key="i"
+            v-for="letter in alphabet"
+            :key="letter.id"
             class="alphabet__button"
             type="button"
           >
-            {{ letter }}
+            {{ letter.name }}
           </button>
         </div>
       </div>
     </div>
     <div class="alphabet__body row">
-      <div class="alphabet__title offset-lg-1 col-md-2 col-12"><p>A</p></div>
       <div
-        class="alphabet__list-wrapper row offset-lg-3 col-xl-8 col-md-10 col-12"
+        v-for="letter in alphabet"
+        :key="letter.id"
+        class="alphabet__item col-12 row"
       >
-        <ul class="alphabet__list col-xl-3 col-md-4 col-12">
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">François-Paul Journe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Patek Philippe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Vacheron Constantin</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Blancpain</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Pigaet</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Rolex</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Jaeger-LeCoultre</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-          <li class="alphabet__list-item text-16 alphabet__more">
-            <a>+ Показать ещё 10</a>
-          </li>
-        </ul>
-        <ul class="alphabet__list col-xl-3 col-md-4 col-12">
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">François-Paul Journe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Patek Philippe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Vacheron Constantin</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Blancpain</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Pigaet</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Rolex</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Jaeger-LeCoultre</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-        </ul>
-        <ul class="alphabet__list col-xl-3 col-md-4 col-12">
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">François-Paul Journe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Patek Philippe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Vacheron Constantin</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Blancpain</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Pigaet</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Rolex</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Jaeger-LeCoultre</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-        </ul>
-        <ul class="alphabet__list col-xl-3 col-md-4 col-12">
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">François-Paul Journe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Patek Philippe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Vacheron Constantin</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Blancpain</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Pigaet</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Rolex</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Jaeger-LeCoultre</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-        </ul>
-      </div>
-      <div class="alphabet__title offset-lg-1 col-md-2 col-12"><p>B</p></div>
-      <div
-        class="alphabet__list-wrapper row offset-lg-3 col-xl-8 col-md-10 col-12"
-      >
-        <ul class="alphabet__list col-xl-3 col-md-4 col-12">
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">François-Paul Journe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Patek Philippe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Vacheron Constantin</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Blancpain</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Pigaet</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Rolex</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Jaeger-LeCoultre</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-        </ul>
-        <ul class="alphabet__list col-xl-3 col-md-4 col-12">
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">François-Paul Journe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Patek Philippe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Vacheron Constantin</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Blancpain</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Pigaet</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Rolex</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Jaeger-LeCoultre</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-        </ul>
-        <ul class="alphabet__list col-xl-3 col-md-4 col-12">
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">François-Paul Journe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Patek Philippe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Vacheron Constantin</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Blancpain</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Pigaet</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Rolex</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Jaeger-LeCoultre</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-        </ul>
-        <ul class="alphabet__list col-xl-3 col-md-4 col-12">
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">François-Paul Journe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Patek Philippe</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Vacheron Constantin</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Blancpain</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Pigaet</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Rolex</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">Jaeger-LeCoultre</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-          <li class="alphabet__list-item text-16">
-            <a href="#" class="alphabet__link">A. Lange & Söhne</a>
-          </li>
-        </ul>
+        <p class="alphabet__title offset-lg-1">{{ letter.name }}</p>
+        <div class="alphabet__list row offset-lg-3 col-xl-8 col-md-10 col-8">
+          <ul class="col-xl-3 col-md-4 col-12">
+            <li v-for="item in brandsMainCards" :key="item.id" class="text-16">
+              <a href="#">{{ item.name }}</a>
+            </li>
+          </ul>
+          <ul class="col-xl-3 col-md-4 col-12">
+            <li v-for="item in brandsMainCards" :key="item.id" class="text-16">
+              <a href="#">{{ item.name }}</a>
+            </li>
+          </ul>
+          <ul class="col-xl-3 col-md-4 col-12">
+            <li v-for="item in brandsMainCards" :key="item.id" class="text-16">
+              <a href="#">{{ item.name }}</a>
+            </li>
+          </ul>
+          <ul class="col-xl-3 col-md-4 col-12">
+            <li v-for="item in brandsMainCards" :key="item.id" class="text-16">
+              <a href="#">{{ item.name }}</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="alphabet__more-wrapper row">
+    <div class="row">
       <div class="offset-md-1 col-md-10 col-12">
         <button
-          class="alphabet__more button button--block button--neutral button--caret"
+          v-if="alphabet"
+          class="button button--block button--neutral button--caret button-showMore"
           type="button"
+          @click="showMore()"
         >
           Показать ещё
         </button>
@@ -276,6 +63,51 @@
 
 <script setup>
   import './s-alphabet.scss'
+  import { getBrands } from '@/api/getBrands'
 
-  const letters = ref(['0-9', ...'abcdefghijklmnopqrstuvwxyz'.split('')])
+  const brandsMainCards = await getBrands({ isShowOnMain: true })
+
+  const alphabet = [
+    { name: 'a', id: 0 },
+    { name: 'b', id: 1 },
+    { name: 'c', id: 2 },
+    { name: 'd', id: 3 },
+    { name: 'e', id: 4 },
+    { name: 'f', id: 5 },
+    { name: 'g', id: 6 },
+    { name: 'h', id: 7 },
+    { name: 'i', id: 8 },
+    { name: 'j', id: 9 },
+    { name: 'k', id: 10 },
+    { name: 'l', id: 11 },
+    { name: 'm', id: 12 },
+    { name: 'n', id: 13 },
+    { name: 'o', id: 14 },
+    { name: 'p', id: 15 },
+    { name: 'q', id: 16 },
+    { name: 'r', id: 17 },
+    { name: 's', id: 18 },
+    { name: 't', id: 19 },
+    { name: 'u', id: 20 },
+    { name: 'v', id: 21 },
+    { name: 'w', id: 22 },
+    { name: 'x', id: 23 },
+    { name: 'y', id: 24 },
+    { name: 'z', id: 25 },
+  ]
+
+  let items = 0
+
+  function showMore() {
+    items += 6
+    const array = Array.from(document.querySelector('.alphabet__body').children)
+    const btnShowMore = document.querySelector('.button-showMore')
+    const visibleItems = array.slice(0, items)
+
+    visibleItems.forEach((el) => el.classList.add('is-visible'))
+
+    if (visibleItems.length === alphabet.length) {
+      btnShowMore.style.display = 'none'
+    }
+  }
 </script>

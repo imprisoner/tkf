@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-  const stubBrandImageUrl = '/img/brand_stub.png'
+  const stubBrandImageUrl = '/img/logo.svg'
 
   defineProps({
     image: {
@@ -80,8 +80,14 @@
         height: 24px;
       }
     }
+
+    &__img {
+      object-fit: contain;
+      background-color: #fff;
+    }
   }
   .card-square {
     cursor: pointer;
+    filter: drop-shadow(0px 7px 13px rgba(0, 0, 0, 0.05));
   }
 </style>

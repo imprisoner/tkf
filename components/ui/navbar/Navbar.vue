@@ -308,17 +308,47 @@
     }
   }
   .navbar-search {
+    margin-left: 16px;
+    width: auto;
+
+    @include max-width('xl') {
+      position: absolute;
+      left: -9999px;
+    }
     order: 1;
 
     // active search siblings opacity transition
     ~ * {
       opacity: 1;
       transition: opacity 0.5s ease-in;
+
+      // transition: none
     }
 
-    &.search-on ~ * {
-      opacity: 0;
-      // transition: none
+    &.search-on {
+      position: absolute;
+      left: 24px;
+      top: 24px;
+      right: 24px;
+      bottom: 24px;
+      width: unset;
+      margin-left: auto;
+      z-index: 1;
+
+      @include max-width('xl') {
+        left: 0;
+        top: 40px;
+        right: 0;
+        height: 60px;
+      }
+
+      @include max-width('lg') {
+        height: 40px;
+      }
+
+      & ~ * {
+        opacity: 0;
+      }
     }
   }
   // NEW

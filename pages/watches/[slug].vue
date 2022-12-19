@@ -1,6 +1,6 @@
 <template>
   <main id="lot-page" class="catalog">
-    <SCatalogTop />
+    <SCatalogTop :breadcrumbs="breadcrumbs"/>
     <article class="container lot">
       <div class="row lot__top">
         <div
@@ -27,13 +27,10 @@
                 >{{ lot.price_rub }} ₽</span
               >
             </h3>
-            <!-- Todo  - нет в беке-->
-            <div v-if="lot.tags" class="details__tags">
-              <span class="details__tag button button--text-sm">Новые</span>
-              <span class="details__tag button button--text-sm">В наличии</span>
-              <span class="details__tag button button--text-sm"
-                >Очень красивое</span
-              >
+            <div class="details__tags">
+              <span class="details__tag button button--text-sm">{{ lot.condition == 'NEW' ? 'новый' : 'подержанный' }}</span>
+              <span class="details__tag button button--text-sm">{{ lot.is_available == true ? 'В наличии' : 'Нет в наличии' }}</span>
+              <span class="details__tag button button--text-sm">{{ lot.complete_set == 'FULL' ? 'полная' : 'не комплект' }}</span>
             </div>
           </div>
           <a
@@ -53,13 +50,21 @@
         <div class="row offset-lg-1 col-lg-11 col-12">
           <div class="features__col col-xl-6 col-12">
             <p class="features__prop">Тип</p>
-            <p class="features__val">Автоподзавод</p>
+            <p class="features__val">
+              {{ lot.type == '' || lot.type == null ? 'неизвестно' : lot.type }}
+            </p>
             <p class="features__prop">Пол</p>
-            <p class="features__val">{{ lot.gender }}</p>
+            <p v-if="lot.gender == 'MALE'" class="features__val">мужской</p>
+            <p v-else-if="lot.gender == 'FEMALE'" class="features__val">женский</p>
+            <p v-else class="features__val"> унисекс</p>
             <p class="features__prop">Состояние</p>
-            <p class="features__val">{{ lot.condition }}</p>
+            <p class="features__val">
+            {{ lot.condition == 'NEW' ? 'новый' : 'подержанный' }}
+            </p>
             <p class="features__prop">Бренд</p>
-            <p class="features__val">{{ lot.brand.name }}</p>
+            <p class="features__val">
+            <!-- {{ lot.brand.name == '' || lot.brand.name == null ? 'неизвестно' : lot.brand.name }} -->
+            </p>
             <p class="features__prop">Год выпуска</p>
             <p class="features__val">
               {{
@@ -69,9 +74,13 @@
               }}
             </p>
             <p class="features__prop">Материал корпуса</p>
-            <p class="features__val">{{ lot.body_material }}</p>
+            <p class="features__val">
+            {{ lot.body_material == '' || lot.body_material == null ? 'неизвестно' : lot.body_material }}
+            </p>
             <p class="features__prop">Материал браслета</p>
-            <p class="features__val">{{ lot.strap_material }}</p>
+            <p class="features__val">
+            {{ lot.strap_material == '' || lot.strap_material == null ? 'неизвестно' : lot.strap_material }}
+            </p>
           </div>
           <div class="features__col col-xl-6 col-12">
             <p class="features__prop">Водонепроницаемость</p>
@@ -79,9 +88,13 @@
               {{ lot.is_waterproof == false ? 'Нет' : 'Да' }}
             </p>
             <p class="features__prop">Цвет циферблата</p>
-            <p class="features__val">{{ lot.watch_face_color }}</p>
+            <p class="features__val">
+            {{ lot.watch_face_color == '' || lot.watch_face_color == null ? 'неизвестно' : lot.watch_face_color }}
+            </p>
             <p class="features__prop">Тип механизма</p>
-            <p class="features__val">{{ lot.mechanism_type }}</p>
+            <p class="features__val">
+            {{ lot.mechanism_type == '' || lot.mechanism_type == null ? 'неизвестно' : lot.mechanism_type }}
+            </p>
             <p class="features__prop">Функции</p>
             <p class="features__val">
               <span v-for="(item, i) in lot.function_list" :key="i">{{
@@ -89,27 +102,36 @@
               }}</span>
             </p>
             <p class="features__prop">Запас хода</p>
-            <p class="features__val">126</p>
+            <p class="features__val">
+            {{ lot.power_reserve == '' || lot.power_reserve == null ? 'неизвестно' : lot.power_reserve }}
+            </p>
             <p class="features__prop">Калибр</p>
-            <p class="features__val">{{ lot.caliber }}</p>
+            <p class="features__val">
+            {{ lot.caliber == '' || lot.caliber == null ? 'неизвестно' : lot.caliber }}
+            </p>
             <p class="features__prop">Комплектация</p>
-            <p class="features__val">{{ lot.complete_set }}</p>
+            <p class="features__val">
+              {{ lot.complete_set == 'FULL' ? 'полная' : 'не комплект' }}
+            </p>
           </div>
         </div>
         <!-- ? для чего тут?-->
         <!-- <div class="button button--gray button--block button--caret col-12">Показать ещё</div> -->
       </div>
-      <!-- Todo  - нет в беке-->
-      <div v-if="lot.seller" class="lot__seller seller row">
+      <div class="lot__seller seller row">
         <div class="seller__wrap offset-lg-1 col-md-6 col-12">
-          <div class="seller__info">
+          <div v-if="lot.city_location" class="seller__info">
             <h6 class="seller__subtitle text-16">Продавец</h6>
-            <h3>Ломбард Самый Лучший</h3>
+            <!-- Todo: нет в беке -->
+            <!-- <h3>Ломбард Самый Лучший</h3> -->
             <address class="seller__address">
-              Россия, г. Москва, ул. Зорге 21 ст. 1
+              {{ lot.city_location.country.name }}, {{ lot.city_location.name}}
             </address>
           </div>
-          <a class="seller__positions button button--black" href="#">
+          <a
+            class="seller__positions button button--black"
+            :href="lot.original_link"
+            target="_blank">
             <svg
               width="24"
               height="24"
@@ -124,7 +146,7 @@
                 fill="currentColor"
               ></path>
             </svg>
-            <span>Показать все объявления ломбарда (12)</span>
+            <span>Показать все объявления ломбарда <!--(12)--></span>
           </a>
         </div>
       </div>
@@ -136,6 +158,19 @@
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/watches/' + slug
   const { data: lot } = await useFetch(uri, { key: slug })
+  const breadcrumbs = [];
+  const routes = useRoute().fullPath.split('/');
+  let url = '/';
+
+  for(let i = 0; i < routes.length; i++) {
+    if (routes[i] !== '') {
+      url += `${routes[i]}/`;
+      breadcrumbs.push({
+        text: routes[i] === 'watches' ? 'Каталог часов' : lot._value.name,
+        route: url,
+      });
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
