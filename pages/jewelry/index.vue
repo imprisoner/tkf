@@ -27,8 +27,8 @@
         <SCategoriesSection />
 
         <SDescrSection
-          :title="titleDescriptionSection"
-          :text="textDescriptionSection"
+            :title="titleDescriptionSection"
+            :text="textDescriptionSection"
         />
     </main>
 </template>
