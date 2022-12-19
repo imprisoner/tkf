@@ -5,26 +5,25 @@ const BRANDS_ID = 'brands-id'
 export const META_TAGS = {
   [MAIN_PAGE]: {
     title: 'Main page',
-    description: 'Description main page',
-    keywords: 'test, test',
-    ogTitle: '',
-    ogDescription: '',
-    ogImage: '',
+    meta: [
+      {
+        name: 'description',
+        content: 'Main page description',
+      },
+      {
+        name: 'keywords',
+        content: ''
+      },
+      {
+        name: 'og:title',
+        content: ''
+      }
+    ],
   },
   [BRANDS]: {
-    title: '',
-    description: '',
-    keywords: '',
-    ogTitle: '',
-    ogDescription: '',
-    ogImage: '',
+    title: 'Brands title',
   },
   [BRANDS_ID]: {
     title: 'Brands title',
-    description: 'Brands description',
-    keywords: '',
-    ogTitle: '',
-    ogDescription: '',
-    ogImage: '',
   }
 }

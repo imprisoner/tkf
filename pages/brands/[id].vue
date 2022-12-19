@@ -2,6 +2,10 @@
   <div></div>
 </template>
 
-<script setup></script>
+<script setup>
+  useHead({
+    ...useSeo(useRoute().name)
+  })
+</script>
 
 <style lang="scss"></style>
