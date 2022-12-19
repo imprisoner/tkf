@@ -28,7 +28,8 @@
   const mainOffers = await getMainLots();
   const aboutInfo = await getAboutInfo();
 
-  const banners = await getBanners({ page: 'MAIN' }).then((response) => {
+  const banners = await getBanners({ page: 'MAIN', }).then((response) => {
+    console.log(response)
     Object.entries(response._value).forEach((banner, i) => {
       if (i <= 1) {
         bannersTop.push(banner);
