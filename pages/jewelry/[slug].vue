@@ -158,7 +158,6 @@
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/jewelry/' + slug
   const { data: lot } = await useFetch(uri, { key: slug })
-  console.log(lot)
 </script>
 
 <style lang="scss" scoped>
