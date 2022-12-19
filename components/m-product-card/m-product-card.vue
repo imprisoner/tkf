@@ -4,7 +4,11 @@
       <base-icon name="heart"></base-icon>
     </div>
     <div class="product-card__img">
-      <img class="img-resp" :src="lot.image || stubBrandImageUrl" :alt="title" />
+      <img
+        class="img-resp"
+        :src="lot.image || stubBrandImageUrl"
+        :alt="lot.title"
+      />
     </div>
     <NuxtLink :to="`/${type}/${lot.slug}`">
       <h6 class="product-card__title">
@@ -21,7 +25,9 @@
       </template>
       <template v-if="lot.country_name && lot.city_name">
         <span class="product-card__info-item">Местоположение</span>
-        <span class="product-card__info-item">{{ `${lot.country_name}, ${lot.city_name}` }}</span>
+        <span class="product-card__info-item">{{
+          `${lot.country_name}, ${lot.city_name}`
+        }}</span>
       </template>
     </div>
     <!--TODO дождаться доработки с бэка-->
@@ -41,6 +47,6 @@
       default: () => ({}),
     },
   })
-  const type = props.lot.type === 'watch' ? 'watches' : 'jewelry';
-  const stubBrandImageUrl = '/img/brand_stub.png';
+  const type = props.lot.type === 'watch' ? 'watches' : 'jewelry'
+  const stubBrandImageUrl = '/img/brand_stub.png'
 </script>
