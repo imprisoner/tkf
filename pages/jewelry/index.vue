@@ -8,7 +8,9 @@
 
         <div class="container brands-title">
             <div class="row">
-                <div class="offset-lg-1 col-lg-12"><h2>Все бренды швейцарских часов</h2></div>
+                <div class="offset-lg-1 col-lg-12">
+                    <h2>Все бренды ювелирных украшений</h2>
+                </div>
             </div>
         </div>
 
@@ -16,7 +18,9 @@
 
         <div class="container cats-title">
             <div class="row">
-                <div class="offset-lg-1 col-lg-12"><h2>Категории швейцарских часов</h2></div>
+                <div class="offset-lg-1 col-lg-12">
+                    <h2>Категории ювелирных украшений</h2>
+                </div>
             </div>
         </div>
 
