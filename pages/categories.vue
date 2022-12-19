@@ -14,7 +14,7 @@
 <script setup>
   const breadcrumbs = [
     {
-      text: 'Швейцарские часы',
+      text: 'Категории',
       href: '/categories',
     }
   ];

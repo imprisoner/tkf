@@ -97,7 +97,7 @@
           <div class="features__col col-xl-6 col-12">
             <p class="features__prop">Камни</p>
             <template v-if="lot.stones.length !== 0">
-              <div class="features__vals" v-for="(stone, id) in lot.stones" :key="id">
+              <div v-for="(stone, id) in lot.stones" :key="id" class="features__vals">
                 <p class="features__val">
                   {{ stone }}
                 </p>
@@ -115,7 +115,7 @@
       </div>
       <div class="lot__seller seller row">
         <div class="seller__wrap offset-lg-1 col-md-6 col-12">
-          <div class="seller__info" v-if="lot.city_location">
+          <div v-if="lot.city_location" class="seller__info">
             <h6 class="seller__subtitle text-16">Продавец</h6>
             <!-- Todo: нет в беке -->
             <!-- <h3>Ломбард Самый Лучший</h3> -->

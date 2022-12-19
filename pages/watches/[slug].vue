@@ -120,7 +120,7 @@
       </div>
       <div class="lot__seller seller row">
         <div class="seller__wrap offset-lg-1 col-md-6 col-12">
-          <div class="seller__info" v-if="lot.city_location">
+          <div v-if="lot.city_location" class="seller__info">
             <h6 class="seller__subtitle text-16">Продавец</h6>
             <!-- Todo: нет в беке -->
             <!-- <h3>Ломбард Самый Лучший</h3> -->
