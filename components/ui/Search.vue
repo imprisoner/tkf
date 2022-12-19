@@ -4,18 +4,19 @@
       <button class="button" type="button" @click="toggle">
         <base-icon name="search"></base-icon>
       </button>
-      <input id="header_search" type="text" />
+      <input id="header_search" type="text" @change="search"/>
     </div>
   </template>
   <template v-else>
     <div class="search input-group" :class="searchOn">
       <input
-        class="input-group__field navbar-search__field"
+        class="input-group__field search__field"
         type="text"
         placeholder="Найти лучшие в мире часы"
+        @change="search"
       />
       <button
-        class="button button--square button--black navbar-search__active"
+        class="button button--square button--black search__active"
         type="button"
         @click="toggle"
       >
@@ -34,82 +35,48 @@
 
   const emit = defineEmits(['update:active'])
 
-  const searchOn = computed(() => (props.active ? 'search-on' : ''))
+  const searchOn = computed(() => (props.active ?  'search-on':'search-off'))
 
   function toggle() {
     if (!props.hidden) return
 
     emit('update:active', !props.active)
   }
+  function search(e) {
+    const searchString = e.target.value
+    navigateTo(`/search?search_string=${searchString}`)
+    e.target.value = ''
+  }
 </script>
 
 <style lang="scss" scoped>
-  .navbar-search {
-    margin-left: 16px;
-    width: auto;
+.search{
+  &__field {
+    display: flex;
+    width: 100%;
+    margin-left: auto;
+    padding-left: 22px;
+    padding-right: 22px;
+    outline: 1px solid #eaeaea;
+    outline-offset: -1px;
 
-    @include max-width('xl') {
-      position: absolute;
-      left: -9999px;
+    &::placeholder {
+      color: $input;
     }
+  }
 
-    &__trigger {
-      margin-left: auto;
-    }
-
-    &__field {
+  &.search-off{
+     .search__field {
       width: 0;
       padding: unset;
       flex: unset;
-
       &::placeholder {
         color: $neutral;
       }
     }
-
-    &.search-on {
-      position: absolute;
-      left: 24px;
-      top: 24px;
-      right: 24px;
-      bottom: 24px;
-      width: unset;
-      margin-left: auto;
-      z-index: 1;
-
-      @include max-width('xl') {
-        left: 0;
-        top: 40px;
-        right: 0;
-        height: 60px;
-      }
-
-      @include max-width('lg') {
-        height: 40px;
-      }
-    }
-
-    &.search-on &__trigger {
-      margin-left: unset;
-    }
-
-    &.search-on &__field {
-      display: flex;
-      width: 100%;
-      margin-left: auto;
-      padding-left: 22px;
-      padding-right: 22px;
-      outline: 1px solid #eaeaea;
-      outline-offset: -1px;
-      transition: width 0.5s;
-
-      &::placeholder {
-        color: $input;
-      }
-    }
   }
-
-  .header-search {
+}
+ .header-search {
     display: flex;
     align-items: center;
     flex: 1;
@@ -126,7 +93,7 @@
     input {
       // display: none;
       transition: all 0.5s ease;
-      width: 0;
+      //width: 0;
       border: none;
       padding-left: 25px;
       // height: 100%;

@@ -12,7 +12,7 @@
           also search for this items<br>
           also search for
         </p>
-        <ui-search></ui-search>
+        <ui-search active></ui-search>
       </article>
       <div class="offset-md-6 col-md-7 col-lg-6 col-12">
         <single-slider :slides="offersCards"></single-slider>
