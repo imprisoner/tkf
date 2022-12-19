@@ -6,4 +6,8 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+  useHead({
+    ...useSeo(useRoute().name)
+  })
+</script>
