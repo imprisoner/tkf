@@ -15,7 +15,7 @@
       :current-page="page"
       @update-limit="updateLimit"
       @update-sort="(value) => (ordering = value)"
-      @update-page="(value) => (page = value)"
+      @update-page="updatePage"
     />
   </main>
 </template>
@@ -77,6 +77,11 @@
   const updateLimit = (value) => {
     perPageLimit.value = value
     page.value = 1
+  }
+
+  const updatePage = (value) => {
+    page.value = value
+    window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
   }
 
   watch(

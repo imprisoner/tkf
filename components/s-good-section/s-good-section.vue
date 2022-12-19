@@ -44,11 +44,11 @@
     </div>
 
     <div class="row goods-section__bottom">
-      <div class="col-12 col-md-10 offset-md-1">
+      <div v-if="pagesCount > 1" class="col-12 col-md-10 offset-md-1">
         <button
-          v-if="currentPage < pagesCount"
           class="button button--neutral button--block button--caret"
           type="button"
+          @click="emit('updateLimit', activeLimit + limits[0])"
         >
           Показать ещё
         </button>

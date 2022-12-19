@@ -49,7 +49,7 @@
     <button
       v-if="
         (pagesCount - 1 === currentPage || currentPage === pagesCount) &&
-        pagesCount > 3
+        pagesCount > 4
       "
       class="button button--square"
       type="button"
@@ -60,7 +60,7 @@
     <!--    --------------------------------------->
     <!--    before last and before current------------------------------->
     <button
-      v-if="currentPage === pagesCount"
+      v-if="currentPage === pagesCount && pagesCount > 3"
       class="button button--square"
       type="button"
       @click="emit('updatePage', pagesCount - 1)"
@@ -88,7 +88,7 @@
 
     <!--    third page after current------------------------------->
     <button
-      v-if="currentPage < 3"
+      v-if="currentPage < 3 && pagesCount > 2"
       class="button button--square"
       type="button"
       @click="emit('updatePage', 3)"
@@ -111,7 +111,7 @@
 
     <!--    before last and after current ------------------------------->
     <button
-      v-if="currentPage === pagesCount - 2 && pagesCount > 3"
+      v-if="currentPage === pagesCount - 2 && pagesCount > 4"
       class="button button--square"
       type="button"
       @click="emit('updatePage', pagesCount - 1)"
