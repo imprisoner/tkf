@@ -18,7 +18,7 @@
         <div class="lot__details details offset-lg-7 col-lg-5 col-xl-4 col-12">
           <div class="details__top">
             <div class="details__title">
-              <h3>{{ lot.model.name }}</h3>
+              <h3>{{ lot.name }}</h3>
               <p>{{ lot.brand.name }}</p>
             </div>
             <h3 class="details__price">
@@ -51,7 +51,7 @@
           <div class="features__col col-xl-6 col-12">
             <p class="features__prop">Тип</p>
             <p class="features__val">
-              {{ lot.type == '' || lot.type == null ? 'неизвестно' : lot.type }}
+              {{ lot.category.name == '' || lot.category.name == null ? 'неизвестно' : lot.category.name }}
             </p>
             <p class="features__prop">Пол</p>
             <p v-if="lot.gender == 'MALE'" class="features__val">мужской</p>
@@ -68,51 +68,46 @@
             <p class="features__prop">Год выпуска</p>
             <p class="features__val">
               {{
-                lot.production_year == '' || lot.production_year == null
+                lot.creation_datetime == '' || lot.creation_datetime == null
                   ? 'неизвестно'
-                  : lot.production_year
+                  : new Date(lot.creation_datetime).getFullYear()
               }}
-            </p>
-            <p class="features__prop">Материал корпуса</p>
-            <p class="features__val">
-            {{ lot.body_material == '' || lot.body_material == null ? 'неизвестно' : lot.body_material }}
-            </p>
-            <p class="features__prop">Материал браслета</p>
-            <p class="features__val">
-            {{ lot.strap_material == '' || lot.strap_material == null ? 'неизвестно' : lot.strap_material }}
             </p>
           </div>
           <div class="features__col col-xl-6 col-12">
-            <p class="features__prop">Водонепроницаемость</p>
+            <p class="features__prop">Карат</p>
             <p class="features__val">
-              {{ lot.is_waterproof == false ? 'Нет' : 'Да' }}
-            </p>
-            <p class="features__prop">Цвет циферблата</p>
-            <p class="features__val">
-            {{ lot.watch_face_color == '' || lot.watch_face_color == null ? 'неизвестно' : lot.watch_face_color }}
-            </p>
-            <p class="features__prop">Тип механизма</p>
-            <p class="features__val">
-            {{ lot.mechanism_type == '' || lot.mechanism_type == null ? 'неизвестно' : lot.mechanism_type }}
-            </p>
-            <p class="features__prop">Функции</p>
-            <p class="features__val">
-              <span v-for="(item, i) in lot.function_list" :key="i">{{
-                item
-              }}</span>
-            </p>
-            <p class="features__prop">Запас хода</p>
-            <p class="features__val">
-            {{ lot.power_reserve == '' || lot.power_reserve == null ? 'неизвестно' : lot.power_reserve }}
-            </p>
-            <p class="features__prop">Калибр</p>
-            <p class="features__val">
-            {{ lot.caliber == '' || lot.caliber == null ? 'неизвестно' : lot.caliber }}
+              {{ lot.carat }}
             </p>
             <p class="features__prop">Комплектация</p>
             <p class="features__val">
               {{ lot.complete_set == 'FULL' ? 'полная' : 'не комплект' }}
             </p>
+          </div>
+          <div class="features__col col-xl-6 col-12">
+            <p class="features__prop">Металл</p>
+            <p class="features__val">
+              {{
+                lot.metal == '' || lot.metal == null
+                  ? 'неизвестно'
+                  : lot.metal
+              }}
+            </p>
+          </div>
+          <div class="features__col col-xl-6 col-12">
+            <p class="features__prop">Камни</p>
+            <template v-if="lot.stones.length !== 0">
+              <div v-for="(stone, id) in lot.stones" :key="id" class="features__vals">
+                <p class="features__val">
+                  {{ stone }}
+                </p>
+              </div>
+            </template>
+            <template v-else>
+              <p class="features__val">
+                неизвестно
+              </p>
+            </template>
           </div>
         </div>
         <!-- ? для чего тут?-->
@@ -120,7 +115,7 @@
       </div>
       <div class="lot__seller seller row">
         <div class="seller__wrap offset-lg-1 col-md-6 col-12">
-          <div class="seller__info">
+          <div v-if="lot.city_location" class="seller__info">
             <h6 class="seller__subtitle text-16">Продавец</h6>
             <!-- Todo: нет в беке -->
             <!-- <h3>Ломбард Самый Лучший</h3> -->
@@ -158,6 +153,20 @@
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/jewelry/' + slug
   const { data: lot } = await useFetch(uri, { key: slug })
+
+  const breadcrumbs = [];
+  const routes = useRoute().fullPath.split('/');
+  let url = '/';
+
+  for(let i = 0; i < routes.length; i++) {
+    if (routes[i] !== '') {
+      url += `${routes[i]}/`;
+      breadcrumbs.push({
+        text: routes[i] === 'jewelry' ? 'Каталог украшений' : lot._value.name,
+        route: url,
+      });
+    }
+  }
 </script>
 
 <style lang="scss" scoped>

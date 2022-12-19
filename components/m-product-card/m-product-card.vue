@@ -6,8 +6,7 @@
     <div class="product-card__img">
       <img class="img-resp" :src="lot.image || stubBrandImageUrl" :alt="title" />
     </div>
-    <!--TODO понять куда ведут ссылки-->
-    <NuxtLink to="#">
+    <NuxtLink :to="`/${type}/${lot.slug}`">
       <h6 class="product-card__title">
         <!--TODO дождаться доработки с бэка-->
         {{ lot.model_name }}
@@ -36,12 +35,12 @@
 <script setup>
   import './m-product-card.scss'
 
-  defineProps({
+  const props = defineProps({
     lot: {
       type: Object,
       default: () => ({}),
     },
   })
-  
+  const type = props.lot.type === 'watch' ? 'watches' : 'jewelry';
   const stubBrandImageUrl = '/img/brand_stub.png';
 </script>
