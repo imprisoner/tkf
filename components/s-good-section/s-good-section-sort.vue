@@ -5,7 +5,7 @@
         class="button button--neutral"
         type="text"
         readonly
-        :value="selectedType.label"
+        :value="ordering.label"
       />
       <button
         class="button button--square button--gray icon-stroked"
@@ -32,22 +32,16 @@
 <script setup>
   const emit = defineEmits(['sort'])
 
-  const sortTypes = ref([
-    {
-      label: 'Сначала новые',
-      value: 'new',
+  const props = defineProps({
+    sortTypes: {
+      type: Array,
+      default: () => [],
     },
-    {
-      label: 'По возрастанию цены',
-      value: 'max_price',
+    ordering: {
+      type: Object,
+      default: () => ({}),
     },
-    {
-      label: 'По убыванию цены',
-      value: 'min_price',
-    },
-  ])
-
-  const selectedType = ref(sortTypes.value[0])
+  })
 
   const isExpanded = ref(false)
 
@@ -62,7 +56,6 @@
   }
 
   const handleSelection = (type) => {
-    selectedType.value = type
-    emit('sort', type.value)
+    emit('sort', type)
   }
 </script>

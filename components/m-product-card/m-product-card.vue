@@ -7,7 +7,7 @@
       <img
         class="img-resp"
         :src="lot.image || stubBrandImageUrl"
-        :alt="title"
+        :alt="lot.title"
       />
     </div>
     <NuxtLink :to="`/${type}/${lot.slug}`">
