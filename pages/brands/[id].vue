@@ -2,7 +2,7 @@
     <main id="goods-page" class="catalog">
         <SCatalogTop :count="lotsResponse.count"/>
 
-        <SGoodSection :lots-list="lotsResponse.results"/>
+        <SGoodSection :lots-list="lotsResponse.results" :show-filters="true"/>
 
         <!-- <SAdsSection :banners="banners"/> -->
 

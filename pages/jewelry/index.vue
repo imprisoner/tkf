@@ -2,7 +2,7 @@
     <main id="goods-page" class="catalog">
         <SCatalogTop />
 
-        <SGoodSection />
+        <SGoodSection :show-filters="true"/>
 
         <!-- <SAdsSection :banners="banners"/> -->
 

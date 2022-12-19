@@ -68,6 +68,7 @@
           <span>Сохранить запрос</span>
         </button>
       </aside>
+
       <main class="filters__main filter show">
         <div class="filter__top">
           <h3 class="filter__title">Бренды</h3>
@@ -91,6 +92,7 @@
                 'filter__popular-item',
                 'button',
                 'button--text-sm',
+                'button--gray',
                 { active: selected.indexOf(popularBrand.value) >= 0 },
               ]"
               type="button"
@@ -151,6 +153,413 @@
           </div>
         </div>
       </main>
+
+      <main class="filters__main filter">
+        <div class="filter__top">
+          <h3 class="filter__title">Модель</h3>
+          <span class="text-16 lots-found">Найдено 185 товаров</span>
+          <div class="filters__mobile-close">
+            <BaseIcon name="star" />
+          </div>
+        </div>
+        <div class="filter__backdrop button mobile-caret">
+          <span>Назад</span>
+        </div>
+        <div class="filter__popular">
+          <h4 class="filter__subtitle mobile-caret show-menu">
+            Популярные модели
+          </h4>
+          <div class="filter__popular-list">
+            <button
+              v-for="popularBrand in getPopularBrands"
+              :key="popularBrand"
+              :class="[
+                'filter__popular-item',
+                'button',
+                'button--text-sm',
+                'button--gray',
+                { active: selected.indexOf(popularBrand.value) >= 0 },
+              ]"
+              type="button"
+              @click="
+                handleBrandSelection(
+                  popularBrand.value,
+                  selected.indexOf(popularBrand.value) === -1
+                )
+              "
+            >
+              {{ popularBrand.label }}
+            </button>
+          </div>
+        </div>
+        <div class="filter__main">
+          <h4 class="filter__subtitle mobile-caret">Все модели</h4>
+          <div class="filter__options">
+            <div class="filter__search search">
+              <div class="search input-group">
+                <input
+                  id="navbar_search"
+                  class="input-group__field"
+                  type="text"
+                  placeholder="Найти лучшие в мире часы"
+                />
+                <button
+                  class="button button--square button--black"
+                  type="button"
+                >
+                  <BaseIcon name="search" />
+                </button>
+              </div>
+            </div>
+            <ul class="filter__options-list">
+              <li class="filter__option">
+                <CheckboxComponent
+                  label="Выбрать все"
+                  value="all"
+                  :checked="selected.length === brandsList.length"
+                  @change="selectAllBrands"
+                />
+              </li>
+              <li
+                v-for="item in brandsList"
+                :key="item.value"
+                class="filter__option"
+              >
+                <CheckboxComponent
+                  :label="item.label"
+                  :value="item.value"
+                  :checked="selected.indexOf(item.value) >= 0"
+                  @change="
+                    (checked) => handleBrandSelection(item.value, checked)
+                  "
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </main>
+
+      <main class="filters__main filter">
+        <div class="filter__top">
+          <h3 class="filter__title">Цена</h3>
+          <span class="text-16 lots-found">Найдено 185 товаров</span>
+          <div class="filters__mobile-close">
+            <BaseIcon name="star" />
+          </div>
+        </div>
+        <div class="filter__backdrop button mobile-caret">
+          <span>Назад</span>
+        </div>
+        <div class="filter__popular">
+          <h4 class="filter__subtitle mobile-caret show-menu">
+            Популярные бренды
+          </h4>
+          <div class="filter__popular-list">
+            <button
+              v-for="popularBrand in getPopularBrands"
+              :key="popularBrand"
+              :class="[
+                'filter__popular-item',
+                'button',
+                'button--text-sm',
+                'button--gray',
+                { active: selected.indexOf(popularBrand.value) >= 0 },
+              ]"
+              type="button"
+              @click="
+                handleBrandSelection(
+                  popularBrand.value,
+                  selected.indexOf(popularBrand.value) === -1
+                )
+              "
+            >
+              {{ popularBrand.label }}
+            </button>
+          </div>
+        </div>
+        <div class="filter__main">
+          <h4 class="filter__subtitle mobile-caret">Все модели</h4>
+          <div class="filter__options">
+            <!--   Todo: слайдер цены -->
+          </div>
+        </div>
+      </main>
+
+      <main class="filters__main filter">
+        <div class="filter__top">
+          <h3 class="filter__title">Диаметр и габариты</h3>
+          <span class="text-16 lots-found">Найдено 185 товаров</span>
+          <div class="filters__mobile-close">
+            <BaseIcon name="star" />
+          </div>
+        </div>
+        <div class="filter__backdrop button mobile-caret">
+          <span>Назад</span>
+        </div>
+        <div class="filter__popular">
+          <h4 class="filter__subtitle mobile-caret show-menu">
+            Популярные
+          </h4>
+          <div class="filter__popular-list">
+            <button
+              v-for="popularBrand in getPopularBrands"
+              :key="popularBrand"
+              :class="[
+                'filter__popular-item',
+                'button',
+                'button--text-sm',
+                'button--gray',
+                { active: selected.indexOf(popularBrand.value) >= 0 },
+              ]"
+              type="button"
+              @click="
+                handleBrandSelection(
+                  popularBrand.value,
+                  selected.indexOf(popularBrand.value) === -1
+                )
+              "
+            >
+              {{ popularBrand.label }}
+            </button>
+          </div>
+        </div>
+        <div class="filter__main">
+          <h4 class="filter__subtitle mobile-caret">Все диаметры</h4>
+          <div class="filter__options">
+            <div class="filter__search search">
+              <div class="search input-group">
+                <input
+                  id="navbar_search"
+                  class="input-group__field"
+                  type="text"
+                  placeholder="Найти лучшие в мире часы"
+                />
+                <button
+                  class="button button--square button--black"
+                  type="button"
+                >
+                  <BaseIcon name="search" />
+                </button>
+              </div>
+            </div>
+            <ul class="filter__options-list">
+              <li class="filter__option">
+                <CheckboxComponent
+                  label="Выбрать все"
+                  value="all"
+                  :checked="selected.length === brandsList.length"
+                  @change="selectAllBrands"
+                />
+              </li>
+              <li
+                v-for="item in brandsList"
+                :key="item.value"
+                class="filter__option"
+              >
+                <CheckboxComponent
+                  :label="item.label"
+                  :value="item.value"
+                  :checked="selected.indexOf(item.value) >= 0"
+                  @change="
+                    (checked) => handleBrandSelection(item.value, checked)
+                  "
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </main>
+
+      <main class="filters__main filter">
+        <div class="filter__top">
+          <h3 class="filter__title">Местоположение</h3>
+          <span class="text-16 lots-found">Найдено 185 товаров</span>
+          <div class="filters__mobile-close">
+            <BaseIcon name="star" />
+          </div>
+        </div>
+        <div class="filter__backdrop button mobile-caret">
+          <span>Назад</span>
+        </div>
+        <div class="filter__popular">
+          <h4 class="filter__subtitle mobile-caret show-menu">
+            Популярное местоположение
+          </h4>
+          <div class="filter__popular-list">
+            <button
+              v-for="popularBrand in getPopularBrands"
+              :key="popularBrand"
+              :class="[
+                'filter__popular-item',
+                'button',
+                'button--text-sm',
+                'button--gray',
+                { active: selected.indexOf(popularBrand.value) >= 0 },
+              ]"
+              type="button"
+              @click="
+                handleBrandSelection(
+                  popularBrand.value,
+                  selected.indexOf(popularBrand.value) === -1
+                )
+              "
+            >
+              {{ popularBrand.label }}
+            </button>
+          </div>
+        </div>
+        <div class="filter__main">
+          <h4 class="filter__subtitle mobile-caret">Поиск местоположения</h4>
+          <div class="filter__options">
+            <div class="filter__search search">
+              <div class="search input-group">
+                <input
+                  id="navbar_search"
+                  class="input-group__field"
+                  type="text"
+                  placeholder="Найти лучшие в мире часы"
+                />
+                <button
+                  class="button button--square button--black"
+                  type="button"
+                >
+                  <BaseIcon name="search" />
+                </button>
+              </div>
+            </div>
+            <ul class="filter__options-list">
+              <li class="filter__option">
+                <CheckboxComponent
+                  label="Выбрать все"
+                  value="all"
+                  :checked="selected.length === brandsList.length"
+                  @change="selectAllBrands"
+                />
+              </li>
+              <li
+                v-for="item in brandsList"
+                :key="item.value"
+                class="filter__option"
+              >
+                <CheckboxComponent
+                  :label="item.label"
+                  :value="item.value"
+                  :checked="selected.indexOf(item.value) >= 0"
+                  @change="
+                    (checked) => handleBrandSelection(item.value, checked)
+                  "
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </main>
+
+      <main class="filters__main filter">
+        <div class="filter__top">
+          <h3 class="filter__title">Пол</h3>
+          <span class="text-16 lots-found">Найдено 185 товаров</span>
+          <div class="filters__mobile-close">
+            <BaseIcon name="star" />
+          </div>
+        </div>
+        <div class="filter__backdrop button mobile-caret">
+          <span>Назад</span>
+        </div>
+        <div class="filter__popular">
+          <h4 class="filter__subtitle mobile-caret show-menu">
+            Выберите пол
+          </h4>
+          <div class="filter__popular-list">
+            <button
+              v-for="popularBrand in getPopularBrands"
+              :key="popularBrand"
+              :class="[
+                'filter__popular-item',
+                'button',
+                'button--text-sm',
+                'button--gray',
+                { active: selected.indexOf(popularBrand.value) >= 0 },
+              ]"
+              type="button"
+              @click="
+                handleBrandSelection(
+                  popularBrand.value,
+                  selected.indexOf(popularBrand.value) === -1
+                )
+              "
+            >
+              {{ popularBrand.label }}
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <main class="filters__main filter">
+        <div class="filter__top">
+          <h3 class="filter__title">Состояние</h3>
+          <span class="text-16 lots-found">Найдено 185 товаров</span>
+          <div class="filters__mobile-close">
+            <BaseIcon name="star" />
+          </div>
+        </div>
+        <div class="filter__backdrop button mobile-caret">
+          <span>Назад</span>
+        </div>
+        <div class="filter__popular">
+          <h4 class="filter__subtitle mobile-caret show-menu">
+            Популярные категории
+          </h4>
+          <div class="filter__popular-list">
+            <button
+              v-for="popularBrand in getPopularBrands"
+              :key="popularBrand"
+              :class="[
+                'filter__popular-item',
+                'button',
+                'button--text-sm',
+                'button--gray',
+                { active: selected.indexOf(popularBrand.value) >= 0 },
+              ]"
+              type="button"
+              @click="
+                handleBrandSelection(
+                  popularBrand.value,
+                  selected.indexOf(popularBrand.value) === -1
+                )
+              "
+            >
+              {{ popularBrand.label }}
+            </button>
+          </div>
+        </div>
+        <div class="filter__main">
+          <h4 class="filter__subtitle mobile-caret">Состояние</h4>
+          <div class="filter__popular-list">
+            <button
+              v-for="popularBrand in getPopularBrands"
+              :key="popularBrand"
+              :class="[
+                'filter__popular-item',
+                'button',
+                'button--text-sm',
+                'button--gray',
+                { active: selected.indexOf(popularBrand.value) >= 0 },
+              ]"
+              type="button"
+              @click="
+                handleBrandSelection(
+                  popularBrand.value,
+                  selected.indexOf(popularBrand.value) === -1
+                )
+              "
+            >
+              {{ popularBrand.label }}
+            </button>
+          </div>
+        </div>
+      </main>
+
       <footer class="filters__footer">
         <button
           class="button button--black"
