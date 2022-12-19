@@ -18,7 +18,7 @@ export default defineNuxtConfig({
   // build: {
   //   transpile: ['swiper']
   // },
-  modules: ['@nuxtjs/device'],
+  modules: ['@nuxtjs/device','@vueuse/nuxt'],
   device: {
     refreshOnResize: true,
   },

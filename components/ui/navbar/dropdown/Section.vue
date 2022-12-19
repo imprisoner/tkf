@@ -26,6 +26,8 @@
 </template>
 
 <script setup>
+import {isDesktop} from "@/utils/queries";
+
   defineProps({
     repository: {
       type: String,
@@ -45,16 +47,14 @@
     },
   })
 
-  const { isMobileOrTablet } = useDevice()
-
   const triggerActiveClass = computed(() => ({
-    active: displayMobileList.value && isMobileOrTablet,
+    active: displayMobileList.value && !isDesktop.value,
   }))
 
   const displayMobileList = ref(false)
 
   const isMobileListActive = computed(() => {
-    if (!isMobileOrTablet) {
+    if (isDesktop.value) {
       return true
     }
 
@@ -76,7 +76,7 @@
       color: $input;
       max-height: 320px;
       flex-wrap: wrap;
-      @include max-width('xl') {
+      @include max-width('lg') {
         padding: 16px 24px;
         max-height: unset;
         flex-wrap: nowrap;
@@ -88,7 +88,7 @@
     &__list-item {
       &:first-child {
         display: none;
-        @include max-width('xl') {
+        @include max-width('lg') {
           display: initial;
           color: black;
           font-size: 12px;
@@ -100,10 +100,10 @@
       display: flex;
       gap: 8px;
       margin-bottom: 16px;
-      @include max-width('xl') {
+      @include max-width('lg') {
         // padding: 12px 14px;
         margin-bottom: unset;
-        @include mobile-caret('xl');
+        @include mobile-caret('lg');
       }
 
       &.active::after {
@@ -111,19 +111,19 @@
       }
     }
     &__subtitle-text {
-      @include max-width('xl') {
+      @include max-width('lg') {
         flex: 1;
       }
     }
 
     &__section::after {
-      @include max-width('xl') {
+      @include max-width('lg') {
         transform: rotate(180deg);
       }
     }
 
     &__link {
-      @include max-width('xl') {
+      @include max-width('lg') {
         display: none;
       }
     }

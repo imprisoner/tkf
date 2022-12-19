@@ -19,14 +19,3 @@ footer {
     letter-spacing: -0.61px;
   }
 }
-
-// on mobile resolutions
-
-@include max-width('lg') {
-  .logo,
-  footer .logo {
-    font-size: 16px;
-    line-height: 19px;
-    letter-spacing: -0.28px;
-  }
-}
