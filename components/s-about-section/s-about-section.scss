@@ -64,6 +64,14 @@
       }
     }
 
+    .card {
+      padding: 36px;
+
+      @include max-width('md') {
+        padding: 18px;
+      }
+    }
+
     .button {
       cursor: default;
     }
