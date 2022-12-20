@@ -42,7 +42,6 @@
       banners.push(banner);
     });
   });
-
 </script>
 
 <style lang="scss" scoped>

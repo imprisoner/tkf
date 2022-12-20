@@ -1,6 +1,6 @@
 <template>
   <main id="lot-page" class="catalog">
-    <SCatalogTop :breadcrumbs="breadcrumbs"/>
+    <SCatalogTop />
     <article class="container lot">
       <div class="row lot__top">
         <div
@@ -103,19 +103,6 @@
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/watches/' + slug
   const { data: lot } = await useFetch(uri, { key: slug })
-  const breadcrumbs = [];
-  const routes = useRoute().fullPath.split('/');
-  let url = '/';
-
-  for(let i = 0; i < routes.length; i++) {
-    if (routes[i] !== '') {
-      url += `${routes[i]}/`;
-      breadcrumbs.push({
-        text: routes[i] === 'watches' ? 'Каталог часов' : lot._value.name,
-        route: url,
-      });
-    }
-  }
 
   const gender = computed(() => {
     let value = '';
