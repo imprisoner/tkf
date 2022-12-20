@@ -1,7 +1,9 @@
-import { useRoute } from '#app'
+import useQueryString from '~/composables/useQueryString'
 
 export default function () {
-  const sortTypes = ref([
+  const { getUrlSearchParams, setUrlSearchParams } = useQueryString()
+
+  const sortTypes = [
     {
       label: 'Сначала новые',
       value: 'update_dt',
@@ -18,21 +20,29 @@ export default function () {
       label: 'По убыванию цены',
       value: '-price_usd',
     },
-  ])
+  ]
 
-  const route = useRoute()
+  const setDefaultSort = () => {
+    if (!getUrlSearchParams.value.ordering) {
+      setUrlSearchParams({ ordering: sortTypes[0].value })
+    }
+  }
 
-  const activeOrdering = ref(
-    route.query.ordering
-      ? sortTypes.value[
-          sortTypes.value.findIndex((i) => i.value === route.query.ordering) ??
-            0
-        ]
-      : sortTypes.value[0]
+  setDefaultSort()
+
+  watch(getUrlSearchParams, setDefaultSort)
+
+  const getActiveOrdering = computed(
+    () =>
+      sortTypes[
+        sortTypes.findIndex(
+          (i) => i.value === getUrlSearchParams.value.ordering
+        )
+      ]
   )
-
-  const getActiveOrdering = computed(() => activeOrdering.value)
-  const updateOrdering = (value) => (activeOrdering.value = value)
+  const updateOrdering = ({ value }) => {
+    setUrlSearchParams({ ordering: value })
+  }
 
   return {
     sortTypes,

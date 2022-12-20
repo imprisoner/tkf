@@ -86,9 +86,8 @@
     },
   })
 
-  const emit = defineEmits(['updateParams'])
-
   const { sortTypes, getActiveOrdering, updateOrdering } = useSort()
+
   const {
     limits,
     updatePage,
@@ -97,23 +96,6 @@
     perPageLimit,
     getPagesCount,
   } = usePagination(computed(() => props.commonLotsCount ?? 0))
-
-  const getQueryParams = computed(() => {
-    return {
-      limit: perPageLimit.value,
-      offset: perPageLimit.value * (currentPage.value - 1),
-      ordering: getActiveOrdering.value.value,
-    }
-  })
-
-  watch(
-    computed(() => getQueryParams.value),
-    () => emit('updateParams', getQueryParams.value)
-  )
-
-  onMounted(() => {
-    emit('updateParams', getQueryParams.value)
-  })
 </script>
 
 <style lang="scss" scoped>

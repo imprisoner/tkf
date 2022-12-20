@@ -21,7 +21,12 @@
 
   function search(e) {
     const searchString = e.target.value
-    navigateTo(`/search?search_string=${searchString}`)
+    navigateTo({
+      path: '/search',
+      query: {
+        search_string: searchString,
+      },
+    })
   }
 </script>
 

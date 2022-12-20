@@ -1,14 +1,18 @@
 <template>
-  <main id="search">
+  <main id="search" v-show="!pending">
     <SCatalogTop
       :breadcrumbs="[{ text: 'Поиск' }]"
       :count="lotsResponse.count ?? 0"
-      :title="getQueryParams.search_string ?? ''"
+      :title="
+        isEmptyList
+          ? getUrlSearchParams.search_string ?? ''
+          : 'Ничего не найдено'
+      "
     />
     <SGoodSection
+      v-show="isEmptyList"
       :lots-list="lotsResponse.results"
       :common-lots-count="lotsResponse.count"
-      @update-params="updateQueryParams"
     />
   </main>
 </template>
@@ -17,17 +21,17 @@
   import { getLotsBySearchString } from '~/api/getLotsBySearchString'
   import useQueryString from '~/composables/useQueryString'
 
-  const { getQueryParams, updateQueryParams } = useQueryString()
+  const { getUrlSearchParams } = useQueryString()
 
-  const lotsResponse = ref({})
+  const { data: lotsResponse, pending } = await getLotsBySearchString(
+    getUrlSearchParams.value
+  )
 
-  const updateLotsResponse = async () => {
-    const { data } = await getLotsBySearchString(getQueryParams.value)
+  const isEmptyList = computed(() => lotsResponse.value.results?.length)
+
+  watch(getUrlSearchParams, async () => {
+    const { data } = await getLotsBySearchString(getUrlSearchParams.value)
     lotsResponse.value = data.value
-  }
-
-  watch(getQueryParams, () => {
-    updateLotsResponse()
   })
 </script>
 
