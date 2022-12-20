@@ -123,10 +123,10 @@
       case lot._value.gender === 'UNISEX': 
         value = 'унисекс';
       break;
-      case lot._value.gender === 'MEN': 
+      case lot._value.gender === 'MALE': 
         value = 'мужской';
       break;
-      case lot._value.gender === 'WOMEN': 
+      case lot._value.gender === 'FEMALE': 
         value = 'женский';
       break;
     }
