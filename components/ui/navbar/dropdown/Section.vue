@@ -89,6 +89,8 @@ function toggleList() {
     color: $input;
     flex-wrap: wrap;
     @include max-width('lg') {
+      display: flex;
+      flex-direction: column;
       padding: 16px 24px;
       max-height: unset;
       flex-wrap: nowrap;
