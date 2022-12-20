@@ -3,18 +3,21 @@
     <div class="button button--square button--neutral">
       <base-icon name="heart"></base-icon>
     </div>
-    <div class="product-card__img">
+    <NuxtLink class="product-card__img" :to="`/${type}/${lot.slug}`">
       <img
         class="img-resp"
         :src="lot.image || stubBrandImageUrl"
         :alt="lot.title"
       />
-    </div>
+    </NuxtLink>
     <NuxtLink :to="`/${type}/${lot.slug}`">
-      <h6 class="product-card__title">
-        <!--TODO дождаться доработки с бэка-->
-        {{ lot.model_name }}
-        <span>{{ lot.brand_name }}</span>
+      <h6 class="product-card__title" v-if="lot.brand">
+        {{ lot.brand.name }}
+        <span v-if="lot.v">{{ lot.model.name }}</span>
+      </h6>
+      <h6 class="product-card__title" v-if="lot.brand_name">
+        {{ lot.brand_name }}
+        <span v-if="lot.brand_name">{{ lot.model_name }}</span>
       </h6>
     </NuxtLink>
     <p class="product-card__desc">{{ lot.name }}</p>
@@ -30,11 +33,10 @@
         }}</span>
       </template>
     </div>
-    <!--TODO дождаться доработки с бэка-->
-    <!-- <strong class="product-card__price">
-      ${{ usd }}
-      <span>{{ rub }} ₽</span>
-    </strong> -->
+    <strong class="product-card__price">
+      ${{ lot.price_usd }}
+      <span v-if="lot.price_rub">{{ lot.price_rub }} ₽</span>
+    </strong>
   </div>
 </template>
 
@@ -47,6 +49,8 @@
       default: () => ({}),
     },
   })
+
+  // Fix:  Не приходит с бека
   const type = props.lot.type === 'watch' ? 'watches' : 'jewelry'
   const stubBrandImageUrl = '/img/brand_stub.png'
 </script>

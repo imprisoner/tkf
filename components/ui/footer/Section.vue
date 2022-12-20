@@ -1,6 +1,6 @@
 <template>
   <div class="footer-nav__section">
-    <h6 class="footer-nav__heading" :role="isButton" @click="toggle">
+    <h6 class="footer-nav__heading" :class="{'footer-nav__heading--open':isShowing}" :role="isButton" @click="toggle">
       {{ heading }}
     </h6>
     <ul v-if="isShowing" class="footer-nav__list">
@@ -12,9 +12,9 @@
 </template>
 
 <script setup>
-  const { isMobile } = useDevice()
+ import {isMobile} from "@/utils/queries";
 
-  defineProps({
+ defineProps({
     heading: {
       type: String,
       default: '',
@@ -28,13 +28,13 @@
   const triggerClicked = ref(false)
 
   function toggle() {
-    if (isMobile) {
+    if (isMobile.value) {
       triggerClicked.value = !triggerClicked.value
     }
   }
 
   const isShowing = computed(() => {
-    if (!isMobile) {
+    if (!isMobile.value) {
       return true
     }
 
@@ -42,7 +42,7 @@
   })
 
   const isButton = computed(() => {
-    return isMobile ? 'button' : null
+    return isMobile.value ? 'button' : null
   })
 </script>
 
@@ -101,6 +101,11 @@
       @include max-width('md') {
         margin-bottom: unset;
         padding: 12px 16px;
+      }
+      &--open{
+        &:after{
+          background: url(/assets/svg/icons/chevron-up.svg) center / cover no-repeat;
+        }
       }
     }
   }

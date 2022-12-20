@@ -1,10 +1,10 @@
 <template>
     <main id="goods-page" class="catalog">
-        <SCatalogTop />
+        <SCatalogTop :title="titleCatalogTop" />
 
-        <SGoodSection />
+        <SGoodSection :show-filters="true"/>
 
-        <!-- <SAdsSection :banners="banners"/> -->
+        <SAdsSection :banners="banners"/>
 
         <div class="container brands-title">
             <div class="row">
@@ -30,22 +30,19 @@
 </template>
 
 <script setup>
-    // const banners = [
-    //     {
-    //         title: 'Лучшие предложения 1',
-    //         description: 'People also search for this items',
-    //         link: '#',
-    //         image: '/img/watches_1.png',
-    //     },
-    //     {
-    //         title: 'Лучшие предложения 2',
-    //         description: 'People also search for this items',
-    //         link: '#',
-    //         image: '/img/watches_2.png',
-    //     },
-    // ]
-    const titleDescriptionSection = 'Описание раздела'
-    const textDescriptionSection = 'Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия.'
+  import { getBanners } from '@/api/getBanners';
+
+  const titleCatalogTop = "Все мужские часы";
+  const titleDescriptionSection = 'Описание раздела';
+  const textDescriptionSection = 'Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия.';
+  const banners = [];
+
+  await getBanners({ page: 'WATCH' }).then((response) => {
+    Object.entries(response._value).forEach((banner) => {
+      banners.push(banner);
+    });
+  });
+
 </script>
 
 <style lang="scss" scoped>
@@ -54,7 +51,7 @@
     margin-bottom: 200px;
   }
 
-  .ads-section {
+  .s-ads-section {
     margin-bottom: 226px;
   }
 
@@ -79,7 +76,7 @@
   }
 
   @include max-width('md') {
-    .goods-section, .ads-section, .alphabet, .categories-section {
+    .goods-section, .s-ads-section, .alphabet, .categories-section {
       margin-bottom: 64px;
     }
 

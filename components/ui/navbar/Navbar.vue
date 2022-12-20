@@ -40,31 +40,32 @@
             :key="i"
             @show="setActiveItem(i)"
           ></ui-navbar-dropdown>
-          <ui-navbar-mobile-bottom v-if="isMobileUI"></ui-navbar-mobile-bottom>
         </div>
       </div>
       <template v-if="isMobileUI">
         <nuxt-link class="navbar__mobile-logo logo" href="/"
           ><b>Time</b>Keeper</nuxt-link
         >
-        <button
-          class="button button--square navbar__cart-trigger"
-          type="button"
-        >
-          <base-icon name="shopping-cart"></base-icon>
-        </button>
       </template>
-      <div class="navbar__fav">
-        <ui-navbar-fav-menu></ui-navbar-fav-menu>
-      </div>
     </div>
   </nav>
 </template>
 
 <script setup>
-  const { isMobileOrTablet } = useDevice()
+import {isDesktop} from "@/utils/queries";
+import { getBrands } from '@/api/getBrands'
 
-  const isMobileUI = ref(isMobileOrTablet)
+import { WATCH, JEWELRY } from '@/constants/brandTypes'
+
+const BRAND_TYPES_ROUTE_MAP = {
+  [WATCH]: 'watches',
+  [JEWELRY]: 'jewelry'
+}
+
+const watchesBrands = await loadBrands(WATCH)
+const jewelryBrands = await loadBrands(JEWELRY)
+
+const isMobileUI = ref(!isDesktop.value)
 
   const displayState = reactive({
     search: false,
@@ -76,6 +77,16 @@
     displayState.search = !displayState.search
   }
 
+  function loadBrands(type) {
+    return getBrands({ brandType: type }, true)
+      .then(brands => {
+        return brands.slice(0, 20).map(brand => ({
+           ...brand,
+          link: `/${BRAND_TYPES_ROUTE_MAP[type]}`
+        }))
+    })
+  }
+
   const navbarItems = reactive([
     {
       title: 'Швейцарские часы',
@@ -84,6 +95,13 @@
       icon: 'watch',
       link: '/watches',
       isActive: false,
+      categories: [
+        { name: 'Мужские', link: '/watches' },
+        { name: 'Женские', link: '/watches' },
+        { name: 'Новые', link: '/watches' },
+        { name: 'Подержанные', link: '/watches' }
+      ],
+      brands: watchesBrands
     },
     {
       title: 'Ювелирные украшения',
@@ -92,6 +110,13 @@
       icon: 'crystal',
       link: '/jewelry',
       isActive: false,
+      categories: [
+        { name: 'Мужские', link: '/jewelry' },
+        { name: 'Женские', link: '/jewelry' },
+        { name: 'Новые', link: '/jewelry' },
+        { name: 'Подержанные', link: '/jewelry' }
+      ],
+      brands: jewelryBrands
     },
     {
       title: 'Контакты',
@@ -122,14 +147,14 @@
   // mobile menu
 
   const isMobileMenuActive = computed(() => {
-    if (!isMobileOrTablet) {
+    if (isDesktop.value) {
       return true
     }
     return displayState.mobileMenu
   })
 
   const navbarMobileClass = computed(() => ({
-    'navbar__mobile-overlay': isMobileOrTablet,
+    'navbar__mobile-overlay': !isDesktop.value,
   }))
 
   function showMobileMenu() {
@@ -171,7 +196,7 @@
     z-index: 5;
     transition: padding 0.5s;
 
-    @include max-width('xl') {
+    @include max-width('lg') {
       background-color: $neutral;
       position: static;
     }
@@ -187,7 +212,7 @@
       align-items: center;
       padding: 24px;
       position: relative;
-      @include max-width('xl') {
+      @include max-width('lg') {
         padding: unset;
         background-color: unset;
         position: static;
@@ -197,7 +222,7 @@
     &__fav {
       margin-left: auto;
 
-      @include max-width('xl') {
+      @include max-width('lg') {
         margin-left: unset;
       }
     }
@@ -207,7 +232,7 @@
       align-items: center;
       gap: 16px;
 
-      @include max-width('xl') {
+      @include max-width('lg') {
         flex-direction: column;
         align-items: start;
         flex: 1;
@@ -223,7 +248,7 @@
     }
 
     &__drawer-close {
-      @include max-width('xl') {
+      @include max-width('lg') {
         display: flex;
         position: absolute;
         top: 0;
@@ -233,7 +258,7 @@
 
     &__menu-trigger,
     &__search-trigger {
-      @include max-width('xl') {
+      @include max-width('lg') {
         svg {
           width: 20px;
           height: 20px;
@@ -242,20 +267,20 @@
     }
 
     &__search-trigger {
-      @include max-width('xl') {
+      @include max-width('lg') {
         margin-left: 20px;
       }
     }
 
     &__mobile-logo {
-      @include max-width('xl') {
+      @include max-width('lg') {
         display: block;
         margin: 0 auto;
       }
     }
 
     &__mobile-overlay {
-      @include max-width('xl') {
+      @include max-width('lg') {
         position: fixed;
         top: 0;
         left: 0;
@@ -267,7 +292,7 @@
       }
     }
 
-    @include max-width('xl') {
+    @include max-width('lg') {
       // background-color: $neutral;
       // position: static;
 
@@ -308,10 +333,10 @@
     }
   }
   .navbar-search {
-    margin-left: 16px;
+    margin-left: auto;
     width: auto;
 
-    @include max-width('xl') {
+    @include max-width('lg') {
       position: absolute;
       left: -9999px;
     }
@@ -335,7 +360,7 @@
       margin-left: auto;
       z-index: 1;
 
-      @include max-width('xl') {
+      @include max-width('lg') {
         left: 0;
         top: 40px;
         right: 0;

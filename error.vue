@@ -45,13 +45,13 @@
       &__wrap {
         position: absolute;
         left: 28px;
-        top: 0;
+        top:  80px;
         bottom: 0;
         right: 28px;
-        align-content: flex-end;
         padding-bottom: 220px;
         min-height: 100vh;
         @include max-width('md') {
+          top: 40px;
           padding-bottom: 106px;
         }
       }
@@ -99,6 +99,7 @@
       &__icon {
         max-width: 636px;
         max-height: 503px;
+        align-self: flex-end;
 
         svg {
           @include max-width('xl') {
