@@ -1,7 +1,6 @@
 <template>
   <main id="categories-page" class="catalog">
     <SCatalogTop
-      :breadcrumbs="breadcrumbs"
       :title="title"
       :btn-show="btnShow"
       :count="98"
@@ -11,12 +10,6 @@
 </template>
 
 <script setup>
-  const breadcrumbs = [
-    {
-      text: 'Ювелирные украшения',
-      href: '/categories/jewelry',
-    },
-  ]
   const title = 'Категории ювелирных украшений'
   const btnShow = false
 </script>
