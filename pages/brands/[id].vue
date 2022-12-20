@@ -1,6 +1,6 @@
 <template>
   <main id="goods-page" class="catalog">
-    <SCatalogTop :count="lotsResponse.count" :breadcrumbs="breadcrumbs" />
+    <SCatalogTop :count="lotsResponse.count" />
 
     <SGoodSection
       :lots-response="lotsResponse"

@@ -19,11 +19,54 @@
 
 <script setup>
   import './a-breadcrumbs.scss'
+  const routes = useRoute().fullPath.split('/');
+  let url = '/';
+  const breadcrumbs = [];
 
-  defineProps({
-    breadcrumbs: {
-      type: Array,
-      default: () => [],
-    },
-  })
+  for(let i = 0; i < routes.length; i++) {
+    if (routes[i] !== '') {
+      url += `${routes[i]}/`;
+      breadcrumbs.push({
+        text: getText(routes[i]),
+        route: url,
+      });
+    }
+  }
+
+  function getText(breadcrumb) {
+    const route = breadcrumb.replaceAll('/', '');
+    let text = breadcrumb;
+    
+    switch(true) {
+      case route === 'watches':
+        text = 'Швейцарские часы';
+        break;
+      case route === 'jewelry':
+        text = 'Ювелирные украшения';
+        break;
+      case route === 'categories':
+        text = 'Категории';
+        break;
+      case route === 'contacts':
+        text = 'Контакты';
+        break;
+      case route === 'search':
+        text = 'Поиск';
+        break;
+      case route === 'category':
+        text = 'Категория';
+        break;
+      case route === 'brands':
+        text = 'Бренды';
+        break;
+      case route === 'brand':
+        text = 'Бренд';
+        break;
+      default:
+        text = route;
+        break;
+    }
+
+    return text;
+  }
 </script>

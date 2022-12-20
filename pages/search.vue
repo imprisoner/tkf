@@ -1,7 +1,6 @@
 <template>
   <main id="search">
     <SCatalogTop
-      :breadcrumbs="[{ text: 'Поиск' }]"
       :count="lotsResponse.count ?? '0'"
       :title="searchString"
     />
