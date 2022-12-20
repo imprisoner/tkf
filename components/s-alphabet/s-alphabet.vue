@@ -25,22 +25,22 @@
         <div class="alphabet__list row offset-lg-3 col-xl-8 col-md-10 col-8">
           <ul class="col-xl-3 col-md-4 col-12">
             <li v-for="item in brandsMainCards" :key="item.id" class="text-16">
-              <a href="#">{{ item.name }}</a>
+              <NuxtLink :to="`/brands/${item.id}`">{{ item.name }}</NuxtLink>
             </li>
           </ul>
           <ul class="col-xl-3 col-md-4 col-12">
             <li v-for="item in brandsMainCards" :key="item.id" class="text-16">
-              <a href="#">{{ item.name }}</a>
+              <NuxtLink :to="`/brands/${item.id}`">{{ item.name }}</NuxtLink>
             </li>
           </ul>
           <ul class="col-xl-3 col-md-4 col-12">
             <li v-for="item in brandsMainCards" :key="item.id" class="text-16">
-              <a href="#">{{ item.name }}</a>
+              <NuxtLink :to="`/brands/${item.id}`">{{ item.name }}</NuxtLink>
             </li>
           </ul>
           <ul class="col-xl-3 col-md-4 col-12">
             <li v-for="item in brandsMainCards" :key="item.id" class="text-16">
-              <a href="#">{{ item.name }}</a>
+              <NuxtLink :to="`/brands/${item.id}`">{{ item.name }}</NuxtLink>
             </li>
           </ul>
         </div>
