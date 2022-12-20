@@ -37,8 +37,6 @@
       }
     })
   });
-
-  console.log(mainOffers)
 </script>
 
 <style lang="scss" scoped>
