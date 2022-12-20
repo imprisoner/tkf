@@ -116,10 +116,6 @@
       });
     }
   }
-  
-  const route = useRoute();
-
-  console.log(route.matched);
 
   const gender = computed(() => {
     let value = '';
