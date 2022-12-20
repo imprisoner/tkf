@@ -29,11 +29,11 @@
           :class="bottomLinkClass"
           :to="`/lots/${repository}`"
         >
+          <span>Показать все {{ title.toLowerCase() }}</span>
           <base-icon
             :name="bottomLinkIcon"
             class="botton-link__icon"
           ></base-icon>
-          <span>Показать все {{ title.toLowerCase() }}</span>
         </nuxt-link>
       </div>
     </template>
@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import {isDesktop} from "@/utils/queries";
+import { isDesktop } from '@/utils/queries';
 
   const props = defineProps({
     title: {
@@ -68,10 +68,17 @@ import {isDesktop} from "@/utils/queries";
       type: String,
       default: '',
     },
+    categories: {
+      type: Array,
+      default: () => []
+    },
+    brands: {
+      type: Array,
+      default: () => []
+    }
   })
 
   const emits = defineEmits(['show'])
-
 
   const trigger = shallowRef(
     props.link && !props.hasDropdown ? resolveComponent('NuxtLink') : 'button'
@@ -109,16 +116,19 @@ import {isDesktop} from "@/utils/queries";
       },
     },
   })
+
   const sections = reactive([
     {
       name: 'categories',
       title: 'Категории',
       repository: props.repository,
+      list: props.categories
     },
     {
       name: 'brands',
       title: 'Бренды',
       repository: props.repository,
+      list: props.brands
     },
   ])
 
@@ -198,6 +208,8 @@ import {isDesktop} from "@/utils/queries";
   .bottom-link {
     @include max-width('lg') {
       border-bottom: $border;
+      justify-content: flex-start;
+      font-weight: 400;
     }
 
     &__icon {

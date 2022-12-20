@@ -6,7 +6,7 @@
       </h4>
       <nuxt-link
         class="navbar-menu__link link-button"
-        :to="`/${name}/${repository}`"
+        :to="`/${repository}/${name}/`"
       >
         <span>Все</span>
         <base-icon name="arrow-down-right"></base-icon>
@@ -18,9 +18,9 @@
           >Показать все {{ title.toLowerCase() }}</nuxt-link
         >
       </li>
-      <!-- <li v-for="(item, j) in list" :key="j" class="navbar-menu__list-item">
-        <nuxt-link :to="`#`">{{ item.name }}</nuxt-link>
-      </li> -->
+      <li v-for="(item, j) in list" :key="j" class="navbar-menu__list-item">
+        <nuxt-link :to="item.link || `/${repository}/`">{{ item.name }}</nuxt-link>
+      </li>
     </ul>
   </section>
 </template>
@@ -45,6 +45,10 @@ import {isDesktop} from "@/utils/queries";
       type: Object,
       default: () => ({}),
     },
+    list: {
+      type: Array,
+      default: () => []
+    }
   })
 
   const triggerActiveClass = computed(() => ({

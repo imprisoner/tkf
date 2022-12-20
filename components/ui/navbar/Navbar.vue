@@ -63,6 +63,17 @@
 
 <script setup>
 import {isDesktop} from "@/utils/queries";
+import { getBrands } from '@/api/getBrands'
+
+import { WATCH, JEWELRY } from '@/constants/brandTypes'
+
+const BRAND_TYPES_ROUTE_MAP = {
+  [WATCH]: 'watches',
+  [JEWELRY]: 'jewelry'
+}
+
+const watchesBrands = await loadBrands(WATCH)
+const jewelryBrands = await loadBrands(JEWELRY)
 
 const isMobileUI = ref(!isDesktop.value)
 
@@ -76,6 +87,16 @@ const isMobileUI = ref(!isDesktop.value)
     displayState.search = !displayState.search
   }
 
+  function loadBrands(type) {
+    return getBrands({ brandType: type }, true)
+      .then(brands => {
+        return brands.slice(0, 20).map(brand => ({
+           ...brand,
+          link: `/${BRAND_TYPES_ROUTE_MAP[type]}`
+        }))
+    })
+  }
+
   const navbarItems = reactive([
     {
       title: 'Швейцарские часы',
@@ -84,6 +105,13 @@ const isMobileUI = ref(!isDesktop.value)
       icon: 'watch',
       link: '/watches',
       isActive: false,
+      categories: [
+        { name: 'Мужские', link: '/watches' },
+        { name: 'Женские', link: '/watches' },
+        { name: 'Новые', link: '/watches' },
+        { name: 'Подержанные', link: '/watches' }
+      ],
+      brands: watchesBrands
     },
     {
       title: 'Ювелирные украшения',
@@ -92,6 +120,13 @@ const isMobileUI = ref(!isDesktop.value)
       icon: 'crystal',
       link: '/jewelry',
       isActive: false,
+      categories: [
+        { name: 'Мужские', link: '/jewelry' },
+        { name: 'Женские', link: '/jewelry' },
+        { name: 'Новые', link: '/jewelry' },
+        { name: 'Подержанные', link: '/jewelry' }
+      ],
+      brands: jewelryBrands
     },
     {
       title: 'Контакты',

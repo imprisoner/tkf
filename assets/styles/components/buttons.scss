@@ -23,6 +23,7 @@
   svg {
     width: 20px;
     height: 20px;
+    flex-shrink: 0;
 
     @include max-width('lg') {
       width: 12px;
