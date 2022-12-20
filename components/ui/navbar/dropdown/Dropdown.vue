@@ -18,6 +18,7 @@
       <div v-show="isActive" class="navbar__menu navbar-menu">
         <div class="navbar-menu__wrap">
           <ui-navbar-dropdown-section
+            @click="isActive = false"
             v-for="(section, i) in sections"
             :key="i"
             v-bind="section"
@@ -41,7 +42,7 @@
 </template>
 
 <script setup>
-import { isDesktop } from '@/utils/queries';
+  import { isDesktop } from '@/utils/queries'
 
   const props = defineProps({
     title: {
@@ -70,12 +71,12 @@ import { isDesktop } from '@/utils/queries';
     },
     categories: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     brands: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   })
 
   const emits = defineEmits(['show'])
@@ -122,13 +123,13 @@ import { isDesktop } from '@/utils/queries';
       name: 'categories',
       title: 'Категории',
       repository: props.repository,
-      list: props.categories
+      list: props.categories,
     },
     {
       name: 'brands',
       title: 'Бренды',
       repository: props.repository,
-      list: props.brands
+      list: props.brands,
     },
   ])
 

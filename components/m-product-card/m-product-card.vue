@@ -11,11 +11,11 @@
       />
     </NuxtLink>
     <NuxtLink :to="`/${type}/${lot.slug}`">
-      <h6 class="product-card__title" v-if="lot.brand">
+      <h6 v-if="lot.brand" class="product-card__title">
         {{ lot.brand.name }}
         <span v-if="lot.v">{{ lot.model.name }}</span>
       </h6>
-      <h6 class="product-card__title" v-if="lot.brand_name">
+      <h6 v-if="lot.brand_name" class="product-card__title">
         {{ lot.brand_name }}
         <span v-if="lot.brand_name">{{ lot.model_name }}</span>
       </h6>

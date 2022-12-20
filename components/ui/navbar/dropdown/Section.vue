@@ -19,14 +19,16 @@
         >
       </li>
       <li v-for="(item, j) in list" :key="j" class="navbar-menu__list-item">
-        <nuxt-link :to="item.link || `/${repository}/`">{{ item.name }}</nuxt-link>
+        <nuxt-link :to="item.link || `/${repository}/`">{{
+          item.name
+        }}</nuxt-link>
       </li>
     </ul>
   </section>
 </template>
 
 <script setup>
-import {isDesktop} from "@/utils/queries";
+  import { isDesktop } from '@/utils/queries'
 
   defineProps({
     repository: {
@@ -47,8 +49,12 @@ import {isDesktop} from "@/utils/queries";
     },
     list: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
+    isActive: {
+      type: Boolean,
+      required: true,
+    },
   })
 
   const triggerActiveClass = computed(() => ({

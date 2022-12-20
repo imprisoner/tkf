@@ -13,11 +13,11 @@
 <script setup>
   const breadcrumbs = [
     {
-      text: 'Ювелирные украшения',
-      href: '/categories/jewelry',
+      text: 'Швейцарские часы',
+      href: '/watches/categories',
     },
   ]
-  const title = 'Категории ювелирных украшений'
+  const title = 'Категории швейцарских часов'
   const btnShow = false
 </script>
 
