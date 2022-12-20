@@ -6,7 +6,8 @@
       :title="searchString"
     />
     <SGoodSection
-      :lots-response="lotsResponse"
+      :lots-list="lotsResponse.results"
+      :common-lots-count="lotsResponse.count"
       @update-params="updateQueryParams"
     />
   </main>
@@ -14,20 +15,16 @@
 
 <script setup>
   import { getLotsBySearchString } from '~/api/getLotsBySearchString'
+  import useQueryString from '~/composables/useQueryString'
 
   const route = useRoute()
   const searchString = computed(() => `${route.query.search_string ?? ''}`)
 
-  const queryParams = ref({})
-
-  const updateQueryParams = (value) => {
-    queryParams.value = value
-  }
-
-  const getQueryParams = computed(() => ({
-    search_string: searchString.value,
-    ...queryParams.value,
-  }))
+  const { getQueryParams, updateQueryParams } = useQueryString(
+    computed(() => ({
+      search_string: searchString.value,
+    }))
+  )
 
   const lotsResponse = ref({})
 

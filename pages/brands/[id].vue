@@ -6,7 +6,8 @@
     />
 
     <SGoodSection
-      :lots-response="lotsResponse"
+      :lots-list="lotsResponse.results"
+      :common-lots-count="lotsResponse.count"
       :show-filters="true"
       @update-params="updateQueryParams"
     />
@@ -42,17 +43,10 @@
 
 <script setup>
   import { getWatchesBrand } from '@/api/getWatchesBrand'
+  import useQueryString from '~/composables/useQueryString'
   const { id } = useRoute().params
 
-  const queryParams = ref({})
-
-  const updateQueryParams = (value) => {
-    queryParams.value = value
-  }
-
-  const getQueryParams = computed(() => ({
-    ...queryParams.value,
-  }))
+  const { getQueryParams, updateQueryParams } = useQueryString()
 
   const lotsResponse = ref({})
 

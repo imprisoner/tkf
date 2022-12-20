@@ -36,7 +36,7 @@
       <div class="offset-lg-1 col-lg-10 col-12">
         <div class="goods-section__wall">
           <div
-            v-for="lot in lotsResponse.results"
+            v-for="lot in lotsList"
             :key="lot.id"
             class="goods-section__card"
           >
@@ -76,9 +76,13 @@
       type: Boolean,
       default: false,
     },
-    lotsResponse: {
-      type: Object,
-      default: () => ({}),
+    lotsList: {
+      type: Array,
+      default: () => [],
+    },
+    commonLotsCount: {
+      type: Number,
+      default: 0,
     },
   })
 
@@ -92,7 +96,7 @@
     currentPage,
     perPageLimit,
     getPagesCount,
-  } = usePagination(computed(() => props.lotsResponse.count ?? 0))
+  } = usePagination(computed(() => props.commonLotsCount ?? 0))
 
   const getQueryParams = computed(() => {
     return {
