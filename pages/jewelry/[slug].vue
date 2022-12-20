@@ -7,11 +7,12 @@
           class="lot__imagebox imagebox offset-lg-1 col-lg-5 col-md-6 col-12"
         >
           <div class="imagebox__image">
-            <img class="img-resp" :src="lot.image" alt="" />
+            <div class="new new--lot" v-if="lot.condition == 'NEW'">Абсолютно новый</div>
+            <img class="img-resp" :src="lot.image || stubBrandImageUrl" alt="" />
           </div>
           <div class="imagebox__thumbnails">
             <div class="imagebox__thumb">
-              <img class="img-resp" :src="lot.image" alt="" />
+              <img class="img-resp" :src="lot.image || stubBrandImageUrl" alt="" />
             </div>
           </div>
         </div>
@@ -101,6 +102,7 @@
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/jewelry/' + slug
   const { data: lot } = await useFetch(uri, { key: slug });
+  const stubBrandImageUrl = '/img/brand_stub.png';
   
   const gender = computed(() => {
     let value = '';
