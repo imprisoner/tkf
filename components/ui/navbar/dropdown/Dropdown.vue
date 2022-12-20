@@ -18,7 +18,6 @@
       <div v-show="isActive" class="navbar__menu navbar-menu">
         <div class="navbar-menu__wrap">
           <ui-navbar-dropdown-section
-            @click="isActive = false"
             v-for="(section, i) in sections"
             :key="i"
             v-bind="section"
