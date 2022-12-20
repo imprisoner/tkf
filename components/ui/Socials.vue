@@ -42,7 +42,7 @@
       display: block;
       width: 18px;
       height: 18px;
-      @include max-width('lg') {
+      @include max-width('md') {
         width: 12px;
         height: 12px;
       }

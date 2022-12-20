@@ -29,11 +29,11 @@
           :class="bottomLinkClass"
           :to="`/lots/${repository}`"
         >
+          <span>Показать все {{ title.toLowerCase() }}</span>
           <base-icon
             :name="bottomLinkIcon"
             class="botton-link__icon"
           ></base-icon>
-          <span>Показать все {{ title.toLowerCase() }}</span>
         </nuxt-link>
       </div>
     </template>
@@ -41,6 +41,8 @@
 </template>
 
 <script setup>
+import { isDesktop } from '@/utils/queries';
+
   const props = defineProps({
     title: {
       type: String,
@@ -66,11 +68,17 @@
       type: String,
       default: '',
     },
+    categories: {
+      type: Array,
+      default: () => []
+    },
+    brands: {
+      type: Array,
+      default: () => []
+    }
   })
 
   const emits = defineEmits(['show'])
-
-  const { isMobileOrTablet } = useDevice()
 
   const trigger = shallowRef(
     props.link && !props.hasDropdown ? resolveComponent('NuxtLink') : 'button'
@@ -80,18 +88,18 @@
     'show-menu': props.isActive,
   }))
   const triggerClasses = computed(() => ({
-    'button--black': props.isActive && isMobileOrTablet,
-    active: props.isActive && !isMobileOrTablet,
+    'button--black': props.isActive && !isDesktop.value,
+    active: props.isActive && isDesktop.value,
   }))
 
   const type = props.link ? null : 'button'
 
   const bottomLinkIcon = computed(() => {
-    return isMobileOrTablet ? 'arrow-right' : 'arrow-down-right'
+    return !isDesktop.value ? 'arrow-right' : 'arrow-down-right'
   })
 
   const bottomLinkClass = computed(() => {
-    return isMobileOrTablet ? '' : 'button--black'
+    return !isDesktop.value ? '' : 'button--black'
   })
 
   const params = reactive({
@@ -108,16 +116,19 @@
       },
     },
   })
+
   const sections = reactive([
     {
       name: 'categories',
       title: 'Категории',
       repository: props.repository,
+      list: props.categories
     },
     {
       name: 'brands',
       title: 'Бренды',
       repository: props.repository,
+      list: props.brands
     },
   ])
 
@@ -134,13 +145,13 @@
   .navbar__dropdown {
     position: relative;
 
-    @include max-width('xl') {
+    @include max-width('lg') {
       width: 100%;
     }
   }
 
   .navbar__dropdown-trigger {
-    @include max-width('xl') {
+    @include max-width('lg') {
       width: 100%;
       justify-content: start;
       border-bottom: $border;
@@ -167,7 +178,7 @@
     background-color: white;
     @include shadow;
 
-    @include max-width('xl') {
+    @include max-width('lg') {
       position: static;
       width: 100%;
       border: none;
@@ -185,7 +196,7 @@
       padding: 40px;
       padding-bottom: 45px;
 
-      @include max-width('xl') {
+      @include max-width('lg') {
         display: flex;
         flex-direction: column;
         padding: unset;
@@ -195,12 +206,14 @@
     }
   }
   .bottom-link {
-    @include max-width('xl') {
+    @include max-width('lg') {
       border-bottom: $border;
+      justify-content: flex-start;
+      font-weight: 400;
     }
 
     &__icon {
-      @include max-width('xl') {
+      @include max-width('lg') {
         order: 1;
         width: 16px;
         height: 16px;

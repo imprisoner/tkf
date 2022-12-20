@@ -5,13 +5,6 @@
       <!--  -->
       <ui-header-search></ui-header-search>
       <!--  -->
-      <div class="header__right">
-        <button class="button" type="button">Регистрация</button>
-        <button class="header__button button button--black" type="button">
-          <base-icon name="arrow-right"></base-icon>
-          <span>Войти</span>
-        </button>
-      </div>
     </template>
     <div v-else class="header__mobile">
       <ui-socials class="header__socials"></ui-socials>
@@ -24,7 +17,7 @@
 </template>
 
 <script setup>
-  const { isDesktop } = useDevice()
+import {isDesktop} from "@/utils/queries";
 
   const header = ref()
   onMounted(() => {
@@ -55,7 +48,7 @@
     }
 
     // mobile only
-    @include max-width('xl') {
+    @include max-width('lg') {
       padding: 10px 12px;
       background-color: $light-gray;
       height: 40px;
@@ -64,7 +57,7 @@
     &__socials {
       color: $stripe;
 
-      @include max-width('xl') {
+      @include max-width('lg') {
         gap: 20px;
       }
     }
@@ -72,7 +65,7 @@
     &__mobile {
       display: none;
 
-      @include max-width('xl') {
+      @include max-width('lg') {
         display: flex;
         flex: 1;
         align-items: center;
