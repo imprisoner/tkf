@@ -1,111 +1,131 @@
 <template>
-    <main id="goods-page" class="catalog">
-        <SCatalogTop :count="lotsResponse.count"/>
+  <main id="goods-page" class="catalog">
+    <SCatalogTop
+      :count="lotsResponse.count"
+      :breadcrumbs="[{ text: 'Бренды' }]"
+    />
 
-        <SGoodSection :lots-list="lotsResponse.results" :show-filters="true"/>
+    <SGoodSection
+      :lots-response="lotsResponse"
+      :show-filters="true"
+      @update-params="updateQueryParams"
+    />
 
-        <!-- <SAdsSection :banners="banners"/> -->
+    <!-- <SAdsSection :banners="banners"/> -->
 
-        <div class="container brands-title">
-            <div class="row">
-                <div class="offset-lg-1 col-lg-12"><h2>Все бренды швейцарских часов</h2></div>
-            </div>
+    <div class="container brands-title">
+      <div class="row">
+        <div class="offset-lg-1 col-lg-12">
+          <h2>Все бренды швейцарских часов</h2>
         </div>
+      </div>
+    </div>
 
-        <SAlphabet />
+    <SAlphabet />
 
-        <div class="container cats-title">
-            <div class="row">
-                <div class="offset-lg-1 col-lg-12"><h2>Категории швейцарских часов</h2></div>
-            </div>
+    <div class="container cats-title">
+      <div class="row">
+        <div class="offset-lg-1 col-lg-12">
+          <h2>Категории швейцарских часов</h2>
         </div>
+      </div>
+    </div>
 
-        <SCategoriesSection />
+    <SCategoriesSection />
 
-        <SDescrSection
-            :title="titleDescriptionSection"
-            :text="textDescriptionSection"
-        />
-    </main>
+    <SDescrSection
+      :title="titleDescriptionSection"
+      :text="textDescriptionSection"
+    />
+  </main>
 </template>
 
 <script setup>
-    import { getWatchesBrand } from '@/api/getWatchesBrand';
-    const { id } = useRoute().params
-    const watchesBrand = await getWatchesBrand();
-    const perPageLimit = ref(30)
-    const page = ref(0)
-    const getOffset = computed(() => perPageLimit.value * page.value)
+  import { getWatchesBrand } from '@/api/getWatchesBrand'
+  const { id } = useRoute().params
 
-    const getQueryParams = computed(() => {
-      return {
-        limit: perPageLimit.value,
-        offset: perPageLimit.value * (page.value - 1),
-        brand: id,
-        // ordering: ordering.value.value,
-      }
-    })
+  const queryParams = ref({})
 
-    const { data: lotsResponse } = await getWatchesBrand(
-      getQueryParams.value
-    )
+  const updateQueryParams = (value) => {
+    queryParams.value = value
+  }
 
-    // const banners = [
-    //     {
-    //         title: 'Лучшие предложения 1',
-    //         description: 'People also search for this items',
-    //         link: '#',
-    //         image: '/img/watches_1.png',
-    //     },
-    //     {
-    //         title: 'Лучшие предложения 2',
-    //         description: 'People also search for this items',
-    //         link: '#',
-    //         image: '/img/watches_2.png',
-    //     },
-    // ]
-    const titleDescriptionSection = 'Описание раздела'
-    const textDescriptionSection = 'Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия.'
+  const getQueryParams = computed(() => ({
+    ...queryParams.value,
+  }))
+
+  const lotsResponse = ref({})
+
+  const updateLotsResponse = async () => {
+    const { data } = await getWatchesBrand(getQueryParams.value)
+    lotsResponse.value = data.value
+  }
+
+  watch(getQueryParams, () => {
+    updateLotsResponse()
+  })
+
+  // const banners = [
+  //     {
+  //         title: 'Лучшие предложения 1',
+  //         description: 'People also search for this items',
+  //         link: '#',
+  //         image: '/img/watches_1.png',
+  //     },
+  //     {
+  //         title: 'Лучшие предложения 2',
+  //         description: 'People also search for this items',
+  //         link: '#',
+  //         image: '/img/watches_2.png',
+  //     },
+  // ]
+  const titleDescriptionSection = 'Описание раздела'
+  const textDescriptionSection =
+    'Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия.'
 </script>
 
 <style lang="scss" scoped>
-#goods-page {
-  .goods-section {
-    margin-bottom: 200px;
-  }
-
-  .ads-section {
-    margin-bottom: 226px;
-  }
-
-  .brands-title {
-    margin-bottom: 72px;
-  }
-
-  .cats-title {
-    margin-bottom: 80px;
-  }
-
-  .alphabet {
-    margin-bottom: 224px;
-  }
-
-  .categories-section {
-    margin-bottom: 200px;
-  }
-
-  .descr-section {
-    margin-bottom: 152px;
-  }
-
-  @include max-width('md') {
-    .goods-section, .ads-section, .alphabet, .categories-section {
-      margin-bottom: 64px;
+  #goods-page {
+    .goods-section {
+      margin-bottom: 200px;
     }
 
-    .brands-title, .cats-title {
-      margin-bottom: 24px;
+    .ads-section {
+      margin-bottom: 226px;
+    }
+
+    .brands-title {
+      margin-bottom: 72px;
+    }
+
+    .cats-title {
+      margin-bottom: 80px;
+    }
+
+    .alphabet {
+      margin-bottom: 224px;
+    }
+
+    .categories-section {
+      margin-bottom: 200px;
+    }
+
+    .descr-section {
+      margin-bottom: 152px;
+    }
+
+    @include max-width('md') {
+      .goods-section,
+      .ads-section,
+      .alphabet,
+      .categories-section {
+        margin-bottom: 64px;
+      }
+
+      .brands-title,
+      .cats-title {
+        margin-bottom: 24px;
+      }
     }
   }
-}
 </style>

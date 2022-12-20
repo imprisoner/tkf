@@ -145,7 +145,6 @@
 </template>
 
 <script setup>
-  const emit = defineEmits(['updatePage'])
   defineProps({
     currentPage: {
       type: Number,
@@ -156,6 +155,8 @@
       default: 1,
     },
   })
+
+  const emit = defineEmits(['updatePage'])
 </script>
 
 <style lang="scss" scoped>
