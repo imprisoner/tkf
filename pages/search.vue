@@ -2,7 +2,7 @@
   <main id="search">
     <SCatalogTop
       :breadcrumbs="[{ text: 'Поиск' }]"
-      :count="lotsResponse.count?.toString() ?? '0'"
+      :count="lotsResponse.count ?? 0"
       :title="searchString"
     />
     <SGoodSection

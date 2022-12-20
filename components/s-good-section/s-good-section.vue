@@ -56,7 +56,7 @@
           Показать ещё
         </button>
         <Pagination
-          :current-page="page"
+          :current-page="currentPage"
           :pages-count="getPagesCount"
           @update-page="updatePage"
         />
@@ -69,6 +69,7 @@
   import './s-good-section.scss'
   import Pagination from '~/components/Pagination.vue'
   import useSort from '~/composables/useSort'
+  import usePagination from '~/composables/usePagination'
 
   const props = defineProps({
     showFilters: {
@@ -84,31 +85,22 @@
   const emit = defineEmits(['updateParams'])
 
   const { sortTypes, getActiveOrdering, updateOrdering } = useSort()
-
-  const limits = [30, 60, 120]
-  const page = ref(1)
-  const perPageLimit = ref(limits[0])
-  const getPagesCount = computed(() =>
-    Math.ceil(props.lotsResponse.count / perPageLimit.value)
-  )
+  const {
+    limits,
+    updatePage,
+    updateLimit,
+    currentPage,
+    perPageLimit,
+    getPagesCount,
+  } = usePagination(computed(() => props.lotsResponse.count ?? 0))
 
   const getQueryParams = computed(() => {
     return {
       limit: perPageLimit.value,
-      offset: perPageLimit.value * (page.value - 1),
+      offset: perPageLimit.value * (currentPage.value - 1),
       ordering: getActiveOrdering.value.value,
     }
   })
-
-  const updateLimit = (value) => {
-    perPageLimit.value = value
-    page.value = 1
-  }
-
-  const updatePage = (value) => {
-    page.value = value
-    window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
-  }
 
   watch(
     computed(() => getQueryParams.value),
