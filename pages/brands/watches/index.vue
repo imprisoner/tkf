@@ -1,7 +1,7 @@
 <template>
   <main id="brands-page" class="catalog">
     <SCatalogTop :title="title" :breadcrumbs="breadcrumbs" />
-    <SBrandsSection :brands-cards="brandsMainCards" />
+    <SBrandsSection :brands-cards="brandsCards" />
     <SAlphabet />
   </main>
 </template>
@@ -16,7 +16,7 @@
     },
   ]
 
-  const brandsMainCards = await getBrands({ isShowOnMain: true })
+  const brandsCards = await getBrands({ isShowOnMain: true })
   const title = 'Все бренды швейцарских часов'
 </script>
 
