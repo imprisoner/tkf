@@ -2,7 +2,6 @@
   <main id="goods-page" class="catalog">
     <SCatalogTop
       :count="lotsResponse.count"
-      :breadcrumbs="[{ text: 'Бренды' }]"
     />
 
     <SGoodSection
