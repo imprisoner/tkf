@@ -4,6 +4,7 @@
       <img
         class="brands-logo__img img-resp"
         :src="image || stubBrandImageUrl"
+        loading="lazy"
       />
       <div class="brands-logo__overlay">
         <div
