@@ -24,8 +24,8 @@
       default: '',
     },
     count: {
-      type: String,
-      default: '0',
+      type: Number,
+      default: 0,
     },
     categories: {
       type: Array,
