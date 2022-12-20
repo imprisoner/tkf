@@ -16,6 +16,10 @@
       text: 'Ювелирные украшения',
       href: '/jewelry/categories',
     },
+    {
+      text: 'Категории',
+      href: '/categories',
+    },
   ]
   const title = 'Категории ювелирных украшений'
   const btnShow = false

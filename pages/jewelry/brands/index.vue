@@ -12,7 +12,11 @@
   const breadcrumbs = [
     {
       text: 'Ювелирные украшения',
-      href: '',
+      href: '/watches/brands',
+    },
+    {
+      text: 'Все бренды',
+      href: '/brands',
     },
   ]
 

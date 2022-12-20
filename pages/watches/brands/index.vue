@@ -11,8 +11,12 @@
 
   const breadcrumbs = [
     {
+      text: 'Швейцарские часы',
+      href: '/watches/brands',
+    },
+    {
       text: 'Все бренды',
-      href: '',
+      href: '/brands',
     },
   ]
 

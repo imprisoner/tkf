@@ -9,6 +9,7 @@
             :key="brand.id"
             :image="brand.image"
             :title="brand.name"
+            :link="brand.link"
             class="col-3"
           />
         </div>
@@ -24,25 +25,25 @@
     {
       name: 'Мужские',
       classname: 'col-lg-3 col-md-6 col-12',
-      link: '#',
+      link: '/brands/watches',
       image: '/img/watches_1.png',
     },
     {
       name: 'Женские',
       classname: 'col-lg-3 col-md-6 col-12',
-      link: '#',
+      link: '/brands/watches',
       image: '/img/watches_1.png',
     },
     {
       name: 'Новые',
       classname: 'col-lg-3 col-md-6 col-12',
-      link: '#',
+      link: '/brands/watches',
       image: '/img/watches_1.png',
     },
     {
       name: 'Подержанные',
       classname: 'col-lg-3 col-md-6 col-12',
-      link: '#',
+      link: '/brands/watches',
       image: '/img/watches_1.png',
     },
   ]

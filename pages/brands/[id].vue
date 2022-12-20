@@ -1,9 +1,6 @@
 <template>
   <main id="goods-page" class="catalog">
-    <SCatalogTop
-      :count="lotsResponse.count"
-      :breadcrumbs="[{ text: 'Бренды' }]"
-    />
+    <SCatalogTop :count="lotsResponse.count" :breadcrumbs="breadcrumbs" />
 
     <SGoodSection
       :lots-response="lotsResponse"
@@ -42,6 +39,18 @@
 
 <script setup>
   import { getWatchesBrand } from '@/api/getWatchesBrand'
+
+  const breadcrumbs = [
+    {
+      text: 'Швейцарские часы',
+      href: '/watches/categories/',
+    },
+    {
+      text: 'Все бренды',
+      href: '/brands',
+    },
+  ]
+
   const { id } = useRoute().params
 
   const queryParams = ref({})
