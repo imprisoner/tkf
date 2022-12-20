@@ -4,6 +4,7 @@ import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
   css: ['~/assets/styles/main.scss', 'swiper/scss', 'swiper/scss/scrollbar'],
+  ssr:true,
   vite: {
     css: {
       preprocessorOptions: {
