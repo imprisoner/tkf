@@ -48,7 +48,7 @@
         top: 0;
         bottom: 0;
         right: 28px;
-        align-content: flex-end;
+        padding-top: 108px;
         padding-bottom: 220px;
         min-height: 100vh;
         @include max-width('md') {
@@ -99,6 +99,7 @@
       &__icon {
         max-width: 636px;
         max-height: 503px;
+        align-self: flex-end;
 
         svg {
           @include max-width('xl') {
