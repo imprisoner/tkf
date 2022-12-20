@@ -7,7 +7,7 @@
           <nuxt-link
             v-for="letter in alphabet"
             :key="letter.id"
-            :to="{path: '/brands/jewelry', hash: `#alphabet_${letter.id}`}"
+            :to="{hash: `#alphabet_${letter.id}`}"
             class="alphabet__button"
           >
             {{ letter.name }}
