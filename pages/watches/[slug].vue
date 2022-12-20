@@ -49,70 +49,28 @@
         <h4 class="offset-lg-1 col-lg-11 col-12">Характеристики</h4>
         <div class="row offset-lg-1 col-lg-11 col-12">
           <div class="features__col col-xl-6 col-12">
-            <p class="features__prop">Тип</p>
-            <p class="features__val">
-              {{ lot.type == '' || lot.type == null ? 'неизвестно' : lot.type }}
-            </p>
-            <p class="features__prop">Пол</p>
-            <p v-if="lot.gender == 'MALE'" class="features__val">мужской</p>
-            <p v-else-if="lot.gender == 'FEMALE'" class="features__val">женский</p>
-            <p v-else class="features__val"> унисекс</p>
-            <p class="features__prop">Состояние</p>
-            <p class="features__val">
-            {{ lot.condition == 'NEW' ? 'новый' : 'подержанный' }}
-            </p>
-            <p class="features__prop">Бренд</p>
-            <p class="features__val">
-            <!-- {{ lot.brand.name == '' || lot.brand.name == null ? 'неизвестно' : lot.brand.name }} -->
-            </p>
-            <p class="features__prop">Год выпуска</p>
-            <p class="features__val">
-              {{
-                lot.production_year == '' || lot.production_year == null
-                  ? 'неизвестно'
-                  : lot.production_year
-              }}
-            </p>
-            <p class="features__prop">Материал корпуса</p>
-            <p class="features__val">
-            {{ lot.body_material == '' || lot.body_material == null ? 'неизвестно' : lot.body_material }}
-            </p>
-            <p class="features__prop">Материал браслета</p>
-            <p class="features__val">
-            {{ lot.strap_material == '' || lot.strap_material == null ? 'неизвестно' : lot.strap_material }}
-            </p>
-          </div>
-          <div class="features__col col-xl-6 col-12">
-            <p class="features__prop">Водонепроницаемость</p>
-            <p class="features__val">
-              {{ lot.is_waterproof == false ? 'Нет' : 'Да' }}
-            </p>
-            <p class="features__prop">Цвет циферблата</p>
-            <p class="features__val">
-            {{ lot.watch_face_color == '' || lot.watch_face_color == null ? 'неизвестно' : lot.watch_face_color }}
-            </p>
-            <p class="features__prop">Тип механизма</p>
-            <p class="features__val">
-            {{ lot.mechanism_type == '' || lot.mechanism_type == null ? 'неизвестно' : lot.mechanism_type }}
-            </p>
-            <p class="features__prop">Функции</p>
-            <p class="features__val">
-              <span v-for="(item, i) in lot.function_list" :key="i">{{
-                item
-              }}</span>
-            </p>
-            <p class="features__prop">Запас хода</p>
-            <p class="features__val">
-            {{ lot.power_reserve == '' || lot.power_reserve == null ? 'неизвестно' : lot.power_reserve }}
-            </p>
-            <p class="features__prop">Калибр</p>
-            <p class="features__val">
-            {{ lot.caliber == '' || lot.caliber == null ? 'неизвестно' : lot.caliber }}
-            </p>
-            <p class="features__prop">Комплектация</p>
-            <p class="features__val">
-              {{ lot.complete_set == 'FULL' ? 'полная' : 'не комплект' }}
-            </p>
+            <template v-for="(characteristic, id) in characteristics">
+              <div
+                v-if="characteristic.value !== '' && characteristic.value !== null && characteristic.value.length !== 0"
+                :key="id"
+                class="features__col col-xl-6 col-12"
+              >
+                <template v-if="characteristic.text !== 'Функции часов'">
+                  <p class="features__prop"> {{ characteristic.text }} </p>
+                  <p class="features__val">
+                    {{ characteristic.value }}
+                  </p>
+                </template>
+                <template v-if="characteristic.text === 'Функции часов' && characteristic.value.length !== 0">
+                  <p class="features__prop"> {{ characteristic.text }} </p>
+                  <div class="features__vals">
+                    <p v-for="(stone, idx) in characteristic.value" :key="idx" class="features__val">
+                      {{ stone }}
+                    </p>
+                  </div>
+                </template>
+              </div>
+            </template>
           </div>
         </div>
         <!-- ? для чего тут?-->
@@ -132,20 +90,7 @@
             class="seller__positions button button--black"
             :href="lot.original_link"
             target="_blank">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M14.5858 16L6.29289 7.70711C5.90237 7.31658 5.90237 6.68342 6.29289 6.29289C6.68342 5.90237 7.31658 5.90237 7.70711 6.29289L16 14.5858V7C16 6.44772 16.4477 6 17 6C17.5523 6 18 6.44772 18 7V17C18 17.1356 17.973 17.2649 17.9241 17.3828C17.8764 17.498 17.8063 17.6062 17.7136 17.7005C17.7093 17.7049 17.7049 17.7093 17.7005 17.7136C17.5201 17.8907 17.2728 18 17 18H7C6.44772 18 6 17.5523 6 17C6 16.4477 6.44772 16 7 16H14.5858Z"
-                fill="currentColor"
-              ></path>
-            </svg>
+            <base-icon name="arrow-down-right"></base-icon>
             <span>Показать все объявления ломбарда <!--(12)--></span>
           </a>
         </div>
@@ -171,6 +116,85 @@
       });
     }
   }
+
+  const gender = computed(() => {
+    let value = '';
+    switch(true) {
+      case lot._value.gender === 'UNISEX': 
+        value = 'унисекс';
+      break;
+      case lot._value.gender === 'MEN': 
+        value = 'мужской';
+      break;
+      case lot._value.gender === 'WOMEN': 
+        value = 'женский';
+      break;
+    }
+    return value;
+  });
+
+  const characteristics = [
+    {
+      text: 'Модель',
+      value: lot._value.model.name,
+    },
+    {
+      text: 'Бренд',
+      value: lot._value.brand.name,
+    },
+    {
+      text: 'Материал часов',
+      value: lot._value.body_material,
+    },
+    {
+      text: 'Материал ремешка',
+      value: lot._value.strap_material,
+    },
+    {
+      text: 'Водонепроницаемость',
+      value: lot._value.is_waterproof,
+    },
+    {
+      text: 'Цвет',
+      value: lot._value.watch_face_color,
+    },
+    {
+      text: 'Функции часов',
+      value: lot._value.function_list,
+    },
+    {
+      text: 'Ширина',
+      value: lot._value.size_width,
+    },
+    {
+      text: 'Высота',
+      value: lot._value.size_height,
+    },
+    {
+      text: 'Год производства',
+      value: lot._value.production_year,
+    },
+    {
+      text: 'Запас хода',
+      value: lot._value.power_reserve,
+    },
+    {
+      text: 'Калибр',
+      value: lot._value.caliber,
+    },
+    {
+      text: 'Пол',
+      value: gender.value,
+    },
+    {
+      text: 'Состояние',
+      value: lot._value.condition === 'NEW' ? 'новый' : 'подержанный',
+    },
+    {
+      text: 'Комплектация',
+      value: lot._value.complete_set === 'FULL' ? 'полная' : 'не комплект',
+    },
+  ];
 </script>
 
 <style lang="scss" scoped>

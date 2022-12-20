@@ -139,7 +139,7 @@
     },
     {
       text: 'Коллекция',
-      value: lot._value.collection ,
+      value: lot._value.collection,
     },
     {
       text: 'Тип',
