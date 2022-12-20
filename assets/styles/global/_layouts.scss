@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 @include min-width('xl') {
   .main-layout {
     display: grid;

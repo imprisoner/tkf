@@ -4,14 +4,14 @@
       <div class="alphabet__ltrs offset-lg-1 col-lg-10 col-12">
         <div class="alphabet__ltrs-subgrid">
           <button class="alphabet__button" type="button">0-9</button>
-          <button
+          <nuxt-link
             v-for="letter in alphabet"
             :key="letter.id"
+            :to="{path: '/brands/jewelry', hash: `#alphabet_${letter.id}`}"
             class="alphabet__button"
-            :href="`#alphabet_${letter.id}`"
           >
             {{ letter.name }}
-          </button>
+          </nuxt-link >
         </div>
       </div>
     </div>
@@ -28,6 +28,7 @@
             <li v-for="item in brandsItems" :key="item.id" class="text-16">
               <NuxtLink :to="`/brands/${item.id}`">{{ item.name }}</NuxtLink>
             </li>
+            <!-- <li class="text-16 alphabet__more"><a>+ Показать ещё 10</a></li> -->
           </ul>
         </div>
       </div>
