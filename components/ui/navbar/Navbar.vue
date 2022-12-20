@@ -40,23 +40,13 @@
             :key="i"
             @show="setActiveItem(i)"
           ></ui-navbar-dropdown>
-          <ui-navbar-mobile-bottom v-if="isMobileUI"></ui-navbar-mobile-bottom>
         </div>
       </div>
       <template v-if="isMobileUI">
         <nuxt-link class="navbar__mobile-logo logo" href="/"
           ><b>Time</b>Keeper</nuxt-link
         >
-        <button
-          class="button button--square navbar__cart-trigger"
-          type="button"
-        >
-          <base-icon name="shopping-cart"></base-icon>
-        </button>
       </template>
-      <div class="navbar__fav">
-        <ui-navbar-fav-menu></ui-navbar-fav-menu>
-      </div>
     </div>
   </nav>
 </template>
@@ -343,7 +333,7 @@ const isMobileUI = ref(!isDesktop.value)
     }
   }
   .navbar-search {
-    margin-left: 16px;
+    margin-left: auto;
     width: auto;
 
     @include max-width('lg') {

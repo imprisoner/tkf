@@ -2,17 +2,9 @@
   <header ref="header" class="header container">
     <template v-if="isDesktop">
       <NuxtLink class="logo" href="/"><b>Time</b>Keeper</NuxtLink>
-      <ui-language-switch></ui-language-switch>
       <!--  -->
       <ui-header-search></ui-header-search>
       <!--  -->
-      <div class="header__right">
-        <button class="button" type="button">Регистрация</button>
-        <button class="header__button button button--black" type="button">
-          <base-icon name="arrow-right"></base-icon>
-          <span>Войти</span>
-        </button>
-      </div>
     </template>
     <div v-else class="header__mobile">
       <ui-socials class="header__socials"></ui-socials>
