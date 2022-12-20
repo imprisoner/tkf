@@ -12,8 +12,8 @@
       >
         <SGoodSectionSort
           :sort-types="sortTypes"
-          :ordering="ordering"
-          @sort="(value) => (ordering = value)"
+          :ordering="getActiveOrdering"
+          @sort="updateOrdering"
         />
       </div>
       <div class="goods-section__button-group offset-md-9 col-lg-2 col-md-3">
@@ -68,6 +68,7 @@
 <script setup>
   import './s-good-section.scss'
   import Pagination from '~/components/Pagination.vue'
+  import useSort from '~/composables/useSort'
 
   const props = defineProps({
     showFilters: {
@@ -82,44 +83,22 @@
 
   const emit = defineEmits(['updateParams'])
 
-  const sortTypes = [
-    {
-      label: 'Сначала новые',
-      value: 'update_dt',
-    },
-    {
-      label: 'Сначала старые',
-      value: '-update_dt',
-    },
-    {
-      label: 'По возрастанию цены',
-      value: 'price_usd',
-    },
-    {
-      label: 'По убыванию цены',
-      value: '-price_usd',
-    },
-  ]
-  const limits = [30, 60, 120]
+  const { sortTypes, getActiveOrdering, updateOrdering } = useSort()
 
+  const limits = [30, 60, 120]
   const page = ref(1)
   const perPageLimit = ref(limits[0])
-  const ordering = ref(sortTypes[0])
-
   const getPagesCount = computed(() =>
-    Math.ceil(getCommonCount.value / perPageLimit.value)
+    Math.ceil(props.lotsResponse.count / perPageLimit.value)
   )
+
   const getQueryParams = computed(() => {
     return {
       limit: perPageLimit.value,
       offset: perPageLimit.value * (page.value - 1),
-      ordering: ordering.value.value,
+      ordering: getActiveOrdering.value.value,
     }
   })
-
-  const getCommonCount = computed(() =>
-    (props.lotsResponse.count ?? 0).toString()
-  )
 
   const updateLimit = (value) => {
     perPageLimit.value = value

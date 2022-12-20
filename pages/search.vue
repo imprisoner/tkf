@@ -2,7 +2,7 @@
   <main id="search">
     <SCatalogTop
       :breadcrumbs="[{ text: 'Поиск' }]"
-      :count="lotsResponse.count ?? '0'"
+      :count="lotsResponse.count?.toString() ?? '0'"
       :title="searchString"
     />
     <SGoodSection
@@ -16,7 +16,7 @@
   import { getLotsBySearchString } from '~/api/getLotsBySearchString'
 
   const route = useRoute()
-  const searchString = computed(() => `${route.query.search_string}`)
+  const searchString = computed(() => `${route.query.search_string ?? ''}`)
 
   const queryParams = ref({})
 
