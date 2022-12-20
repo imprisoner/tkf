@@ -14,7 +14,7 @@ import {computed, ref} from "vue";
 
 const LANGUAGES=['Russian','English']
 
-let currentLanguage=ref('Russian')
+const currentLanguage=ref('Russian')
 
 function changeLang(){
   currentLanguage.value = nextLanguage.value
