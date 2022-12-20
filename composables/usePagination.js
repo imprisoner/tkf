@@ -1,7 +1,13 @@
+import { useRoute } from '#app'
+
 export default function (commonCount) {
+  const route = useRoute()
+
   const limits = [30, 60, 120]
-  const currentPage = ref(1)
-  const perPageLimit = ref(limits[0])
+  const currentPage = ref(+route.query.page || 1)
+  const perPageLimit = ref(
+    limits[limits.findIndex((i) => i === +route.query.limit)] || limits[0]
+  )
 
   const getPagesCount = computed(() =>
     Math.ceil(+commonCount.value / perPageLimit.value)

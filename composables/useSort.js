@@ -1,3 +1,5 @@
+import { useRoute } from '#app'
+
 export default function () {
   const sortTypes = ref([
     {
@@ -18,7 +20,16 @@ export default function () {
     },
   ])
 
-  const activeOrdering = ref(sortTypes.value[0])
+  const route = useRoute()
+
+  const activeOrdering = ref(
+    route.query.ordering
+      ? sortTypes.value[
+          sortTypes.value.findIndex((i) => i.value === route.query.ordering) ??
+            0
+        ]
+      : sortTypes.value[0]
+  )
 
   const getActiveOrdering = computed(() => activeOrdering.value)
   const updateOrdering = (value) => (activeOrdering.value = value)

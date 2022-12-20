@@ -3,7 +3,7 @@
     <SCatalogTop
       :breadcrumbs="[{ text: 'Поиск' }]"
       :count="lotsResponse.count ?? 0"
-      :title="getQueryParams.search_string"
+      :title="getQueryParams.search_string ?? ''"
     />
     <SGoodSection
       :lots-list="lotsResponse.results"
