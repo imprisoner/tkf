@@ -17,7 +17,7 @@
   ]
 
   const brandsCards = await getBrands({ isShowOnMain: false, brandType: 'WATCH' })
-  const brandsItems = brandsCards._value
+  const brandsItems = brandsCards
   const title = 'Все бренды швейцарских часов'
 </script>
 

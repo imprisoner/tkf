@@ -8,7 +8,7 @@
             v-for="letter in alphabet"
             :key="letter.id"
             class="alphabet__button"
-            type="button"
+            :href="`#alphabet_${letter.id}`"
           >
             {{ letter.name }}
           </button>
@@ -18,28 +18,14 @@
     <div class="alphabet__body row">
       <div
         v-for="letter in alphabet"
+        :id="`alphabet_${letter.id}`"
         :key="letter.id"
         class="alphabet__item col-12 row"
       >
-        <p class="alphabet__title offset-lg-1">{{ letter.name }}</p>
-        <div class="alphabet__list row offset-lg-3 col-xl-8 col-md-10 col-8">
-          <ul class="col-xl-3 col-md-4 col-12">
-            <li v-for="item in brandsMainCards" :key="item.id" class="text-16">
-              <NuxtLink :to="`/brands/${item.id}`">{{ item.name }}</NuxtLink>
-            </li>
-          </ul>
-          <ul class="col-xl-3 col-md-4 col-12">
-            <li v-for="item in brandsMainCards" :key="item.id" class="text-16">
-              <NuxtLink :to="`/brands/${item.id}`">{{ item.name }}</NuxtLink>
-            </li>
-          </ul>
-          <ul class="col-xl-3 col-md-4 col-12">
-            <li v-for="item in brandsMainCards" :key="item.id" class="text-16">
-              <NuxtLink :to="`/brands/${item.id}`">{{ item.name }}</NuxtLink>
-            </li>
-          </ul>
-          <ul class="col-xl-3 col-md-4 col-12">
-            <li v-for="item in brandsMainCards" :key="item.id" class="text-16">
+        <div class="alphabet__title offset-lg-1 col-md-2 col-12"><p>{{ letter.name }}</p></div>
+        <div class="alphabet__list row offset-lg-3 col-xl-8 col-md-10 col-12">
+          <ul class="col-12 alphabet__listing">
+            <li v-for="item in brandsItems" :key="item.id" class="text-16">
               <NuxtLink :to="`/brands/${item.id}`">{{ item.name }}</NuxtLink>
             </li>
           </ul>
@@ -63,9 +49,13 @@
 
 <script setup>
   import './s-alphabet.scss'
-  import { getBrands } from '@/api/getBrands'
 
-  const brandsMainCards = await getBrands({ isShowOnMain: true })
+  defineProps({
+    brandsItems: {
+      type: Array,
+      default: () => [],
+    },
+  })
 
   const alphabet = [
     { name: 'a', id: 0 },
