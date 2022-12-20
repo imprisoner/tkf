@@ -48,67 +48,28 @@
       <div class="lot__features features row">
         <h4 class="offset-lg-1 col-lg-11 col-12">Характеристики</h4>
         <div class="row offset-lg-1 col-lg-11 col-12">
-          <div class="features__col col-xl-6 col-12">
-            <p class="features__prop">Тип</p>
-            <p class="features__val">
-              {{ lot.category.name == '' || lot.category.name == null ? 'неизвестно' : lot.category.name }}
-            </p>
-            <p class="features__prop">Пол</p>
-            <p v-if="lot.gender == 'MALE'" class="features__val">мужской</p>
-            <p v-else-if="lot.gender == 'FEMALE'" class="features__val">женский</p>
-            <p v-else class="features__val"> унисекс</p>
-            <p class="features__prop">Состояние</p>
-            <p class="features__val">
-            {{ lot.condition == 'NEW' ? 'новый' : 'подержанный' }}
-            </p>
-            <p class="features__prop">Бренд</p>
-            <p class="features__val">
-            {{ lot.brand.name == '' || lot.brand.name == null ? 'неизвестно' : lot.brand.name }}
-            </p>
-            <p class="features__prop">Год выпуска</p>
-            <p class="features__val">
-              {{
-                lot.creation_datetime == '' || lot.creation_datetime == null
-                  ? 'неизвестно'
-                  : new Date(lot.creation_datetime).getFullYear()
-              }}
-            </p>
-          </div>
-          <div class="features__col col-xl-6 col-12">
-            <p class="features__prop">Карат</p>
-            <p class="features__val">
-              {{ lot.carat }}
-            </p>
-            <p class="features__prop">Комплектация</p>
-            <p class="features__val">
-              {{ lot.complete_set == 'FULL' ? 'полная' : 'не комплект' }}
-            </p>
-          </div>
-          <div class="features__col col-xl-6 col-12">
-            <p class="features__prop">Металл</p>
-            <p class="features__val">
-              {{
-                lot.metal == '' || lot.metal == null
-                  ? 'неизвестно'
-                  : lot.metal
-              }}
-            </p>
-          </div>
-          <div class="features__col col-xl-6 col-12">
-            <p class="features__prop">Камни</p>
-            <template v-if="lot.stones.length !== 0">
-              <div v-for="(stone, id) in lot.stones" :key="id" class="features__vals">
+          <template v-for="(characteristic, id) in characteristics">
+            <div
+              v-if="characteristic.value !== '' && characteristic.value !== null && characteristic.value.length !== 0"
+              :key="id"
+              class="features__col col-xl-6 col-12"
+            >
+              <template v-if="characteristic.text !== 'Камни'">
+                <p class="features__prop"> {{ characteristic.text }} </p>
                 <p class="features__val">
-                  {{ stone }}
+                  {{ characteristic.value }}
                 </p>
-              </div>
-            </template>
-            <template v-else>
-              <p class="features__val">
-                неизвестно
-              </p>
-            </template>
-          </div>
+              </template>
+              <template v-if="characteristic.text === 'Камни' && characteristic.value.length !== 0">
+                <p class="features__prop"> {{ characteristic.text }} </p>
+                <div class="features__vals">
+                  <p v-for="(stone, idx) in characteristic.value" :key="idx" class="features__val">
+                    {{ stone }}
+                  </p>
+                </div>
+              </template>
+            </div>
+          </template>
         </div>
         <!-- ? для чего тут?-->
         <!-- <div class="button button--gray button--block button--caret col-12">Показать ещё</div> -->
@@ -127,20 +88,7 @@
             class="seller__positions button button--black"
             :href="lot.original_link"
             target="_blank">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M14.5858 16L6.29289 7.70711C5.90237 7.31658 5.90237 6.68342 6.29289 6.29289C6.68342 5.90237 7.31658 5.90237 7.70711 6.29289L16 14.5858V7C16 6.44772 16.4477 6 17 6C17.5523 6 18 6.44772 18 7V17C18 17.1356 17.973 17.2649 17.9241 17.3828C17.8764 17.498 17.8063 17.6062 17.7136 17.7005C17.7093 17.7049 17.7049 17.7093 17.7005 17.7136C17.5201 17.8907 17.2728 18 17 18H7C6.44772 18 6 17.5523 6 17C6 16.4477 6.44772 16 7 16H14.5858Z"
-                fill="currentColor"
-              ></path>
-            </svg>
+            <base-icon name="arrow-down-right"></base-icon>
             <span>Показать все объявления ломбарда <!--(12)--></span>
           </a>
         </div>
@@ -152,11 +100,27 @@
 <script setup>
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/jewelry/' + slug
-  const { data: lot } = await useFetch(uri, { key: slug })
+  const { data: lot } = await useFetch(uri, { key: slug });
 
   const breadcrumbs = [];
   const routes = useRoute().fullPath.split('/');
   let url = '/';
+  
+  const gender = computed(() => {
+    let value = '';
+    switch(true) {
+      case lot._value.gender === 'UNISEX': 
+        value = 'унисекс';
+      break;
+      case lot._value.gender === 'MEN': 
+        value = 'мужской';
+      break;
+      case lot._value.gender === 'WOMEN': 
+        value = 'женский';
+      break;
+    }
+    return value;
+  });
 
   for(let i = 0; i < routes.length; i++) {
     if (routes[i] !== '') {
@@ -167,6 +131,49 @@
       });
     }
   }
+
+  const characteristics = [
+    {
+      text: 'Бренд',
+      value: lot._value.brand.name,
+    },
+    {
+      text: 'Коллекция',
+      value: lot._value.collection,
+    },
+    {
+      text: 'Тип',
+      value: lot._value.category.name,
+    },
+    {
+      text: 'Пол',
+      value: gender.value,
+    },
+    {
+      text: 'Состояние',
+      value: lot._value.condition === 'NEW' ? 'новый' : 'подержанный',
+    },
+    {
+      text: 'Комплектация',
+      value: lot._value.complete_set === 'FULL' ? 'полная' : 'не комплект',
+    },
+    {
+      text: 'Метал изделия',
+      value: lot._value.metal,
+    },
+    {
+      text: 'Камни',
+      value: lot._value.stones,
+    },
+    {
+      text: 'Каратность',
+      value: lot._value.carat,
+    },
+    {
+      text: 'Размер',
+      value: lot._value.size,
+    },
+  ];
 </script>
 
 <style lang="scss" scoped>

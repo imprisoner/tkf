@@ -6,8 +6,8 @@
       :title="searchString"
     />
     <SGoodSection
-      @update-params="updateQueryParams"
       :lots-response="lotsResponse"
+      @update-params="updateQueryParams"
     />
   </main>
 </template>
