@@ -25,9 +25,9 @@
       </template>
 
 
-<div :class="navbarMobileClass"  v-if="isMobileMenuActive"></div>
+<div v-if="isMobileMenuActive"  :class="navbarMobileClass"></div>
       <Transition>
-        <div class="navbar__mobile-menu" v-if="isMobileMenuActive" >
+        <div v-if="isMobileMenuActive" class="navbar__mobile-menu" >
           <div class="navbar__dropdowns">
           <button
             v-if="isMobileUI"

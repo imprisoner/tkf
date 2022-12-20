@@ -15,36 +15,12 @@
       <div
         class="s-about-section__cards-wrapper offset-md-1 col-md-10 offset-lg-0 col-lg-12 offset-xxl-1 col-xxl-10 col-12"
       >
-      <div class="card card--square" v-for="(advantage_img, id) in advantages.images">
+      <div v-for="(advantage_img, id) in advantages.images" :key="id" class="card card--square">
         <div class="button button--square button--gray stroked-icon">
           <img :src="advantage_img.image_url" alt="">
         </div>
         <h5 class="card--square__title">{{ advantages.phrases[id] }}</h5>
       </div>
-        <!-- <div class="card card--square">
-          <div class="button button--square button--gray stroked-icon">
-            <base-icon name="thumbs-up"></base-icon>
-          </div>
-          <h5 class="card--square__title">Актуальные новинки</h5>
-        </div>
-        <div class="card card--square">
-          <div class="button button--square button--gray stroked-icon">
-            <base-icon name="package"></base-icon>
-          </div>
-          <h5 class="card--square__title">Ломбард</h5>
-        </div>
-        <div class="card card--square">
-          <div class="button button--square button--gray stroked-icon">
-            <base-icon name="package"></base-icon>
-          </div>
-          <h5 class="card--square__title">Преимущество</h5>
-        </div>
-        <div class="card card--square">
-          <div class="button button--square button--gray stroked-icon">
-            <base-icon name="star"></base-icon>
-          </div>
-          <h5 class="card--square__title">Преимущество</h5>
-        </div> -->
       </div>
     </div>
     <div class="row">
