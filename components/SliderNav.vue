@@ -67,6 +67,7 @@
 
     .button{
       background-color: $white;
+      transition: background-color 0.5s;
       &:hover{
         background-color: $gray-100;
       }

@@ -7,7 +7,6 @@
           class="footer__contacts col-xxl-2 offset-1"
         >
           <div class="logo footer__logo"><b>Time</b>Keeper</div>
-          <a v-if="isDesktop" class="footer__button button button--black" href="#">Войти</a>
           <a v-if="isDesktop" class="footer__phone" href="tel:+79099999999">8 909 999 99 99</a>
         </div>
         <nav
@@ -22,9 +21,7 @@
         </nav>
         <div class="footer__socials-wrapper offset-lg-1 offset-md-10">
           <ui-socials class="footer__socials"></ui-socials>
-          <ui-language-switch v-if="isDesktop" ></ui-language-switch>
         </div>
-        <a v-if="isTablet" class="col-10 offset-1 footer__button button button--black" href="#">Войти</a>
       </div>
     </div>
     <div class="footer__bottom container">

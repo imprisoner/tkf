@@ -45,13 +45,13 @@
       &__wrap {
         position: absolute;
         left: 28px;
-        top: 0;
+        top:  80px;
         bottom: 0;
         right: 28px;
-        padding-top: 108px;
         padding-bottom: 220px;
         min-height: 100vh;
         @include max-width('md') {
+          top: 40px;
           padding-bottom: 106px;
         }
       }
