@@ -24,8 +24,11 @@
         </button>
       </template>
 
-      <div v-show="isMobileMenuActive" :class="navbarMobileClass">
-        <div class="navbar__dropdowns">
+
+<div :class="navbarMobileClass"  v-if="isMobileMenuActive"></div>
+      <Transition>
+        <div class="navbar__mobile-menu" v-if="isMobileMenuActive" >
+          <div class="navbar__dropdowns">
           <button
             v-if="isMobileUI"
             class="navbar__drawer-close button button--square button--gray"
@@ -42,6 +45,8 @@
           ></ui-navbar-dropdown>
         </div>
       </div>
+      </Transition>
+
       <template v-if="isMobileUI">
         <nuxt-link class="navbar__mobile-logo logo" href="/"
           ><b>Time</b>Keeper</nuxt-link
@@ -180,16 +185,22 @@ const isMobileUI = ref(!isDesktop.value)
     document.addEventListener('scroll', () => {
       const headerHeight = useState('headerHeight').value
       const scrolled = navbar.value.offsetTop
-      if (scrolled > headerHeight) {
-        isSticked.value = true
-      } else {
-        isSticked.value = false
-      }
+      isSticked.value = scrolled > headerHeight;
     })
   })
 </script>
 
 <style lang="scss" scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: all 1s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  transform: translate(-10%, 0);
+  opacity: 0;
+}
   .navbar {
     position: sticky;
     top: 0;
@@ -291,6 +302,17 @@ const isMobileUI = ref(!isDesktop.value)
         z-index: 5;
       }
     }
+    &__mobile-menu {
+      @include max-width('lg') {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: unset;
+        z-index: 5;
+      }
+    }
 
     @include max-width('lg') {
       // background-color: $neutral;
@@ -343,12 +365,7 @@ const isMobileUI = ref(!isDesktop.value)
     order: 1;
 
     // active search siblings opacity transition
-    ~ * {
-      opacity: 1;
-      transition: opacity 0.5s ease-in;
 
-      // transition: none
-    }
 
     &.search-on {
       position: absolute;
