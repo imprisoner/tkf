@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <SAlphabet />
+    <SAlphabet :brands-items="brandsCards"/>
 
     <div class="container cats-title">
       <div class="row">
@@ -41,6 +41,7 @@
 </template>
 
 <script setup>
+  import { getBrands } from '@/api/getBrands'
   import { getWatchesBrand } from '@/api/getWatchesBrand'
   const { id } = useRoute().params
 
@@ -65,23 +66,11 @@
     updateLotsResponse()
   })
 
-  // const banners = [
-  //     {
-  //         title: 'Лучшие предложения 1',
-  //         description: 'People also search for this items',
-  //         link: '#',
-  //         image: '/img/watches_1.png',
-  //     },
-  //     {
-  //         title: 'Лучшие предложения 2',
-  //         description: 'People also search for this items',
-  //         link: '#',
-  //         image: '/img/watches_2.png',
-  //     },
-  // ]
   const titleDescriptionSection = 'Описание раздела'
   const textDescriptionSection =
     'Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия.'
+
+    const brandsCards = await getBrands({ isShowOnMain: true })
 </script>
 
 <style lang="scss" scoped>
