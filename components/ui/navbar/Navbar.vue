@@ -62,9 +62,9 @@
 </template>
 
 <script setup>
-  const { isMobileOrTablet } = useDevice()
+import {isDesktop} from "@/utils/queries";
 
-  const isMobileUI = ref(isMobileOrTablet)
+const isMobileUI = ref(!isDesktop.value)
 
   const displayState = reactive({
     search: false,
@@ -122,14 +122,14 @@
   // mobile menu
 
   const isMobileMenuActive = computed(() => {
-    if (!isMobileOrTablet) {
+    if (isDesktop.value) {
       return true
     }
     return displayState.mobileMenu
   })
 
   const navbarMobileClass = computed(() => ({
-    'navbar__mobile-overlay': isMobileOrTablet,
+    'navbar__mobile-overlay': !isDesktop.value,
   }))
 
   function showMobileMenu() {
@@ -171,7 +171,7 @@
     z-index: 5;
     transition: padding 0.5s;
 
-    @include max-width('xl') {
+    @include max-width('lg') {
       background-color: $neutral;
       position: static;
     }
@@ -187,7 +187,7 @@
       align-items: center;
       padding: 24px;
       position: relative;
-      @include max-width('xl') {
+      @include max-width('lg') {
         padding: unset;
         background-color: unset;
         position: static;
@@ -197,7 +197,7 @@
     &__fav {
       margin-left: auto;
 
-      @include max-width('xl') {
+      @include max-width('lg') {
         margin-left: unset;
       }
     }
@@ -207,7 +207,7 @@
       align-items: center;
       gap: 16px;
 
-      @include max-width('xl') {
+      @include max-width('lg') {
         flex-direction: column;
         align-items: start;
         flex: 1;
@@ -223,7 +223,7 @@
     }
 
     &__drawer-close {
-      @include max-width('xl') {
+      @include max-width('lg') {
         display: flex;
         position: absolute;
         top: 0;
@@ -233,7 +233,7 @@
 
     &__menu-trigger,
     &__search-trigger {
-      @include max-width('xl') {
+      @include max-width('lg') {
         svg {
           width: 20px;
           height: 20px;
@@ -242,20 +242,20 @@
     }
 
     &__search-trigger {
-      @include max-width('xl') {
+      @include max-width('lg') {
         margin-left: 20px;
       }
     }
 
     &__mobile-logo {
-      @include max-width('xl') {
+      @include max-width('lg') {
         display: block;
         margin: 0 auto;
       }
     }
 
     &__mobile-overlay {
-      @include max-width('xl') {
+      @include max-width('lg') {
         position: fixed;
         top: 0;
         left: 0;
@@ -267,7 +267,7 @@
       }
     }
 
-    @include max-width('xl') {
+    @include max-width('lg') {
       // background-color: $neutral;
       // position: static;
 
@@ -311,7 +311,7 @@
     margin-left: 16px;
     width: auto;
 
-    @include max-width('xl') {
+    @include max-width('lg') {
       position: absolute;
       left: -9999px;
     }
@@ -335,7 +335,7 @@
       margin-left: auto;
       z-index: 1;
 
-      @include max-width('xl') {
+      @include max-width('lg') {
         left: 0;
         top: 40px;
         right: 0;
