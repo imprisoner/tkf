@@ -42,20 +42,20 @@
     },
   })
 
-  const sklonyator = computed(() => {
-    let add = ''
-    if (
-      (count % 10 >= 5 && count % 10 <= 9) ||
-      (count >= 11 && count <= 19) ||
-      count % 10 === 0
-    ) {
-      add = 'ов'
-    } else if (count % 10 === 1) {
-      add = ''
-    } else {
-      add = 'a'
-    }
-
-    return add
-  })
+  // const sklonyator = computed(() => {
+  //   let add = ''
+  //   if (
+  //     (count % 10 >= 5 && count % 10 <= 9) ||
+  //     (count >= 11 && count <= 19) ||
+  //     count % 10 === 0
+  //   ) {
+  //     add = 'ов'
+  //   } else if (count % 10 === 1) {
+  //     add = ''
+  //   } else {
+  //     add = 'a'
+  //   }
+  //
+  //   return add
+  // })
 </script>
