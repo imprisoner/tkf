@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <SAlphabet />
+        <SAlphabet :brands-items="brandsItems"/>
 
         <div class="container cats-title">
             <div class="row">
@@ -34,6 +34,7 @@
 </template>
 
 <script setup>
+    import { getBrands } from '@/api/getBrands'
     import { getBanners } from '@/api/getBanners';
 
     const titleCatalogTop = "Ювелирные украшения";
@@ -46,6 +47,9 @@
         banners.push(banner);
       });
     });
+
+    const brandsCards = await getBrands({ isShowOnMain: false, brandType: 'JEWELRY' })
+    const brandsItems = brandsCards
 </script>
 
 <style lang="scss" scoped>
