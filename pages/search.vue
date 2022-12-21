@@ -1,7 +1,6 @@
 <template>
   <main v-show="!pending" id="search">
     <SCatalogTop
-      :breadcrumbs="[{ text: 'Поиск' }]"
       :count="lotsResponse.count ?? 0"
       :title="
         isEmptyList
