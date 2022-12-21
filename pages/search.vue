@@ -4,9 +4,10 @@
       :count="lotsResponse.count ?? 0"
       :title="
         isEmptyList
-          ? getUrlSearchParams.search_string ?? ''
+          ? `Результаты поиска '${getUrlSearchParams.search_string ?? ''}'`
           : 'Ничего не найдено'
       "
+      :btn-show="true"
     />
     <SGoodSection
       v-show="isEmptyList"

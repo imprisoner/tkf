@@ -43,10 +43,6 @@
     justify-content: center;
     margin-left: auto;
 
-    @include min-width('lg') {
-      display: none;
-    }
-
     @include max-width('md') {
       font-size: 12px;
       line-height: 16px;
