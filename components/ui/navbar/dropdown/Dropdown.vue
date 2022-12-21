@@ -21,7 +21,7 @@
             <div v-for="(contactsGroup,contactsGroupName) in contacts" :key="contactsGroupName"
                  class="navbar-menu__contact">
               <span class="navbar-menu__contact-title">{{ getContactsGroupName(contactsGroupName) }}</span>
-              <a v-for="contact in contactsGroup" :href="setContactLinkByType(contact, contactsGroupName)">{{
+              <a v-for="(contact, index) in contactsGroup" :href="setContactLinkByType(contact, contactsGroupName)" :key="index">{{
                   contact
                 }}</a>
             </div>
