@@ -4,7 +4,7 @@
       <h4 class="navbar-menu__subtitle-text" @click="toggleList()">
         {{ title }}
       </h4>
-      <div @click="onLinkClick">
+      <div class="navbar-menu__link-wrapper" @click="onLinkClick">
         <nuxt-link
           class="navbar-menu__link link-button"
           :to="`/${repository}/${name}/`"
@@ -151,8 +151,11 @@
       }
     }
 
-    &__link {
-      @include max-width('lg') {
+    &__link-wrapper {
+      display: flex;
+      align-items: center;
+
+       @include max-width('lg') {
         display: none;
       }
     }
