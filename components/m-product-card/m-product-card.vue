@@ -35,14 +35,18 @@
       </template>
     </div>
     <strong class="product-card__price">
-      ${{ lot.price_usd.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ') }}
-      <span v-if="lot.price_rub">{{ lot.price_rub.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ') }} ₽</span>
+      ${{ lot.price_usd?.toString().replace(regExp, '$1 ') }}
+      <span v-if="lot.price_rub"
+        >{{ lot.price_rub?.toString().replace(regExp, '$1 ') }} ₽</span
+      >
     </strong>
   </div>
 </template>
 
 <script setup>
   import './m-product-card.scss'
+
+  const regExp = /(\d)(?=(\d\d\d)+(\D|$))/g
 
   const props = defineProps({
     lot: {

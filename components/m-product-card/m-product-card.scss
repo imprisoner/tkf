@@ -11,10 +11,10 @@
 
     &__img {
       position: relative;
-      height: 333px;
       background-color: $shadow;
       margin-bottom: 12px;
       aspect-ratio: 1/1;
+      overflow: hidden;
       
       @include max-width('md') {
         height: 143px;
