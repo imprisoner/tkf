@@ -1,8 +1,8 @@
 <template>
   <main id="brands-page" class="catalog">
-    <SCatalogTop :title="title" :breadcrumbs="breadcrumbs" :count="brandsItems.length"/>
-    <SBrandsSection :brands-cards="brandsItems" />
-    <SAlphabet :brands-items="brandsItems"/>
+    <SCatalogTop :title="title" :breadcrumbs="breadcrumbs" />
+    <SBrandsSection :brands-cards="brandsMainCards" />
+    <SAlphabet />
   </main>
 </template>
 
@@ -11,13 +11,16 @@
 
   const breadcrumbs = [
     {
-      text: 'Все бренды',
-      href: '',
+      text: 'Ювелирные украшения',
+      href: '/watches/brands',
+    },
+    {
+      text: 'Бренды',
+      href: '/brands',
     },
   ]
 
-  const brandsCards = await getBrands({ isShowOnMain: false, brandType: 'WATCH' })
-  const brandsItems = brandsCards
+  const brandsMainCards = await getBrands({ isShowOnMain: true })
   const title = 'Все бренды швейцарских часов'
 </script>
 
