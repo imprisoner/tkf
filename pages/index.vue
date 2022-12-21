@@ -2,7 +2,7 @@
   <main class="main-page">
     <SIntroMain :offers-cards="mainOffers" />
     <SAdsSection :banners="bannersTop" />
-    <SBrandsSlider :brands-cards="brandsCards" />
+    <SBrandsSlider :brands-cards="brandsMainCards" />
     <SOffersSection
       :offers-cards="bestOffers"
       :title="titleOffers"
@@ -25,6 +25,7 @@
   import { getMainLots } from '@/api/getMainLots'
   import { getAboutInfo } from '@/api/getAboutInfo'
   import { getAdvantages } from '@/api/getAdvantages'
+  import { getBrands } from '@/api/getBrands'
 
   const bannersTop = []
   const bannersBottom = []
@@ -37,6 +38,7 @@
   const mainOffers = await getMainLots()
   const aboutInfo = await getAboutInfo()
   const advantages = await getAdvantages()
+  const brandsMainCards = await getBrands({ isShowOnMain: true })
 
   await getBanners({ page: 'MAIN' }).then((response) => {
     Object.entries(response._value).forEach((banner, i) => {

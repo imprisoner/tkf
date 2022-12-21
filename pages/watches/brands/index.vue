@@ -2,7 +2,7 @@
   <main id="brands-page" class="catalog">
     <SCatalogTop :title="title" :breadcrumbs="breadcrumbs" />
     <SBrandsSection :brands-cards="brandsMainCards" />
-    <SAlphabet />
+    <SAlphabet :brands-items="brandsMainCards" />
   </main>
 </template>
 
