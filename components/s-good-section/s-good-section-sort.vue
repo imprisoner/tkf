@@ -32,7 +32,7 @@
 <script setup>
   const emit = defineEmits(['sort'])
 
-  const props = defineProps({
+  defineProps({
     sortTypes: {
       type: Array,
       default: () => [],

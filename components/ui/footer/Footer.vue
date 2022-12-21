@@ -61,71 +61,71 @@ const year = new Date().getFullYear()
 const contacts = await getContact();
 const footerLinks = await getDocuments();
 
-const linkSections = reactive([
-  {
-    title: 'Для рекламодателей',
-    links: [
-      {
-        text: 'Оферта',
-        href: '#',
-      },
-      {
-        text: 'Оферта',
-        href: '#',
-      },
-      {
-        text: 'Оферта',
-        href: '#',
-      },
-      {
-        text: 'Оферта',
-        href: '#',
-      },
-    ],
-  },
-  {
-    title: 'Для рекламодателей',
-    links: [
-      {
-        text: 'Оферта',
-        href: '#',
-      },
-      {
-        text: 'Оферта',
-        href: '#',
-      },
-      {
-        text: 'Оферта',
-        href: '#',
-      },
-      {
-        text: 'Оферта',
-        href: '#',
-      },
-    ],
-  },
-  {
-    title: 'Для рекламодателей',
-    links: [
-      {
-        text: 'Оферта',
-        href: '#',
-      },
-      {
-        text: 'Оферта',
-        href: '#',
-      },
-      {
-        text: 'Оферта',
-        href: '#',
-      },
-      {
-        text: 'Оферта',
-        href: '#',
-      },
-    ],
-  },
-])
+// const linkSections = reactive([
+//   {
+//     title: 'Для рекламодателей',
+//     links: [
+//       {
+//         text: 'Оферта',
+//         href: '#',
+//       },
+//       {
+//         text: 'Оферта',
+//         href: '#',
+//       },
+//       {
+//         text: 'Оферта',
+//         href: '#',
+//       },
+//       {
+//         text: 'Оферта',
+//         href: '#',
+//       },
+//     ],
+//   },
+//   {
+//     title: 'Для рекламодателей',
+//     links: [
+//       {
+//         text: 'Оферта',
+//         href: '#',
+//       },
+//       {
+//         text: 'Оферта',
+//         href: '#',
+//       },
+//       {
+//         text: 'Оферта',
+//         href: '#',
+//       },
+//       {
+//         text: 'Оферта',
+//         href: '#',
+//       },
+//     ],
+//   },
+//   {
+//     title: 'Для рекламодателей',
+//     links: [
+//       {
+//         text: 'Оферта',
+//         href: '#',
+//       },
+//       {
+//         text: 'Оферта',
+//         href: '#',
+//       },
+//       {
+//         text: 'Оферта',
+//         href: '#',
+//       },
+//       {
+//         text: 'Оферта',
+//         href: '#',
+//       },
+//     ],
+//   },
+// ])
 </script>
 
 <style lang="scss" scoped>
