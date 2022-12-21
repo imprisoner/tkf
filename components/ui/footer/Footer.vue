@@ -45,7 +45,7 @@
           </ul>
         </nav>
         <p class="col-lg-2 offset-lg-10 col-3 offset-9 footer__copyright">
-          TimeKeeper {{ year != '2022' ? '2021 - ' + year : year }}
+          TimeKeeper {{ year != '2022' ? '2022 - ' + year : year }}
         </p>
       </div>
     </div>
