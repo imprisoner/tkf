@@ -6,7 +6,7 @@
     <SOffersSection :offers-cards="bestOffers" :title="titleOffers" :subtitle="subtitleOffers" />
     <SAdsSection :banners="bannersBottom" />
     <SOffersSection :offers-cards="newOffers" :title="titleNew" :subtitle="subtitleNew" />
-    <SAboutSection :about-info="aboutInfo" />
+    <SAboutSection :advantages="advantages" :about-info="aboutInfo" />
   </main>
 </template>
 
@@ -16,6 +16,7 @@
   import { getNewLots } from '@/api/getNewLots';
   import { getMainLots } from '@/api/getMainLots';
   import { getAboutInfo } from '@/api/getAboutInfo';
+  import { getAdvantages } from '@/api/getAdvantages';
 
   const bannersTop = [];
   const bannersBottom = [];
@@ -27,6 +28,7 @@
   const newOffers = await getNewLots();
   const mainOffers = await getMainLots();
   const aboutInfo = await getAboutInfo();
+  const advantages = await getAdvantages();
 
   await getBanners({ page: 'MAIN' }).then((response) => {
     Object.entries(response._value).forEach((banner, i) => {

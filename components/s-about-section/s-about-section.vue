@@ -3,16 +3,11 @@
     <!--TODO дождаться ответа с бэка по поводу получения данных для верхнего блока-->
     <article class="s-about-section__description row">
       <div class="offset-xl-1 col-md-4 col-lg-3">
-        <h2>О проекте</h2>
+        <h2>{{ advantages.title }}</h2>
       </div>
       <div class="offset-4 col-md-8">
         <p class="text-16">
-          Учитывая ключевые сценарии поведения, повышение уровня гражданского
-          сознания требует от нас анализа системы массового участия.
-        </p>
-        <p class="text-16">
-          Учитывая ключевые сценарии поведения, повышение уровня гражданского
-          сознания требует от нас анализа системы массового участия.
+          {{ advantages.content }}
         </p>
       </div>
     </article>
@@ -20,30 +15,12 @@
       <div
         class="s-about-section__cards-wrapper offset-md-1 col-md-10 offset-lg-0 col-lg-12 offset-xxl-1 col-xxl-10 col-12"
       >
-        <div class="card card--square">
-          <div class="button button--square button--gray stroked-icon">
-            <base-icon name="thumbs-up"></base-icon>
-          </div>
-          <h5 class="card--square__title">Актуальные новинки</h5>
+      <div v-for="(advantage_img, id) in advantages.images" :key="id" class="card card--square">
+        <div class="button button--square button--gray stroked-icon">
+          <img :src="advantage_img.image_url" alt="">
         </div>
-        <div class="card card--square">
-          <div class="button button--square button--gray stroked-icon">
-            <base-icon name="package"></base-icon>
-          </div>
-          <h5 class="card--square__title">Ломбард</h5>
-        </div>
-        <div class="card card--square">
-          <div class="button button--square button--gray stroked-icon">
-            <base-icon name="package"></base-icon>
-          </div>
-          <h5 class="card--square__title">Преимущество</h5>
-        </div>
-        <div class="card card--square">
-          <div class="button button--square button--gray stroked-icon">
-            <base-icon name="star"></base-icon>
-          </div>
-          <h5 class="card--square__title">Преимущество</h5>
-        </div>
+        <h5 class="card--square__title">{{ advantages.phrases[id] }}</h5>
+      </div>
       </div>
     </div>
     <div class="row">
@@ -67,6 +44,11 @@
 
   defineProps({
     aboutInfo: {
+      type: Object,
+      default: () => ({}),
+    },
+
+    advantages: {
       type: Object,
       default: () => ({}),
     },
