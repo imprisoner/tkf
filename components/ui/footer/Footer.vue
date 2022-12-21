@@ -39,9 +39,9 @@
       <div class="footer__bottom-wrapper row">
         <nav class="footer__bottom-nav col-8 offset-1">
           <ul>
-            <li><a href="#">Политика конфиденциальности</a></li>
-            <li><a href="#">Оферта</a></li>
-            <li><a href="#">Оферта</a></li>
+            <li v-for="(link, i) in footerLinks" :key="i">
+              <a :href="link.file" target="_blank">{{ link.title }}</a>
+            </li>
           </ul>
         </nav>
         <p class="col-lg-2 offset-lg-10 col-3 offset-9 footer__copyright">
@@ -54,10 +54,12 @@
 <script setup>
 import { isDesktop, isTablet } from "@/utils/queries";
 import { getContact } from '@/api/getContact';
+import { getDocuments } from '@/api/getDocuments';
 
 const year = new Date().getFullYear()
 
 const contacts = await getContact();
+const footerLinks = await getDocuments();
 
 const linkSections = reactive([
   {
