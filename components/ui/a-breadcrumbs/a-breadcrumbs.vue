@@ -19,54 +19,54 @@
 
 <script setup>
   import './a-breadcrumbs.scss'
-  const routes = useRoute().fullPath.split('/');
-  let url = '/';
-  const breadcrumbs = [];
+  const routes = useRoute().path.split('/')
+  let url = '/'
+  const breadcrumbs = []
 
-  for(let i = 0; i < routes.length; i++) {
+  for (let i = 0; i < routes.length; i++) {
     if (routes[i] !== '') {
-      url += `${routes[i]}/`;
+      url += `${routes[i]}/`
       breadcrumbs.push({
         text: getText(routes[i]),
         route: url,
-      });
+      })
     }
   }
 
   function getText(breadcrumb) {
-    const route = breadcrumb.replaceAll('/', '');
-    let text = breadcrumb;
-    
-    switch(true) {
+    const route = breadcrumb.replaceAll('/', '')
+    let text = breadcrumb
+
+    switch (true) {
       case route === 'watches':
-        text = 'Швейцарские часы';
-        break;
+        text = 'Швейцарские часы'
+        break
       case route === 'jewelry':
-        text = 'Ювелирные украшения';
-        break;
+        text = 'Ювелирные украшения'
+        break
       case route === 'categories':
-        text = 'Категории';
-        break;
+        text = 'Категории'
+        break
       case route === 'contacts':
-        text = 'Контакты';
-        break;
+        text = 'Контакты'
+        break
       case route === 'search':
-        text = 'Поиск';
-        break;
+        text = 'Поиск'
+        break
       case route === 'category':
-        text = 'Категория';
-        break;
+        text = 'Категория'
+        break
       case route === 'brands':
-        text = 'Бренды';
-        break;
+        text = 'Бренды'
+        break
       case route === 'brand':
-        text = 'Бренд';
-        break;
+        text = 'Бренд'
+        break
       default:
-        text = route;
-        break;
+        text = route
+        break
     }
 
-    return text;
+    return text
   }
 </script>
