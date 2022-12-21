@@ -2,6 +2,7 @@
   <nav ref="navbar" class="navbar container" :class="navbarStickedClass">
     <div class="navbar__wrap">
       <ui-search
+        v-if="isSticked && !isMobileUI"
         v-model:active="displayState.search"
         hidden
         class="navbar-search"
@@ -15,6 +16,14 @@
         >
           <base-icon name="menu"></base-icon>
         </button>
+        <ui-search
+          v-model:active="displayState.search"
+          hidden
+          class="navbar-search"
+        ></ui-search>
+        <nuxt-link class="navbar__mobile-logo logo" href="/"
+          ><b>Time</b>Keeper</nuxt-link
+        >
         <button
           class="navbar__search-trigger button--iconic"
           type="button"
@@ -24,56 +33,52 @@
         </button>
       </template>
 
-
-<div v-if="isMobileMenuActive"  :class="navbarMobileClass"></div>
+      <div v-if="isMobileMenuActive" :class="navbarMobileClass"></div>
       <Transition>
-        <div v-if="isMobileMenuActive" class="navbar__mobile-menu" >
+        <div v-if="isMobileMenuActive" class="navbar__mobile-menu">
           <div class="navbar__dropdowns">
-          <button
-            v-if="isMobileUI"
-            class="navbar__drawer-close button button--square button--gray"
-            type="button"
-            @click="hideMobileMenu()"
-          >
-            <base-icon name="x"></base-icon>
-          </button>
-          <ui-navbar-dropdown
-            v-for="(props, i) in navbarItems"
-            v-bind="props"
-            :key="i"
-            @show="setActiveItem(i)"
-          >
-          </ui-navbar-dropdown>
+            <button
+              v-if="isMobileUI"
+              class="navbar__drawer-close button button--square button--gray"
+              type="button"
+              @click="hideMobileMenu()"
+            >
+              <base-icon name="x"></base-icon>
+            </button>
+            <ui-navbar-dropdown
+              v-for="(props, i) in navbarItems"
+              v-bind="props"
+              :key="i"
+              @show="setActiveItem(i)"
+              @hide="closeAllDropdown"
+            >
+            </ui-navbar-dropdown>
+          </div>
         </div>
-      </div>
       </Transition>
-
-      <template v-if="isMobileUI">
-        <nuxt-link class="navbar__mobile-logo logo" href="/"
-          ><b>Time</b>Keeper</nuxt-link
-        >
-      </template>
     </div>
   </nav>
 </template>
 
 <script setup>
-import {isDesktop} from "@/utils/queries";
-import {getBrands} from "@/api/getBrands"
-import { getContacts } from '@/api/pages'
+  import { isDesktop } from '@/utils/queries'
+  import { getBrands } from '@/api/getBrands'
+  import { getContacts } from '@/api/pages'
 
-import { WATCH, JEWELRY } from '@/constants/brandTypes'
+  import { WATCH, JEWELRY } from '@/constants/brandTypes'
 
-const BRAND_TYPES_ROUTE_MAP = {
-  [WATCH]: 'watches',
-  [JEWELRY]: 'jewelry'
-}
+  const BRAND_TYPES_ROUTE_MAP = {
+    [WATCH]: 'watches',
+    [JEWELRY]: 'jewelry',
+  }
 
-const watchesBrands = await loadBrands(WATCH)
-const jewelryBrands = await loadBrands(JEWELRY)
-const contacts = await getContacts()
+  const watchesBrands = await loadBrands(WATCH)
+  const jewelryBrands = await loadBrands(JEWELRY)
+  const contacts = await getContacts()
 
-const isMobileUI = ref(!isDesktop.value)
+  const isMobileUI = computed(() => {
+    return !isDesktop.value
+  })
 
   const displayState = reactive({
     search: false,
@@ -86,12 +91,11 @@ const isMobileUI = ref(!isDesktop.value)
   }
 
   function loadBrands(type) {
-    return getBrands({ brandType: type }, true)
-      .then(brands => {
-        return brands.slice(0, 20).map(brand => ({
-           ...brand,
-          link: `/${BRAND_TYPES_ROUTE_MAP[type]}`
-        }))
+    return getBrands({ brandType: type }, true).then((brands) => {
+      return brands.slice(0, 20).map((brand) => ({
+        ...brand,
+        link: `/${BRAND_TYPES_ROUTE_MAP[type]}`,
+      }))
     })
   }
 
@@ -107,9 +111,9 @@ const isMobileUI = ref(!isDesktop.value)
         { name: 'Мужские', link: '/watches' },
         { name: 'Женские', link: '/watches' },
         { name: 'Новые', link: '/watches' },
-        { name: 'Подержанные', link: '/watches' }
+        { name: 'Подержанные', link: '/watches' },
       ],
-      brands: watchesBrands
+      brands: watchesBrands,
     },
     {
       title: 'Ювелирные украшения',
@@ -122,9 +126,9 @@ const isMobileUI = ref(!isDesktop.value)
         { name: 'Мужские', link: '/jewelry' },
         { name: 'Женские', link: '/jewelry' },
         { name: 'Новые', link: '/jewelry' },
-        { name: 'Подержанные', link: '/jewelry' }
+        { name: 'Подержанные', link: '/jewelry' },
       ],
-      brands: jewelryBrands
+      brands: jewelryBrands,
     },
     {
       title: 'Контакты',
@@ -134,15 +138,7 @@ const isMobileUI = ref(!isDesktop.value)
       link: '/contacts',
       isActive: false,
       contacts,
-    },
-    {
-      title: 'Ещё',
-      repository: null,
-      hasDropdown: true,
-      icon: 'plus-circle',
-      link: '',
-      isActive: false,
-    },
+    }
   ])
 
   function setActiveItem(index) {
@@ -150,6 +146,16 @@ const isMobileUI = ref(!isDesktop.value)
     navbarItems[index].isActive = true
     if (currentItem) {
       currentItem.isActive = false
+    }
+  }
+
+  function closeAllDropdown() {
+    navbarItems.forEach((item) => {
+      item.isActive = false
+    })
+
+    if (isMobileUI) {
+      hideMobileMenu()
     }
   }
 
@@ -189,22 +195,22 @@ const isMobileUI = ref(!isDesktop.value)
     document.addEventListener('scroll', () => {
       const headerHeight = useState('headerHeight').value
       const scrolled = navbar.value.offsetTop
-      isSticked.value = scrolled > headerHeight;
+      isSticked.value = scrolled > headerHeight
     })
   })
 </script>
 
 <style lang="scss" scoped>
-.v-enter-active,
-.v-leave-active {
-  transition: all 1s ease;
-}
+  .v-enter-active,
+  .v-leave-active {
+    transition: all 1s ease;
+  }
 
-.v-enter-from,
-.v-leave-to {
-  transform: translate(-10%, 0);
-  opacity: 0;
-}
+  .v-enter-from,
+  .v-leave-to {
+    transform: translate(-10%, 0);
+    opacity: 0;
+  }
   .navbar {
     position: sticky;
     top: 0;
@@ -369,7 +375,6 @@ const isMobileUI = ref(!isDesktop.value)
     order: 1;
 
     // active search siblings opacity transition
-
 
     &.search-on {
       position: absolute;
