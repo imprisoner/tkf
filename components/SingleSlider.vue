@@ -5,16 +5,16 @@
     @real-index-change="onIndexChange"
   >
     <swiper-slide v-for="(lot, i) in slides" :key="i">
-      <div>
+      <NuxtLink :to="`/${lot.type === 'watch' ? 'watches' : 'jewelry'}/${lot.slug}`">
         <img
           class="single-slider__img img-resp"
-          :src="lot.image"
+          :src="lot.image || stubBrandImageUrl"
           :alt="lot.name"
         />
-      </div>
+      </NuxtLink>
       <div class="single-slider__title">
-        <h3 class="single-slider__name">{{ lot.brand_name }}</h3>
-        <p class="single-slider__model">{{ lot.model_name }}</p>
+        <h3 v-if="lot.brand_name" class="single-slider__name">{{ lot.brand_name }}</h3>
+        <p v-if="lot.model_name" class="single-slider__model">{{ lot.model_name }}</p>
       </div>
     </swiper-slide>
 
@@ -62,6 +62,8 @@
   function onIndexChange(swiper) {
     counter.current = convertIndex(swiper.activeIndex)
   }
+
+  const stubBrandImageUrl = '/img/brand_stub.png'
 </script>
 
 <style lang="scss" scoped>
