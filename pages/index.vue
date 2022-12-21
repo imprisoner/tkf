@@ -19,6 +19,7 @@
 </template>
 
 <script setup>
+  import { getBrands } from '@/api/getBrands'
   import { getBanners } from '@/api/getBanners'
   import { getBestLots } from '@/api/getBestLots'
   import { getNewLots } from '@/api/getNewLots'
@@ -49,6 +50,8 @@
       }
     })
   })
+
+  const brandsCards = await getBrands({ isShowOnMain: true })
 </script>
 
 <style lang="scss" scoped>

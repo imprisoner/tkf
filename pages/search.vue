@@ -1,42 +1,36 @@
 <template>
-  <main id="search">
+  <main v-show="!pending" id="search">
     <SCatalogTop
-      :count="lotsResponse.count ?? '0'"
-      :title="searchString"
+      :count="lotsResponse.count ?? 0"
+      :title="
+        isEmptyList
+          ? getUrlSearchParams.search_string ?? ''
+          : 'Ничего не найдено'
+      "
     />
     <SGoodSection
-      :lots-response="lotsResponse"
-      @update-params="updateQueryParams"
+      v-show="isEmptyList"
+      :lots-list="lotsResponse.results"
+      :common-lots-count="lotsResponse.count"
     />
   </main>
 </template>
 
 <script setup>
   import { getLotsBySearchString } from '~/api/getLotsBySearchString'
+  import useQueryString from '~/composables/useQueryString'
 
-  const route = useRoute()
-  const searchString = computed(() => `${route.query.search_string}`)
+  const { getUrlSearchParams } = useQueryString()
 
-  const queryParams = ref({})
+  const { data: lotsResponse, pending } = await getLotsBySearchString(
+    getUrlSearchParams.value
+  )
 
-  const updateQueryParams = (value) => {
-    queryParams.value = value
-  }
+  const isEmptyList = computed(() => lotsResponse.value.results?.length)
 
-  const getQueryParams = computed(() => ({
-    search_string: searchString.value,
-    ...queryParams.value,
-  }))
-
-  const lotsResponse = ref({})
-
-  const updateLotsResponse = async () => {
-    const { data } = await getLotsBySearchString(getQueryParams.value)
+  watch(getUrlSearchParams, async () => {
+    const { data } = await getLotsBySearchString(getUrlSearchParams.value)
     lotsResponse.value = data.value
-  }
-
-  watch(getQueryParams, () => {
-    updateLotsResponse()
   })
 </script>
 

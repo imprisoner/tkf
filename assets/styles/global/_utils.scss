@@ -48,5 +48,23 @@
     background: #14685E;
     color: #fff;
     padding: 20px;
+
+    @include max-width('md') {
+      font-size: 12px;
+      padding: 10px;
+    }
+
+    .imagebox__image, .imagebox__thumb {
+      position: relative;
+
+      .img-resp {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
   }
 }

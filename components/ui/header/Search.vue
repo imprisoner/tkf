@@ -4,7 +4,7 @@
       <base-icon name="search"></base-icon>
     </button>
     <input
-      id="header-search__field header_search"
+      class="header-search__field header_search"
       type="text"
       aria-label="Search"
       @change="search"
@@ -21,7 +21,12 @@
 
   function search(e) {
     const searchString = e.target.value
-    navigateTo(`/search?search_string=${searchString}`)
+    navigateTo({
+      path: '/search',
+      query: {
+        search_string: searchString,
+      },
+    })
   }
 </script>
 

@@ -4,21 +4,28 @@
       <h4 class="navbar-menu__subtitle-text" @click="toggleList()">
         {{ title }}
       </h4>
-      <nuxt-link
-        class="navbar-menu__link link-button"
-        :to="`/${repository}/${name}/`"
-      >
-        <span>Все</span>
-        <base-icon name="arrow-down-right"></base-icon>
-      </nuxt-link>
+      <div class="navbar-menu__link-wrapper" @click="onLinkClick">
+        <nuxt-link
+          class="navbar-menu__link link-button"
+          :to="`/${repository}/${name}/`"
+        >
+          <span>Все</span>
+          <base-icon name="arrow-down-right"></base-icon>
+        </nuxt-link>
+      </div>
     </div>
     <ul v-show="isMobileListActive" class="navbar-menu__list text-16">
-      <li class="navbar-menu__list-item">
+      <li class="navbar-menu__list-item" @click="onLinkClick">
         <nuxt-link :to="`/${name}/${repository}`">
           Показать все {{ title.toLowerCase() }}
         </nuxt-link>
       </li>
-      <li v-for="(item, j) in list" :key="j" class="navbar-menu__list-item">
+      <li
+        v-for="(item, j) in list"
+        :key="j"
+        class="navbar-menu__list-item"
+        @click="onLinkClick"
+      >
         <nuxt-link :to="item.link || `/${repository}/`">{{
           item.name
         }}</nuxt-link>
@@ -53,9 +60,14 @@
     },
   })
 
+  const emits = defineEmits(['close'])
   const triggerActiveClass = computed(() => ({
     active: displayMobileList.value && !isDesktop.value,
   }))
+
+  function onLinkClick() {
+    emits('close')
+  }
 
   const displayMobileList = ref(false)
 
@@ -139,8 +151,11 @@
       }
     }
 
-    &__link {
-      @include max-width('lg') {
+    &__link-wrapper {
+      display: flex;
+      align-items: center;
+
+       @include max-width('lg') {
         display: none;
       }
     }
