@@ -1,5 +1,5 @@
 <template>
-  <main id="search" v-show="!pending">
+  <main v-show="!pending" id="search">
     <SCatalogTop
       :breadcrumbs="[{ text: 'Поиск' }]"
       :count="lotsResponse.count ?? 0"
