@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <SAlphabet :brands-items="brandsCards"/>
+    <SAlphabet :brands-items="brandsCards" />
 
     <div class="container cats-title">
       <div class="row">
@@ -79,7 +79,7 @@
   const textDescriptionSection =
     'Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия.'
 
-    const brandsCards = await getBrands({ isShowOnMain: true })
+  const brandsCards = await getBrands({ isShowOnMain: true })
 </script>
 
 <style lang="scss" scoped>

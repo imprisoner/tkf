@@ -7,11 +7,11 @@
           <nuxt-link
             v-for="letter in alphabet"
             :key="letter.id"
-            :to="{hash: `#alphabet_${letter.id}`}"
+            :to="{ hash: `#alphabet_${letter.id}` }"
             class="alphabet__button"
           >
             {{ letter.name }}
-          </nuxt-link >
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -22,7 +22,9 @@
         :key="letter.id"
         class="alphabet__item col-12 row"
       >
-        <div class="alphabet__title offset-lg-1 col-md-2 col-12"><p>{{ letter.name }}</p></div>
+        <div class="alphabet__title offset-lg-1 col-md-2 col-12">
+          <p>{{ letter.name }}</p>
+        </div>
         <div class="alphabet__list row offset-lg-3 col-xl-8 col-md-10 col-12">
           <ul class="col-12 alphabet__listing">
             <li v-for="item in brandsItems" :key="item.id" class="text-16">

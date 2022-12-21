@@ -6,11 +6,14 @@
       :btn-show="btnShow"
       :count="98"
     />
-    <SCategoriesSection />
+    <SCategoriesSection :categories-items="categoriesItems" />
   </main>
 </template>
 
 <script setup>
+  import { getCategories } from '@/api/getCategories'
+  const categoriesItems = await getCategories()
+
   const breadcrumbs = [
     {
       text: 'Ювелирные украшения',

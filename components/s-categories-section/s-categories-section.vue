@@ -4,12 +4,21 @@
       <div class="offset-lg-1 col-lg-10 col-12">
         <div class="categories-section__wall row">
           <m-card
-            v-for="brand in cardsItems"
-            :id="brand.id"
-            :key="brand.id"
-            :image="brand.image"
-            :title="brand.name"
-            :link="brand.link"
+            v-for="category in cardsItems"
+            :id="category.id"
+            :key="category.id"
+            :image="category.image || stubBrandImageUrl"
+            :title="category.name"
+            :link="category.link"
+            class="col-3"
+          />
+          <m-card
+            v-for="category in categoriesItems"
+            :id="category.id"
+            :key="category.id"
+            :image="category.image || stubBrandImageUrl"
+            :title="category.name"
+            :link="'/jewelry/'"
             class="col-3"
           />
         </div>
@@ -20,6 +29,14 @@
 
 <script setup>
   import './s-categories-section.scss'
+  const stubBrandImageUrl = '/img/logo.svg'
+
+  defineProps({
+    categoriesItems: {
+      type: Array,
+      default: () => [],
+    },
+  })
 
   const cardsItems = [
     {
