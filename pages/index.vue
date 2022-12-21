@@ -26,7 +26,6 @@
   import { getMainLots } from '@/api/getMainLots'
   import { getAboutInfo } from '@/api/getAboutInfo'
   import { getAdvantages } from '@/api/getAdvantages'
-  import { getBrands } from '@/api/getBrands'
 
   const bannersTop = []
   const bannersBottom = []
@@ -50,8 +49,6 @@
       }
     })
   })
-
-  const brandsCards = await getBrands({ isShowOnMain: true })
 </script>
 
 <style lang="scss" scoped>
