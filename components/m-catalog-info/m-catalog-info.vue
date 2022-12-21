@@ -1,7 +1,7 @@
 <template>
   <div class="m-catalog-info offset-lg-1 col-lg-10 col-12">
     <h1 v-if="title">{{ title }}</h1>
-    <span v-if="count" class="text-16">найдено {{ count }} товар</span>
+    <span class="text-16">Найдено {{ count }} товар{{ sklonyator }}</span>
     <div class="m-catalog-info__categories">
       <button
         v-for="(category, id) in categories"
@@ -42,7 +42,7 @@
     },
   })
 
-  const sklonyator = computed(() => {
+  const sklonyator = computed((count) => {
     let add = ''
     if (
       (count % 10 >= 5 && count % 10 <= 9) ||
