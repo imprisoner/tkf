@@ -14,7 +14,6 @@
 
 <script setup>
   const showSearch = ref(false)
-  const router = useRouter
   function toggle() {
     showSearch.value = !showSearch.value
   }
