@@ -2,7 +2,7 @@
   <main id="brands-page" class="catalog">
     <SCatalogTop :title="title" :count="brandsItems.length"/>
     <SBrandsSection :brands-cards="brandsItems" />
-    <SAlphabet :brands-items="brandsItems"/>welry/brands/index.vue
+    <SAlphabet :brands-items="brandsItems"/>
   </main>
 </template>
 
