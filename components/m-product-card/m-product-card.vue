@@ -8,6 +8,7 @@
         class="img-resp"
         :src="lot.image || stubBrandImageUrl"
         :alt="lot.title"
+        loading="lazy"
       />
     </NuxtLink>
     <NuxtLink :to="`/${type}/${lot.slug}`">
