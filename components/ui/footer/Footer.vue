@@ -8,7 +8,7 @@
         >
           <div class="logo footer__logo"><b>Time</b>Keeper</div>
           <template v-if="isDesktop">
-            <a 
+            <a
               v-for="(phone, id) in contacts.phones" :key="id"
               class="footer__phone"
               :href="`tel:+${phone.replace(/[^\d\+]/g,'')}`"
@@ -17,16 +17,16 @@
             </a>
           </template>
         </div>
-        <nav
+        <!-- <nav
           class="footer__nav col-md-8 col-xxl-7 offset-lg-4 col-md-10 offset-md-1"
         >
           <ui-footer-section
-            v-for="(section, i) in sections"
+            v-for="(section, i) in linkSections"
             :key="i"
             :heading="section.title"
             :links="section.links"
           />
-        </nav>
+        </nav> -->
         <div class="footer__socials-wrapper offset-lg-1 offset-md-10">
           <ui-socials
             class="footer__socials"
@@ -45,7 +45,7 @@
           </ul>
         </nav>
         <p class="col-lg-2 offset-lg-10 col-3 offset-9 footer__copyright">
-          TimeKeeper 2022
+          TimeKeeper {{ year != '2022' ? '2022 - ' + year : year }}
         </p>
       </div>
     </div>
@@ -55,9 +55,11 @@
 import { isDesktop, isTablet } from "@/utils/queries";
 import { getContact } from '@/api/getContact';
 
+const year = new Date().getFullYear()
+
 const contacts = await getContact();
 
-const sections = reactive([
+const linkSections = reactive([
   {
     title: 'Для рекламодателей',
     links: [
@@ -122,7 +124,6 @@ const sections = reactive([
     ],
   },
 ])
-
 </script>
 
 <style lang="scss" scoped>
