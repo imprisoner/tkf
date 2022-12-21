@@ -5,7 +5,6 @@
         <ABreadcrumbs :breadcrumbs="breadcrumbs" />
       </div>
       <MCatalogInfo
-        :breadcrumbs="breadcrumbs"
         :title="title"
         :categories="categories"
         :btn-show="btnShow"
@@ -20,10 +19,6 @@
   import ABreadcrumbs from '~/components/ui/a-breadcrumbs/a-breadcrumbs'
 
   defineProps({
-    breadcrumbs: {
-      type: Array,
-      default: () => [],
-    },
     title: {
       type: String,
       default: '',

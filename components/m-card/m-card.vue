@@ -1,11 +1,17 @@
 <template>
-  <a class="card card--square col-md-3" :class="classname" :href="link">
-    <img class="card--square__img img-resp" :src="image" :alt="title" />
+  <NuxtLink class="card card--square col-md-3" :class="classname" :to="link">
+    <img
+      :id="id"
+      class="card--square__img img-resp"
+      :src="image"
+      :alt="title"
+      loading="lazy"
+    />
     <div class="button button--square button--gray stroked-icon">
       <base-icon name="arrow-down-right"></base-icon>
     </div>
     <h5 class="card--square__title">{{ title }}</h5>
-  </a>
+  </NuxtLink>
 </template>
 
 <script setup>
@@ -19,6 +25,10 @@
     link: {
       type: String,
       default: '#',
+    },
+    id: {
+      type: Number,
+      default: 0,
     },
     classname: {
       type: String,

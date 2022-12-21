@@ -2,7 +2,7 @@
   <main id="brands-page" class="catalog">
     <SCatalogTop :title="title" :breadcrumbs="breadcrumbs" />
     <SBrandsSection :brands-cards="brandsMainCards" />
-    <SAlphabet />
+    <SAlphabet :brands-items="brandsMainCards" />
   </main>
 </template>
 
@@ -12,7 +12,11 @@
   const breadcrumbs = [
     {
       text: 'Ювелирные украшения',
-      href: '',
+      href: '/jewelry/brands',
+    },
+    {
+      text: 'Категории',
+      href: '/brands',
     },
   ]
 

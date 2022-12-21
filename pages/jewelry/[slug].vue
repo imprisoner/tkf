@@ -1,17 +1,18 @@
 <template>
   <main id="lot-page" class="catalog">
-    <SCatalogTop :breadcrumbs="breadcrumbs"/>
+    <SCatalogTop />
     <article class="container lot">
       <div class="row lot__top">
         <div
           class="lot__imagebox imagebox offset-lg-1 col-lg-5 col-md-6 col-12"
         >
           <div class="imagebox__image">
-            <img class="img-resp" :src="lot.image" alt="" />
+            <div v-if="lot.condition == 'NEW'" class="new new--lot">Абсолютно новый</div>
+            <img class="img-resp" :src="lot.image || stubBrandImageUrl" alt="" />
           </div>
           <div class="imagebox__thumbnails">
             <div class="imagebox__thumb">
-              <img class="img-resp" :src="lot.image" alt="" />
+              <img class="img-resp" :src="lot.image || stubBrandImageUrl" alt="" />
             </div>
           </div>
         </div>
@@ -101,10 +102,7 @@
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/jewelry/' + slug
   const { data: lot } = await useFetch(uri, { key: slug });
-
-  const breadcrumbs = [];
-  const routes = useRoute().fullPath.split('/');
-  let url = '/';
+  const stubBrandImageUrl = '/img/brand_stub.png';
   
   const gender = computed(() => {
     let value = '';
@@ -121,16 +119,6 @@
     }
     return value;
   });
-
-  for(let i = 0; i < routes.length; i++) {
-    if (routes[i] !== '') {
-      url += `${routes[i]}/`;
-      breadcrumbs.push({
-        text: routes[i] === 'jewelry' ? 'Каталог украшений' : lot._value.name,
-        route: url,
-      });
-    }
-  }
 
   const characteristics = [
     {

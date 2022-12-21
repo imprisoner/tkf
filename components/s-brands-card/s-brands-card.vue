@@ -1,9 +1,10 @@
 <template>
   <div class="card card-square brands-logo aspect--1-1">
-    <NuxtLink :to="`/brands/watches`">
+    <NuxtLink :to="`/brands/${id}`">
       <img
         class="brands-logo__img img-resp"
         :src="image || stubBrandImageUrl"
+        loading="lazy"
       />
       <div class="brands-logo__overlay">
         <div

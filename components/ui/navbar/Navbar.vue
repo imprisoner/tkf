@@ -24,8 +24,11 @@
         </button>
       </template>
 
-      <div v-show="isMobileMenuActive" :class="navbarMobileClass">
-        <div class="navbar__dropdowns">
+
+<div v-if="isMobileMenuActive"  :class="navbarMobileClass"></div>
+      <Transition>
+        <div v-if="isMobileMenuActive" class="navbar__mobile-menu" >
+          <div class="navbar__dropdowns">
           <button
             v-if="isMobileUI"
             class="navbar__drawer-close button button--square button--gray"
@@ -39,9 +42,12 @@
             v-bind="props"
             :key="i"
             @show="setActiveItem(i)"
-          ></ui-navbar-dropdown>
+          >
+          </ui-navbar-dropdown>
         </div>
       </div>
+      </Transition>
+
       <template v-if="isMobileUI">
         <nuxt-link class="navbar__mobile-logo logo" href="/"
           ><b>Time</b>Keeper</nuxt-link
@@ -53,7 +59,8 @@
 
 <script setup>
 import {isDesktop} from "@/utils/queries";
-import { getBrands } from '@/api/getBrands'
+import {getBrands} from "@/api/getBrands"
+import { getContacts } from '@/api/pages'
 
 import { WATCH, JEWELRY } from '@/constants/brandTypes'
 
@@ -64,6 +71,7 @@ const BRAND_TYPES_ROUTE_MAP = {
 
 const watchesBrands = await loadBrands(WATCH)
 const jewelryBrands = await loadBrands(JEWELRY)
+const contacts = await getContacts()
 
 const isMobileUI = ref(!isDesktop.value)
 
@@ -120,11 +128,12 @@ const isMobileUI = ref(!isDesktop.value)
     },
     {
       title: 'Контакты',
-      repository: null,
-      hasDropdown: false,
+      repository: 'contacts',
+      hasDropdown: true,
       icon: 'phone',
       link: '/contacts',
       isActive: false,
+      contacts,
     },
     {
       title: 'Ещё',
@@ -180,16 +189,22 @@ const isMobileUI = ref(!isDesktop.value)
     document.addEventListener('scroll', () => {
       const headerHeight = useState('headerHeight').value
       const scrolled = navbar.value.offsetTop
-      if (scrolled > headerHeight) {
-        isSticked.value = true
-      } else {
-        isSticked.value = false
-      }
+      isSticked.value = scrolled > headerHeight;
     })
   })
 </script>
 
 <style lang="scss" scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: all 1s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  transform: translate(-10%, 0);
+  opacity: 0;
+}
   .navbar {
     position: sticky;
     top: 0;
@@ -291,6 +306,17 @@ const isMobileUI = ref(!isDesktop.value)
         z-index: 5;
       }
     }
+    &__mobile-menu {
+      @include max-width('lg') {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: unset;
+        z-index: 5;
+      }
+    }
 
     @include max-width('lg') {
       // background-color: $neutral;
@@ -343,12 +369,7 @@ const isMobileUI = ref(!isDesktop.value)
     order: 1;
 
     // active search siblings opacity transition
-    ~ * {
-      opacity: 1;
-      transition: opacity 0.5s ease-in;
 
-      // transition: none
-    }
 
     &.search-on {
       position: absolute;

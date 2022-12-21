@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <SAlphabet />
+        <SAlphabet :brands-items="brandsItems"/>
 
         <div class="container cats-title">
             <div class="row">
@@ -30,6 +30,7 @@
 </template>
 
 <script setup>
+  import { getBrands } from '@/api/getBrands'
   import { getBanners } from '@/api/getBanners';
 
   const titleCatalogTop = "Все мужские часы";
@@ -43,6 +44,8 @@
     });
   });
 
+  const brandsCards = await getBrands({ isShowOnMain: false, brandType: 'WATCH' })
+  const brandsItems = brandsCards
 </script>
 
 <style lang="scss" scoped>

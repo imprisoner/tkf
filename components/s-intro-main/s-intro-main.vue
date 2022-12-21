@@ -2,7 +2,7 @@
   <section class="s-intro-main container">
     <div class="row">
       <article class="offset-lg-1 col-md-6 col-lg-5 col-12">
-        <ui-socials></ui-socials>
+        <ui-socials :socials="contacts.socials"></ui-socials>
         <h1>
           У нас для<br>
           Вас много чего есть
@@ -23,6 +23,9 @@
 
 <script setup>
   import './s-intro-main.scss';
+  import { getContact } from '@/api/getContact';
+
+  const contacts = await getContact();
 
   defineProps({
     offersCards: {

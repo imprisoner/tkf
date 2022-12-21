@@ -7,7 +7,15 @@
           class="footer__contacts col-xxl-2 offset-1"
         >
           <div class="logo footer__logo"><b>Time</b>Keeper</div>
-          <a v-if="isDesktop" class="footer__phone" href="tel:+79099999999">8 909 999 99 99</a>
+          <template v-if="isDesktop">
+            <a 
+              v-for="(phone, id) in contacts.phones" :key="id"
+              class="footer__phone"
+              :href="`tel:+${phone.replace(/[^\d\+]/g,'')}`"
+            >
+              {{ phone }}
+            </a>
+          </template>
         </div>
         <nav
           class="footer__nav col-md-8 col-xxl-7 offset-lg-4 col-md-10 offset-md-1"
@@ -17,10 +25,13 @@
             :key="i"
             :heading="section.title"
             :links="section.links"
-          ></ui-footer-section>
+          />
         </nav>
         <div class="footer__socials-wrapper offset-lg-1 offset-md-10">
-          <ui-socials class="footer__socials"></ui-socials>
+          <ui-socials
+            class="footer__socials"
+            :socials="contacts.socials"
+          />
         </div>
       </div>
     </div>
@@ -41,8 +52,10 @@
   </footer>
 </template>
 <script setup>
-
 import { isDesktop, isTablet } from "@/utils/queries";
+import { getContact } from '@/api/getContact';
+
+const contacts = await getContact();
 
 const sections = reactive([
   {
@@ -109,6 +122,7 @@ const sections = reactive([
     ],
   },
 ])
+
 </script>
 
 <style lang="scss" scoped>
@@ -168,6 +182,7 @@ const sections = reactive([
   }
 
   &__phone {
+    display: block;
     font-weight: 500;
     font-size: 17px;
     line-height: 28px;

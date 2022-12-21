@@ -6,18 +6,25 @@
       :btn-show="btnShow"
       :count="98"
     />
-    <SCategoriesSection />
+    <SCategoriesSection :categories-items="categoriesItems" />
   </main>
 </template>
 
 <script setup>
+  import { getCategories } from '@/api/getCategories'
+  const categoriesItems = await getCategories()
+
   const breadcrumbs = [
     {
-      text: 'Швейцарские часы',
-      href: '/categories/watches',
+      text: 'Ювелирные украшения',
+      href: '/jewelry/categories',
+    },
+    {
+      text: 'Категории',
+      href: '/categories',
     },
   ]
-  const title = 'Категории швейцарских часов'
+  const title = 'Категории ювелирных украшений'
   const btnShow = false
 </script>
 
