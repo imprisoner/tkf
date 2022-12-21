@@ -4,7 +4,7 @@
       <base-icon name="search"></base-icon>
     </button>
     <input
-      id="header-search__field header_search"
+      class="header-search__field header_search"
       type="text"
       aria-label="Search"
       @change="search"

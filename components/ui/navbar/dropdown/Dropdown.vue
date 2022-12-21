@@ -28,8 +28,9 @@
               }}</span>
               <a
                 v-for="(contact, index) in contactsGroup"
-                :href="setContactLinkByType(contact, contactsGroupName)"
                 :key="index"
+                :href="setContactLinkByType(contact, contactsGroupName)"
+                target="_blank"
                 >{{ contact }}</a
               >
             </div>
@@ -40,6 +41,7 @@
               :key="i"
               v-bind="section"
               :params="params[section.name][repository]"
+              @close="emits('hide')"
             />
           </template>
         </div>
@@ -102,7 +104,7 @@
     },
   })
 
-  const emits = defineEmits(['show'])
+  const emits = defineEmits(['show', 'hide'])
 
   const trigger = shallowRef(
     props.link && !props.hasDropdown ? resolveComponent('NuxtLink') : 'button'
