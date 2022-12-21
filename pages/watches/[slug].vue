@@ -19,13 +19,14 @@
         <div class="lot__details details offset-lg-7 col-lg-5 col-xl-4 col-12">
           <div class="details__top">
             <div class="details__title">
-              <h3>{{ lot.model.name }}</h3>
-              <p>{{ lot.brand.name }}</p>
+              <h3 v-if="lot.model">{{ lot.model.name }}</h3>
+              <h3 v-else>{{ lot.name }}</h3>
+              <p v-if="lot.brand">{{ lot.brand.name }}</p>
             </div>
             <h3 class="details__price">
-              ${{ lot.price_usd }}
-              <span v-if="lot.price_rub" class="details__price--gray"
-                >{{ lot.price_rub }} ₽</span
+              ${{ priceUsd }}
+              <span v-if="priceRub" class="details__price--gray"
+                >{{ priceRub }} ₽</span
               >
             </h3>
             <div class="details__tags">
@@ -49,7 +50,7 @@
       <div class="lot__features features row">
         <h4 class="offset-lg-1 col-lg-11 col-12">Характеристики</h4>
         <div class="row offset-lg-1 col-lg-11 col-12">
-          <div class="features__col col-xl-6 col-12">
+          <div v-if="characteristics" class="features__col col-xl-6 col-12">
             <template v-for="(characteristic, id) in characteristics">
               <div
                 v-if="characteristic.value !== '' && characteristic.value !== null && characteristic.value.length !== 0"
@@ -106,6 +107,11 @@
   const { data: lot } = await useFetch(uri, { key: slug })
   const stubBrandImageUrl = '/img/brand_stub.png';
 
+  const priceRub = lot._value.price_rub.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+  const priceUsd = lot._value.price_usd.toLocaleString();
+
+  console.log(lot._value.price_rub)
+
   const gender = computed(() => {
     let value = '';
     switch(true) {
@@ -125,63 +131,63 @@
   const characteristics = [
     {
       text: 'Модель',
-      value: lot._value.model.name,
+      value: lot._value.model?.name ?? '',
     },
     {
       text: 'Бренд',
-      value: lot._value.brand.name,
+      value: lot._value?.brand.name ?? '',
     },
     {
       text: 'Материал часов',
-      value: lot._value.body_material,
+      value: lot._value?.body_material ?? '',
     },
     {
       text: 'Материал ремешка',
-      value: lot._value.strap_material,
+      value: lot._value?.strap_material ?? '',
     },
     {
       text: 'Водонепроницаемость',
-      value: lot._value.is_waterproof,
+      value: lot._value?.is_waterproof ?? '',
     },
     {
       text: 'Цвет',
-      value: lot._value.watch_face_color,
+      value: lot._value?.watch_face_color ?? '',
     },
     {
       text: 'Функции часов',
-      value: lot._value.function_list,
+      value: lot._value?.function_list ?? [],
     },
     {
       text: 'Ширина',
-      value: lot._value.size_width,
+      value: lot._value?.size_width ?? '',
     },
     {
       text: 'Высота',
-      value: lot._value.size_height,
+      value: lot._value?.size_height ?? '',
     },
     {
       text: 'Год производства',
-      value: lot._value.production_year,
+      value: lot._value?.production_year ?? '',
     },
     {
       text: 'Запас хода',
-      value: lot._value.power_reserve,
+      value: lot._value?.power_reserve ?? '',
     },
     {
       text: 'Калибр',
-      value: lot._value.caliber,
+      value: lot._value?.caliber ?? '',
     },
     {
       text: 'Пол',
-      value: gender.value,
+      value: gender?.value ?? '',
     },
     {
       text: 'Состояние',
-      value: lot._value.condition === 'NEW' ? 'новый' : 'подержанный',
+      value: lot._value?.condition === 'NEW' ? 'новый' : 'подержанный',
     },
     {
       text: 'Комплектация',
-      value: lot._value.complete_set === 'FULL' ? 'полная' : 'не комплект',
+      value: lot._value?.complete_set === 'FULL' ? 'полная' : 'не комплект',
     },
   ];
 </script>
@@ -455,6 +461,35 @@
           padding-left: 8px;
           padding-right: 8px;
         }
+      }
+    }
+
+    .imagebox__image, .imagebox__thumb {
+      position: relative;
+
+      .img-resp {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .imagebox__image {
+      height: 523px;
+
+      @include max-width('md') {
+        height: 226px;
+      }
+    }
+
+    .imagebox__thumb {
+      height: 108px;
+      
+      @include max-width('md') {
+        height: 59px;
       }
     }
   }

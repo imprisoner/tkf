@@ -1,26 +1,16 @@
 <template>
   <main id="brands-page" class="catalog">
-    <SCatalogTop :title="title" :breadcrumbs="breadcrumbs" />
-    <SBrandsSection :brands-cards="brandsMainCards" />
-    <SAlphabet />
+    <SCatalogTop :title="title" :count="brandsItems.length"/>
+    <SBrandsSection :brands-cards="brandsItems" />
+    <SAlphabet :brands-items="brandsItems"/>nds/index.vue
   </main>
 </template>
 
 <script setup>
   import { getBrands } from '@/api/getBrands'
-
-  const breadcrumbs = [
-    {
-      text: 'Ювелирные украшения',
-      href: '/watches/brands',
-    },
-    {
-      text: 'Бренды',
-      href: '/brands',
-    },
-  ]
-
-  const brandsMainCards = await getBrands({ isShowOnMain: true })
+  
+  const brandsCards = await getBrands({ isShowOnMain: false, brandType: 'WATCH' })
+  const brandsItems = brandsCards
   const title = 'Все бренды швейцарских часов'
 </script>
 

@@ -10,9 +10,22 @@
     }
 
     &__img {
+      position: relative;
+      height: 333px;
       background-color: $shadow;
       margin-bottom: 12px;
       aspect-ratio: 1/1;
+      
+      @include max-width('md') {
+        height: 143px;
+      }
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: contain;
+      }
     }
 
     &__title {

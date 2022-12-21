@@ -23,9 +23,9 @@
               <p>{{ lot.brand.name }}</p>
             </div>
             <h3 class="details__price">
-              ${{ lot.price_usd }}
-              <span v-if="lot.price_rub" class="details__price--gray"
-                >{{ lot.price_rub }} ₽</span
+              ${{ priceUsd }}
+              <span v-if="priceRub" class="details__price--gray"
+                >{{ priceRub }} ₽</span
               >
             </h3>
             <div class="details__tags">
@@ -104,6 +104,9 @@
   const { data: lot } = await useFetch(uri, { key: slug });
   const stubBrandImageUrl = '/img/brand_stub.png';
   
+  const priceRub = lot._value.price_rub.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+  const priceUsd = lot._value.price_usd.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+
   const gender = computed(() => {
     let value = '';
     switch(true) {
@@ -123,43 +126,43 @@
   const characteristics = [
     {
       text: 'Бренд',
-      value: lot._value.brand.name,
+      value: lot._value.brand?.name ?? '',
     },
     {
       text: 'Коллекция',
-      value: lot._value.collection,
+      value: lot._value?.collection ?? '',
     },
     {
       text: 'Тип',
-      value: lot._value.category.name,
+      value: lot._value.category?.name ?? '',
     },
     {
       text: 'Пол',
-      value: gender.value,
+      value: gender?.value ?? '',
     },
     {
       text: 'Состояние',
-      value: lot._value.condition === 'NEW' ? 'новый' : 'подержанный',
+      value: lot._value?.condition === 'NEW' ? 'новый' : 'подержанный',
     },
     {
       text: 'Комплектация',
-      value: lot._value.complete_set === 'FULL' ? 'полная' : 'не комплект',
+      value: lot._value?.complete_set === 'FULL' ? 'полная' : 'не комплект',
     },
     {
       text: 'Метал изделия',
-      value: lot._value.metal,
+      value: lot._value?.metal ?? '',
     },
     {
       text: 'Камни',
-      value: lot._value.stones,
+      value: lot._value?.stones ?? [],
     },
     {
       text: 'Каратность',
-      value: lot._value.carat,
+      value: lot._value?.carat ?? '',
     },
     {
       text: 'Размер',
-      value: lot._value.size,
+      value: lot._value?.size ?? '',
     },
   ];
 </script>
@@ -433,6 +436,35 @@
           padding-left: 8px;
           padding-right: 8px;
         }
+      }
+    }
+
+    .imagebox__image, .imagebox__thumb {
+      position: relative;
+
+      .img-resp {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .imagebox__image {
+      height: 523px;
+
+      @include max-width('md') {
+        height: 226px;
+      }
+    }
+
+    .imagebox__thumb {
+      height: 108px;
+      
+      @include max-width('md') {
+        height: 59px;
       }
     }
   }
