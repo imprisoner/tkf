@@ -3,10 +3,7 @@
     <div class="row">
       <article class="offset-lg-1 col-md-6 col-lg-5 col-12">
         <ui-socials :socials="contacts.socials"></ui-socials>
-        <h1>
-          У нас для<br>
-          Вас много чего есть
-        </h1>
+        <h1>TimeKeeper: швейцарские часы, ювелирные украшения, аксессуары</h1>
         <p class="text-16">
           People also search for this items<br>
           also search for this items<br>
