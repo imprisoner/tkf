@@ -42,7 +42,8 @@
             v-bind="props"
             :key="i"
             @show="setActiveItem(i)"
-          ></ui-navbar-dropdown>
+          >
+          </ui-navbar-dropdown>
         </div>
       </div>
       </Transition>
@@ -58,7 +59,8 @@
 
 <script setup>
 import {isDesktop} from "@/utils/queries";
-import { getBrands } from '@/api/getBrands'
+import {getBrands} from "@/api/getBrands"
+import { getContacts } from '@/api/pages'
 
 import { WATCH, JEWELRY } from '@/constants/brandTypes'
 
@@ -69,6 +71,7 @@ const BRAND_TYPES_ROUTE_MAP = {
 
 const watchesBrands = await loadBrands(WATCH)
 const jewelryBrands = await loadBrands(JEWELRY)
+const contacts = await getContacts()
 
 const isMobileUI = ref(!isDesktop.value)
 
@@ -125,11 +128,12 @@ const isMobileUI = ref(!isDesktop.value)
     },
     {
       title: 'Контакты',
-      repository: null,
-      hasDropdown: false,
+      repository: 'contacts',
+      hasDropdown: true,
       icon: 'phone',
       link: '/contacts',
       isActive: false,
+      contacts,
     },
     {
       title: 'Ещё',

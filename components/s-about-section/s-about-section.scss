@@ -73,7 +73,16 @@
     }
 
     .button {
+      max-width: 71px;
       cursor: default;
+
+      @include max-width('md') {
+        max-width: 36px;
+      }
+
+      img {
+        width: 100%;
+      }
     }
   }
 

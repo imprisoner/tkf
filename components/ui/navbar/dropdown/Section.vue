@@ -14,9 +14,9 @@
     </div>
     <ul v-show="isMobileListActive" class="navbar-menu__list text-16">
       <li class="navbar-menu__list-item">
-        <nuxt-link :to="`/${name}/${repository}`"
-          >Показать все {{ title.toLowerCase() }}</nuxt-link
-        >
+        <nuxt-link :to="`/${name}/${repository}`">
+          Показать все {{ title.toLowerCase() }}
+        </nuxt-link>
       </li>
       <li v-for="(item, j) in list" :key="j" class="navbar-menu__list-item">
         <nuxt-link :to="item.link || `/${repository}/`">{{
@@ -51,10 +51,6 @@
       type: Array,
       default: () => [],
     },
-    isActive: {
-      type: Boolean,
-      required: true,
-    },
   })
 
   const triggerActiveClass = computed(() => ({
@@ -79,14 +75,24 @@
 <style lang="scss" scoped>
   // navbar item component
   .navbar-menu {
+    &__section {
+      &:first-child {
+        .navbar-menu__list {
+          grid-template-columns: max-content;
+        }
+      }
+    }
+
     &__list {
-      display: flex;
-      flex-direction: column;
+      display: grid;
       gap: 6px;
+      column-gap: 40px;
+      grid-template-columns: max-content max-content;
       color: $input;
-      max-height: 320px;
       flex-wrap: wrap;
       @include max-width('lg') {
+        display: flex;
+        flex-direction: column;
         padding: 16px 24px;
         max-height: unset;
         flex-wrap: nowrap;
@@ -120,6 +126,7 @@
         transform: rotate(180deg);
       }
     }
+
     &__subtitle-text {
       @include max-width('lg') {
         flex: 1;

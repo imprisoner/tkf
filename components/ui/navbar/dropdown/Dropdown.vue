@@ -17,14 +17,34 @@
     <template v-if="repository">
       <div v-show="isActive" class="navbar__menu navbar-menu">
         <div class="navbar-menu__wrap">
-          <ui-navbar-dropdown-section
-            v-for="(section, i) in sections"
-            :key="i"
-            v-bind="section"
-            :params="params[section.name][repository]"
-          />
+          <div class="navbar-menu__contacts" v-if="repository === 'contacts'">
+            <div
+              v-for="(contactsGroup, contactsGroupName) in contacts"
+              :key="contactsGroupName"
+              class="navbar-menu__contact"
+            >
+              <span class="navbar-menu__contact-title">{{
+                getContactsGroupName(contactsGroupName)
+              }}</span>
+              <a
+                v-for="(contact, index) in contactsGroup"
+                :href="setContactLinkByType(contact, contactsGroupName)"
+                :key="index"
+                >{{ contact }}</a
+              >
+            </div>
+          </div>
+          <template v-else>
+            <ui-navbar-dropdown-section
+              v-for="(section, i) in sections"
+              :key="i"
+              v-bind="section"
+              :params="params[section.name][repository]"
+            />
+          </template>
         </div>
         <nuxt-link
+          v-if="repository !== 'contacts'"
           class="button navbar-menu__bottom-link bottom-link"
           :class="bottomLinkClass"
           :to="`/lots/${repository}`"
@@ -69,6 +89,10 @@
       default: '',
     },
     categories: {
+      type: Array,
+      default: () => [],
+    },
+    contacts: {
       type: Array,
       default: () => [],
     },
@@ -132,6 +156,23 @@
     },
   ])
 
+  function setContactLinkByType(value, contactsGroupName) {
+    const contactTypesMap = {
+      phones: (val) => `tel:${val}`,
+      mails: (val) => `mailto:${val}`,
+    }
+    return contactTypesMap[contactsGroupName]?.(value) || value
+  }
+
+  function getContactsGroupName(contactsGroupName) {
+    const nameMap = {
+      phones: 'Телефон',
+      socials: 'Соц. сети',
+      mails: 'Почта',
+    }
+    return nameMap[contactsGroupName] || contactsGroupName
+  }
+
   function onClick() {
     if (!props.hasDropdown) {
       return
@@ -164,6 +205,7 @@
     &.active {
       background-color: #ffffffe5;
     }
+
     &.active .button__caret {
       transform: rotate(180deg);
     }
@@ -173,10 +215,31 @@
     position: absolute;
     top: 84px;
     left: 0;
-    width: 680px;
     padding-bottom: unset;
     background-color: white;
     @include shadow;
+
+    &__contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    &__contact {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      &-title {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+      }
+
+      &-value {
+        line-height: 26px;
+      }
+    }
 
     @include max-width('lg') {
       position: static;
@@ -190,7 +253,7 @@
 
     &__wrap {
       display: grid;
-      grid-template-columns: 1fr 2fr;
+      grid-auto-flow: column;
       gap: 40px;
       height: 100%;
       padding: 40px;
@@ -205,6 +268,7 @@
       }
     }
   }
+
   .bottom-link {
     @include max-width('lg') {
       border-bottom: $border;
