@@ -2,7 +2,7 @@
   <section class="s-catalog-top container">
       <div class="row">
           <div class="s-catalog-top__breadcrumbs offset-lg-1 col-lg-10 col-12">
-            <ABreadcrumbs :breadcrumbs="breadcrumbs" />
+            <ABreadcrumbs />
           </div>
           <MCatalogInfo
             :title="title"

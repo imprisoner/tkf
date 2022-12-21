@@ -35,8 +35,8 @@
       </template>
     </div>
     <strong class="product-card__price">
-      ${{ lot.price_usd }}
-      <span v-if="lot.price_rub">{{ lot.price_rub }} ₽</span>
+      ${{ lot.price_usd.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ') }}
+      <span v-if="lot.price_rub">{{ lot.price_rub.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ') }} ₽</span>
     </strong>
   </div>
 </template>
