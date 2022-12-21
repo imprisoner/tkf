@@ -11,6 +11,12 @@
             :count="count"
           />
       </div>
+      <MCatalogInfo
+        :title="title"
+        :categories="categories"
+        :btn-show="btnShow"
+        :count="count"
+      />
   </section>
 </template>
 

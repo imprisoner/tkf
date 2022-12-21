@@ -2,13 +2,13 @@
   <main id="brands-page" class="catalog">
     <SCatalogTop :title="title" :count="brandsItems.length"/>
     <SBrandsSection :brands-cards="brandsItems" />
-    <SAlphabet :brands-items="brandsItems"/>
+    <SAlphabet :brands-items="brandsItems"/>nds/index.vue
   </main>
 </template>
 
 <script setup>
   import { getBrands } from '@/api/getBrands'
-
+  
   const brandsCards = await getBrands({ isShowOnMain: false, brandType: 'WATCH' })
   const brandsItems = brandsCards
   const title = 'Все бренды швейцарских часов'

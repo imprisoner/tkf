@@ -1,11 +1,10 @@
 <template>
   <main id="goods-page" class="catalog">
-    <SCatalogTop
-      :count="lotsResponse.count"
-    />
+    <SCatalogTop :count="lotsResponse.count" />
 
     <SGoodSection
-      :lots-response="lotsResponse"
+      :lots-list="lotsResponse.results"
+      :common-lots-count="lotsResponse.count"
       :show-filters="true"
       @update-params="updateQueryParams"
     />
@@ -20,7 +19,7 @@
       </div>
     </div>
 
-    <SAlphabet :brands-items="brandsCards"/>
+    <SAlphabet :brands-items="brandsCards" />
 
     <div class="container cats-title">
       <div class="row">
@@ -42,17 +41,22 @@
 <script setup>
   import { getBrands } from '@/api/getBrands'
   import { getWatchesBrand } from '@/api/getWatchesBrand'
+  import useQueryString from '~/composables/useQueryString'
+
+  const breadcrumbs = [
+    {
+      text: 'Швейцарские часы',
+      href: '/watches/categories/',
+    },
+    {
+      text: 'Все бренды',
+      href: '/brands',
+    },
+  ]
+
   const { id } = useRoute().params
 
-  const queryParams = ref({})
-
-  const updateQueryParams = (value) => {
-    queryParams.value = value
-  }
-
-  const getQueryParams = computed(() => ({
-    ...queryParams.value,
-  }))
+  const { getQueryParams, updateQueryParams } = useQueryString()
 
   const lotsResponse = ref({})
 
@@ -69,7 +73,7 @@
   const textDescriptionSection =
     'Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия.'
 
-    const brandsCards = await getBrands({ isShowOnMain: true })
+  const brandsCards = await getBrands({ isShowOnMain: true })
 </script>
 
 <style lang="scss" scoped>

@@ -4,7 +4,7 @@
       <button class="button" type="button" @click="toggle">
         <base-icon name="search"></base-icon>
       </button>
-      <input id="header_search" type="text" @change="search"/>
+      <input id="header_search" type="text" @change="search" />
     </div>
   </template>
   <template v-else>
@@ -35,7 +35,7 @@
 
   const emit = defineEmits(['update:active'])
 
-  const searchOn = computed(() => (props.active ?  'search-on':'search-off'))
+  const searchOn = computed(() => (props.active ? 'search-on' : 'search-off'))
 
   function toggle() {
     if (!props.hidden) return
@@ -44,39 +44,44 @@
   }
   function search(e) {
     const searchString = e.target.value
-    navigateTo(`/search?search_string=${searchString}`)
+    navigateTo({
+      path: '/search',
+      query: {
+        search_string: searchString,
+      },
+    })
     e.target.value = ''
   }
 </script>
 
 <style lang="scss" scoped>
-.search{
-  &__field {
-    display: flex;
-    width: 100%;
-    margin-left: auto;
-    padding-left: 22px;
-    padding-right: 22px;
-    outline: 1px solid #eaeaea;
-    outline-offset: -1px;
+  .search {
+    &__field {
+      display: flex;
+      width: 100%;
+      margin-left: auto;
+      padding-left: 22px;
+      padding-right: 22px;
+      outline: 1px solid #eaeaea;
+      outline-offset: -1px;
 
-    &::placeholder {
-      color: $input;
-    }
-  }
-
-  &.search-off{
-     .search__field {
-      width: 0;
-      padding: unset;
-      flex: unset;
       &::placeholder {
-        color: $neutral;
+        color: $input;
+      }
+    }
+
+    &.search-off {
+      .search__field {
+        width: 0;
+        padding: unset;
+        flex: unset;
+        &::placeholder {
+          color: $neutral;
+        }
       }
     }
   }
-}
- .header-search {
+  .header-search {
     display: flex;
     align-items: center;
     flex: 1;

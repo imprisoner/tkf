@@ -12,8 +12,8 @@
       >
         <SGoodSectionSort
           :sort-types="sortTypes"
-          :ordering="ordering"
-          @sort="(value) => (ordering = value)"
+          :ordering="getActiveOrdering"
+          @sort="updateOrdering"
         />
       </div>
       <div class="goods-section__button-group offset-md-9 col-lg-2 col-md-3">
@@ -36,7 +36,7 @@
       <div class="offset-lg-1 col-lg-10 col-12">
         <div class="goods-section__wall">
           <div
-            v-for="lot in lotsResponse.results"
+            v-for="lot in lotsList"
             :key="lot.id"
             class="goods-section__card"
           >
@@ -56,7 +56,7 @@
           Показать ещё
         </button>
         <Pagination
-          :current-page="page"
+          :current-page="currentPage"
           :pages-count="getPagesCount"
           @update-page="updatePage"
         />
@@ -68,77 +68,34 @@
 <script setup>
   import './s-good-section.scss'
   import Pagination from '~/components/Pagination.vue'
+  import useSort from '~/composables/useSort'
+  import usePagination from '~/composables/usePagination'
 
   const props = defineProps({
     showFilters: {
       type: Boolean,
       default: false,
     },
-    lotsResponse: {
-      type: Object,
-      default: () => ({}),
+    lotsList: {
+      type: Array,
+      default: () => [],
+    },
+    commonLotsCount: {
+      type: Number,
+      default: 0,
     },
   })
 
-  const emit = defineEmits(['updateParams'])
+  const { sortTypes, getActiveOrdering, updateOrdering } = useSort()
 
-  const sortTypes = [
-    {
-      label: 'Сначала новые',
-      value: 'update_dt',
-    },
-    {
-      label: 'Сначала старые',
-      value: '-update_dt',
-    },
-    {
-      label: 'По возрастанию цены',
-      value: 'price_usd',
-    },
-    {
-      label: 'По убыванию цены',
-      value: '-price_usd',
-    },
-  ]
-  const limits = [30, 60, 120]
-
-  const page = ref(1)
-  const perPageLimit = ref(limits[0])
-  const ordering = ref(sortTypes[0])
-
-  const getPagesCount = computed(() =>
-    Math.ceil(getCommonCount.value / perPageLimit.value)
-  )
-  const getQueryParams = computed(() => {
-    return {
-      limit: perPageLimit.value,
-      offset: perPageLimit.value * (page.value - 1),
-      ordering: ordering.value.value,
-    }
-  })
-
-  const getCommonCount = computed(() =>
-    (props.lotsResponse.count ?? 0).toString()
-  )
-
-  const updateLimit = (value) => {
-    perPageLimit.value = value
-    page.value = 1
-  }
-
-  const updatePage = (value) => {
-    page.value = value
-    window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
-  }
-
-  watch(
-    computed(() => getQueryParams.value),
-    () => emit('updateParams', getQueryParams.value)
-  )
-
-  onMounted(() => {
-    emit('updateParams', getQueryParams.value)
-  })
+  const {
+    limits,
+    updatePage,
+    updateLimit,
+    currentPage,
+    perPageLimit,
+    getPagesCount,
+  } = usePagination(computed(() => props.commonLotsCount ?? 0))
 </script>
 
 <style lang="scss" scoped>
