@@ -17,7 +17,7 @@
     <template v-if="repository">
       <div v-show="isActive" class="navbar__menu navbar-menu">
         <div class="navbar-menu__wrap">
-          <div class="navbar-menu__contacts" v-if="repository === 'contacts'">
+          <div v-if="repository === 'contacts'" class="navbar-menu__contacts">
             <div
               v-for="(contactsGroup, contactsGroupName) in contacts"
               :key="contactsGroupName"

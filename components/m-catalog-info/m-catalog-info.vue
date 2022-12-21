@@ -1,6 +1,6 @@
 <template>
   <div class="m-catalog-info offset-lg-1 col-lg-10 col-12">
-    <h2 v-if="title">{{ title }}</h2>
+    <h1 v-if="title">{{ title }}</h1>
     <span v-if="count" class="text-16">найдено {{ count }} товар</span>
     <div class="m-catalog-info__categories">
       <button
