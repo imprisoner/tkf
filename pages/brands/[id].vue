@@ -42,7 +42,6 @@
   import { getBrands } from '@/api/getBrands'
   import { getWatchesBrand } from '@/api/getWatchesBrand'
   import useQueryString from '~/composables/useQueryString'
-  import { getLotsBySearchString } from '~/api/getLotsBySearchString'
 
   const { id } = useRoute().params
 
