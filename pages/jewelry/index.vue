@@ -27,8 +27,8 @@
         <SCategoriesSection />
 
         <SDescrSection
-            :title="titleDescriptionSection"
-            :text="textDescriptionSection"
+            :title="aboutPage.title"
+            :text="aboutPage.content"
         />
     </main>
 </template>
@@ -36,13 +36,13 @@
 <script setup>
     import { getBrands } from '@/api/getBrands'
     import { getBanners } from '@/api/getBanners';
+    import { getAboutPage } from '@/api/getAboutPage'
 
+    const aboutPage = await getAboutPage('JEWELRY')
     const titleCatalogTop = "Ювелирные украшения";
-    const titleDescriptionSection = 'Описание раздела'
-    const textDescriptionSection = 'Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия.'
     const banners = [];
 
-    await getBanners({ page: 'WATCH' }).then((response) => {
+    await getBanners({ page: 'JEWELRY' }).then((response) => {
       Object.entries(response._value).forEach((banner) => {
         banners.push(banner);
       });

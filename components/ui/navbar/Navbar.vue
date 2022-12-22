@@ -61,14 +61,14 @@
 </template>
 
 <script setup>
+  import SlideTransition from "../transitions/SlideTransition";
+  import FadeTransition from "../transitions/FadeTransition";
   import { isDesktop } from '@/utils/queries'
   import { getBrands } from '@/api/getBrands'
   import { getCategories } from '@/api/getCategories'
   import { getContacts } from '@/api/pages'
 
   import { WATCH, JEWELRY } from '@/constants/brandTypes'
-  import SlideTransition from "../transitions/SlideTransition";
-  import FadeTransition from "../transitions/FadeTransition";
 
   const BRAND_TYPES_ROUTE_MAP = {
     [WATCH]: 'watches',

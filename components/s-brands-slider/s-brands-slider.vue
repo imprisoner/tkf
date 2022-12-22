@@ -5,8 +5,10 @@
         <h2>Мировые бренды</h2>
       </div>
       <div class="s-brands-slider__nav offset-9 col-xl-2 col-md-3">
-        <slider-nav   @prev="slidePrev()"
-                      @next="slideNext()"></slider-nav>
+        <slider-nav
+          @prev="slidePrev()"
+          @next="slideNext()">
+        </slider-nav>
       </div>
       <div class="offset-xl-1 col-xl-10 col-12">
         <swiper v-bind="config" @swiper="onSwiper">

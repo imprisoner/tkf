@@ -116,13 +116,13 @@
   const gender = computed(() => {
     let value = '';
     switch(true) {
-      case lot._value.gender === 'UNISEX': 
+      case lot._value.gender === 'UNISEX':
         value = 'унисекс';
       break;
-      case lot._value.gender === 'MALE': 
+      case lot._value.gender === 'MALE':
         value = 'мужской';
       break;
-      case lot._value.gender === 'FEMALE': 
+      case lot._value.gender === 'FEMALE':
         value = 'женский';
       break;
     }
@@ -468,7 +468,7 @@
 
     .imagebox__thumb {
       height: 108px;
-      
+
       @include max-width('md') {
         height: 59px;
       }
