@@ -6,6 +6,7 @@
       :show-filters="true"
       :lots-list="lotsResponse.results"
       :common-lots-count="lotsResponse.count"
+      good-type="watches"
     />
 
     <SAdsSection :banners="banners" />
@@ -37,18 +38,18 @@
 <script setup>
   import { getBrands } from '@/api/getBrands'
   import { getBanners } from '@/api/getBanners'
-  import { getWatchesBrand } from '@/api/getWatchesBrand'
+  import { getWatches } from '@/api/getWatches'
   import { getAboutPage } from '@/api/getAboutPage'
   import useQueryString from '~/composables/useQueryString'
 
   const { getUrlSearchParams } = useQueryString()
 
-  const { data: lotsResponse } = await getWatchesBrand(getUrlSearchParams.value)
+  const { data: lotsResponse } = await getWatches(getUrlSearchParams.value)
 
   // const isEmptyList = computed(() => lotsResponse.value.results?.length)
 
   watch(getUrlSearchParams, async () => {
-    const { data } = await getWatchesBrand(getUrlSearchParams.value)
+    const { data } = await getWatches(getUrlSearchParams.value)
     lotsResponse.value = data.value
   })
 

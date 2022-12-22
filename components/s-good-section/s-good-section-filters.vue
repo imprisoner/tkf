@@ -127,15 +127,19 @@
       type: Number,
       default: 0,
     },
+    goodType: {
+      type: String,
+      default: 'watches',
+    },
   })
 
   // data fetching-----------------------------
   const { getUrlSearchParams, setUrlSearchParams } = useQueryString()
 
-  const { data: filterObjects } = await getFilterObject('watches')
+  const { data: filterObjects } = await getFilterObject(props.goodType)
 
   const getBrandsList = computed(() =>
-    filterObjects.value.brands.map((i) => ({ value: i.id, label: i.name }))
+    filterObjects.value?.brands.map((i) => ({ value: i.id, label: i.name }))
   )
   // !-------------------------------------!
 
@@ -198,7 +202,13 @@
 
   // !brands filter ----------------------!
 
-  const selectedBrands = ref(getUrlSearchParams.value.brand.map((i) => +i))
+  const selectedBrands = ref([])
+  if (typeof getUrlSearchParams.value.brand === 'string') {
+    selectedBrands.value = [+getUrlSearchParams.value.brand]
+  }
+  if (typeof getUrlSearchParams.value.brand === 'object') {
+    selectedBrands.value = [...getUrlSearchParams.value.brand].map((i) => +i)
+  }
 
   const updateBrandsSelection = (val) => {
     selectedBrands.value = val
