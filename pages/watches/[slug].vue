@@ -112,7 +112,7 @@
   const priceRub = lot._value.price_rub.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
   const priceUsd = lot._value.price_usd.toLocaleString();
 
-  //TODO: Подставить нужные значения
+  // TODO: Подставить нужные значения
   setLotDynamicSeo('Часы',lot.value.condition,lot.value.name,lot.value.image || stubBrandImageUrl)
 
   console.log(lot._value.price_rub)
