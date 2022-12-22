@@ -102,7 +102,7 @@
 </template>
 
 <script setup>
-  import {setLotDynamicSeo} from "../../constants/seo";
+  import useSeo from "../../composables/useSeo";
 
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/watches/' + slug
@@ -112,12 +112,9 @@
   const priceRub = lot._value.price_rub.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
   const priceUsd = lot._value.price_usd.toLocaleString();
 
-  //TODO: Подставить нужные значения
-  setLotDynamicSeo('Часы',lot.value.condition,lot.value.name,lot.value.image || stubBrandImageUrl)
-
-  console.log(lot._value.price_rub)
-  console.log(lot._value)
-
+  useHead({
+    ...useSeo(useRoute().name,{lotType:'Часы', lotName:lot.value.name,lotImage:lot.value.image})
+  })
   const gender = computed(() => {
     let value = '';
     switch(true) {
