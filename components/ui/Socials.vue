@@ -7,7 +7,7 @@
       rel="nofollow"
       target="_blank"
     >
-      <base-icon name="instagram"></base-icon>
+      <base-icon class="socials__icon" name="instagram"></base-icon>
     </a>
     <a
       class="socials__link"
@@ -16,7 +16,7 @@
       rel="nofollow"
       target="_blank"
     >
-      <base-icon name="telegram"></base-icon>
+      <base-icon  class="socials__icon" name="telegram"></base-icon>
     </a>
     <a
       class="socials__link"
@@ -25,7 +25,7 @@
       rel="nofollow"
       target="_blank"
     >
-      <base-icon name="twitter"></base-icon>
+      <base-icon  class="socials__icon" name="twitter"></base-icon>
     </a>
     <a
       class="socials__link"
@@ -34,7 +34,7 @@
       rel="nofollow"
       target="_blank"
     >
-      <base-icon name="facebook"></base-icon>
+      <base-icon  class="socials__icon" name="facebook"></base-icon>
     </a>
   </div>
 </template>
@@ -54,14 +54,18 @@
     align-items: center;
     gap: 25px;
 
-    &__link {
-      display: block;
+    &__icon {
       width: 18px;
       height: 18px;
       @include max-width('md') {
         width: 12px;
         height: 12px;
       }
+    }
+
+    &__link {
+      display: block;
+      
     }
   }
 </style>
