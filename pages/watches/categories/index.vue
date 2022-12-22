@@ -2,16 +2,47 @@
   <main id="categories-page" class="catalog">
     <SCatalogTop
       :title="title"
-      :btn-show="btnShow"
-      :count="98"
+      :btn-show="false"
+      :on-show-counter="false"
+      :on-show-categories="false"
+      :on-show-bookmark="false"
     />
-    <SCategoriesSection />
+    <SCategoriesSection
+      :hardcode-items="cardsItems"
+      :stub-brand-image-url="stubBrandImageUrl"
+    />
   </main>
 </template>
 
 <script setup>
   const title = 'Категории швейцарских часов'
-  const btnShow = false
+  const stubBrandImageUrl = '/img/stub_watch.jpg'
+  const cardsItems = [
+    {
+      name: 'Мужские',
+      classname: 'col-lg-3 col-md-6 col-12',
+      link: '/watches/',
+      image: '/img/stub_watch.jpg',
+    },
+    {
+      name: 'Женские',
+      classname: 'col-lg-3 col-md-6 col-12',
+      link: '/watches/',
+      image: '/img/stub_watch.jpg',
+    },
+    {
+      name: 'Новые',
+      classname: 'col-lg-3 col-md-6 col-12',
+      link: '/watches/',
+      image: '/img/stub_watch.jpg',
+    },
+    {
+      name: 'Подержанные',
+      classname: 'col-lg-3 col-md-6 col-12',
+      link: '/watches/',
+      image: '/img/stub_watch.jpg',
+    },
+  ]
 </script>
 
 <style lang="scss" scoped>
