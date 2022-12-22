@@ -1,5 +1,5 @@
 <template>
-  <transition name="slide" v-bind="$attrs" v-on="$listeners">
+  <transition name="slide" v-bind="$attrs">
     <slot></slot>
   </transition>
 </template>
