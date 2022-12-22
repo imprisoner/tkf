@@ -64,7 +64,7 @@
           </li>
         </ul>
         <button class="filters__save link-button" type="button">
-          <BaseIcon name="star" />
+          <BaseIcon name="bookmark" />
           <span>Сохранить запрос</span>
         </button>
       </aside>
@@ -76,7 +76,10 @@
         :class="{ show: content.value === activeFiltersTab?.value }"
       >
         <div class="filter__top">
-          <h3 class="filter__title">{{ content.label }}</h3>
+          <h3 v-if="content.fullLabel" class="filter__title">
+            {{ content.fullLabel }}
+          </h3>
+          <h3 v-else class="filter__title">{{ content.label }}</h3>
           <span class="text-16 lots-found">Найдено 185 товаров</span>
           <div class="filters__mobile-close">
             <BaseIcon name="star" />
@@ -87,7 +90,7 @@
         </div>
         <div class="filter__popular">
           <h4 class="filter__subtitle mobile-caret show-menu">
-            Популярные {{ content.label }}
+            {{ content.titleOne }}
           </h4>
           <div class="filter__popular-list">
             <button
@@ -113,8 +116,18 @@
           </div>
         </div>
         <div class="filter__main">
-          <h4 class="filter__subtitle mobile-caret">Все {{ content.label }}</h4>
-          <div class="filter__options">
+          <h4 class="filter__subtitle mobile-caret">
+            {{ content.titleTwo }}
+          </h4>
+          <sGoodSectionSortPrice v-if="content.value == 'price'" />
+          <div
+            v-if="
+              (content.value !== 'price') &
+              (content.value !== 'sex') &
+              (content.value !== 'condition')
+            "
+            class="filter__options"
+          >
             <div class="filter__search search">
               <div class="search input-group">
                 <input
@@ -165,13 +178,11 @@
           type="button"
           @click="resetSelectedBrands"
         >
-          <BaseIcon name="star" />
-          <!--          <BaseIcon name="filters/rotate-ccw" />-->
+          <BaseIcon name="rotate-ccw" />
           <span>Сбросить</span>
         </button>
         <button class="button button--gray stroked-icon" type="button">
-          <BaseIcon name="star" />
-          <!--          <BaseIcon name="filters/check" />-->
+          <BaseIcon name="check" />
           <span>Сохранить</span>
         </button>
       </footer>
@@ -180,6 +191,7 @@
 </template>
 
 <script setup>
+  import sGoodSectionSortPrice from './s-good-section-price/s-good-section-price.vue'
   import CheckboxComponent from '~/components/ui/CheckboxComponent.vue'
 
   const brandsList = ref([
@@ -260,42 +272,57 @@
   const filterTabs = ref([
     {
       label: 'Бренд',
+      titleOne: 'Популярные бренды',
+      titleTwo: 'Все бренды',
       value: 'brand',
       icon: 'star',
       realIcon: 'tag',
     },
     {
       label: 'Модель',
+      titleOne: 'Популярные модели',
+      titleTwo: 'Все модели',
       value: 'model',
       icon: 'star',
       realIcon: 'box',
     },
     {
       label: 'Цена',
+      titleOne: 'Популярные бренды',
+      titleTwo: 'Диапазон цен',
       value: 'price',
       icon: 'star',
       realIcon: 'dollar-sign',
     },
     {
       label: 'Диаметр',
+      fullLabel: 'Диаметр и габариты',
+      titleOne: 'Популярные',
+      titleTwo: 'Все диаметры',
       value: 'diametr',
       icon: 'star',
       realIcon: 'target',
     },
     {
       label: 'Местоположение',
+      titleOne: 'Популярное местоположение',
+      titleTwo: 'Поиск местоположения',
       value: 'place',
       icon: 'star',
       realIcon: 'compass',
     },
     {
       label: 'Пол',
+      titleOne: 'Выберите пол',
+      titleTwo: null,
       value: 'sex',
       icon: 'star',
       realIcon: 'ph_gender-intersex-bold',
     },
     {
       label: 'Состояние',
+      titleOne: 'Популярные категории',
+      titleTwo: 'Состояние',
       value: 'condition',
       icon: 'star',
       realIcon: 'thumbs-up',
