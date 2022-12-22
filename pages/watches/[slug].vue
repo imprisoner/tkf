@@ -1,6 +1,6 @@
 <template>
   <main id="lot-page" class="catalog">
-    <SCatalogTop />
+    <SCatalogTop :on-show="false"/>
     <article class="container lot">
       <div class="row lot__top">
         <div
@@ -115,7 +115,7 @@
   useHead({
     ...useSeo(useRoute().name,{lotType:'Часы', lotName:lot.value.name,lotImage:lot.value.image})
   })
-  
+
   const gender = computed(() => {
     let value = '';
     switch(true) {
@@ -198,10 +198,8 @@
 
 <style lang="scss" scoped>
   #lot-page {
-    .catalog-top {
-      &__breadcrumbs {
-        margin-bottom: 12px;
-      }
+    .s-catalog-top {
+      margin-bottom: 12px;
 
       @include max-width('md') {
         margin-bottom: unset;

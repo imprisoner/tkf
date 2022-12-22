@@ -1,5 +1,8 @@
 <template>
-  <div class="m-catalog-info offset-lg-1 col-lg-10 col-12">
+  <div
+    v-if="onShow === true"
+    class="m-catalog-info offset-lg-1 col-lg-10 col-12"
+  >
     <h1 v-if="title">{{ title }}</h1>
     <span class="text-16">
       {{ getCounterString }}
@@ -42,6 +45,10 @@
     btnShow: {
       type: Boolean,
       default: false,
+    },
+    onShow: {
+      type: Boolean,
+      default: true,
     },
   })
 

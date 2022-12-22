@@ -1,6 +1,6 @@
 <template>
   <main id="lot-page" class="catalog">
-    <SCatalogTop />
+    <SCatalogTop :on-show="false"/>
     <article class="container lot">
       <div class="row lot__top">
         <div
@@ -174,11 +174,10 @@
 </script>
 
 <style lang="scss" scoped>
-  #lot-page {
-    .catalog-top {
-      &__breadcrumbs {
-        margin-bottom: 12px;
-      }
+  .lot-page {
+    .s-catalog-top {
+      margin-bottom: 12px;
+
 
       @include max-width('md') {
         margin-bottom: unset;
