@@ -30,7 +30,7 @@
       <aside class="filters__sidebar">
         <div class="filters__mobile">
           <h6 class="filters__mobile-subtitle">Фильтры</h6>
-          <span class="text-16 lots-found">Найдено 185 товаров</span>
+          <span class="text-16 lots-found">{{ getCounterString }}</span>
           <div class="filters__mobile-close">
             <BaseIcon name="x" />
           </div>
@@ -46,7 +46,7 @@
             @click="toggleFilterItem(item)"
           >
             <div class="filters__list-btn button button--text-sm">
-              <BaseIcon :name="item.realIcon" />
+              <BaseIcon :name="item.icon" />
               <span>{{ item.label }}</span>
               <BaseIcon
                 name="arrow-right"
@@ -80,7 +80,7 @@
             {{ content.fullLabel }}
           </h3>
           <h3 v-else class="filter__title">{{ content.label }}</h3>
-          <span class="text-16 lots-found">Найдено 185 товаров</span>
+          <span class="text-16 lots-found">{{ getCounterString }}</span>
           <div class="filters__mobile-close">
             <BaseIcon name="star" />
           </div>
@@ -119,7 +119,7 @@
           <h4 class="filter__subtitle mobile-caret">
             {{ content.titleTwo }}
           </h4>
-          <sGoodSectionSortPrice v-if="content.value == 'price'" />
+          <SGoodSectionSortPrice v-if="content.value == 'price'" />
           <div
             v-if="
               (content.value !== 'price') &
@@ -144,40 +144,13 @@
                 </button>
               </div>
             </div>
-            <ul class="filter__options-list">
-              <li class="filter__option">
-                <CheckboxComponent
-                  label="Выбрать все"
-                  value="all"
-                  :checked="selected.length === brandsList.length"
-                  @change="selectAllBrands"
-                />
-              </li>
-              <li
-                v-for="item in brandsList"
-                :key="item.value"
-                class="filter__option"
-              >
-                <CheckboxComponent
-                  :label="item.label"
-                  :value="item.value"
-                  :checked="selected.indexOf(item.value) >= 0"
-                  @change="
-                    (checked) => handleBrandSelection(item.value, checked)
-                  "
-                />
-              </li>
-            </ul>
+            <SGoodSectionCheckboxGroup :list="getBrandsList" />
           </div>
         </div>
       </main>
 
       <footer class="filters__footer">
-        <button
-          class="button button--black"
-          type="button"
-          @click="resetSelectedBrands"
-        >
+        <button class="button button--black" type="button">
           <BaseIcon name="rotate-ccw" />
           <span>Сбросить</span>
         </button>
@@ -191,83 +164,36 @@
 </template>
 
 <script setup>
-  import sGoodSectionSortPrice from './s-good-section-price/s-good-section-price.vue'
-  import CheckboxComponent from '~/components/ui/CheckboxComponent.vue'
+  import SGoodSectionSortPrice from './s-good-section-price/s-good-section-price.vue'
+  import { getFilterObject } from '~/api/getFilterObject'
+  import { getBrands } from '~/api/getBrands'
+  import declOfNum from '~/composables/declOfNum'
 
-  const brandsList = ref([
-    {
-      label: 'A. Lange & Söhne',
-      value: 0,
-      isPopular: true,
+  const props = defineProps({
+    commonLotsCount: {
+      type: Number,
+      default: 0,
     },
-    {
-      label: 'A. Lange & Söhne',
-      value: 1,
-      isPopular: true,
-    },
-    {
-      label: 'A. Lange & Söhne',
-      value: 2,
-      isPopular: true,
-    },
-    {
-      label: 'A. Lange & Söhne',
-      value: 3,
-      isPopular: true,
-    },
-    {
-      label: 'A. Lange & Söhne',
-      value: 4,
-      isPopular: false,
-    },
-    {
-      label: 'A. Lange & Söhne',
-      value: 5,
-      isPopular: false,
-    },
-    {
-      label: 'A. Lange & Söhne',
-      value: 6,
-      isPopular: false,
-    },
-    {
-      label: 'A. Lange & Söhne',
-      value: 7,
-      isPopular: false,
-    },
-    {
-      label: 'A. Lange & Söhne',
-      value: 8,
-      isPopular: true,
-    },
-    {
-      label: 'A. Lange & Söhne',
-      value: 9,
-      isPopular: true,
-    },
-  ])
-
-  const getPopularBrands = computed(() => {
-    return brandsList.value.filter((brand) => brand.isPopular)
   })
 
-  const selected = ref([])
+  const getCounterString = computed(() =>
+    declOfNum(props.count, [
+      `Найден ${props.commonLotsCount} товар`,
+      `Найдено ${props.commonLotsCount} товара`,
+      `Найдено ${props.commonLotsCount} товаров`,
+    ])
+  )
 
-  const selectAllBrands = () => {
-    selected.value.length === brandsList.value.length
-      ? (selected.value = [])
-      : (selected.value = [...brandsList.value.map((i) => i.value)])
-  }
+  const { data: filterObjects } = await getFilterObject('watches')
+  const popularBrands = await getBrands({ isShowOnMain: true })
 
-  const handleBrandSelection = (item, checked) => {
-    checked
-      ? selected.value.push(item)
-      : selected.value.splice(selected.value.indexOf(item), 1)
-  }
+  const getBrandsList = computed(() =>
+    filterObjects.value.brands.map((i) => ({ value: i.id, label: i.name }))
+  )
 
-  const resetSelectedBrands = () => {
-    selected.value = []
-  }
+  const getPopularBrands = computed(() => {
+    return getBrandsList.value.filter((brand) => brand.isPopular)
+  })
 
   const filterTabs = ref([
     {
@@ -275,24 +201,21 @@
       titleOne: 'Популярные бренды',
       titleTwo: 'Все бренды',
       value: 'brand',
-      icon: 'star',
-      realIcon: 'tag',
+      icon: 'tag',
     },
     {
       label: 'Модель',
       titleOne: 'Популярные модели',
       titleTwo: 'Все модели',
       value: 'model',
-      icon: 'star',
-      realIcon: 'box',
+      icon: 'box',
     },
     {
       label: 'Цена',
       titleOne: 'Популярные бренды',
       titleTwo: 'Диапазон цен',
       value: 'price',
-      icon: 'star',
-      realIcon: 'dollar-sign',
+      icon: 'dollar-sign',
     },
     {
       label: 'Диаметр',
@@ -300,32 +223,28 @@
       titleOne: 'Популярные',
       titleTwo: 'Все диаметры',
       value: 'diametr',
-      icon: 'star',
-      realIcon: 'target',
+      icon: 'target',
     },
     {
       label: 'Местоположение',
       titleOne: 'Популярное местоположение',
       titleTwo: 'Поиск местоположения',
       value: 'place',
-      icon: 'star',
-      realIcon: 'compass',
+      icon: 'compass',
     },
     {
       label: 'Пол',
       titleOne: 'Выберите пол',
       titleTwo: null,
       value: 'sex',
-      icon: 'star',
-      realIcon: 'ph_gender-intersex-bold',
+      icon: 'ph_gender-intersex-bold',
     },
     {
       label: 'Состояние',
       titleOne: 'Популярные категории',
       titleTwo: 'Состояние',
       value: 'condition',
-      icon: 'star',
-      realIcon: 'thumbs-up',
+      icon: 'thumbs-up',
     },
   ])
 
