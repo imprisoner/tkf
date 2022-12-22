@@ -12,17 +12,15 @@ export default function (commonCount) {
   )
 
   const perPageLimit = computed(
-    () =>
-      limits[limits.findIndex((i) => i === +getUrlSearchParams.value.limit)] ??
-      limits[0]
+    () => +getUrlSearchParams.value.limit || limits[0]
   )
 
   const getPagesCount = computed(() =>
-    Math.ceil(+commonCount.value / (perPageLimit.value ?? limits[0]))
+    Math.ceil(+commonCount.value / perPageLimit.value)
   )
 
-  const updateLimit = (value) => {
-    currentPage.value = 1
+  const updateLimit = (value, resetPage = false) => {
+    if (resetPage) currentPage.value = 1
     setUrlSearchParams({ limit: value })
   }
 

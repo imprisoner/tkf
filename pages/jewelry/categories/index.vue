@@ -12,7 +12,6 @@
 <script setup>
   import { getCategories } from '@/api/getCategories'
   const categoriesItems = await getCategories()
-
   const title = 'Категории ювелирных украшений'
   const btnShow = false
 </script>

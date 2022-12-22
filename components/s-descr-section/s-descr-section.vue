@@ -26,12 +26,12 @@
 
     defineProps({
         title: {
-          type: String,
-          default: ''
+            type: String,
+            default: ''
         },
         text: {
-          type: String,
-          default: ''
+            type: String,
+            default: ''
         },
     })
 </script>

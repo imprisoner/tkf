@@ -18,26 +18,28 @@
       <div v-show="isActive" class="navbar__menu navbar-menu">
         <div class="navbar-menu__wrap">
           <div v-if="repository === 'contacts'" class="navbar-menu__contacts">
-            <div
+            <template
               v-for="(contactsGroup, contactsGroupName) in contacts"
               :key="contactsGroupName"
-              class="navbar-menu__contact"
             >
-              <span class="navbar-menu__contact-title">{{
-                getContactsGroupName(contactsGroupName)
-              }}</span>
-              <a
-                v-for="(contact, index) in contactsGroup"
-                :key="index"
-                :href="setContactLinkByType(contact, contactsGroupName)"
-                target="_blank"
-                >{{ contact }}</a
-              >
-            </div>
+              <div v-if="contactsGroup.length" class="navbar-menu__contact">
+                <span class="navbar-menu__contact-title">{{
+                  getContactsGroupName(contactsGroupName)
+                }}</span>
+                <a
+                  v-for="(contact, index) in contactsGroup"
+                  :key="index"
+                  :href="setContactLinkByType(contact, contactsGroupName)"
+                  target="_blank"
+                  >{{ contact }}</a
+                >
+              </div>
+            </template>
           </div>
           <template v-else>
             <ui-navbar-dropdown-section
               v-for="(section, i) in sections"
+              ref="target"
               :key="i"
               v-bind="section"
               :params="params[section.name][repository]"
@@ -63,7 +65,12 @@
 </template>
 
 <script setup>
+  import { ref } from 'vue'
+  import { onClickOutside } from '@vueuse/core'
   import { isDesktop } from '@/utils/queries'
+
+  const target = ref(null)
+  onClickOutside(target, () => emits('hide'))
 
   const props = defineProps({
     title: {
@@ -161,7 +168,7 @@
   function setContactLinkByType(value, contactsGroupName) {
     const contactTypesMap = {
       phones: (val) => `tel:${val}`,
-      mails: (val) => `mailto:${val}`,
+      email: (val) => `mailto:${val}`,
     }
     return contactTypesMap[contactsGroupName]?.(value) || value
   }
@@ -170,7 +177,7 @@
     const nameMap = {
       phones: 'Телефон',
       socials: 'Соц. сети',
-      mails: 'Почта',
+      email: 'E-mail',
     }
     return nameMap[contactsGroupName] || contactsGroupName
   }

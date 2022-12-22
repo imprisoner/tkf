@@ -3,10 +3,10 @@
     <SCatalogTop :count="lotsResponse.count" />
 
     <SGoodSection
+      v-show="isEmptyList"
+      :show-filters="true"
       :lots-list="lotsResponse.results"
       :common-lots-count="lotsResponse.count"
-      :show-filters="true"
-      @update-params="updateQueryParams"
     />
 
     <!-- <SAdsSection :banners="banners"/> -->
@@ -43,17 +43,24 @@
   import { getWatchesBrand } from '@/api/getWatchesBrand'
   import useQueryString from '~/composables/useQueryString'
 
-  const { getQueryParams, updateQueryParams } = useQueryString()
+  const { id } = useRoute().params
 
-  const lotsResponse = ref({})
+  const { getUrlSearchParams } = useQueryString()
 
-  const updateLotsResponse = async () => {
-    const { data } = await getWatchesBrand(getQueryParams.value)
+  const getPageParams = computed(() => ({
+    ...getUrlSearchParams.value,
+    brand: id,
+  }))
+
+  const { data: lotsResponse, pending } = await getWatchesBrand(
+    getPageParams.value
+  )
+
+  const isEmptyList = computed(() => lotsResponse.value.results?.length)
+
+  watch(getPageParams, async () => {
+    const { data } = await getWatchesBrand(getPageParams.value)
     lotsResponse.value = data.value
-  }
-
-  watch(getQueryParams, () => {
-    updateLotsResponse()
   })
 
   const titleDescriptionSection = 'Описание раздела'
