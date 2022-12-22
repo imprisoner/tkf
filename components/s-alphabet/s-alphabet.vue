@@ -16,16 +16,17 @@
     </div>
     <div class="alphabet__body row">
       <template v-for="(brandItem, id) in brands" :key="id">
-        <div 
-          :id="`alphabet_${id}`"
-          class="alphabet__item col-12 row"
-        >
+        <div :id="`alphabet_${id}`" class="alphabet__item col-12 row">
           <div class="alphabet__title offset-lg-1 col-md-2 col-12">
-            <p>{{ brandItem.letter.name }} </p>
+            <p>{{ brandItem.letter.name }}</p>
           </div>
           <div class="alphabet__list row offset-lg-3 col-xl-8 col-md-10 col-12">
             <ul class="col-12 alphabet__listing">
-              <li v-for="(item, id) in brandItem.items" :key="id" class="text-16">
+              <li
+                v-for="(item, id) in brandItem.items"
+                :key="id"
+                class="text-16"
+              >
                 <NuxtLink :to="`/brands/${id}`">{{ item.name }}</NuxtLink>
               </li>
               <!-- <li class="text-16 alphabet__more"><a>+ Показать ещё 10</a></li> -->
@@ -50,8 +51,7 @@
 </template>
 
 <script setup>
-  import { isNumericLiteral } from 'typescript';
-import './s-alphabet.scss'
+  import './s-alphabet.scss'
 
   const props = defineProps({
     brandsItems: {
@@ -88,66 +88,73 @@ import './s-alphabet.scss'
     { name: 'x', id: 23 },
     { name: 'y', id: 24 },
     { name: 'z', id: 25 },
-  ];
+  ]
 
   // Собираем бренды и буквы для них
   let brands = alphabet.map((item) => ({
     letter: item,
     items: getItems(props.brandsItems, item),
-  }));
+  }))
 
   // Собираем названия начинающиеся с числа
   const brandsByNumber = Object.keys(props.brandsItems)
     .filter((key) => !isNaN(props.brandsItems[key].name[0]))
-    .map((key) => props.brandsItems[key]);
+    .map((key) => props.brandsItems[key])
 
   // Собираем не пустые массивы брендов
-  brands = brands.filter((item) => item.items.length !== 0);
-  alphabet = alphabet.filter((item) => brands.find((brand) => item.name === brand.items[0].name[0].toLowerCase()));
+  brands = brands.filter((item) => item.items.length !== 0)
+  alphabet = alphabet.filter((item) =>
+    brands.find((brand) => item.name === brand.items[0].name[0].toLowerCase())
+  )
 
   // Если есть названия, которые начинаются с числа, вставляем в начало 0-9 в алфавит и создаем массив,
   // который так же вставляем в начало массива брендов
   if (brandsByNumber.length) {
-    alphabet.unshift({ name: '0-9', id: 0 });
+    alphabet.unshift({ name: '0-9', id: 0 })
 
     brands.unshift({
       letter: alphabet[0],
       items: brandsByNumber,
-    });
+    })
   }
-  
+
   // Проходим и ищем какие названия на какую букву начинаются и создаем объект бренда с буквой и массивом названий
   function getItems(items, letter) {
     const itemsArray = Object.keys(items)
-      .filter((key) => props.brandsItems[key]?.name[0].toLowerCase() === letter.name)
-      .map((key) => items[key]);
+      .filter(
+        (key) => props.brandsItems[key]?.name[0].toLowerCase() === letter.name
+      )
+      .map((key) => items[key])
 
-      return itemsArray;
+    return itemsArray
   }
 
   function scrollToBottom(id, i) {
-    const elementToScroll = document.querySelector(id) ?? null;
-    const elements = document.querySelectorAll('.alphabet__item');
-    const visibleElements = [];
+    const elementToScroll = document.querySelector(id) ?? null
+    const elements = document.querySelectorAll('.alphabet__item')
+    const visibleElements = []
     const btnShowMore = document.querySelector('.button-showMore')
 
     if (!elementToScroll.classList.contains('is-visible')) {
       elements.forEach((element, idx) => {
         if (idx <= i) {
-          element.classList.add('is-visible');
-          visibleElements.push(element);
+          element.classList.add('is-visible')
+          visibleElements.push(element)
         }
-      });
+      })
     }
 
     if (elementToScroll.classList.contains('is-visible')) {
-      window.scrollTo({top: elementToScroll.offsetTop - 120, behavior: 'smooth'});
+      window.scrollTo({
+        top: elementToScroll.offsetTop - 120,
+        behavior: 'smooth',
+      })
     }
 
     if (visibleElements.length === elements.length) {
       btnShowMore.style.display = 'none'
     }
-  }  
+  }
 
   let items = 0
 

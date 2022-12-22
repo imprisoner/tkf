@@ -1,7 +1,12 @@
 <template>
-  <div v-if="onShow === true" class="m-catalog-info offset-lg-1 col-lg-10 col-12">
+  <div
+    v-if="onShow === true"
+    class="m-catalog-info offset-lg-1 col-lg-10 col-12"
+  >
     <h1 v-if="title">{{ title }}</h1>
-    <span class="text-16">Найдено {{ count }} товар{{ wordDeclension }}</span>
+    <span class="text-16">
+      {{ getCounterString }}
+    </span>
     <div class="m-catalog-info__categories">
       <button
         v-for="(category, id) in categories"
@@ -22,8 +27,9 @@
 
 <script setup>
   import './m-catalog-info.scss'
+  import declOfNum from '@/composables/declOfNum'
 
-  defineProps({
+  const props = defineProps({
     title: {
       type: String,
       default: '',
@@ -43,23 +49,14 @@
     onShow: {
       type: Boolean,
       default: true,
-    }
+    },
   })
 
-  const wordDeclension = computed((count) => {
-    let add = ''
-    if (
-      (count % 10 >= 5 && count % 10 <= 9) ||
-      (count >= 11 && count <= 19) ||
-      count % 10 === 0
-    ) {
-      add = 'ов'
-    } else if (count % 10 === 1) {
-      add = ''
-    } else {
-      add = 'a'
-    }
-
-    return add
-  })
+  const getCounterString = computed(() =>
+    declOfNum(props.count, [
+      `Найден ${props.count} товар`,
+      `Найдено ${props.count} товара`,
+      `Найдено ${props.count} товаров`,
+    ])
+  )
 </script>
