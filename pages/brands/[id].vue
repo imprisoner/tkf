@@ -3,10 +3,10 @@
     <SCatalogTop :count="lotsResponse.count" />
 
     <SGoodSection
+      v-show="isEmptyList"
+      :show-filters="true"
       :lots-list="lotsResponse.results"
       :common-lots-count="lotsResponse.count"
-      :show-filters="true"
-      @update-params="updateQueryParams"
     />
 
     <!-- <SAdsSection :banners="banners"/> -->
@@ -45,17 +45,22 @@
 
   const { id } = useRoute().params
 
-  const { getQueryParams, updateQueryParams } = useQueryString()
+  const { getUrlSearchParams } = useQueryString()
 
-  const lotsResponse = ref({})
+  const getPageParams = computed(() => ({
+    ...getUrlSearchParams.value,
+    brand: id,
+  }))
 
-  const updateLotsResponse = async () => {
-    const { data } = await getWatchesBrand(getQueryParams.value)
+  const { data: lotsResponse, pending } = await getWatchesBrand(
+    getPageParams.value
+  )
+
+  const isEmptyList = computed(() => lotsResponse.value.results?.length)
+
+  watch(getPageParams, async () => {
+    const { data } = await getWatchesBrand(getPageParams.value)
     lotsResponse.value = data.value
-  }
-
-  watch(getQueryParams, () => {
-    updateLotsResponse()
   })
 
   const titleDescriptionSection = 'Описание раздела'

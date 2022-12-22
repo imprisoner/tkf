@@ -2,7 +2,7 @@
   <main class="main-page">
     <SIntroMain :offers-cards="mainOffers" />
     <SAdsSection :banners="bannersTop" />
-    <SBrandsSlider :brands-cards="brandsCards" />
+    <SBrandsSlider :brands-cards="brandsMainCards" />
     <SOffersSection
       :offers-cards="bestOffers"
       :title="titleOffers"
@@ -38,6 +38,7 @@
   const mainOffers = await getMainLots()
   const aboutInfo = await getAboutInfo()
   const advantages = await getAdvantages()
+  const brandsMainCards = await getBrands({ isShowOnMain: true })
 
   await getBanners({ page: 'MAIN' }).then((response) => {
     Object.entries(response._value).forEach((banner, i) => {
@@ -48,8 +49,6 @@
       }
     })
   })
-
-  const brandsCards = await getBrands({ isShowOnMain: true })
 </script>
 
 <style lang="scss" scoped>

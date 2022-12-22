@@ -7,6 +7,8 @@
 </template>
 
 <script setup>
+  import useSeo from "./composables/useSeo";
+
   useHead({
     link: [
       { rel: 'apple-touch-icon', sizes: '180x180', href: 'favicons/apple-touch-icon.png' },

@@ -1,15 +1,16 @@
 <template>
-  <main v-show="!pending" id="search">
+  <main id="search">
     <SCatalogTop
       :count="lotsResponse.count ?? 0"
       :title="
-        isEmptyList
-          ? getUrlSearchParams.search_string ?? ''
+        hasResults
+          ? `Результаты поиска '${getUrlSearchParams.search_string ?? '...'}'`
           : 'Ничего не найдено'
       "
+      :btn-show="true"
     />
     <SGoodSection
-      v-show="isEmptyList"
+      v-show="hasResults"
       :lots-list="lotsResponse.results"
       :common-lots-count="lotsResponse.count"
     />
@@ -26,7 +27,7 @@
     getUrlSearchParams.value
   )
 
-  const isEmptyList = computed(() => lotsResponse.value.results?.length)
+  const hasResults = computed(() => lotsResponse.value.results?.length)
 
   watch(getUrlSearchParams, async () => {
     const { data } = await getLotsBySearchString(getUrlSearchParams.value)

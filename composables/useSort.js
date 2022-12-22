@@ -22,23 +22,13 @@ export default function () {
     },
   ]
 
-  const setDefaultSort = () => {
-    if (!getUrlSearchParams.value.ordering) {
-      setUrlSearchParams({ ordering: sortTypes[0].value })
-    }
-  }
-
-  setDefaultSort()
-
-  watch(getUrlSearchParams, setDefaultSort)
-
   const getActiveOrdering = computed(
     () =>
       sortTypes[
         sortTypes.findIndex(
           (i) => i.value === getUrlSearchParams.value.ordering
         )
-      ]
+      ] || sortTypes[0]
   )
   const updateOrdering = ({ value }) => {
     setUrlSearchParams({ ordering: value })

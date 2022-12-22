@@ -9,9 +9,10 @@
           <div class="logo footer__logo"><b>Time</b>Keeper</div>
           <template v-if="isDesktop">
             <a
-              v-for="(phone, id) in contacts.phones" :key="id"
+              v-for="(phone, id) in contacts.phones"
+              :key="id"
               class="footer__phone"
-              :href="`tel:+${phone.replace(/[^\d\+]/g,'')}`"
+              :href="`tel:+${phone.replace(/[^\d\+]/g, '')}`"
             >
               {{ phone }}
             </a>
@@ -28,10 +29,7 @@
           />
         </nav> -->
         <div class="footer__socials-wrapper offset-lg-1 offset-md-10">
-          <ui-socials
-            class="footer__socials"
-            :socials="contacts.socials"
-          />
+          <ui-socials class="footer__socials" :socials="contacts.socials" />
         </div>
       </div>
     </div>
@@ -52,259 +50,259 @@
   </footer>
 </template>
 <script setup>
-import { isDesktop, isTablet } from "@/utils/queries";
-import { getContact } from '@/api/getContact';
-import { getDocuments } from '@/api/getDocuments';
+  import { isDesktop, isTablet } from '@/utils/queries'
+  import { getContact } from '@/api/getContact'
+  import { getDocuments } from '@/api/getDocuments'
 
-const year = new Date().getFullYear()
+  const year = new Date().getFullYear()
 
-const contacts = await getContact();
-const footerLinks = await getDocuments();
-
-// const linkSections = reactive([
-//   {
-//     title: 'Для рекламодателей',
-//     links: [
-//       {
-//         text: 'Оферта',
-//         href: '#',
-//       },
-//       {
-//         text: 'Оферта',
-//         href: '#',
-//       },
-//       {
-//         text: 'Оферта',
-//         href: '#',
-//       },
-//       {
-//         text: 'Оферта',
-//         href: '#',
-//       },
-//     ],
-//   },
-//   {
-//     title: 'Для рекламодателей',
-//     links: [
-//       {
-//         text: 'Оферта',
-//         href: '#',
-//       },
-//       {
-//         text: 'Оферта',
-//         href: '#',
-//       },
-//       {
-//         text: 'Оферта',
-//         href: '#',
-//       },
-//       {
-//         text: 'Оферта',
-//         href: '#',
-//       },
-//     ],
-//   },
-//   {
-//     title: 'Для рекламодателей',
-//     links: [
-//       {
-//         text: 'Оферта',
-//         href: '#',
-//       },
-//       {
-//         text: 'Оферта',
-//         href: '#',
-//       },
-//       {
-//         text: 'Оферта',
-//         href: '#',
-//       },
-//       {
-//         text: 'Оферта',
-//         href: '#',
-//       },
-//     ],
-//   },
-// ])
+  const contacts = await getContact()
+  const footerLinks = await getDocuments()
+  //
+  // const linkSections = reactive([
+  //   {
+  //     title: 'Для рекламодателей',
+  //     links: [
+  //       {
+  //         text: 'Оферта',
+  //         href: '#',
+  //       },
+  //       {
+  //         text: 'Оферта',
+  //         href: '#',
+  //       },
+  //       {
+  //         text: 'Оферта',
+  //         href: '#',
+  //       },
+  //       {
+  //         text: 'Оферта',
+  //         href: '#',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     title: 'Для рекламодателей',
+  //     links: [
+  //       {
+  //         text: 'Оферта',
+  //         href: '#',
+  //       },
+  //       {
+  //         text: 'Оферта',
+  //         href: '#',
+  //       },
+  //       {
+  //         text: 'Оферта',
+  //         href: '#',
+  //       },
+  //       {
+  //         text: 'Оферта',
+  //         href: '#',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     title: 'Для рекламодателей',
+  //     links: [
+  //       {
+  //         text: 'Оферта',
+  //         href: '#',
+  //       },
+  //       {
+  //         text: 'Оферта',
+  //         href: '#',
+  //       },
+  //       {
+  //         text: 'Оферта',
+  //         href: '#',
+  //       },
+  //       {
+  //         text: 'Оферта',
+  //         href: '#',
+  //       },
+  //     ],
+  //   },
+  // ])
 </script>
 
 <style lang="scss" scoped>
-.footer {
-  &__top {
-    padding-top: 125px;
-    padding-bottom: 80px;
-    background-color: $neutral;
+  .footer {
+    &__top {
+      padding-top: 125px;
+      padding-bottom: 80px;
+      background-color: $neutral;
 
-    @include max-width('xl') {
-      padding-top: 60px;
-      padding-bottom: 40px;
-    }
-
-    @include max-width('md') {
-      background: white;
-      padding: unset;
-    }
-  }
-
-  &__top-wrapper {
-    row-gap: 100px;
-
-    @include max-width('lg') {
-      row-gap: 54px;
-    }
-    @include max-width('md') {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      & > * {
-        width: 100%;
+      @include max-width('xl') {
+        padding-top: 60px;
+        padding-bottom: 40px;
       }
-    }
-  }
-
-  &__logo {
-    margin-bottom: 24px;
-    @include max-width('lg') {
-      margin-bottom: 0;
-    }
-  }
-
-  &__contacts {
-    @include max-width('md') {
-      display: none;
-    }
-  }
-
-  &__button {
-    margin-bottom: 32px;
-    @include max-width('lg') {
-      margin-bottom: 0;
-      order:2
-    }
-  }
-
-  &__phone {
-    display: block;
-    font-weight: 500;
-    font-size: 17px;
-    line-height: 28px;
-  }
-
-  &__nav {
-    display: flex;
-    gap: 35px;
-
-    @include max-width('lg') {
-      order: 1;
-      justify-content: space-between;
-    }
-
-    @include max-width('md') {
-      flex-direction: column;
-      gap: unset;
-      border-top: $border;
-    }
-  }
-
-  &__socials-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-    @include max-width('lg') {
-      justify-content: center;
-    }
-
-    @include max-width('md') {
-      padding: 0 60px;
-    }
-  }
-
-  &__socials {
-    @include max-width('md') {
-      width: 100%;
-      justify-content: space-between;
-    }
-  }
-
-  &__socials .socials__link {
-    @include max-width('lg') {
-      width: 14px;
-      height: 14px;
-    }
-  }
-
-  &__bottom {
-    background-color: rgba($light-gray, 0.67);
-    padding-top: 28px;
-    padding-bottom: 28px;
-    font-size: 14px;
-    line-height: 17px;
-    color: rgba($input, 0.41);
-
-    @include max-width('md') {
-      padding: 35px 14px 45px;
-    }
-  }
-
-  &__bottom-wrapper {
-    align-items: center;
-
-    @include max-width('md') {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-  }
-
-  &__bottom-nav {
-    ul {
-      display: flex;
-      align-items: center;
-      gap: 24px;
 
       @include max-width('md') {
-        font-size: 11px;
-        line-height: 16px;
-        gap: 4px;
+        background: white;
+        padding: unset;
       }
     }
 
-    li {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      height: 28px;
+    &__top-wrapper {
+      row-gap: 100px;
 
+      @include max-width('lg') {
+        row-gap: 54px;
+      }
       @include max-width('md') {
-        gap: 4px;
-        height: 16px;
-      }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-      &:hover {
-        transition:color .5s;
-        color: $input;
+        & > * {
+          width: 100%;
+        }
       }
     }
 
-    li:not(:last-child)::after {
-      content: '';
+    &__logo {
+      margin-bottom: 24px;
+      @include max-width('lg') {
+        margin-bottom: 0;
+      }
+    }
+
+    &__contacts {
+      @include max-width('md') {
+        display: none;
+      }
+    }
+
+    &__button {
+      margin-bottom: 32px;
+      @include max-width('lg') {
+        margin-bottom: 0;
+        order: 2;
+      }
+    }
+
+    &__phone {
       display: block;
-      height: 100%;
-      width: 1px;
-      background-color: rgba($input, 0.41);
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 28px;
     }
-  }
 
-  &__copyright {
-    color: $input;
-    opacity: 0.41;
-    @include max-width('md') {
-      font-size: 12px;
-      line-height: 16px;
-      color: $black;
+    &__nav {
+      display: flex;
+      gap: 35px;
+
+      @include max-width('lg') {
+        order: 1;
+        justify-content: space-between;
+      }
+
+      @include max-width('md') {
+        flex-direction: column;
+        gap: unset;
+        border-top: $border;
+      }
+    }
+
+    &__socials-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      @include max-width('lg') {
+        justify-content: center;
+      }
+
+      @include max-width('md') {
+        padding: 0 60px;
+      }
+    }
+
+    &__socials {
+      @include max-width('md') {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    &__socials .socials__link {
+      @include max-width('lg') {
+        width: 14px;
+        height: 14px;
+      }
+    }
+
+    &__bottom {
+      background-color: rgba($light-gray, 0.67);
+      padding-top: 28px;
+      padding-bottom: 28px;
+      font-size: 14px;
+      line-height: 17px;
+      color: rgba($input, 0.41);
+
+      @include max-width('md') {
+        padding: 35px 14px 45px;
+      }
+    }
+
+    &__bottom-wrapper {
+      align-items: center;
+
+      @include max-width('md') {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+
+    &__bottom-nav {
+      ul {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+
+        @include max-width('md') {
+          font-size: 11px;
+          line-height: 16px;
+          gap: 4px;
+        }
+      }
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        height: 28px;
+
+        @include max-width('md') {
+          gap: 4px;
+          height: 16px;
+        }
+
+        &:hover {
+          transition: color 0.5s;
+          color: $input;
+        }
+      }
+
+      li:not(:last-child)::after {
+        content: '';
+        display: block;
+        height: 100%;
+        width: 1px;
+        background-color: rgba($input, 0.41);
+      }
+    }
+
+    &__copyright {
+      color: $input;
+      opacity: 0.41;
+      @include max-width('md') {
+        font-size: 12px;
+        line-height: 16px;
+        color: $black;
+      }
     }
   }
-}
 </style>

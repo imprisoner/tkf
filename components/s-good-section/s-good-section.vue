@@ -25,7 +25,7 @@
             'button--square',
             perPageLimit === item ? 'button--black' : 'button--neutral',
           ]"
-          @click="updateLimit(item)"
+          @click="updateLimit(item, true)"
         >
           {{ item }}
         </div>
