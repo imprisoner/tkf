@@ -102,6 +102,8 @@
 </template>
 
 <script setup>
+  import {setLotDynamicSeo} from "../../constants/seo";
+
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/watches/' + slug
   const { data: lot } = await useFetch(uri, { key: slug })
@@ -110,7 +112,11 @@
   const priceRub = lot._value.price_rub.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
   const priceUsd = lot._value.price_usd.toLocaleString();
 
+  //TODO: Подставить нужные значения
+  setLotDynamicSeo('Часы',lot.value.condition,lot.value.name,lot.value.image || stubBrandImageUrl)
+
   console.log(lot._value.price_rub)
+  console.log(lot._value)
 
   const gender = computed(() => {
     let value = '';
