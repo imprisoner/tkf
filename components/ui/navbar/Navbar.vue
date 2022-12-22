@@ -33,8 +33,8 @@
         </button>
       </template>
 
-      <div v-if="isMobileMenuActive" :class="navbarMobileClass"></div>
-      <Transition>
+      <fade-transition><div v-show="isMobileMenuActive" :class="navbarMobileClass"></div></fade-transition>
+      <slide-transition>
         <div v-if="isMobileMenuActive" class="navbar__mobile-menu">
           <div class="navbar__dropdowns">
             <button
@@ -55,7 +55,7 @@
             </ui-navbar-dropdown>
           </div>
         </div>
-      </Transition>
+      </slide-transition>
     </div>
   </nav>
 </template>
@@ -67,6 +67,8 @@
   import { getContacts } from '@/api/pages'
 
   import { WATCH, JEWELRY } from '@/constants/brandTypes'
+  import SlideTransition from "../transitions/SlideTransition";
+  import FadeTransition from "../transitions/FadeTransition";
 
   const BRAND_TYPES_ROUTE_MAP = {
     [WATCH]: 'watches',
@@ -204,16 +206,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .v-enter-active,
-  .v-leave-active {
-    transition: all 1s ease;
-  }
-
-  .v-enter-from,
-  .v-leave-to {
-    transform: translate(-10%, 0);
-    opacity: 0;
-  }
   .navbar {
     position: sticky;
     top: 0;
