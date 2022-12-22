@@ -115,6 +115,7 @@
   useHead({
     ...useSeo(useRoute().name,{lotType:'Часы', lotName:lot.value.name,lotImage:lot.value.image})
   })
+  
   const gender = computed(() => {
     let value = '';
     switch(true) {
