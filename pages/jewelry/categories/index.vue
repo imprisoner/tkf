@@ -1,7 +1,6 @@
 <template>
   <main id="categories-page" class="catalog">
     <SCatalogTop
-      :breadcrumbs="breadcrumbs"
       :title="title"
       :btn-show="btnShow"
       :count="98"
@@ -13,17 +12,6 @@
 <script setup>
   import { getCategories } from '@/api/getCategories'
   const categoriesItems = await getCategories()
-
-  const breadcrumbs = [
-    {
-      text: 'Ювелирные украшения',
-      href: '/jewelry/categories',
-    },
-    {
-      text: 'Категории',
-      href: '/categories',
-    },
-  ]
   const title = 'Категории ювелирных украшений'
   const btnShow = false
 </script>
