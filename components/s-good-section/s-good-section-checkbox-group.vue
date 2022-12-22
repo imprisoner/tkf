@@ -25,7 +25,7 @@
   const props = defineProps({
     list: {
       type: Array,
-      default: () => {},
+      default: () => [],
     },
   })
 
@@ -43,7 +43,7 @@
       : selected.value.splice(selected.value.indexOf(item), 1)
   }
 
-  const resetSelectedBrands = () => {
-    selected.value = []
-  }
+  // const resetSelectedBrands = () => {
+  //   selected.value = []
+  // }
 </script>

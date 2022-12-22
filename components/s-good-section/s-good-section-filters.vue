@@ -166,7 +166,6 @@
 <script setup>
   import SGoodSectionSortPrice from './s-good-section-price/s-good-section-price.vue'
   import { getFilterObject } from '~/api/getFilterObject'
-  import { getBrands } from '~/api/getBrands'
   import declOfNum from '~/composables/declOfNum'
 
   const props = defineProps({
@@ -185,7 +184,8 @@
   )
 
   const { data: filterObjects } = await getFilterObject('watches')
-  const popularBrands = await getBrands({ isShowOnMain: true })
+  // import { getBrands } from '~/api/getBrands'
+  // const popularBrands = await getBrands({ isShowOnMain: true })
 
   const getBrandsList = computed(() =>
     filterObjects.value.brands.map((i) => ({ value: i.id, label: i.name }))

@@ -52,9 +52,7 @@
     brand: id,
   }))
 
-  const { data: lotsResponse, pending } = await getWatchesBrand(
-    getPageParams.value
-  )
+  const { data: lotsResponse } = await getWatchesBrand(getPageParams.value)
 
   const isEmptyList = computed(() => lotsResponse.value.results?.length)
 

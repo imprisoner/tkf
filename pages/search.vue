@@ -23,7 +23,7 @@
 
   const { getUrlSearchParams } = useQueryString()
 
-  const { data: lotsResponse, pending } = await getLotsBySearchString(
+  const { data: lotsResponse } = await getLotsBySearchString(
     getUrlSearchParams.value
   )
 
