@@ -5,7 +5,7 @@
         label="Выбрать все"
         value="all"
         :checked="selected.length === list.length"
-        @change="selectAllBrands"
+        @change="selectAll"
       />
     </li>
     <li v-for="item in list" :key="item.value" class="filter__option">
@@ -13,7 +13,7 @@
         :label="item.label"
         :value="item.value"
         :checked="selected.indexOf(item.value) >= 0"
-        @change="(checked) => handleBrandSelection(item.value, checked)"
+        @change="(checked) => handleSelection(item.value, checked)"
       />
     </li>
   </ul>
@@ -27,23 +27,32 @@
       type: Array,
       default: () => [],
     },
+    selectedProp: {
+      type: Array,
+      default: () => [],
+    },
   })
 
-  const selected = ref([])
+  const selected = ref([...props.selectedProp])
 
-  const selectAllBrands = () => {
+  const emit = defineEmits(['updateSelection'])
+
+  const selectAll = () => {
     selected.value.length === props.list.length
       ? (selected.value = [])
       : (selected.value = [...props.list.map((i) => i.value)])
+
+    emit('updateSelection', selected.value)
   }
 
-  const handleBrandSelection = (item, checked) => {
+  const handleSelection = (item, checked) => {
     checked
       ? selected.value.push(item)
       : selected.value.splice(selected.value.indexOf(item), 1)
+    emit('updateSelection', selected.value)
   }
 
-  // const resetSelectedBrands = () => {
-  //   selected.value = []
-  // }
+  watch(props.selectedProp, () => {
+    selected.value = props.selectedProp
+  })
 </script>
