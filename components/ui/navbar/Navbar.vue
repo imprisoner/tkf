@@ -129,7 +129,7 @@
         { name: 'Женские', link: '/jewelry' },
         { name: 'Новые', link: '/jewelry' },
         { name: 'Подержанные', link: '/jewelry' },
-        ...jewelryCategories.map(category => ({ ...category, link: '/jewelry'}))
+        ...jewelryCategories.slice(0, 6).map(category => ({ ...category, link: '/jewelry'}))
       ],
       brands: jewelryBrands,
     },
