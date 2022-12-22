@@ -1,7 +1,6 @@
 <template>
   <main id="categories-page" class="catalog">
     <SCatalogTop
-      :breadcrumbs="breadcrumbs"
       :title="title"
       :btn-show="btnShow"
       :count="98"
@@ -11,16 +10,6 @@
 </template>
 
 <script setup>
-  const breadcrumbs = [
-    {
-      text: 'Швейцарские часы',
-      route: '/watches/categories',
-    },
-    {
-      text: 'Категории',
-      route: '/categories',
-    },
-  ]
   const title = 'Категории швейцарских часов'
   const btnShow = false
 </script>

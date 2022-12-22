@@ -34,7 +34,7 @@
   }
 
   function getText(breadcrumb) {
-    const route = breadcrumb.replaceAll('/', '')
+    const route = breadcrumb
     let text = breadcrumb
 
     switch (true) {

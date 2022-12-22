@@ -3,37 +3,36 @@
     <div class="row">
       <div class="alphabet__ltrs offset-lg-1 col-lg-10 col-12">
         <div class="alphabet__ltrs-subgrid">
-          <button class="alphabet__button" type="button">0-9</button>
-          <nuxt-link
-            v-for="letter in alphabet"
-            :key="letter.id"
-            :to="{ hash: `#alphabet_${letter.id}` }"
+          <div
+            v-for="(letter, id) in alphabet"
+            :key="id"
             class="alphabet__button"
+            @click="scrollToBottom(`#alphabet_${id}`, id)"
           >
             {{ letter.name }}
-          </nuxt-link>
+          </div>
         </div>
       </div>
     </div>
     <div class="alphabet__body row">
-      <div
-        v-for="letter in alphabet"
-        :id="`alphabet_${letter.id}`"
-        :key="letter.id"
-        class="alphabet__item col-12 row"
-      >
-        <div class="alphabet__title offset-lg-1 col-md-2 col-12">
-          <p>{{ letter.name }}</p>
+      <template v-for="(brandItem, id) in brands" :key="id">
+        <div 
+          :id="`alphabet_${id}`"
+          class="alphabet__item col-12 row"
+        >
+          <div class="alphabet__title offset-lg-1 col-md-2 col-12">
+            <p>{{ brandItem.letter.name }} </p>
+          </div>
+          <div class="alphabet__list row offset-lg-3 col-xl-8 col-md-10 col-12">
+            <ul class="col-12 alphabet__listing">
+              <li v-for="(item, id) in brandItem.items" :key="id" class="text-16">
+                <NuxtLink :to="`/brands/${id}`">{{ item.name }}</NuxtLink>
+              </li>
+              <!-- <li class="text-16 alphabet__more"><a>+ Показать ещё 10</a></li> -->
+            </ul>
+          </div>
         </div>
-        <div class="alphabet__list row offset-lg-3 col-xl-8 col-md-10 col-12">
-          <ul class="col-12 alphabet__listing">
-            <li v-for="item in brandsItems" :key="item.id" class="text-16">
-              <NuxtLink :to="`/brands/${item.id}`">{{ item.name }}</NuxtLink>
-            </li>
-            <!-- <li class="text-16 alphabet__more"><a>+ Показать ещё 10</a></li> -->
-          </ul>
-        </div>
-      </div>
+      </template>
     </div>
     <div class="row">
       <div class="offset-md-1 col-md-10 col-12">
@@ -53,14 +52,15 @@
 <script setup>
   import './s-alphabet.scss'
 
-  defineProps({
+  const props = defineProps({
     brandsItems: {
       type: Array,
       default: () => [],
     },
   })
 
-  const alphabet = [
+  let alphabet = [
+    { name: '0-9', id: 0 },
     { name: 'a', id: 0 },
     { name: 'b', id: 1 },
     { name: 'c', id: 2 },
@@ -87,7 +87,40 @@
     { name: 'x', id: 23 },
     { name: 'y', id: 24 },
     { name: 'z', id: 25 },
-  ]
+  ];
+
+  let brands = alphabet.map((item) => ({
+    letter: item,
+    items: getItems(props.brandsItems, item),
+  }));
+
+  brands = brands.filter((item) => item.items.length !== 0);
+  alphabet = alphabet.filter((item) => brands.find((brand) => item.name === brand.items[0].name[0].toLowerCase()));
+
+  function getItems(items, letter) {
+    const itemsArray = Object.keys(items)
+      .filter((key) => props.brandsItems[key]?.name[0].toLowerCase() === letter.name)
+      .map((key) => items[key]);
+
+      return itemsArray;
+  }
+
+  function scrollToBottom(id, i) {
+    const elementToScroll = document.querySelector(id) ?? null;
+    const elements = document.querySelectorAll('.alphabet__item');
+
+    if (!elementToScroll.classList.contains('is-visible')) {
+      elements.forEach((element, idx) => {
+        if (idx <= i) {
+          element.classList.add('is-visible');
+        }
+      });
+    }
+
+    if (elementToScroll.classList.contains('is-visible')) {
+      window.scrollTo({top: elementToScroll.offsetTop - 120, behavior: 'smooth'});
+    }
+  }  
 
   let items = 0
 
@@ -99,7 +132,7 @@
 
     visibleItems.forEach((el) => el.classList.add('is-visible'))
 
-    if (visibleItems.length === alphabet.length) {
+    if (visibleItems.length === brands.length) {
       btnShowMore.style.display = 'none'
     }
   }
