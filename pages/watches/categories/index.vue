@@ -3,7 +3,9 @@
     <SCatalogTop
       :title="title"
       :btn-show="btnShow"
-      :count="98"
+      :on-show-counter="false"
+      :on-show-categories="false"
+      :on-show-bookmark="false"
     />
     <SCategoriesSection />
   </main>
