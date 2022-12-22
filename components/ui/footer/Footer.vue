@@ -16,6 +16,14 @@
             >
               {{ phone }}
             </a>
+            <a
+              v-for="(email, id) in contacts.email"
+              :key="id"
+              class="footer__phone"
+              :href="`mailto:${email}`"
+            >
+              {{ email }}
+            </a>
           </template>
         </div>
         <!-- <nav
@@ -187,6 +195,10 @@
       font-weight: 500;
       font-size: 17px;
       line-height: 28px;
+
+      &:not(:last-child) {
+        margin-bottom: 8px;
+      }
     }
 
     &__nav {

@@ -90,7 +90,7 @@
     &__section {
       &:first-child {
         .navbar-menu__list {
-          grid-template-columns: max-content;
+          grid-template-columns: 200px;
         }
       }
     }
@@ -99,7 +99,7 @@
       display: grid;
       gap: 6px;
       column-gap: 40px;
-      grid-template-columns: max-content max-content;
+      grid-template-columns: 200px 200px;
       color: $input;
       flex-wrap: wrap;
       @include max-width('lg') {
@@ -114,6 +114,10 @@
     }
 
     &__list-item {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
       &:first-child {
         display: none;
         @include max-width('lg') {

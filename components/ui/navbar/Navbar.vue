@@ -63,6 +63,7 @@
 <script setup>
   import { isDesktop } from '@/utils/queries'
   import { getBrands } from '@/api/getBrands'
+  import { getCategories } from '@/api/getCategories'
   import { getContacts } from '@/api/pages'
 
   import { WATCH, JEWELRY } from '@/constants/brandTypes'
@@ -74,6 +75,7 @@
 
   const watchesBrands = await loadBrands(WATCH)
   const jewelryBrands = await loadBrands(JEWELRY)
+  const jewelryCategories = await getCategories({ inComponent: true })
   const contacts = await getContacts()
 
   const isMobileUI = computed(() => {
@@ -127,6 +129,7 @@
         { name: 'Женские', link: '/jewelry' },
         { name: 'Новые', link: '/jewelry' },
         { name: 'Подержанные', link: '/jewelry' },
+        ...jewelryCategories.map(category => ({ ...category, link: '/jewelry'}))
       ],
       brands: jewelryBrands,
     },
