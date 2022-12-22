@@ -41,13 +41,11 @@
   import { getAboutPage } from '@/api/getAboutPage'
   import useQueryString from '~/composables/useQueryString'
 
-  const { id } = useRoute().params
-
   const { getUrlSearchParams } = useQueryString()
 
   const { data: lotsResponse } = await getWatchesBrand(getUrlSearchParams.value)
 
-  const isEmptyList = computed(() => lotsResponse.value.results?.length)
+  // const isEmptyList = computed(() => lotsResponse.value.results?.length)
 
   watch(getUrlSearchParams, async () => {
     const { data } = await getWatchesBrand(getUrlSearchParams.value)
