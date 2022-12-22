@@ -12,11 +12,11 @@
     <a
       class="socials__link"
       :href="socials[1]"
-      aria-label="instagram"
+      aria-label="telegram"
       rel="nofollow"
       target="_blank"
     >
-      <base-icon name="instagram"></base-icon>
+      <base-icon name="telegram"></base-icon>
     </a>
     <a
       class="socials__link"

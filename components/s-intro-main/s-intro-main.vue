@@ -5,9 +5,7 @@
         <ui-socials :socials="contacts.socials"></ui-socials>
         <h1>TimeKeeper: швейцарские часы, ювелирные украшения, аксессуары</h1>
         <p class="text-16">
-          People also search for this items<br>
-          also search for this items<br>
-          also search for
+          Найдите лучшие в мире часы и ювелирные украшения класса люкс
         </p>
         <ui-search active></ui-search>
       </article>

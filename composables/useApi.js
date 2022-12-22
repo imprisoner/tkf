@@ -1,4 +1,4 @@
-export default function (path, options, inComponent = false) {
+export default function (path, options = {}, inComponent = false) {
   const { public: { apiBase: baseUrl } } = useRuntimeConfig()
 
   if (inComponent) {

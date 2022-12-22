@@ -12,7 +12,7 @@
       <input
         class="input-group__field search__field"
         type="text"
-        placeholder="Найти лучшие в мире часы"
+        placeholder="Поиск часов и ювелирных изделий"
         @change="search"
       />
       <button
