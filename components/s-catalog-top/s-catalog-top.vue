@@ -9,6 +9,7 @@
         :categories="categories"
         :btn-show="btnShow"
         :count="count"
+        :on-show="onShow"
       />
     </div>
   </section>
@@ -35,5 +36,9 @@
       type: Boolean,
       default: false,
     },
+    onShow: {
+      type: Boolean,
+      default: true,
+    }
   })
 </script>
