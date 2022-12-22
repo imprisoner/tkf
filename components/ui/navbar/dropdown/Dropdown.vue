@@ -70,7 +70,9 @@
   import { isDesktop } from '@/utils/queries'
 
   const target = ref(null)
-  onClickOutside(target, () => emits('hide'))
+  onClickOutside(target, () => {
+    if (isDesktop.value) emits('hide')
+  })
 
   const props = defineProps({
     title: {

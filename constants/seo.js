@@ -205,27 +205,3 @@ export const META_TAGS = {
     ]
   }
 }
-
-export function setLotDynamicSeo(lotType, mainProperty, lotName, lotImage){
-  useHead({
-    title: `Купить ${lotType} ${mainProperty} ${lotName} в ломбарде | TimeKeeper`,
-    meta: [
-      {
-        name: 'description',
-        content: `${lotType} ${mainProperty} ${lotName} по выгодной цене в агрегаторе ломбардов TimeKeeper.`
-      },
-      {
-        name: 'og:title',
-        content: `Купить ${lotType} ${mainProperty} ${lotName} в ломбарде | TimeKeeper`
-      },
-      {
-        name: 'og:description',
-        content: `${lotType} ${mainProperty} ${lotName} по выгодной цене в агрегаторе ломбардов TimeKeeper.`
-      },
-      {
-        name: 'og:image',
-        content: `${lotImage}`
-      }
-    ]
-  })
-}

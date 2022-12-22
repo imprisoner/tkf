@@ -99,18 +99,19 @@
 </template>
 
 <script setup>
-  import {setLotDynamicSeo} from "../../constants/seo";
+  import useSeo from "../../composables/useSeo";
 
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/jewelry/' + slug
   const { data: lot } = await useFetch(uri, { key: slug });
   const stubBrandImageUrl = '/img/brand_stub.png';
-  
+
   const priceRub = lot._value.price_rub.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
   const priceUsd = lot._value.price_usd.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
 
-  // TODO: Подставить нужные значения
-  setLotDynamicSeo('Украшение',lot.value.condition,lot.value.name,lot.value.image || stubBrandImageUrl)
+  useHead({
+    ...useSeo(useRoute().name,{lotType:lot.value.category?.name || 'Украшение', lotName:lot.value.name,lotImage:lot.value.image})
+  })
 
   const gender = computed(() => {
     let value = '';
