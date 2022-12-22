@@ -1,5 +1,9 @@
 @import 'mixins';
 
+html {
+  scroll-behavior: smooth;
+}
+
 .mobile-caret {
   @include max-width('md') {
     display: flex;
