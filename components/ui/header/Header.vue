@@ -8,7 +8,7 @@
     </template>
     <div v-else class="header__mobile">
       <ui-socials class="header__socials"></ui-socials>
-      <div class="call-us">
+      <div v-if="phone" class="call-us">
         <base-icon name="phone" class="call-us__icon"></base-icon>
         <a :href="`tel:+${phone}`">{{ phone }}</a>
       </div>
