@@ -14,6 +14,7 @@
         </nuxt-link>
       </div>
     </div>
+    <expand-transition>
     <ul v-show="isMobileListActive" class="navbar-menu__list text-16">
       <li class="navbar-menu__list-item" @click="onLinkClick">
         <nuxt-link :to="`/${name}/${repository}`">
@@ -31,11 +32,13 @@
         }}</nuxt-link>
       </li>
     </ul>
+    </expand-transition>
   </section>
 </template>
 
 <script setup>
   import { isDesktop } from '@/utils/queries'
+  import ExpandTransition from "../../transitions/ExpandTransition";
 
   defineProps({
     repository: {
@@ -90,7 +93,7 @@
     &__section {
       &:first-child {
         .navbar-menu__list {
-          grid-template-columns: max-content;
+          grid-template-columns: 200px;
         }
       }
     }
@@ -99,7 +102,7 @@
       display: grid;
       gap: 6px;
       column-gap: 40px;
-      grid-template-columns: max-content max-content;
+      grid-template-columns: 200px 200px;
       color: $input;
       flex-wrap: wrap;
       @include max-width('lg') {
@@ -114,6 +117,10 @@
     }
 
     &__list-item {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
       &:first-child {
         display: none;
         @include max-width('lg') {

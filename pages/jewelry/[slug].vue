@@ -1,6 +1,6 @@
 <template>
   <main id="lot-page" class="catalog">
-    <SCatalogTop />
+    <SCatalogTop :on-show="false"/>
     <article class="container lot">
       <div class="row lot__top">
         <div
@@ -99,24 +99,30 @@
 </template>
 
 <script setup>
+  import useSeo from "../../composables/useSeo";
+
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/jewelry/' + slug
   const { data: lot } = await useFetch(uri, { key: slug });
   const stubBrandImageUrl = '/img/brand_stub.png';
-  
+
   const priceRub = lot._value.price_rub.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
   const priceUsd = lot._value.price_usd.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+
+  useHead({
+    ...useSeo(useRoute().name,{lotType:lot.value.category?.name || 'Украшение', lotName:lot.value.name,lotImage:lot.value.image})
+  })
 
   const gender = computed(() => {
     let value = '';
     switch(true) {
-      case lot._value.gender === 'UNISEX': 
+      case lot._value.gender === 'UNISEX':
         value = 'унисекс';
       break;
-      case lot._value.gender === 'MALE': 
+      case lot._value.gender === 'MALE':
         value = 'мужской';
       break;
-      case lot._value.gender === 'FEMALE': 
+      case lot._value.gender === 'FEMALE':
         value = 'женский';
       break;
     }
@@ -169,13 +175,11 @@
 
 <style lang="scss" scoped>
   #lot-page {
-    .catalog-top {
-      &__breadcrumbs {
-        margin-bottom: 12px;
-      }
+    .s-catalog-top {
+      margin-bottom: 72px;
 
       @include max-width('md') {
-        margin-bottom: unset;
+        margin-bottom: 12px;
       }
     }
 
@@ -462,10 +466,11 @@
 
     .imagebox__thumb {
       height: 108px;
-      
+
       @include max-width('md') {
         height: 59px;
       }
     }
   }
 </style>
+

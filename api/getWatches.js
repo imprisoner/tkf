@@ -1,5 +1,5 @@
 import useApi from '@/composables/useApi'
-export function getWatchesBrand(params) {
+export function getWatches(params) {
   return useApi('/lots/watches/', {
     query: {
       limit: 30,

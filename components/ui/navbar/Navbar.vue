@@ -33,8 +33,8 @@
         </button>
       </template>
 
-      <div v-if="isMobileMenuActive" :class="navbarMobileClass"></div>
-      <Transition>
+      <fade-transition><div v-show="isMobileMenuActive" :class="navbarMobileClass"></div></fade-transition>
+      <slide-transition>
         <div v-if="isMobileMenuActive" class="navbar__mobile-menu">
           <div class="navbar__dropdowns">
             <button
@@ -55,14 +55,17 @@
             </ui-navbar-dropdown>
           </div>
         </div>
-      </Transition>
+      </slide-transition>
     </div>
   </nav>
 </template>
 
 <script setup>
+  import SlideTransition from "../transitions/SlideTransition";
+  import FadeTransition from "../transitions/FadeTransition";
   import { isDesktop } from '@/utils/queries'
   import { getBrands } from '@/api/getBrands'
+  import { getCategories } from '@/api/getCategories'
   import { getContacts } from '@/api/pages'
 
   import { WATCH, JEWELRY } from '@/constants/brandTypes'
@@ -74,6 +77,7 @@
 
   const watchesBrands = await loadBrands(WATCH)
   const jewelryBrands = await loadBrands(JEWELRY)
+  const jewelryCategories = await getCategories({ inComponent: true })
   const contacts = await getContacts()
 
   const isMobileUI = computed(() => {
@@ -127,6 +131,7 @@
         { name: 'Женские', link: '/jewelry' },
         { name: 'Новые', link: '/jewelry' },
         { name: 'Подержанные', link: '/jewelry' },
+        ...jewelryCategories.slice(0, 6).map(category => ({ ...category, link: '/jewelry'}))
       ],
       brands: jewelryBrands,
     },
@@ -201,16 +206,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .v-enter-active,
-  .v-leave-active {
-    transition: all 1s ease;
-  }
-
-  .v-enter-from,
-  .v-leave-to {
-    transform: translate(-10%, 0);
-    opacity: 0;
-  }
   .navbar {
     position: sticky;
     top: 0;

@@ -123,8 +123,7 @@
   // grey text
   &__title span,
   &__desc,
-  &__info span:nth-child(2),
-  &__price span {
+  &__info span:nth-child(2) {
     color: $input;
     opacity: 0.7;
   }
@@ -156,6 +155,11 @@
     @include max-width('md') {
       font-size: 12px;
       line-height: 8px;
+    }
+
+    &-rub {
+      color: $input;
+      opacity: 0.7;
     }
   }
 }

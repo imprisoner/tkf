@@ -4,7 +4,7 @@ import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
   css: ['~/assets/styles/main.scss', 'swiper/scss', 'swiper/scss/scrollbar'],
-  ssr:true,
+  ssr: true,
   vite: {
     css: {
       preprocessorOptions: {
@@ -14,12 +14,27 @@ export default defineNuxtConfig({
         },
       },
     },
-    plugins: [svgLoader({})],
+    plugins: [
+      svgLoader({
+        svgoConfig: {
+          plugins: [
+            {
+              name: 'preset-default',
+              params: {
+                overrides: {
+                  removeViewBox: false,
+                },
+              },
+            },
+          ],
+        },
+      }),
+    ],
   },
   // build: {
   //   transpile: ['swiper']
   // },
-  modules: ['@nuxtjs/device','@vueuse/nuxt'],
+  modules: ['@nuxtjs/device', '@vueuse/nuxt'],
   device: {
     refreshOnResize: true,
   },

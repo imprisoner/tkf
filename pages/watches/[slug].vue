@@ -1,6 +1,6 @@
 <template>
   <main id="lot-page" class="catalog">
-    <SCatalogTop :btn-show="btnShow" :count-show="countShow" />
+    <SCatalogTop :on-show="false" />
     <article class="container lot">
       <div class="row lot__top">
         <div
@@ -135,8 +135,7 @@
 </template>
 
 <script setup>
-  const btnShow = false
-  const countShow = false
+  import useSeo from '../../composables/useSeo'
 
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/watches/' + slug
@@ -148,7 +147,13 @@
   //   '$1 '
   // )
 
-  console.log(lot._value.price_rub)
+  useHead({
+    ...useSeo(useRoute().name, {
+      lotType: 'Часы',
+      lotName: lot.value.name,
+      lotImage: lot.value.image,
+    }),
+  })
 
   const gender = computed(() => {
     let value = ''
@@ -232,13 +237,11 @@
 
 <style lang="scss" scoped>
   #lot-page {
-    .catalog-top {
-      &__breadcrumbs {
-        margin-bottom: 12px;
-      }
+    .s-catalog-top {
+      margin-bottom: 72px;
 
       @include max-width('md') {
-        margin-bottom: unset;
+        margin-bottom: 12px;
       }
     }
 

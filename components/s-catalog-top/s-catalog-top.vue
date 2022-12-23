@@ -9,6 +9,10 @@
         :categories="categories"
         :btn-show="btnShow"
         :count="count"
+        :on-show="onShow"
+        :on-show-counter="onShowCounter"
+        :on-show-categories="onShowCategories"
+        :on-show-bookmark="onShowBookmark"
       />
     </div>
   </section>
@@ -34,6 +38,22 @@
     btnShow: {
       type: Boolean,
       default: false,
+    },
+    onShow: {
+      type: Boolean,
+      default: true,
+    },
+    onShowCounter: {
+      type: Boolean,
+      default: true,
+    },
+    onShowCategories: {
+      type: Boolean,
+      default: true,
+    },
+    onShowBookmark: {
+      type: Boolean,
+      default: true,
     },
   })
 </script>

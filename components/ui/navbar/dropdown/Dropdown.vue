@@ -1,6 +1,7 @@
 <template>
   <div class="navbar__dropdown" :class="activeClass">
     <component
+      ref="triggerButton"
       :is="trigger"
       class="button navbar__dropdown-trigger dropdown-trigger"
       :class="triggerClasses"
@@ -15,25 +16,28 @@
       </div>
     </component>
     <template v-if="repository">
-      <div v-show="isActive" class="navbar__menu navbar-menu">
+      <expand-transition :collapse-without-animation="isDesktop">
+      <div ref="target" v-if="isActive" class="navbar__menu navbar-menu">
         <div class="navbar-menu__wrap">
           <div v-if="repository === 'contacts'" class="navbar-menu__contacts">
-            <div
+            <template
               v-for="(contactsGroup, contactsGroupName) in contacts"
               :key="contactsGroupName"
-              class="navbar-menu__contact"
             >
-              <span class="navbar-menu__contact-title">{{
-                getContactsGroupName(contactsGroupName)
-              }}</span>
-              <a
-                v-for="(contact, index) in contactsGroup"
-                :key="index"
-                :href="setContactLinkByType(contact, contactsGroupName)"
-                target="_blank"
-                >{{ contact }}</a
-              >
-            </div>
+              <div v-if="contactsGroup.length" class="navbar-menu__contact">
+                <span class="navbar-menu__contact-title">{{
+                  getContactsGroupName(contactsGroupName)
+                }}</span>
+                <a
+                  class="navbar-menu__contact-value"
+                  v-for="(contact, index) in contactsGroup"
+                  :key="index"
+                  :href="setContactLinkByType(contact, contactsGroupName)"
+                  target="_blank"
+                  >{{ contact }}</a
+                >
+              </div>
+            </template>
           </div>
           <template v-else>
             <ui-navbar-dropdown-section
@@ -49,7 +53,7 @@
           v-if="repository !== 'contacts'"
           class="button navbar-menu__bottom-link bottom-link"
           :class="bottomLinkClass"
-          :to="`/lots/${repository}`"
+          :to="repository"
         >
           <span>Показать все {{ title.toLowerCase() }}</span>
           <base-icon
@@ -58,12 +62,22 @@
           ></base-icon>
         </nuxt-link>
       </div>
+      </expand-transition>
     </template>
   </div>
 </template>
 
 <script setup>
+  import { ref } from 'vue'
+  import { onClickOutside } from '@vueuse/core'
   import { isDesktop } from '@/utils/queries'
+  import ExpandTransition from "../../transitions/ExpandTransition";
+
+  const target = ref(null)
+  const triggerButton = ref(null)
+  onClickOutside(target, (e) => {
+    if (isDesktop.value) emits('hide')
+  },{ignore:[triggerButton]})
 
   const props = defineProps({
     title: {
@@ -161,7 +175,7 @@
   function setContactLinkByType(value, contactsGroupName) {
     const contactTypesMap = {
       phones: (val) => `tel:${val}`,
-      mails: (val) => `mailto:${val}`,
+      email: (val) => `mailto:${val}`,
     }
     return contactTypesMap[contactsGroupName]?.(value) || value
   }
@@ -170,7 +184,7 @@
     const nameMap = {
       phones: 'Телефон',
       socials: 'Соц. сети',
-      mails: 'Почта',
+      email: 'E-mail',
     }
     return nameMap[contactsGroupName] || contactsGroupName
   }
@@ -208,8 +222,10 @@
       background-color: #ffffffe5;
     }
 
-    &.active .button__caret {
-      transform: rotate(180deg);
+    &.active, &.button--black {
+      .button__caret {
+        transform: rotate(180deg);
+      }
     }
   }
 
@@ -225,6 +241,10 @@
       display: flex;
       flex-direction: column;
       gap: 32px;
+      @include max-width('lg') {
+        padding: 16px 24px;
+        gap:16px;
+      }
     }
 
     &__contact {
@@ -236,10 +256,22 @@
         font-weight: 600;
         font-size: 20px;
         line-height: 24px;
+        @include max-width('lg') {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 15px;
+        }
       }
 
       &-value {
         line-height: 26px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        @include max-width('lg') {
+          font-size: 12px;
+          line-height: 15px;
+          color: $input;
+        }
       }
     }
 

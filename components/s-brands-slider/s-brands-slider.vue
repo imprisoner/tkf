@@ -5,10 +5,13 @@
         <h2>Мировые бренды</h2>
       </div>
       <div class="s-brands-slider__nav offset-9 col-xl-2 col-md-3">
-        <slider-nav></slider-nav>
+        <slider-nav
+          @prev="slidePrev()"
+          @next="slideNext()">
+        </slider-nav>
       </div>
       <div class="offset-xl-1 col-xl-10 col-12">
-        <swiper v-bind="config">
+        <swiper v-bind="config" @swiper="onSwiper">
           <swiper-slide v-for="(brand, i) in brandsCards" :key="i">
             <s-brands-card
               :id="brand.id"
@@ -55,6 +58,19 @@
         slidesPerView: 4,
       },
     },
+  }
+
+  const sliders = reactive({
+    brand: null
+  })
+  function onSwiper(swiper) {
+    sliders.brand = swiper
+  }
+  function slidePrev() {
+    sliders.brand.slidePrev()
+  }
+  function slideNext() {
+    sliders.brand.slideNext()
   }
 </script>
 

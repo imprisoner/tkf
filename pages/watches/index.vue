@@ -1,91 +1,116 @@
 <template>
-    <main id="goods-page" class="catalog">
-        <SCatalogTop :title="titleCatalogTop" />
+  <main id="goods-page" class="catalog">
+    <SCatalogTop :count="lotsResponse.count" :title="titleCatalogTop" />
 
-        <SGoodSection :show-filters="true"/>
+    <SGoodSection
+      :show-filters="true"
+      :lots-list="lotsResponse.results"
+      :common-lots-count="lotsResponse.count"
+      good-type="watches"
+    />
 
-        <SAdsSection :banners="banners"/>
+    <SAdsSection :banners="banners" />
 
-        <div class="container brands-title">
-            <div class="row">
-                <div class="offset-lg-1 col-lg-12"><h2>Все бренды швейцарских часов</h2></div>
-            </div>
+    <div class="container brands-title">
+      <div class="row">
+        <div class="offset-lg-1 col-lg-12">
+          <h2>Все бренды швейцарских часов</h2>
         </div>
+      </div>
+    </div>
 
-        <SAlphabet :brands-items="brandsItems"/>
+    <SAlphabet :brands-items="brandsItems" />
 
-        <div class="container cats-title">
-            <div class="row">
-                <div class="offset-lg-1 col-lg-12"><h2>Категории швейцарских часов</h2></div>
-            </div>
+    <div class="container cats-title">
+      <div class="row">
+        <div class="offset-lg-1 col-lg-12">
+          <h2>Категории швейцарских часов</h2>
         </div>
+      </div>
+    </div>
 
-        <SCategoriesSection />
+    <SCategoriesSection />
 
-        <SDescrSection
-            :title="titleDescriptionSection"
-            :text="textDescriptionSection"
-        />
-    </main>
+    <SDescrSection :title="aboutPage.title" :text="aboutPage.content" />
+  </main>
 </template>
 
 <script setup>
   import { getBrands } from '@/api/getBrands'
-  import { getBanners } from '@/api/getBanners';
+  import { getBanners } from '@/api/getBanners'
+  import { getWatches } from '@/api/getWatches'
+  import { getAboutPage } from '@/api/getAboutPage'
+  import useQueryString from '~/composables/useQueryString'
 
-  const titleCatalogTop = "Все мужские часы";
-  const titleDescriptionSection = 'Описание раздела';
-  const textDescriptionSection = 'Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия. Учитывая ключевые сценарии поведения, повышение уровня гражданского сознания требует от нас анализа системы массового участия.';
-  const banners = [];
+  const { getUrlSearchParams } = useQueryString()
 
+  const { data: lotsResponse } = await getWatches(getUrlSearchParams.value)
+
+  // const isEmptyList = computed(() => lotsResponse.value.results?.length)
+
+  watch(getUrlSearchParams, async () => {
+    const { data } = await getWatches(getUrlSearchParams.value)
+    lotsResponse.value = data.value
+  })
+
+  const titleCatalogTop = 'Все мужские часы'
+  const banners = []
   await getBanners({ page: 'WATCH' }).then((response) => {
     Object.entries(response._value).forEach((banner) => {
-      banners.push(banner);
-    });
-  });
+      banners.push(banner)
+    })
+  })
 
-  const brandsCards = await getBrands({ isShowOnMain: false, brandType: 'WATCH' })
+  const aboutPage = await getAboutPage('WATCH')
+  const brandsCards = await getBrands({
+    isShowOnMain: false,
+    brandType: 'WATCH',
+  })
   const brandsItems = brandsCards
 </script>
 
 <style lang="scss" scoped>
-#goods-page {
-  .goods-section {
-    margin-bottom: 200px;
-  }
-
-  .s-ads-section {
-    margin-bottom: 226px;
-  }
-
-  .brands-title {
-    margin-bottom: 72px;
-  }
-
-  .cats-title {
-    margin-bottom: 80px;
-  }
-
-  .alphabet {
-    margin-bottom: 224px;
-  }
-
-  .categories-section {
-    margin-bottom: 200px;
-  }
-
-  .descr-section {
-    margin-bottom: 152px;
-  }
-
-  @include max-width('md') {
-    .goods-section, .s-ads-section, .alphabet, .categories-section {
-      margin-bottom: 64px;
+  #goods-page {
+    .goods-section {
+      margin-bottom: 200px;
     }
 
-    .brands-title, .cats-title {
-      margin-bottom: 24px;
+    .ads-section {
+      margin-bottom: 226px;
+    }
+
+    .brands-title {
+      margin-bottom: 72px;
+    }
+
+    .cats-title {
+      margin-bottom: 80px;
+    }
+
+    .alphabet {
+      margin-bottom: 224px;
+    }
+
+    .categories-section {
+      margin-bottom: 200px;
+    }
+
+    .descr-section {
+      margin-bottom: 152px;
+    }
+
+    @include max-width('md') {
+      .goods-section,
+      .ads-section,
+      .alphabet,
+      .categories-section {
+        margin-bottom: 64px;
+      }
+
+      .brands-title,
+      .cats-title {
+        margin-bottom: 24px;
+      }
     }
   }
-}
 </style>
