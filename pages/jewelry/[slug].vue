@@ -174,13 +174,12 @@
 </script>
 
 <style lang="scss" scoped>
-  .lot-page {
+  #lot-page {
     .s-catalog-top {
-      margin-bottom: 12px;
-
+      margin-bottom: 72px;
 
       @include max-width('md') {
-        margin-bottom: unset;
+        margin-bottom: 12px;
       }
     }
 
@@ -474,3 +473,4 @@
     }
   }
 </style>
+

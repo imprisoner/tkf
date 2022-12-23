@@ -35,10 +35,12 @@
       </template>
     </div>
     <strong class="product-card__price">
-      ${{ lot.price_usd?.toString().replace(regExp, '$1 ') }}
-      <span v-if="lot.price_rub"
-        >{{ lot.price_rub?.toString().replace(regExp, '$1 ') }} ₽</span
-      >
+      <span v-if="lot.price_usd" class="product-card__price-usd">
+        ${{ lot.price_usd?.toString().replace(regExp, '$1 ') }}
+      </span>
+      <span v-if="lot.price_rub" class="product-card__price-rub">
+        {{ lot.price_rub?.toString().replace(regExp, '$1 ') }} ₽
+      </span>
     </strong>
   </div>
 </template>
@@ -55,7 +57,6 @@
     },
   })
 
-  // Fix:  Не приходит с бека
   const type = props.lot.type === 'watch' ? 'watches' : 'jewelry'
   const stubBrandImageUrl = '/img/brand_stub.png'
 </script>
