@@ -1,5 +1,4 @@
 .goods-section {
-
   &__top {
     margin-bottom: 32px;
     @include max-width('md') {
@@ -42,7 +41,6 @@
     }
   }
 
-
   &__card-centered {
     justify-self: center;
     width: calc((((100% - 30px * 3) / 4) * 3) + 30px * 2);
@@ -62,4 +60,34 @@
       }
     }
   }
+}
+
+.price-filter {
+  &__currency {
+    @include max-width('md') {
+      position: static;
+      padding: 0 16px;
+    }
+  }
+
+  &__currency-button-group {
+    display: flex;
+
+    @include max-width('md') {
+      display: none;
+    }
+  }
+
+  &__currency-radio-group {
+    display: none;
+    gap: 32px;
+
+    @include max-width('md') {
+      display: flex;
+    }
+  }
+}
+
+.filter__subtitle-two {
+  margin: 32px 0 23px;
 }

@@ -16,7 +16,7 @@
         for="a"
         style="--c: var(--a); left: 15%"
       ></output>
-      <label for="b" class="range-slider__label">100000 USD</label>
+      <label for="b" class="range-slider__label">15 500 0000 USD</label>
       <input id="b" type="range" min="min" value="b" max="max" />
       <output
         class="range-slider__top-label"
@@ -35,6 +35,7 @@
 
 <script setup>
   import './m-range-slider.scss'
+
   // addEventListener(
   //   'input',
   //   (e) => {

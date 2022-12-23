@@ -97,6 +97,42 @@
           :selected-prop="selectedBrands"
           @update-selection="updateBrandsSelection"
         />
+        <s-good-section-filters-model
+          v-if="content.value === 'model'"
+          :list="getBrandsList"
+          :selected-prop="selectedBrands"
+          @update-selection="updateBrandsSelection"
+        />
+        <s-good-section-filters-price
+          v-if="content.value === 'price'"
+          :list="getBrandsList"
+          :selected-prop="selectedBrands"
+          @update-selection="updateBrandsSelection"
+        />
+        <s-good-section-filters-diametr
+          v-if="content.value === 'diametr'"
+          :list="getBrandsList"
+          :selected-prop="selectedBrands"
+          @update-selection="updateBrandsSelection"
+        />
+        <s-good-section-filters-place
+          v-if="content.value === 'place'"
+          :list="getBrandsList"
+          :selected-prop="selectedBrands"
+          @update-selection="updateBrandsSelection"
+        />
+        <s-good-section-filters-sex
+          v-if="content.value === 'sex'"
+          :list="getBrandsList"
+          :selected-prop="selectedBrands"
+          @update-selection="updateBrandsSelection"
+        />
+        <s-good-section-filters-condition
+          v-if="content.value === 'condition'"
+          :list="getBrandsList"
+          :selected-prop="selectedBrands"
+          @update-selection="updateBrandsSelection"
+        />
       </main>
 
       <footer class="filters__footer">
