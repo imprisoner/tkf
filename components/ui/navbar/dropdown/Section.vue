@@ -14,6 +14,7 @@
         </nuxt-link>
       </div>
     </div>
+    <expand-transition>
     <ul v-show="isMobileListActive" class="navbar-menu__list text-16">
       <li class="navbar-menu__list-item" @click="onLinkClick">
         <nuxt-link :to="`/${name}/${repository}`">
@@ -31,11 +32,13 @@
         }}</nuxt-link>
       </li>
     </ul>
+    </expand-transition>
   </section>
 </template>
 
 <script setup>
   import { isDesktop } from '@/utils/queries'
+  import ExpandTransition from "../../transitions/ExpandTransition";
 
   defineProps({
     repository: {

@@ -228,6 +228,7 @@
 
       @include max-width('md') {
         padding: 0 60px;
+        margin-bottom: 32px;
       }
     }
 

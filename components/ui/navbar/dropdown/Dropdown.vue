@@ -1,6 +1,7 @@
 <template>
   <div class="navbar__dropdown" :class="activeClass">
     <component
+      ref="triggerButton"
       :is="trigger"
       class="button navbar__dropdown-trigger dropdown-trigger"
       :class="triggerClasses"
@@ -15,7 +16,8 @@
       </div>
     </component>
     <template v-if="repository">
-      <div v-show="isActive" class="navbar__menu navbar-menu">
+      <expand-transition :collapse-without-animation="isDesktop">
+      <div ref="target" v-if="isActive" class="navbar__menu navbar-menu">
         <div class="navbar-menu__wrap">
           <div v-if="repository === 'contacts'" class="navbar-menu__contacts">
             <template
@@ -39,7 +41,6 @@
           <template v-else>
             <ui-navbar-dropdown-section
               v-for="(section, i) in sections"
-              ref="target"
               :key="i"
               v-bind="section"
               :params="params[section.name][repository]"
@@ -60,6 +61,7 @@
           ></base-icon>
         </nuxt-link>
       </div>
+      </expand-transition>
     </template>
   </div>
 </template>
@@ -68,11 +70,13 @@
   import { ref } from 'vue'
   import { onClickOutside } from '@vueuse/core'
   import { isDesktop } from '@/utils/queries'
+  import ExpandTransition from "../../transitions/ExpandTransition";
 
   const target = ref(null)
-  onClickOutside(target, () => {
+  const triggerButton = ref(null)
+  onClickOutside(target, (e) => {
     if (isDesktop.value) emits('hide')
-  })
+  },{ignore:[triggerButton]})
 
   const props = defineProps({
     title: {
@@ -217,8 +221,10 @@
       background-color: #ffffffe5;
     }
 
-    &.active .button__caret {
-      transform: rotate(180deg);
+    &.active, &.button--black {
+      .button__caret {
+        transform: rotate(180deg);
+      }
     }
   }
 
