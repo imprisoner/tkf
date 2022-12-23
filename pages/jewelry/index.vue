@@ -3,13 +3,13 @@
     <SCatalogTop :count="lotsResponse.count" :title="titleCatalogTop" />
 
     <SGoodSection
-      v-show="isEmptyList"
       :show-filters="true"
       :lots-list="lotsResponse.results"
       :common-lots-count="lotsResponse.count"
+      good-type="jewelry"
     />
 
-    <SAdsSection :banners="banners"/>
+    <SAdsSection :banners="banners" />
 
     <div class="container brands-title">
       <div class="row">
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <SAlphabet :brands-items="brandsItems"/>
+    <SAlphabet :brands-items="brandsItems" />
 
     <div class="container cats-title">
       <div class="row">
@@ -31,48 +31,41 @@
 
     <SCategoriesSection />
 
-    <SDescrSection
-        :title="aboutPage.title"
-        :text="aboutPage.content"
-    />
+    <SDescrSection :title="aboutPage.title" :text="aboutPage.content" />
   </main>
 </template>
 
 <script setup>
   import { getBrands } from '@/api/getBrands'
-  import { getBanners } from '@/api/getBanners';
-  import { getWatchesBrand } from '@/api/getWatchesBrand'
+  import { getBanners } from '@/api/getBanners'
   import { getAboutPage } from '@/api/getAboutPage'
   import useQueryString from '~/composables/useQueryString'
-
-  const { id } = useRoute().params
+  import { getJewelry } from '~/api/getJewelry'
 
   const { getUrlSearchParams } = useQueryString()
 
-  const getPageParams = computed(() => ({
-    ...getUrlSearchParams.value,
-    brand: id,
-  }))
+  const { data: lotsResponse } = await getJewelry(getUrlSearchParams.value)
 
-  const { data: lotsResponse } = await getWatchesBrand(getPageParams.value)
+  // const isEmptyList = computed(() => lotsResponse.value.results?.length)
 
-  const isEmptyList = computed(() => lotsResponse.value.results?.length)
-
-  watch(getPageParams, async () => {
-    const { data } = await getWatchesBrand(getPageParams.value)
+  watch(getUrlSearchParams, async () => {
+    const { data } = await getJewelry(getUrlSearchParams.value)
     lotsResponse.value = data.value
   })
 
-  const titleCatalogTop = "Ювелирные украшения";
-  const banners = [];
+  const titleCatalogTop = 'Ювелирные украшения'
+  const banners = []
   await getBanners({ page: 'JEWELRY' }).then((response) => {
     Object.entries(response._value).forEach((banner) => {
-      banners.push(banner);
-    });
-  });
+      banners.push(banner)
+    })
+  })
 
   const aboutPage = await getAboutPage('JEWELRY')
-  const brandsCards = await getBrands({ isShowOnMain: false, brandType: 'JEWELRY' })
+  const brandsCards = await getBrands({
+    isShowOnMain: false,
+    brandType: 'JEWELRY',
+  })
   const brandsItems = brandsCards
 </script>
 

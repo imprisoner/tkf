@@ -14,18 +14,19 @@
               active: item.value === activeFiltersTab?.value,
             },
           ]"
-          @click="toggleFilterItem(item)"
+          @click="toggleFilterTab(item)"
         >
           {{ item.label }}
         </button>
       </div>
       <div
         class="button button--square button--gray stroked-icon filters__button"
-        @click="toggleFilterItem(null)"
+        @click="toggleFilterTab(null)"
       >
         <BaseIcon name="filters" />
       </div>
     </div>
+
     <div v-show="activeFiltersTab" class="filters__window">
       <aside class="filters__sidebar">
         <div class="filters__mobile">
@@ -43,7 +44,7 @@
               'filters__list-item',
               { active: item === activeFiltersTab },
             ]"
-            @click="toggleFilterItem(item)"
+            @click="toggleFilterTab(item)"
           >
             <div class="filters__list-btn button button--text-sm">
               <BaseIcon :name="item.icon" />
@@ -63,10 +64,10 @@
             </div>
           </li>
         </ul>
-        <button class="filters__save link-button" type="button">
-          <BaseIcon name="bookmark" />
-          <span>Сохранить запрос</span>
-        </button>
+        <!--        <button class="filters__save link-button" type="button">-->
+        <!--          <BaseIcon name="bookmark" />-->
+        <!--          <span>Сохранить запрос</span>-->
+        <!--        </button>-->
       </aside>
 
       <main
@@ -82,71 +83,20 @@
           <h3 v-else class="filter__title">{{ content.label }}</h3>
           <span class="text-16 lots-found">{{ getCounterString }}</span>
           <div class="filters__mobile-close">
-            <BaseIcon name="star" />
+            <BaseIcon name="x" />
           </div>
         </div>
+
         <div class="filter__backdrop button mobile-caret">
           <span>Назад</span>
         </div>
-        <div class="filter__popular">
-          <h4 class="filter__subtitle mobile-caret show-menu">
-            {{ content.titleOne }}
-          </h4>
-          <div class="filter__popular-list">
-            <button
-              v-for="popularBrand in getPopularBrands"
-              :key="popularBrand"
-              :class="[
-                'filter__popular-item',
-                'button',
-                'button--text-sm',
-                'button--gray',
-                { active: selected.indexOf(popularBrand.value) >= 0 },
-              ]"
-              type="button"
-              @click="
-                handleBrandSelection(
-                  popularBrand.value,
-                  selected.indexOf(popularBrand.value) === -1
-                )
-              "
-            >
-              {{ popularBrand.label }}
-            </button>
-          </div>
-        </div>
-        <div class="filter__main">
-          <h4 class="filter__subtitle mobile-caret">
-            {{ content.titleTwo }}
-          </h4>
-          <SGoodSectionSortPrice v-if="content.value == 'price'" />
-          <div
-            v-if="
-              (content.value !== 'price') &
-              (content.value !== 'sex') &
-              (content.value !== 'condition')
-            "
-            class="filter__options"
-          >
-            <div class="filter__search search">
-              <div class="search input-group">
-                <input
-                  id="navbar_search"
-                  class="input-group__field"
-                  type="text"
-                  placeholder="Найти лучшие в мире часы"
-                />
-                <button
-                  class="button button--square button--black"
-                  type="button"
-                >
-                  <BaseIcon name="search" />
-                </button>
-              </div>
-            </div>
-            <SGoodSectionCheckboxGroup :list="getBrandsList" />
-          </div>
-        </div>
+
+        <s-good-section-filters-brands
+          v-if="content.value === 'brand'"
+          :list="getBrandsList"
+          :selected-prop="selectedBrands"
+          @update-selection="updateBrandsSelection"
+        />
       </main>
 
       <footer class="filters__footer">
@@ -154,7 +104,11 @@
           <BaseIcon name="rotate-ccw" />
           <span>Сбросить</span>
         </button>
-        <button class="button button--gray stroked-icon" type="button">
+        <button
+          class="button button--gray stroked-icon"
+          type="button"
+          @click="applyFilters"
+        >
           <BaseIcon name="check" />
           <span>Сохранить</span>
         </button>
@@ -164,16 +118,107 @@
 </template>
 
 <script setup>
-  import SGoodSectionSortPrice from './s-good-section-price/s-good-section-price.vue'
   import { getFilterObject } from '~/api/getFilterObject'
   import declOfNum from '~/composables/declOfNum'
+  import useQueryString from '~/composables/useQueryString'
 
   const props = defineProps({
     commonLotsCount: {
       type: Number,
       default: 0,
     },
+    goodType: {
+      type: String,
+      default: 'watches',
+    },
   })
+
+  // data fetching-----------------------------
+  const { getUrlSearchParams, setUrlSearchParams } = useQueryString()
+
+  const { data: filterObjects } = await getFilterObject(props.goodType)
+
+  const getBrandsList = computed(() =>
+    filterObjects.value?.brands.map((i) => ({ value: i.id, label: i.name }))
+  )
+  // !-------------------------------------!
+
+  // tabs-------------------------------------
+  const filterTabs = ref([
+    {
+      label: 'Бренд',
+      fullLabel: 'Бренды',
+      value: 'brand',
+      icon: 'tag',
+    },
+    {
+      label: 'Модель',
+      fullLabel: 'Модель',
+      value: 'model',
+      icon: 'box',
+    },
+    {
+      label: 'Цена',
+      fullLabel: 'Цена',
+      value: 'price',
+      icon: 'dollar-sign',
+    },
+    {
+      label: 'Диаметр',
+      fullLabel: 'Диаметр и габариты',
+      value: 'diametr',
+      icon: 'target',
+    },
+    {
+      label: 'Место',
+      fullLabel: 'Местоположение',
+      value: 'place',
+      icon: 'compass',
+    },
+    {
+      label: 'Пол',
+      fullLabel: '',
+      value: 'sex',
+      icon: 'ph_gender-intersex-bold',
+    },
+    {
+      label: 'Состояние',
+      fullLabel: '',
+      value: 'condition',
+      icon: 'thumbs-up',
+    },
+  ])
+
+  const activeFiltersTab = ref(null)
+
+  const toggleFilterTab = (item) => {
+    if (item === null && activeFiltersTab.value === null) {
+      activeFiltersTab.value = filterTabs.value[0]
+    } else {
+      activeFiltersTab.value = activeFiltersTab.value === item ? null : item
+    }
+  }
+  // !-------------------------------------!
+
+  // !brands filter ----------------------!
+
+  const selectedBrands = ref([])
+  if (typeof getUrlSearchParams.value.brand === 'string') {
+    selectedBrands.value = [+getUrlSearchParams.value.brand]
+  }
+  if (typeof getUrlSearchParams.value.brand === 'object') {
+    selectedBrands.value = [...getUrlSearchParams.value.brand].map((i) => +i)
+  }
+
+  const updateBrandsSelection = (val) => {
+    selectedBrands.value = val
+  }
+
+  const applyFilters = () => {
+    setUrlSearchParams({ brand: [...selectedBrands.value] })
+  }
+
+  // !-------------------------------------!
 
   const getCounterString = computed(() =>
     declOfNum(props.count, [
@@ -182,79 +227,4 @@
       `Найдено ${props.commonLotsCount} товаров`,
     ])
   )
-
-  const { data: filterObjects } = await getFilterObject('watches')
-  // import { getBrands } from '~/api/getBrands'
-  // const popularBrands = await getBrands({ isShowOnMain: true })
-
-  const getBrandsList = computed(() =>
-    filterObjects.value.brands.map((i) => ({ value: i.id, label: i.name }))
-  )
-
-  const getPopularBrands = computed(() => {
-    return getBrandsList.value.filter((brand) => brand.isPopular)
-  })
-
-  const filterTabs = ref([
-    {
-      label: 'Бренд',
-      titleOne: 'Популярные бренды',
-      titleTwo: 'Все бренды',
-      value: 'brand',
-      icon: 'tag',
-    },
-    {
-      label: 'Модель',
-      titleOne: 'Популярные модели',
-      titleTwo: 'Все модели',
-      value: 'model',
-      icon: 'box',
-    },
-    {
-      label: 'Цена',
-      titleOne: 'Популярные бренды',
-      titleTwo: 'Диапазон цен',
-      value: 'price',
-      icon: 'dollar-sign',
-    },
-    {
-      label: 'Диаметр',
-      fullLabel: 'Диаметр и габариты',
-      titleOne: 'Популярные',
-      titleTwo: 'Все диаметры',
-      value: 'diametr',
-      icon: 'target',
-    },
-    {
-      label: 'Местоположение',
-      titleOne: 'Популярное местоположение',
-      titleTwo: 'Поиск местоположения',
-      value: 'place',
-      icon: 'compass',
-    },
-    {
-      label: 'Пол',
-      titleOne: 'Выберите пол',
-      titleTwo: null,
-      value: 'sex',
-      icon: 'ph_gender-intersex-bold',
-    },
-    {
-      label: 'Состояние',
-      titleOne: 'Популярные категории',
-      titleTwo: 'Состояние',
-      value: 'condition',
-      icon: 'thumbs-up',
-    },
-  ])
-
-  const activeFiltersTab = ref(null)
-
-  const toggleFilterItem = (item) => {
-    if (item === null && activeFiltersTab.value === null) {
-      activeFiltersTab.value = filterTabs.value[0]
-    } else {
-      activeFiltersTab.value = activeFiltersTab.value === item ? null : item
-    }
-  }
 </script>
