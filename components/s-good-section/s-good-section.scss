@@ -1,5 +1,4 @@
 .goods-section {
-
   &__top {
     margin-bottom: 32px;
     @include max-width('md') {
@@ -42,7 +41,6 @@
     }
   }
 
-
   &__card-centered {
     justify-self: center;
     width: calc((((100% - 30px * 3) / 4) * 3) + 30px * 2);
@@ -62,4 +60,8 @@
       }
     }
   }
+}
+
+.filter {
+  position: relative;
 }

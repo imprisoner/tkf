@@ -1,7 +1,13 @@
 <template>
+  <MRangeSlider />
   <div class="price-filter__currency">
     <div class="price-filter__currency-button--group">
-      <MRangeSlider />
+      <button type="button" class="button button--square.button--black">
+        RUB
+      </button>
+      <button type="button" class="button button--square.button--gray">
+        USD
+      </button>
     </div>
     <div class="price-filter__currency-radio-group">
       <label for="" class="radio"></label>

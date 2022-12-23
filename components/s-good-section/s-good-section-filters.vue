@@ -31,9 +31,9 @@
         <div class="filters__mobile">
           <h6 class="filters__mobile-subtitle">Фильтры</h6>
           <span class="text-16 lots-found">Найдено 185 товаров</span>
-          <div class="filters__mobile-close">
+          <!-- <div class="filters__mobile-close">
             <BaseIcon name="x" />
-          </div>
+          </div> -->
         </div>
         <ul class="filters__list">
           <li
@@ -81,9 +81,9 @@
           </h3>
           <h3 v-else class="filter__title">{{ content.label }}</h3>
           <span class="text-16 lots-found">Найдено 185 товаров</span>
-          <div class="filters__mobile-close">
+          <!-- <div class="filters__mobile-close">
             <BaseIcon name="star" />
-          </div>
+          </div> -->
         </div>
         <div class="filter__backdrop button mobile-caret">
           <span>Назад</span>

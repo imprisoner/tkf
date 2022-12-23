@@ -6,8 +6,11 @@
     }
   }
 
-  &__currency-button-group {
+  &__currency-button--group {
     display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
 
     @include max-width('md') {
       display: none;

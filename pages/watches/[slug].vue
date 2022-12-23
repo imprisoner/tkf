@@ -1,18 +1,28 @@
 <template>
   <main id="lot-page" class="catalog">
-    <SCatalogTop />
+    <SCatalogTop :btn-show="btnShow" :count-show="countShow" />
     <article class="container lot">
       <div class="row lot__top">
         <div
           class="lot__imagebox imagebox offset-lg-1 col-lg-5 col-md-6 col-12"
         >
           <div class="imagebox__image">
-            <div v-if="lot.condition == 'NEW'" class="new new--lot">Абсолютно новый</div>
-            <img class="img-resp" :src="lot.image || stubBrandImageUrl" alt="" />
+            <div v-if="lot.condition == 'NEW'" class="new new--lot">
+              Абсолютно новый
+            </div>
+            <img
+              class="img-resp"
+              :src="lot.image || stubBrandImageUrl"
+              alt=""
+            />
           </div>
           <div class="imagebox__thumbnails">
             <div class="imagebox__thumb">
-              <img class="img-resp" :src="lot.image || stubBrandImageUrl" alt="" />
+              <img
+                class="img-resp"
+                :src="lot.image || stubBrandImageUrl"
+                alt=""
+              />
             </div>
           </div>
         </div>
@@ -24,15 +34,21 @@
               <p v-if="lot.brand">{{ lot.brand.name }}</p>
             </div>
             <h3 class="details__price">
-              ${{ priceUsd }}
-              <span v-if="priceRub" class="details__price--gray"
-                >{{ priceRub }} ₽</span
+              ${{ lot.price_usd }}
+              <span v-if="lot.price_rub" class="details__price--gray"
+                >{{ Math.ceil(lot.price_rub) }} ₽</span
               >
             </h3>
             <div class="details__tags">
-              <span class="details__tag button button--text-sm">{{ lot.condition == 'NEW' ? 'новый' : 'подержанный' }}</span>
-              <span class="details__tag button button--text-sm">{{ lot.is_available == true ? 'В наличии' : 'Нет в наличии' }}</span>
-              <span class="details__tag button button--text-sm">{{ lot.complete_set == 'FULL' ? 'полная' : 'не комплект' }}</span>
+              <span class="details__tag button button--text-sm">{{
+                lot.condition == 'NEW' ? 'новый' : 'подержанный'
+              }}</span>
+              <span class="details__tag button button--text-sm">{{
+                lot.is_available == true ? 'В наличии' : 'Нет в наличии'
+              }}</span>
+              <span class="details__tag button button--text-sm">{{
+                lot.complete_set == 'FULL' ? 'полная' : 'не комплект'
+              }}</span>
             </div>
           </div>
           <a
@@ -53,20 +69,33 @@
           <div v-if="characteristics" class="features__col col-xl-6 col-12">
             <template v-for="(characteristic, id) in characteristics">
               <div
-                v-if="characteristic.value !== '' && characteristic.value !== null && characteristic.value.length !== 0"
+                v-if="
+                  characteristic.value !== '' &&
+                  characteristic.value !== null &&
+                  characteristic.value.length !== 0
+                "
                 :key="id"
                 class="features__col col-xl-6 col-12"
               >
                 <template v-if="characteristic.text !== 'Функции часов'">
-                  <p class="features__prop"> {{ characteristic.text }} </p>
+                  <p class="features__prop">{{ characteristic.text }}</p>
                   <p class="features__val">
                     {{ characteristic.value }}
                   </p>
                 </template>
-                <template v-if="characteristic.text === 'Функции часов' && characteristic.value.length !== 0">
-                  <p class="features__prop"> {{ characteristic.text }} </p>
+                <template
+                  v-if="
+                    characteristic.text === 'Функции часов' &&
+                    characteristic.value.length !== 0
+                  "
+                >
+                  <p class="features__prop">{{ characteristic.text }}</p>
                   <div class="features__vals">
-                    <p v-for="(stone, idx) in characteristic.value" :key="idx" class="features__val">
+                    <p
+                      v-for="(stone, idx) in characteristic.value"
+                      :key="idx"
+                      class="features__val"
+                    >
                       {{ stone }}
                     </p>
                   </div>
@@ -85,15 +114,19 @@
             <!-- Todo: нет в беке -->
             <!-- <h3>Ломбард Самый Лучший</h3> -->
             <address class="seller__address">
-              {{ lot.city_location.country.name }}, {{ lot.city_location.name}}
+              {{ lot.city_location.country.name }}, {{ lot.city_location.name }}
             </address>
           </div>
           <a
             class="seller__positions button button--black"
             :href="lot.original_link"
-            target="_blank">
+            target="_blank"
+          >
             <base-icon name="arrow-down-right"></base-icon>
-            <span>Показать все объявления ломбарда <!--(12)--></span>
+            <span
+              >Показать все объявления ломбарда
+              <!--(12)--></span
+            >
           </a>
         </div>
       </div>
@@ -102,31 +135,36 @@
 </template>
 
 <script setup>
+  const btnShow = false
+  const countShow = false
+
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/watches/' + slug
   const { data: lot } = await useFetch(uri, { key: slug })
-  const stubBrandImageUrl = '/img/brand_stub.png';
+  const stubBrandImageUrl = '/img/brand_stub.png'
 
-  const priceRub = lot._value.price_rub.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
-  const priceUsd = lot._value.price_usd.toLocaleString();
+  // const priceRub = lot._value.price_rub.replace(
+  //   /(\d)(?=(\d\d\d)+([^\d]|$))/g,
+  //   '$1 '
+  // )
 
   console.log(lot._value.price_rub)
 
   const gender = computed(() => {
-    let value = '';
-    switch(true) {
-      case lot._value.gender === 'UNISEX': 
-        value = 'унисекс';
-      break;
-      case lot._value.gender === 'MALE': 
-        value = 'мужской';
-      break;
-      case lot._value.gender === 'FEMALE': 
-        value = 'женский';
-      break;
+    let value = ''
+    switch (true) {
+      case lot._value.gender === 'UNISEX':
+        value = 'унисекс'
+        break
+      case lot._value.gender === 'MALE':
+        value = 'мужской'
+        break
+      case lot._value.gender === 'FEMALE':
+        value = 'женский'
+        break
     }
-    return value;
-  });
+    return value
+  })
 
   const characteristics = [
     {
@@ -189,7 +227,7 @@
       text: 'Комплектация',
       value: lot._value?.complete_set === 'FULL' ? 'полная' : 'не комплект',
     },
-  ];
+  ]
 </script>
 
 <style lang="scss" scoped>
@@ -464,7 +502,8 @@
       }
     }
 
-    .imagebox__image, .imagebox__thumb {
+    .imagebox__image,
+    .imagebox__thumb {
       position: relative;
 
       .img-resp {
@@ -487,7 +526,7 @@
 
     .imagebox__thumb {
       height: 108px;
-      
+
       @include max-width('md') {
         height: 59px;
       }
