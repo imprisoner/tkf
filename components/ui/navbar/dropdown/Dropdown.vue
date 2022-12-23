@@ -29,6 +29,7 @@
                   getContactsGroupName(contactsGroupName)
                 }}</span>
                 <a
+                  class="navbar-menu__contact-value"
                   v-for="(contact, index) in contactsGroup"
                   :key="index"
                   :href="setContactLinkByType(contact, contactsGroupName)"
@@ -240,6 +241,10 @@
       display: flex;
       flex-direction: column;
       gap: 32px;
+      @include max-width('lg') {
+        padding: 16px 24px;
+        gap:16px;
+      }
     }
 
     &__contact {
@@ -251,10 +256,22 @@
         font-weight: 600;
         font-size: 20px;
         line-height: 24px;
+        @include max-width('lg') {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 15px;
+        }
       }
 
       &-value {
         line-height: 26px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        @include max-width('lg') {
+          font-size: 12px;
+          line-height: 15px;
+          color: $input;
+        }
       }
     }
 
