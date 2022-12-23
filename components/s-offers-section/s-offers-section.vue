@@ -11,7 +11,7 @@
           @next="slideNext('offers')"
         ></slider-nav>
       </div>
-      <div class="s-offers-section__slider offset-xl-1 col-xl-10 col-md-12">
+      <div class="s-offers-section__slider offset-xl-1 col-xl-10 col-md-12 moz-available">
         <m-offers-slider
           :slides="offersCards"
           @swiper="onSliderInit"
