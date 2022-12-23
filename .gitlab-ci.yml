@@ -67,7 +67,7 @@ build-master:
       . -f ./Dockerfile
     - docker push "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:master-latest"
   only:
-    - master
+    - main
 
 deploy-develop:
   extends: .before_script_deploy
@@ -89,4 +89,4 @@ deploy-master:
     - chmod +x ./deploy/run.sh
     - ./deploy/run.sh $MASTER_USER $MASTER_HOST
   only:
-    - master
+    - main
