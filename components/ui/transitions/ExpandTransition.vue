@@ -14,7 +14,7 @@ export default {
     }
   },
   methods: {
-    /* eslint-disable no-param-reassign */
+     
     enter(element) {
       const { width } = getComputedStyle(element)
 

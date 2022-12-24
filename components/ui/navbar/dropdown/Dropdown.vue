@@ -1,8 +1,8 @@
 <template>
   <div class="navbar__dropdown" :class="activeClass">
     <component
-      ref="triggerButton"
       :is="trigger"
+      ref="triggerButton"
       class="button navbar__dropdown-trigger dropdown-trigger"
       :class="triggerClasses"
       :to="hasDropdown ? null : link"
@@ -17,7 +17,7 @@
     </component>
     <template v-if="repository">
       <expand-transition :collapse-without-animation="isDesktop">
-      <div ref="target" v-if="isActive" class="navbar__menu navbar-menu">
+      <div v-if="isActive" ref="target" class="navbar__menu navbar-menu">
         <div class="navbar-menu__wrap">
           <div v-if="repository === 'contacts'" class="navbar-menu__contacts">
             <template
@@ -29,9 +29,9 @@
                   getContactsGroupName(contactsGroupName)
                 }}</span>
                 <a
-                  class="navbar-menu__contact-value"
                   v-for="(contact, index) in contactsGroup"
                   :key="index"
+                  class="navbar-menu__contact-value"
                   :href="setContactLinkByType(contact, contactsGroupName)"
                   target="_blank"
                   >{{ contact }}</a
@@ -70,8 +70,8 @@
 <script setup>
   import { ref } from 'vue'
   import { onClickOutside } from '@vueuse/core'
-  import { isDesktop } from '@/utils/queries'
   import ExpandTransition from "../../transitions/ExpandTransition";
+  import { isDesktop } from '@/utils/queries'
 
   const target = ref(null)
   const triggerButton = ref(null)

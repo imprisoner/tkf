@@ -39,7 +39,8 @@
         ${{ lot.price_usd?.toString().replace(regExp, '$1 ') }}
       </span>
       <span v-if="lot.price_rub" class="product-card__price-rub">
-        {{ lot.price_rub?.toString().replace(regExp, '$1 ') }} ₽
+        {{ Math.ceil(lot.price_rub).toString().replace(regExp, '$1 ') }}
+        ₽
       </span>
     </strong>
   </div>
@@ -48,7 +49,7 @@
 <script setup>
   import './m-product-card.scss'
 
-  const regExp = /(\d)(?=(\d\d\d)+(\D|$))/g
+  const regExp = /(\d)(?=(\d\d\d)+([^\d]|$))/g
 
   const props = defineProps({
     lot: {

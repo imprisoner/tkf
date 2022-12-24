@@ -19,8 +19,14 @@
     <h4 class="filter__subtitle-two">Диапозон цен</h4>
     <div class="filter__options">
       <div class="price-filter__currency">
+        <MRangeSlider />
         <div class="price-filter__currency-button--group">
-          <MRangeSlider />
+          <button type="button" class="button button--square button--black">
+            RUB
+          </button>
+          <button type="button" class="button button--square button--gray">
+            USD
+          </button>
         </div>
         <div class="price-filter__currency-radio-group">
           <label for="" class="radio"></label>
