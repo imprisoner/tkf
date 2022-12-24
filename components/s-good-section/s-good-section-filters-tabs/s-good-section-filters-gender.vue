@@ -1,6 +1,6 @@
 <template>
   <div class="filter__main">
-    <h4 class="filter__subtitle mobile-caret">Выберите состояние</h4>
+    <h4 class="filter__subtitle mobile-caret">Выберите пол</h4>
     <div class="filter__popular-list">
       <button
         v-for="item in list"
@@ -12,7 +12,7 @@
           { 'button--gray': selected === item.value },
         ]"
         type="button"
-        @click="emit('updateSelection', item.value)"
+        @click="updateSelection(item.value)"
       >
         {{ item.label }}
       </button>
@@ -33,4 +33,8 @@
   })
 
   const emit = defineEmits(['updateSelection'])
+
+  const updateSelection = (val) => {
+    emit('updateSelection', val)
+  }
 </script>
