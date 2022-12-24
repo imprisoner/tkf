@@ -9,7 +9,7 @@
         </p>
         <ui-search active></ui-search>
       </article>
-      <div class="offset-md-6 col-md-7 col-lg-6 col-12">
+      <div class="offset-md-6 col-md-7 col-lg-6 col-12 moz-available">
         <single-slider :slides="offersCards"></single-slider>
       </div>
     </div>

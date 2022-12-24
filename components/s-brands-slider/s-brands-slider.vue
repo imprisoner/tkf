@@ -10,7 +10,7 @@
           @next="slideNext()">
         </slider-nav>
       </div>
-      <div class="offset-xl-1 col-xl-10 col-12">
+      <div class="offset-xl-1 col-xl-10 col-12 moz-available">
         <swiper v-bind="config" @swiper="onSwiper">
           <swiper-slide v-for="(brand, i) in brandsCards" :key="i">
             <s-brands-card
