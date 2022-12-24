@@ -1,6 +1,10 @@
 <template>
   <main id="goods-page" class="catalog">
-    <SCatalogTop :count="lotsResponse.count" :title="titleCatalogTop" />
+    <SCatalogTop
+      :count="lotsResponse.count"
+      :title="titleCatalogTop"
+      :on-show-bookmark="onShowBookmark"
+    />
 
     <SGoodSection
       :show-filters="true"
@@ -54,6 +58,7 @@
   })
 
   const titleCatalogTop = 'Все мужские часы'
+  const onShowBookmark = false
   const banners = []
   await getBanners({ page: 'WATCH' }).then((response) => {
     Object.entries(response._value).forEach((banner) => {

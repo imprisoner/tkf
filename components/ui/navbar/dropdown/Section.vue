@@ -37,8 +37,8 @@
 </template>
 
 <script setup>
-  import { isDesktop } from '@/utils/queries'
   import ExpandTransition from "../../transitions/ExpandTransition";
+  import { isDesktop } from '@/utils/queries'
 
   defineProps({
     repository: {
