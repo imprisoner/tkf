@@ -105,9 +105,7 @@
         />
         <s-good-section-filters-price
           v-if="content.value === 'price'"
-          :list="getBrandsList"
-          :selected-prop="selectedBrands"
-          @update-selection="updateBrandsSelection"
+          @update-selection="updatePriceSelection"
         />
         <s-good-section-filters-diametr
           v-if="content.value === 'diametr'"
@@ -121,22 +119,26 @@
           :selected-prop="selectedBrands"
           @update-selection="updateBrandsSelection"
         />
-        <s-good-section-filters-sex
-          v-if="content.value === 'sex'"
-          :list="getBrandsList"
-          :selected-prop="selectedBrands"
-          @update-selection="updateBrandsSelection"
+        <s-good-section-filters-gender
+          v-if="content.value === 'gender'"
+          :list="getGenderList"
+          :selected="selectedGender"
+          @update-selection="updateGenderSelection"
         />
         <s-good-section-filters-condition
           v-if="content.value === 'condition'"
-          :list="getBrandsList"
-          :selected-prop="selectedBrands"
-          @update-selection="updateBrandsSelection"
+          :list="getConditionList"
+          :selected="selectedCondition"
+          @update-selection="updateConditionSelection"
         />
       </main>
 
       <footer class="filters__footer">
-        <button class="button button--black" type="button">
+        <button
+          class="button button--black"
+          type="button"
+          @click="resetFilters"
+        >
           <BaseIcon name="rotate-ccw" />
           <span>Сбросить</span>
         </button>
@@ -214,7 +216,7 @@
     {
       label: 'Пол',
       fullLabel: '',
-      value: 'sex',
+      value: 'gender',
       icon: 'ph_gender-intersex-bold',
     },
     {
@@ -250,11 +252,97 @@
     selectedBrands.value = val
   }
 
-  const applyFilters = () => {
-    setUrlSearchParams({ brand: [...selectedBrands.value] })
+  // !-------------------------------------!
+
+  // !gender filter ----------------------!
+
+  const getGenderList = computed(() => [
+    {
+      label: 'Мужчина',
+      value: 'MALE',
+    },
+    {
+      label: 'Женщина',
+      value: 'FEMALE',
+    },
+    {
+      label: 'Унисекс',
+      value: 'UNISEX',
+    },
+  ])
+  const selectedGender = ref(getUrlSearchParams.value.gender ?? null)
+
+  const updateGenderSelection = (val) => {
+    selectedGender.value = selectedGender.value === val ? null : val
   }
 
   // !-------------------------------------!
+
+  // !condition filter ----------------------!
+
+  const getConditionList = computed(() => [
+    {
+      label: 'Новое',
+      value: 'NEW',
+    },
+    {
+      label: 'Б/У',
+      value: 'USED',
+    },
+  ])
+
+  const selectedCondition = ref(getUrlSearchParams.value.condition ?? null)
+
+  const updateConditionSelection = (val) => {
+    selectedCondition.value = selectedCondition.value === val ? null : val
+  }
+  // !-------------------------------------!
+
+  // !price filter ----------------------!
+
+  const selectedPrice = ref({
+    price_usd_min: getUrlSearchParams.value.price_usd_min || [],
+    price_usd_max: getUrlSearchParams.value.price_usd_max || [],
+    price_rub_min: getUrlSearchParams.value.price_rub_min || [],
+    price_rub_max: getUrlSearchParams.value.price_rub_max || [],
+  })
+
+  const updatePriceSelection = (val) => {
+    console.log(val)
+    selectedPrice.value = val
+  }
+  // !-------------------------------------!
+
+  const setFilteredUrlParams = () => {
+    const params = {
+      brand: [...selectedBrands.value],
+      gender: selectedGender.value || [],
+      condition: selectedCondition.value || [],
+      price_usd_min: selectedPrice.value.price_usd_min || [],
+      price_usd_max: selectedPrice.value.price_usd_max || [],
+      price_rub_min: selectedPrice.value.price_rub_min || [],
+      price_rub_max: selectedPrice.value.price_rub_max || [],
+    }
+
+    setUrlSearchParams(params)
+  }
+
+  const applyFilters = () => {
+    setFilteredUrlParams()
+  }
+
+  const resetFilters = () => {
+    selectedBrands.value = []
+    selectedGender.value = null
+    selectedCondition.value = null
+    selectedPrice.value = {
+      price_usd_min: [],
+      price_usd_max: [],
+      price_rub_min: [],
+      price_rub_max: [],
+    }
+    setFilteredUrlParams()
+  }
 
   const getCounterString = computed(() =>
     declOfNum(props.count, [

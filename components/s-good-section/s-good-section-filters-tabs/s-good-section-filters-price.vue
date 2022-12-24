@@ -1,64 +1,61 @@
 <template>
   <div class="filter__main">
-    <h4 class="filter__subtitle mobile-caret">Популярные бренды</h4>
-    <div class="filter__popular-list">
-      <button
-        v-for="popularBrand in getPopularBrands"
-        :key="popularBrand"
-        :class="[
-          'filter__popular-item',
-          'button',
-          'button--text-sm',
-          'button--gray',
-        ]"
-        type="button"
-      >
-        {{ popularBrand.label }}
-      </button>
-    </div>
+    <!--    <h4 class="filter__subtitle mobile-caret">Выберите диапазон</h4>-->
+    <!--    <div class="filter__popular-list">-->
+    <!--      <button-->
+    <!--        v-for="popularBrand in getPopularBrands"-->
+    <!--        :key="popularBrand"-->
+    <!--        :class="[-->
+    <!--          'filter__popular-item',-->
+    <!--          'button',-->
+    <!--          'button&#45;&#45;text-sm',-->
+    <!--          'button&#45;&#45;gray',-->
+    <!--        ]"-->
+    <!--        type="button"-->
+    <!--      >-->
+    <!--        {{ popularBrand.label }}-->
+    <!--      </button>-->
+    <!--    </div>-->
     <h4 class="filter__subtitle-two">Диапозон цен</h4>
     <div class="filter__options">
       <div class="price-filter__currency">
         <MRangeSlider />
         <div class="price-filter__currency-button--group">
-          <button type="button" class="button button--square button--black">
-            RUB
+          <button
+            v-for="item in currencyList"
+            :key="item.value"
+            type="button"
+            :class="[
+              'button',
+              'button--square',
+              item.value === currency.value ? 'button--black' : 'button--gray',
+            ]"
+            @click="selectCurrency(item)"
+          >
+            {{ item.label }}
           </button>
-          <button type="button" class="button button--square button--gray">
-            USD
-          </button>
-        </div>
-        <div class="price-filter__currency-radio-group">
-          <label for="" class="radio"></label>
-          <input type="radio" name="currency" />
-          <div class="radio__wrap">
-            <div class="radio__label-text text-16">USD</div>
-          </div>
-        </div>
-        <div class="price-filter__currency-radio-group">
-          <label for="" class="radio"></label>
-          <input type="radio" name="currency" />
-          <div class="radio__wrap">
-            <div class="radio__label-text text-16">RUB</div>
-          </div>
         </div>
         <fieldset class="filter__range-fields">
           <div class="input-group filter__range-input">
             <span class="button button--square button--gray">min</span>
             <input
+              v-model="range[`price_${currency.value}_min`]"
               type="text"
               inputmode="number"
-              placeholder="40 000 USD"
+              :placeholder="`40 000 ${currency.label}`"
               class="input-group__field"
+              @input="updateSelection"
             />
           </div>
           <div class="input-group filter__range-input">
             <span class="button button--square button--gray">max</span>
             <input
+              v-model="range[`price_${currency.value}_max`]"
               type="text"
               inputmode="number"
-              placeholder="100 000 USD"
+              :placeholder="`100 000 ${currency.label}`"
               class="input-group__field"
+              @input="updateSelection"
             />
           </div>
         </fieldset>
@@ -68,9 +65,39 @@
 </template>
 
 <script setup>
-  const getPopularBrands = ref([
-    { value: 'da', label: 'Casio' },
-    { value: 'da', label: 'Casio' },
-    { value: 'da', label: 'Casio' },
+  const props = defineProps({
+    rangeProp: {
+      type: Object,
+      default: () => ({}),
+    },
+  })
+
+  const emit = defineEmits(['updateSelection'])
+
+  const currencyList = ref([
+    {
+      label: 'RUB',
+      value: 'rub',
+    },
+    {
+      label: 'USD',
+      value: 'usd',
+    },
   ])
+
+  const currency = ref(currencyList.value[0])
+
+  const range = ref(props.rangeProp)
+
+  const updateSelection = () => {
+    emit('updateSelection', range.value)
+  }
+
+  const selectCurrency = (item) => {
+    currency.value = item
+    range.value = {}
+    updateSelection()
+    // [`price_${currency.value.value}_min`]: null,
+    // [`price_${currency.value.value}_max`]: null,
+  }
 </script>
