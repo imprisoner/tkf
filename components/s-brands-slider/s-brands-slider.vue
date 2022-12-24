@@ -17,7 +17,7 @@
               :id="brand.id"
               :image="brand.image"
               :name="brand.name"
-              :type="brand.is_jewelry_brand ? 'jewelry' : 'watches'"
+              :brand-type="brand.is_jewelry_brand ? 'jewelry' : 'watches'"
             />
           </swiper-slide>
         </swiper>

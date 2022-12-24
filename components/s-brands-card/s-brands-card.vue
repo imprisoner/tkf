@@ -1,6 +1,6 @@
 <template>
   <div class="card card-square brands-logo aspect--1-1">
-    <NuxtLink :to="`/${type}/brands/${id}`">
+    <NuxtLink :to="`/${brandType}?brand=${id}`">
       <img
         class="brands-logo__img img-resp"
         :src="image || stubBrandImageUrl"
@@ -37,7 +37,7 @@
       type: String,
       default: '',
     },
-    type: {
+    brandType: {
       type: String,
       default: '',
     },
