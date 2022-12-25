@@ -7,7 +7,7 @@
   }
 
   &__filters {
-    margin-bottom: 40px;
+    margin-bottom: 60px;
   }
 
   &__button-group {
@@ -97,4 +97,9 @@
 
 .filter__subtitle-two {
   margin: 32px 0 23px;
+}
+
+.filters {
+  position: absolute;
+  width: 80.5%;
 }
