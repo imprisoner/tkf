@@ -23,9 +23,9 @@
               <p>{{ lot.brand.name }}</p>
             </div>
             <h3 class="details__price">
-              ${{ priceUsd }}
+              ${{ Math.ceil(lot._value.price_rub).toString().replace(regExp, '$1 ') }}
               <span v-if="priceRub" class="details__price--gray"
-                >{{ priceRub }} ₽</span
+                >{{ Math.ceil(lot._value.price_usd).toString().replace(regExp, '$1 ') }} ₽</span
               >
             </h3>
             <div class="details__tags">
@@ -104,10 +104,7 @@
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/jewelry/' + slug
   const { data: lot } = await useFetch(uri, { key: slug });
-  const stubBrandImageUrl = '/img/brand_stub.png';
-
-  const priceRub = lot._value.price_rub.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
-  const priceUsd = lot._value.price_usd.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+  const stubBrandImageUrl = '/img/brand_stub.png'
 
   useHead({
     ...useSeo(useRoute().name,{lotType:lot.value.category?.name || 'Украшение', lotName:lot.value.name,lotImage:lot.value.image})
