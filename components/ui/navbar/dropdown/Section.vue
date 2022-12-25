@@ -162,7 +162,7 @@
       display: flex;
       align-items: center;
 
-       @include max-width('lg') {
+      @include max-width('lg') {
         display: none;
       }
     }

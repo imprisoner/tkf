@@ -48,7 +48,7 @@
 <style lang="scss" scoped>
   #categories-page {
     .s-catalog-top {
-      margin-bottom: 72px;
+      margin-bottom: 24px;
     }
 
     .categories-section {
