@@ -109,8 +109,6 @@
   const priceRub = lot._value.price_rub.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
   const priceUsd = lot._value.price_usd.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
 
-  console.log(lot.name)
-
   useHead({
     ...useSeo(useRoute().name,{lotType:lot.value.category?.name || 'Украшение', lotName:lot.value.name,lotImage:lot.value.image})
   })
