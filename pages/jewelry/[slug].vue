@@ -1,6 +1,6 @@
 <template>
   <main id="lot-page" class="catalog">
-    <SCatalogTop :on-show="false"/>
+    <SCatalogTop :name="lot.name" :on-show="false"/>
     <article class="container lot">
       <div class="row lot__top">
         <div

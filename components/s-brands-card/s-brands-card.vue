@@ -24,7 +24,7 @@
   import './s-brands-card.scss'
   const stubBrandImageUrl = '/img/logo.svg'
 
-  defineProps({
+ const props = defineProps({
     image: {
       type: String,
       default: '',
