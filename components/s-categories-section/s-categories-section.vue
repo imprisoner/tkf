@@ -10,7 +10,7 @@
             :image="category.image || stubBrandImageUrl"
             :title="category.name"
             :link="'/jewelry/'"
-            class="col-3"
+            class="col-lg-3 col-md-6 col-12"
           />
           <m-card
             v-for="category in hardcodeItems"
@@ -19,7 +19,7 @@
             :image="category.image || stubBrandImageUrl"
             :title="category.name"
             :link="category.link"
-            class="col-3"
+            class="col-lg-3 col-md-6 col-12"
           />
         </div>
       </div>
