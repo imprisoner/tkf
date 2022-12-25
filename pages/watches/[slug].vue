@@ -1,6 +1,6 @@
 <template>
   <main id="lot-page" class="catalog">
-    <SCatalogTop :on-show="false" />
+    <SCatalogTop :name="lot.name" :on-show="false" />
     <article class="container lot">
       <div class="row lot__top">
         <div
@@ -34,7 +34,7 @@
               <p v-if="lot.brand">{{ lot.brand.name }}</p>
             </div>
             <h3 class="details__price">
-              ${{ lot.price_usd?.toString().replace(regExp, '$1 ') }}
+              ${{ Math.ceil(lot.price_usd).toString().replace(regExp, '$1 ') }}
               <span v-if="lot.price_rub" class="details__price--gray"
                 >{{
                   Math.ceil(lot.price_rub).toString().replace(regExp, '$1 ')

@@ -397,8 +397,4 @@
       }
     }
   }
-  // NEW
-
-  .navbar {
-  }
 </style>
