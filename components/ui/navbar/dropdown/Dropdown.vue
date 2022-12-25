@@ -53,7 +53,7 @@
           v-if="repository !== 'contacts'"
           class="button navbar-menu__bottom-link bottom-link"
           :class="bottomLinkClass"
-          :to="repository"
+          :to="`/${repository}`"
         >
           <span>Показать все {{ title.toLowerCase() }}</span>
           <base-icon

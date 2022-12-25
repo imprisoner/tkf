@@ -22,7 +22,7 @@
   import './s-catalog-top.scss'
   import ABreadcrumbs from '~/components/ui/a-breadcrumbs/a-breadcrumbs'
 
-  const props = defineProps({
+  defineProps({
     title: {
       type: String,
       default: '',
