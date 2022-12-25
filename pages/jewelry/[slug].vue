@@ -1,6 +1,6 @@
 <template>
   <main id="lot-page" class="catalog">
-    <SCatalogTop :on-show="false"/>
+    <SCatalogTop :name="lot.name" :on-show="false"/>
     <article class="container lot">
       <div class="row lot__top">
         <div
@@ -108,6 +108,8 @@
 
   const priceRub = lot._value.price_rub.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
   const priceUsd = lot._value.price_usd.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+
+  console.log(lot.name)
 
   useHead({
     ...useSeo(useRoute().name,{lotType:lot.value.category?.name || 'Украшение', lotName:lot.value.name,lotImage:lot.value.image})

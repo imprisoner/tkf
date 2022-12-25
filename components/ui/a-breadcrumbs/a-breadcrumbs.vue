@@ -19,6 +19,14 @@
 
 <script setup>
   import './a-breadcrumbs.scss'
+
+  const props = defineProps({
+    name: {
+      type: String,
+      default: '',
+    },
+  })
+
   const routes = useRoute().path.split('/')
   let url = '/'
   const breadcrumbs = []
@@ -63,7 +71,7 @@
         text = 'Бренд'
         break
       default:
-        text = route
+        text = props.name
         break
     }
 
