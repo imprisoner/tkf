@@ -25,25 +25,25 @@
     {
       name: 'Мужские',
       classname: 'col-lg-3 col-md-6 col-12',
-      link: '/watches/',
+      link: '/jewelry?gender=MALE',
       image: '/img/stub_jewelry.jpg',
     },
     {
       name: 'Женские',
       classname: 'col-lg-3 col-md-6 col-12',
-      link: '/watches/',
+      link: '/jewelry?gender=FEMALE',
       image: '/img/stub_jewelry.jpg',
     },
     {
       name: 'Новые',
       classname: 'col-lg-3 col-md-6 col-12',
-      link: '/watches/',
+      link: '/jewelry?condition=NEW',
       image: '/img/stub_jewelry.jpg',
     },
     {
       name: 'Подержанные',
       classname: 'col-lg-3 col-md-6 col-12',
-      link: '/watches/',
+      link: '/jewelry?condition=USED',
       image: '/img/stub_jewelry.jpg',
     },
   ]

@@ -33,7 +33,10 @@
       </div>
     </div>
 
-    <SCategoriesSection />
+    <SCategoriesSection
+      :hardcode-items="cardsItems"
+      :stub-brand-image-url="stubBrandImageUrl"
+    />
 
     <SDescrSection :title="aboutPage.title" :text="aboutPage.content" />
   </main>
@@ -72,6 +75,33 @@
     brandType: 'WATCH',
   })
   const brandsItems = brandsCards
+  const stubBrandImageUrl = '/img/stub_watch.jpg'
+  const cardsItems = [
+      {
+        name: 'Мужские',
+        classname: 'col-lg-3 col-md-6 col-12',
+        link: '/watches?gender=MALE',
+        image: '/img/stub_watch.jpg',
+      },
+      {
+        name: 'Женские',
+        classname: 'col-lg-3 col-md-6 col-12',
+        link: '/watches?gender=FEMALE',
+        image: '/img/stub_watch.jpg',
+      },
+      {
+        name: 'Новые',
+        classname: 'col-lg-3 col-md-6 col-12',
+        link: '/watches?condition=NEW',
+        image: '/img/stub_watch.jpg',
+      },
+      {
+        name: 'Подержанные',
+        classname: 'col-lg-3 col-md-6 col-12',
+        link: '/watches?condition=USED',
+        image: '/img/stub_watch.jpg',
+      },
+    ]
 </script>
 
 <style lang="scss" scoped>
@@ -80,7 +110,7 @@
       margin-bottom: 200px;
     }
 
-    .ads-section {
+    .s-ads-section {
       margin-bottom: 226px;
     }
 
