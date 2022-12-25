@@ -60,7 +60,7 @@
     }
   }
 
-  .ads-section {
+  .s-ads-section {
     margin-bottom: 136px;
 
     @include max-width('md') {

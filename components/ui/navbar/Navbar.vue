@@ -98,7 +98,7 @@
     return getBrands({ brandType: type }, true).then((brands) => {
       return brands.slice(0, 20).map((brand) => ({
         ...brand,
-        link: `/${BRAND_TYPES_ROUTE_MAP[type]}`,
+        link: `/${BRAND_TYPES_ROUTE_MAP[type]}?brand=${brand.id}`,
       }))
     })
   }
@@ -112,10 +112,10 @@
       link: '/watches',
       isActive: false,
       categories: [
-        { name: 'Мужские', link: '/watches' },
-        { name: 'Женские', link: '/watches' },
-        { name: 'Новые', link: '/watches' },
-        { name: 'Подержанные', link: '/watches' },
+        { name: 'Мужские', link: '/watches?gender=MALE' },
+        { name: 'Женские', link: '/watches?gender=FEMALE' },
+        { name: 'Новые', link: '/watches?condition=NEW' },
+        { name: 'Подержанные', link: '/watches?condition=USED' },
       ],
       brands: watchesBrands,
     },
@@ -127,11 +127,11 @@
       link: '/jewelry',
       isActive: false,
       categories: [
-        { name: 'Мужские', link: '/jewelry' },
-        { name: 'Женские', link: '/jewelry' },
-        { name: 'Новые', link: '/jewelry' },
-        { name: 'Подержанные', link: '/jewelry' },
-        ...jewelryCategories.slice(0, 6).map(category => ({ ...category, link: '/jewelry'}))
+        { name: 'Мужские', link: '/jewelry?gender=MALE' },
+        { name: 'Женские', link: '/jewelry?gender=FEMALE' },
+        { name: 'Новые', link: '/jewelry?condition=NEW' },
+        { name: 'Подержанные', link: '/jewelry?condition=USED' },
+        ...jewelryCategories.slice(0, 6).map(category => ({ ...category, link: '/jewelry?&category=' + category.id}))
       ],
       brands: jewelryBrands,
     },

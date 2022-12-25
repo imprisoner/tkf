@@ -9,6 +9,7 @@
             :key="brand.id"
             :image="brand.image"
             :name="brand.name"
+            :brand-type="brand.is_jewelry_brand == true ? 'jewelry' : 'watches'"
           />
         </div>
       </div>

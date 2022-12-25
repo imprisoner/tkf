@@ -41,10 +41,6 @@
       type: String,
       default: '',
     },
-    // repository: {
-    //   type: String,
-    //   required: true,
-    // },
   })
 </script>
 

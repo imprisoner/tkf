@@ -4,21 +4,21 @@
       <div class="offset-lg-1 col-lg-10 col-12">
         <div class="categories-section__wall row">
           <m-card
-            v-for="category in categoriesItems"
-            :id="category.id"
-            :key="category.id"
-            :image="category.image || stubBrandImageUrl"
-            :title="category.name"
-            :link="'/jewelry/'"
-            class="col-lg-3 col-md-6 col-12"
-          />
-          <m-card
             v-for="category in hardcodeItems"
             :id="category.id"
             :key="category.id"
             :image="category.image || stubBrandImageUrl"
             :title="category.name"
             :link="category.link"
+            class="col-lg-3 col-md-6 col-12"
+          />
+          <m-card
+            v-for="category in categoriesItems"
+            :id="category.id"
+            :key="category.id"
+            :image="category.image || stubBrandImageUrl"
+            :title="category.name"
+            :link="`/jewelry?&category=${category.id}`"
             class="col-lg-3 col-md-6 col-12"
           />
         </div>

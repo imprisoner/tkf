@@ -29,7 +29,11 @@
       </div>
     </div>
 
-    <SCategoriesSection />
+    <SCategoriesSection
+      :hardcode-items="cardsItems"
+      :categories-items="categoriesItems"
+      :stub-brand-image-url="stubBrandImageUrl"
+    />
 
     <SDescrSection :title="aboutPage.title" :text="aboutPage.content" />
   </main>
@@ -41,6 +45,9 @@
   import { getAboutPage } from '@/api/getAboutPage'
   import useQueryString from '~/composables/useQueryString'
   import { getJewelry } from '~/api/getJewelry'
+  import { getCategories } from '@/api/getCategories'
+
+  const categoriesItems = await getCategories({ inComponent: false })
 
   const { getUrlSearchParams } = useQueryString()
 
@@ -67,6 +74,33 @@
     brandType: 'JEWELRY',
   })
   const brandsItems = brandsCards
+  const stubBrandImageUrl = '/img/stub_jewelry.jpg'
+  const cardsItems = [
+    {
+      name: 'Мужские',
+      classname: 'col-lg-3 col-md-6 col-12',
+      link: '/jewelry?gender=MALE',
+      image: '/img/stub_jewelry.jpg',
+    },
+    {
+      name: 'Женские',
+      classname: 'col-lg-3 col-md-6 col-12',
+      link: '/jewelry?gender=FEMALE',
+      image: '/img/stub_jewelry.jpg',
+    },
+    {
+      name: 'Новые',
+      classname: 'col-lg-3 col-md-6 col-12',
+      link: '/jewelry?condition=NEW',
+      image: '/img/stub_jewelry.jpg',
+    },
+    {
+      name: 'Подержанные',
+      classname: 'col-lg-3 col-md-6 col-12',
+      link: '/jewelry?condition=USED',
+      image: '/img/stub_jewelry.jpg',
+    },
+  ]
 </script>
 
 <style lang="scss" scoped>
@@ -75,7 +109,7 @@
       margin-bottom: 200px;
     }
 
-    .ads-section {
+    .s-ads-section {
       margin-bottom: 226px;
     }
 
