@@ -63,7 +63,7 @@
   const titleCatalogTop = 'Ювелирные украшения'
   const banners = []
   await getBanners({ page: 'JEWELRY' }).then((response) => {
-    Object.entries(response._value).forEach((banner) => {
+    Object.entries(response.value).forEach((banner) => {
       banners.push(banner)
     })
   })

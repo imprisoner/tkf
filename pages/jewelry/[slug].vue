@@ -23,9 +23,9 @@
               <p>{{ lot.brand.name }}</p>
             </div>
             <h3 class="details__price">
-              ${{ Math.ceil(lot._value.price_rub).toString().replace(regExp, '$1 ') }}
+              ${{ priceUsd }}
               <span v-if="priceRub" class="details__price--gray"
-                >{{ Math.ceil(lot._value.price_usd).toString().replace(regExp, '$1 ') }} ₽</span
+                >{{ priceRub }} ₽</span
               >
             </h3>
             <div class="details__tags">
@@ -101,6 +101,8 @@
 <script setup>
   import useSeo from "../../composables/useSeo";
 
+  const regExp = /(\d)(?=(\d\d\d)+([^\d]|$))/g
+
   const { slug } = useRoute().params
   const uri = 'http://185.20.226.229/api/v1/lots/jewelry/' + slug
   const { data: lot } = await useFetch(uri, { key: slug });
@@ -110,34 +112,44 @@
     ...useSeo(useRoute().name,{lotType:lot.value.category?.name || 'Украшение', lotName:lot.value.name,lotImage:lot.value.image})
   })
 
+  const priceRub = computed(() => {
+    return lot.value?.price_rub ? Math.ceil(lot.value.price_rub).toString().replace(regExp, '$1 ') : ''
+  })
+
+  const priceUsd = computed(() => {
+    return lot.value?.price_usd ? Math.ceil(lot.value.price_usd).toString().replace(regExp, '$1 ') : ''
+  })
+
+
   const gender = computed(() => {
     let value = '';
     switch(true) {
-      case lot._value.gender === 'UNISEX':
+      case lot.value.gender === 'UNISEX':
         value = 'унисекс';
       break;
-      case lot._value.gender === 'MALE':
+      case lot.value.gender === 'MALE':
         value = 'мужской';
       break;
-      case lot._value.gender === 'FEMALE':
+      case lot.value.gender === 'FEMALE':
         value = 'женский';
       break;
     }
     return value;
   });
 
-  const characteristics = [
-    {
+  const characteristics = computed(() => {
+    return [
+       {
       text: 'Бренд',
-      value: lot._value.brand?.name ?? '',
+      value: lot.value.brand?.name ?? '',
     },
     {
       text: 'Коллекция',
-      value: lot._value?.collection ?? '',
+      value: lot.value?.collection ?? '',
     },
     {
       text: 'Тип',
-      value: lot._value.category?.name ?? '',
+      value: lot.value.category?.name ?? '',
     },
     {
       text: 'Пол',
@@ -145,29 +157,30 @@
     },
     {
       text: 'Состояние',
-      value: lot._value?.condition === 'NEW' ? 'новый' : 'подержанный',
+      value: lot.value?.condition === 'NEW' ? 'новый' : 'подержанный',
     },
     {
       text: 'Комплектация',
-      value: lot._value?.complete_set === 'FULL' ? 'полная' : 'не комплект',
+      value: lot.value?.complete_set === 'FULL' ? 'полная' : 'не комплект',
     },
     {
       text: 'Метал изделия',
-      value: lot._value?.metal ?? '',
+      value: lot.value?.metal ?? '',
     },
     {
       text: 'Камни',
-      value: lot._value?.stones ?? [],
+      value: lot.value?.stones ?? [],
     },
     {
       text: 'Каратность',
-      value: lot._value?.carat ?? '',
+      value: lot.value?.carat ?? '',
     },
     {
       text: 'Размер',
-      value: lot._value?.size ?? '',
+      value: lot.value?.size ?? '',
     },
-  ];
+    ]
+  })
 </script>
 
 <style lang="scss" scoped>

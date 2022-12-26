@@ -157,67 +157,68 @@
   const gender = computed(() => {
     let value = ''
     switch (true) {
-      case lot._value.gender === 'UNISEX':
+      case lot.value.gender === 'UNISEX':
         value = 'унисекс'
         break
-      case lot._value.gender === 'MALE':
+      case lot.value.gender === 'MALE':
         value = 'мужской'
         break
-      case lot._value.gender === 'FEMALE':
+      case lot.value.gender === 'FEMALE':
         value = 'женский'
         break
     }
     return value
   })
 
-  const characteristics = [
-    {
+  const characteristics = computed(() => {
+    return [
+       {
       text: 'Модель',
-      value: lot._value.model?.name ?? '',
+      value: lot.value.model?.name ?? '',
     },
     {
       text: 'Бренд',
-      value: lot._value?.brand.name ?? '',
+      value: lot.value?.brand.name ?? '',
     },
     {
       text: 'Материал часов',
-      value: lot._value?.body_material ?? '',
+      value: lot.value?.body_material ?? '',
     },
     {
       text: 'Материал ремешка',
-      value: lot._value?.strap_material ?? '',
+      value: lot.value?.strap_material ?? '',
     },
     {
       text: 'Водонепроницаемость',
-      value: lot._value?.is_waterproof ?? '',
+      value: lot.value?.is_waterproof ?? '',
     },
     {
       text: 'Цвет',
-      value: lot._value?.watch_face_color ?? '',
+      value: lot.value?.watch_face_color ?? '',
     },
     {
       text: 'Функции часов',
-      value: lot._value?.function_list ?? [],
+      value: lot.value?.function_list ?? [],
     },
     {
       text: 'Ширина',
-      value: lot._value?.size_width ?? '',
+      value: lot.value?.size_width ?? '',
     },
     {
       text: 'Высота',
-      value: lot._value?.size_height ?? '',
+      value: lot.value?.size_height ?? '',
     },
     {
       text: 'Год производства',
-      value: lot._value?.production_year ?? '',
+      value: lot.value?.production_year ?? '',
     },
     {
       text: 'Запас хода',
-      value: lot._value?.power_reserve ?? '',
+      value: lot.value?.power_reserve ?? '',
     },
     {
       text: 'Калибр',
-      value: lot._value?.caliber ?? '',
+      value: lot.value?.caliber ?? '',
     },
     {
       text: 'Пол',
@@ -225,13 +226,14 @@
     },
     {
       text: 'Состояние',
-      value: lot._value?.condition === 'NEW' ? 'новый' : 'подержанный',
+      value: lot.value?.condition === 'NEW' ? 'новый' : 'подержанный',
     },
     {
       text: 'Комплектация',
-      value: lot._value?.complete_set === 'FULL' ? 'полная' : 'не комплект',
+      value: lot.value?.complete_set === 'FULL' ? 'полная' : 'не комплект',
     },
-  ]
+    ]
+  })
 </script>
 
 <style lang="scss" scoped>
