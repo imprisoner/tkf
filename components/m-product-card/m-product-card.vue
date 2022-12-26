@@ -1,5 +1,8 @@
 <template>
   <div class="product-card">
+    <div v-if="lot.condition == 'NEW'" class="new new--lot">
+      <span>Новый</span>
+    </div>
     <div class="button button--square button--neutral">
       <base-icon name="heart"></base-icon>
     </div>
