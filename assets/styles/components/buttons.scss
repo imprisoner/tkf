@@ -109,7 +109,7 @@
     height: 20px;
     transition: transform 0.3s ease;
 
-    @include max-width('xl') {
+    @include max-width('lg') {
       width: 12px;
       height: 12px;
     }
