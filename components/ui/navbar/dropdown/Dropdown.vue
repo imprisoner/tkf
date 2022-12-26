@@ -49,18 +49,20 @@
             />
           </template>
         </div>
-        <nuxt-link
-          v-if="repository !== 'contacts'"
-          class="button navbar-menu__bottom-link bottom-link"
-          :class="bottomLinkClass"
-          :to="`/${repository}`"
-        >
-          <span>Показать все {{ title.toLowerCase() }}</span>
-          <base-icon
-            :name="bottomLinkIcon"
-            class="botton-link__icon"
-          ></base-icon>
-        </nuxt-link>
+        <div @click="emits('hide')">
+          <nuxt-link
+            v-if="repository !== 'contacts'"
+            class="button navbar-menu__bottom-link bottom-link"
+            :class="bottomLinkClass"
+            :to="`/${repository}`"
+          >
+            <span>Показать все {{ title.toLowerCase() }}</span>
+            <base-icon
+              :name="bottomLinkIcon"
+              class="botton-link__icon"
+            ></base-icon>
+          </nuxt-link>
+        </div>
       </div>
       </expand-transition>
     </template>
