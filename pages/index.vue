@@ -41,7 +41,7 @@
   const brandsMainCards = await getBrands({ isShowOnMain: true })
 
   await getBanners({ page: 'MAIN' }).then((response) => {
-    Object.entries(response._value).forEach((banner, i) => {
+    Object.entries(response.value).forEach((banner, i) => {
       if (i <= 1) {
         bannersTop.push(banner)
       } else {
