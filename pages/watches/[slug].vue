@@ -114,8 +114,9 @@
         <div class="seller__wrap offset-lg-1 col-md-6 col-12">
           <div v-if="lot.city_location" class="seller__info">
             <h6 class="seller__subtitle text-16">Продавец</h6>
-            <!-- Todo: нет в беке -->
-            <!-- <h3>Ломбард Самый Лучший</h3> -->
+            <nuxt-link :to="`${salerNameLink[0]}//${salerNameLink[2]}`">
+              <h3>{{ salerName }}</h3>
+            </nuxt-link>
             <address class="seller__address">
               {{ lot.city_location.country.name }}, {{ lot.city_location.name }}
             </address>
@@ -232,6 +233,10 @@
       value: lot._value?.complete_set === 'FULL' ? 'полная' : 'не комплект',
     },
   ]
+  const salerNameLink = lot._value.original_link.split('/');
+  let salerName = lot._value.original_link.replace(/https:\/\//, '').replace(/.ru/, '').replace(/\/.*/, '').replace(/-/, ' ');
+  salerName = salerName[0].toUpperCase() + salerName.slice(1);
+  
 </script>
 
 <style lang="scss" scoped>
