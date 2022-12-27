@@ -112,24 +112,19 @@
         <div class="seller__wrap offset-lg-1 col-md-6 col-12">
           <div v-if="lot.city_location" class="seller__info">
             <h6 class="seller__subtitle text-16">Продавец</h6>
-            <nuxt-link :to="`${salerNameLink[0]}//${salerNameLink[2]}`">
-              <h3>{{ salerName }}</h3>
-            </nuxt-link>
+            <h3>{{ salerName }}</h3>
             <address class="seller__address">
               {{ lot.city_location.country.name }}, {{ lot.city_location.name }}
             </address>
           </div>
-          <a
+          <nuxt-link
             class="seller__positions button button--black"
-            :href="lot.original_link"
+            :to="`${salerNameLink[0]}//${salerNameLink[2]}`"
             target="_blank"
           >
             <base-icon name="arrow-down-right"></base-icon>
-            <span
-              >Показать все объявления ломбарда
-              <!--(12)--></span
-            >
-          </a>
+            <span>Показать все объявления ломбарда </span>
+          </nuxt-link>
         </div>
       </div>
     </article>
