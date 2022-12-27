@@ -98,6 +98,7 @@
 
   &__img {
     background-color: $shadow;
+    min-height: 200px;
     margin-bottom: 12px;
     aspect-ratio: 1/1;
   }

@@ -150,13 +150,12 @@
 </template>
 
 <script setup>
-  import { getFilterObject } from '~/api/getFilterObject'
-  import declOfNum from '~/composables/declOfNum'
-  import useQueryString from '~/composables/useQueryString'
   import {
     getDiameterFilterAggregation,
     getPriceFilterAggregation
-  } from "../../api/getFilterObject";
+  , getFilterObject } from "../../api/getFilterObject";
+    import declOfNum from '~/composables/declOfNum'
+  import useQueryString from '~/composables/useQueryString'
 
   const props = defineProps({
     commonLotsCount: {

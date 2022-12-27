@@ -105,11 +105,11 @@
   ]
 
   // Собираем бренды и буквы для них
-  let brands = alphabet.map((item) => ({
+  let brands = reactive(alphabet.map((item) => ({
     letter: item,
     items: getItems(props.brandsItems, item),
     count: 10,
-  }))
+  })))
 
   let items = 0
   let windowWidth = 0

@@ -3,6 +3,7 @@
     <img
       :id="id"
       class="card--square__img img-resp"
+      :class="noImgClass"
       :src="image"
       :alt="title"
       loading="lazy"
@@ -17,7 +18,7 @@
 <script setup>
   import './m-card.scss'
 
-  defineProps({
+  const props = defineProps({
     title: {
       type: String,
       default: '',
@@ -38,5 +39,9 @@
       type: String,
       default: '',
     },
+    noImgClass: {
+      type: String,
+      default: '',
+    }
   })
 </script>

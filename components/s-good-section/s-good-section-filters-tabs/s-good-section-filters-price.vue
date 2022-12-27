@@ -78,7 +78,7 @@
     },
   ])
 
-  let currency = ref(currencyList.value.find(currency => currency.value === `${props.modelValue?.price_usd_min || props.modelValue?.price_usd_max ? 'usd':'rub'}`))
+  const currency = ref(currencyList.value.find(currency => currency.value === `${props.modelValue?.price_usd_min || props.modelValue?.price_usd_max ? 'usd':'rub'}`))
 
   const currencyIsRub = computed(()=>{
     return currency.value.value === 'rub'

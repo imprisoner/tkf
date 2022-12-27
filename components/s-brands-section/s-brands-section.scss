@@ -2,6 +2,17 @@
   &__wall {
     grid-template-columns: repeat(4, 1fr);
     row-gap: 24px;
+
+    @include max-width('md') {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 6px;
+    }
+  }
+
+  .card {
+    @include max-width('md') {
+      padding: 6px;
+    }
   }
 
   .card--square {
