@@ -182,7 +182,12 @@
     ];
   })
   const salerNameLink = lot._value.original_link.split('/');
-  let salerName = lot._value.original_link.replace(/https:\/\//, '').replace(/.ru/, '').replace(/\/.*/, '').replace(/-/, ' ');
+  let salerName = lot._value.original_link
+    .replace(/https:\/\//, '')
+    .replace(/.ru/, '')
+    .replace(/\/.*/, '')
+    .replace(/-/, ' ')
+    .replace(/Wwww/, '');
   salerName = salerName[0].toUpperCase() + salerName.slice(1);
 </script>
 
