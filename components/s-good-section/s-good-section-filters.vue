@@ -245,7 +245,7 @@
 
 
 const filteredFilterTabs = computed(()=>{
-  return props.goodType.value === 'watches'? filterTabs.value : filterTabs.value.filter(tab=>tab.value!=='diametr')
+  return props.goodType === 'watches' ? filterTabs.value : filterTabs.value.filter(tab=>tab.value!=='diametr')
 })
   // !brands filter ----------------------!
   const selectedBrands = ref([])
