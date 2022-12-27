@@ -64,7 +64,7 @@
   const onShowBookmark = false
   const banners = []
   await getBanners({ page: 'WATCH' }).then((response) => {
-    Object.entries(response._value).forEach((banner) => {
+    Object.entries(response.value).forEach((banner) => {
       banners.push(banner)
     })
   })
