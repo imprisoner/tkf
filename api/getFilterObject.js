@@ -5,8 +5,16 @@ export function getFilterObject(slug) {
   })
 }
 
-export function getFilterAggregation(slug, params) {
-  return useApi(`/lots/${slug}/filter-aggregations/`, {
+export function getPriceFilterAggregation(slug, params) {
+  return useApi(`/lots/${slug}/aggregate-price/`, {
+    query: {
+      ...params,
+    },
+  }).data
+}
+
+export function getDiameterFilterAggregation(slug, params) {
+  return useApi(`/lots/${slug}/aggregate-diameter/`, {
     query: {
       ...params,
     },

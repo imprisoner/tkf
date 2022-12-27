@@ -42,7 +42,7 @@
     },
   });
   function format(value) {
-    return value.toFixed(2)
+    return value.toFixed(1)
   }
 </script>
 

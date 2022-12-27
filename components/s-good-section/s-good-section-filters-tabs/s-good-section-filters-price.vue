@@ -1,21 +1,5 @@
 <template>
   <div class="filter__main">
-<!--    <h4 class="filter__subtitle mobile-caret">Популярные бренды</h4>-->
-<!--    <div class="filter__popular-list">-->
-<!--      <button-->
-<!--        v-for="popularBrand in getPopularBrands"-->
-<!--        :key="popularBrand"-->
-<!--        :class="[-->
-<!--          'filter__popular-item',-->
-<!--          'button',-->
-<!--          'button&#45;&#45;text-sm',-->
-<!--          'button&#45;&#45;gray',-->
-<!--        ]"-->
-<!--        type="button"-->
-<!--      >-->
-<!--        {{ popularBrand.label }}-->
-<!--      </button>-->
-<!--    </div>-->
     <h4 class="filter__subtitle-two">Диапазон цен</h4>
     <div class="filter__options">
       <div class="price-filter__currency">
@@ -66,12 +50,6 @@
 </template>
 
 <script setup>
-  // const getPopularBrands = ref([
-  //   { value: 'da', label: 'Casio' },
-  //   { value: 'da', label: 'Casio' },
-  //   { value: 'da', label: 'Casio' },
-  // ])
-
   const props = defineProps({
     modelValue: {
       type: Object,
@@ -108,12 +86,12 @@
 
   const rubRangeValues = computed(()=>{
     const {modelValue, aggregations} = props
-    return [modelValue.price_rub_min || aggregations.price_rub_min || 0, modelValue.price_rub_max || aggregations.price_rub_max || 100]
+    return [modelValue.price_rub_min || aggregations.price_rub_min || 0, modelValue.price_rub_max || aggregations.price_rub_max || 0]
   })
 
   const usdRangeValues = computed(()=>{
     const {modelValue, aggregations} = props
-    return [modelValue.price_usd_min || aggregations.price_usd_min || 0, modelValue.price_usd_max || aggregations.price_usd_max || 100]
+    return [modelValue.price_usd_min || aggregations.price_usd_min || 0, modelValue.price_usd_max || aggregations.price_usd_max || 0]
   })
 
   const currentPriceRangeValue = computed({
@@ -125,10 +103,10 @@
       const isRub = currencyIsRub.value
 
       const newValues = {
-        price_rub_min: isRub && minValue!==props.aggregations.price_rub_min && minValue || undefined,
-        price_rub_max: isRub && maxValue!==props.aggregations.price_rub_max && maxValue || undefined,
-        price_usd_min: !isRub && minValue!==props.aggregations.price_usd_min && minValue || undefined,
-        price_usd_max: !isRub && maxValue!==props.aggregations.price_usd_max && maxValue || undefined,
+        price_rub_min: isRub && minValue > props.aggregations.price_rub_min && minValue || undefined,
+        price_rub_max: isRub && maxValue < props.aggregations.price_rub_max && maxValue || undefined,
+        price_usd_min: !isRub && minValue > props.aggregations.price_usd_min && minValue || undefined,
+        price_usd_max: !isRub && maxValue < props.aggregations.price_usd_max && maxValue || undefined,
       }
 
       emits('update:modelValue', newValues)
@@ -136,7 +114,7 @@
   })
 
   const priceRangeLimit=computed(()=>{
-    return currencyIsRub.value ? [props.aggregations.price_rub_min || 0, props.aggregations.price_rub_max || 100] : [props.aggregations.price_usd_min || 0,props.aggregations.price_usd_max || 100]
+    return currencyIsRub.value ? [props.aggregations.price_rub_min || 0, props.aggregations.price_rub_max || 0] : [props.aggregations.price_usd_min || 0,props.aggregations.price_usd_max || 0]
   })
 
   const selectCurrency = (item) => {
