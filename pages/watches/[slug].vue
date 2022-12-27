@@ -7,9 +7,7 @@
           class="lot__imagebox imagebox offset-lg-1 col-lg-5 col-md-6 col-12"
         >
           <div class="imagebox__image">
-            <div v-if="lot.condition == 'NEW'" class="new new--lot">
-              Абсолютно новый
-            </div>
+            <div v-if="lot.condition == 'NEW'" class="new new--lot">Абсолютно новые</div>
             <img
               class="img-resp"
               :src="lot.image || stubBrandImageUrl"
