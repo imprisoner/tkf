@@ -22,14 +22,19 @@
           </div>
           <div class="alphabet__list row offset-lg-3 col-xl-8 col-md-10 col-12">
             <ul class="col-12 alphabet__listing">
+              <template v-for="(item, idx) in brandItem.items" :key="idx">
+                <li
+                  v-if="idx < brandItem.count"
+                  class="text-16"
+                >
+                  <NuxtLink :to="`${item.is_watch_brand == true ? 'watches' : 'jewelry'}?brand=${item.id}`">{{ item.name }}</NuxtLink>
+                </li>
+              </template>
               <li
-                v-for="(item, id) in brandItem.items"
-                :key="id"
-                class="text-16"
-              >
-                <NuxtLink :to="`/${item.is_watch_brand == true ? 'watches' : 'jewelry'}?brand=${item.id}`">{{ item.name }}</NuxtLink>
-              </li>
-              <li class="text-16 alphabet__more">+ Показать ещё 10</li>
+                v-if="brandItem.count < brandItem.items.length"
+                class="text-16 alphabet__more"
+                @click="loadMore(brandItem)"
+              >+ Показать ещё 10</li>
             </ul>
           </div>
         </div>
@@ -100,11 +105,11 @@
   ]
 
   // Собираем бренды и буквы для них
-  let brands = alphabet.map((item) => ({
+  let brands = reactive(alphabet.map((item) => ({
     letter: item,
     items: getItems(props.brandsItems, item),
     count: 10,
-  }))
+  })))
 
   let items = 0
   let windowWidth = 0
@@ -195,6 +200,12 @@
       }
       clearTimeout(timeout)
       timeout = setTimeout(later, wait)
+    }
+  }
+
+  function loadMore(item) {
+    if (item.count <= item.items.length) {
+      item.count += 10;
     }
   }
 </script>

@@ -8,6 +8,7 @@
             :id="category.id"
             :key="category.id"
             :image="category.image || stubBrandImageUrl"
+            :no-img-class="category.image === null || category.image === '/img/stub_jewelry.jpg' ? 'no-img' : ''"
             :title="category.name"
             :link="category.link"
             class="col-lg-3 col-md-6 col-12"
@@ -19,6 +20,7 @@
             :image="category.image || stubBrandImageUrl"
             :title="category.name"
             :link="`/jewelry?&category=${category.id}`"
+            :no-img-class="category.image === null || category.image === '/img/stub_jewelry.jpg' ? 'no-img' : ''"
             class="col-lg-3 col-md-6 col-12"
           />
         </div>
