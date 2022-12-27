@@ -59,12 +59,12 @@
 </template>
 <script setup>
   import { isDesktop, isTablet } from '@/utils/queries'
-  import { getContact } from '@/api/getContact'
+  import { getContacts } from '@/api/getContacts'
   import { getDocuments } from '@/api/getDocuments'
 
   const year = new Date().getFullYear()
 
-  const contacts = await getContact()
+  const contacts = await getContacts()
   const footerLinks = await getDocuments()
   //
   // const linkSections = reactive([

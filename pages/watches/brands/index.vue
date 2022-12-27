@@ -15,7 +15,7 @@
 <script setup>
   import { getBrands } from '@/api/getBrands'
 
-  const brandsCardsTop = await getBrands({ isShowOnMain: 'true', brandType: 'WATCH', })
+  const { data: brandsCardsTop } = await useFetch('http://185.20.226.229/api/v1/lots/brands/?is_show_on_main=true&brand_type=WATCH')
   const brandsCards = await getBrands({ isShowOnMain: 'false', brandType: 'WATCH', })
   const title = 'Все бренды швейцарских часов'
 </script>
