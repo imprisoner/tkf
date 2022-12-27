@@ -112,8 +112,9 @@
         <div class="seller__wrap offset-lg-1 col-md-6 col-12">
           <div v-if="lot.city_location" class="seller__info">
             <h6 class="seller__subtitle text-16">Продавец</h6>
-            <!-- Todo: нет в беке -->
-            <!-- <h3>Ломбард Самый Лучший</h3> -->
+            <nuxt-link :to="`${salerNameLink[0]}//${salerNameLink[2]}`">
+              <h3>{{ salerName }}</h3>
+            </nuxt-link>
             <address class="seller__address">
               {{ lot.city_location.country.name }}, {{ lot.city_location.name }}
             </address>
@@ -168,70 +169,73 @@
     return value
   })
 
-  const characteristics = computed(() => {
-    return [
-       {
-      text: 'Модель',
-      value: lot.value.model?.name ?? '',
-    },
-    {
-      text: 'Бренд',
-      value: lot.value?.brand.name ?? '',
-    },
-    {
-      text: 'Материал часов',
-      value: lot.value?.body_material ?? '',
-    },
-    {
-      text: 'Материал ремешка',
-      value: lot.value?.strap_material ?? '',
-    },
-    {
-      text: 'Водонепроницаемость',
-      value: lot.value?.is_waterproof ?? '',
-    },
-    {
-      text: 'Цвет',
-      value: lot.value?.watch_face_color ?? '',
-    },
-    {
-      text: 'Функции часов',
-      value: lot.value?.function_list ?? [],
-    },
-    {
-      text: 'Ширина',
-      value: lot.value?.size_width ?? '',
-    },
-    {
-      text: 'Высота',
-      value: lot.value?.size_height ?? '',
-    },
-    {
-      text: 'Год производства',
-      value: lot.value?.production_year ?? '',
-    },
-    {
-      text: 'Запас хода',
-      value: lot.value?.power_reserve ?? '',
-    },
-    {
-      text: 'Калибр',
-      value: lot.value?.caliber ?? '',
-    },
-    {
-      text: 'Пол',
-      value: gender?.value ?? '',
-    },
-    {
-      text: 'Состояние',
-      value: lot.value?.condition === 'NEW' ? 'новый' : 'подержанный',
-    },
-    {
-      text: 'Комплектация',
-      value: lot.value?.complete_set === 'FULL' ? 'полная' : 'не комплект',
-    },
+const characteristics = computed(() => {
+  return [
+      {
+        text: 'Модель',
+        value: lot.value.model?.name ?? '',
+      },
+      {
+        text: 'Бренд',
+        value: lot.value?.brand.name ?? '',
+      },
+      {
+        text: 'Материал часов',
+        value: lot.value?.body_material ?? '',
+      },
+      {
+        text: 'Материал ремешка',
+        value: lot.value?.strap_material ?? '',
+      },
+      {
+        text: 'Водонепроницаемость',
+        value: lot.value?.is_waterproof ?? '',
+      },
+      {
+        text: 'Цвет',
+        value: lot.value?.watch_face_color ?? '',
+      },
+      {
+        text: 'Функции часов',
+        value: lot.value?.function_list ?? [],
+      },
+      {
+        text: 'Ширина',
+        value: lot.value?.size_width ?? '',
+      },
+      {
+        text: 'Высота',
+        value: lot.value?.size_height ?? '',
+      },
+      {
+        text: 'Год производства',
+        value: lot.value?.production_year ?? '',
+      },
+      {
+        text: 'Запас хода',
+        value: lot.value?.power_reserve ?? '',
+      },
+      {
+        text: 'Калибр',
+        value: lot.value?.caliber ?? '',
+      },
+      {
+        text: 'Пол',
+        value: gender?.value ?? '',
+      },
+      {
+        text: 'Состояние',
+        value: lot.value?.condition === 'NEW' ? 'новый' : 'подержанный',
+      },
+      {
+        text: 'Комплектация',
+        value: lot.value?.complete_set === 'FULL' ? 'полная' : 'не комплект',
+      },
     ]
   })
+  const salerNameLink = lot._value.original_link.split('/');
+  let salerName = lot._value.original_link.replace(/https:\/\//, '').replace(/.ru/, '').replace(/\/.*/, '').replace(/-/, ' ');
+  salerName = salerName[0].toUpperCase() + salerName.slice(1);
 </script>
 
 <style lang="scss" scoped>

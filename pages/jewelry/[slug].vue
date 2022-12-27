@@ -79,8 +79,9 @@
         <div class="seller__wrap offset-lg-1 col-md-6 col-12">
           <div v-if="lot.city_location" class="seller__info">
             <h6 class="seller__subtitle text-16">Продавец</h6>
-            <!-- Todo: нет в беке -->
-            <!-- <h3>Ломбард Самый Лучший</h3> -->
+            <nuxt-link :to="`${salerNameLink[0]}//${salerNameLink[2]}`">
+              <h3>{{ salerName }}</h3>
+            </nuxt-link>
             <address class="seller__address">
               {{ lot.city_location.country.name }}, {{ lot.city_location.name}}
             </address>
@@ -139,48 +140,51 @@
 
   const characteristics = computed(() => {
     return [
-       {
-      text: 'Бренд',
-      value: lot.value.brand?.name ?? '',
-    },
-    {
-      text: 'Коллекция',
-      value: lot.value?.collection ?? '',
-    },
-    {
-      text: 'Тип',
-      value: lot.value.category?.name ?? '',
-    },
-    {
-      text: 'Пол',
-      value: gender?.value ?? '',
-    },
-    {
-      text: 'Состояние',
-      value: lot.value?.condition === 'NEW' ? 'новый' : 'подержанный',
-    },
-    {
-      text: 'Комплектация',
-      value: lot.value?.complete_set === 'FULL' ? 'полная' : 'не комплект',
-    },
-    {
-      text: 'Метал изделия',
-      value: lot.value?.metal ?? '',
-    },
-    {
-      text: 'Камни',
-      value: lot.value?.stones ?? [],
-    },
-    {
-      text: 'Каратность',
-      value: lot.value?.carat ?? '',
-    },
-    {
-      text: 'Размер',
-      value: lot.value?.size ?? '',
-    },
-    ]
+      {
+        text: 'Бренд',
+        value: lot.value.brand?.name ?? '',
+      },
+      {
+        text: 'Коллекция',
+        value: lot.value?.collection ?? '',
+      },
+      {
+        text: 'Тип',
+        value: lot.value.category?.name ?? '',
+      },
+      {
+        text: 'Пол',
+        value: gender?.value ?? '',
+      },
+      {
+        text: 'Состояние',
+        value: lot.value?.condition === 'NEW' ? 'новый' : 'подержанный',
+      },
+      {
+        text: 'Комплектация',
+        value: lot.value?.complete_set === 'FULL' ? 'полная' : 'не комплект',
+      },
+      {
+        text: 'Метал изделия',
+        value: lot.value?.metal ?? '',
+      },
+      {
+        text: 'Камни',
+        value: lot.value?.stones ?? [],
+      },
+      {
+        text: 'Каратность',
+        value: lot.value?.carat ?? '',
+      },
+      {
+        text: 'Размер',
+        value: lot.value?.size ?? '',
+      },
+    ];
   })
+  const salerNameLink = lot._value.original_link.split('/');
+  let salerName = lot._value.original_link.replace(/https:\/\//, '').replace(/.ru/, '').replace(/\/.*/, '').replace(/-/, ' ');
+  salerName = salerName[0].toUpperCase() + salerName.slice(1);
 </script>
 
 <style lang="scss" scoped>

@@ -29,7 +29,7 @@
               >
                 <NuxtLink :to="`${item.is_watch_brand == true ? 'watches' : 'jewelry'}?brand=${item.id}`">{{ item.name }}</NuxtLink>
               </li>
-              <!-- <li class="text-16 alphabet__more"><a>+ Показать ещё 10</a></li> -->
+              <li class="text-16 alphabet__more">+ Показать ещё 10</li>
             </ul>
           </div>
         </div>
@@ -52,12 +52,21 @@
 
 <script setup>
   import './s-alphabet.scss'
+  import { onMounted, onUnmounted } from 'vue'
 
   const props = defineProps({
     brandsItems: {
       type: Array,
       default: () => [],
     },
+  })
+
+  onMounted(() => {
+    window.addEventListener('resize', debounce(() =>adaptiveAlphabet()))
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', debounce())
   })
 
   let alphabet = [
@@ -94,7 +103,11 @@
   let brands = alphabet.map((item) => ({
     letter: item,
     items: getItems(props.brandsItems, item),
+    count: 10,
   }))
+
+  let items = 0
+  let windowWidth = 0
 
   // Собираем названия начинающиеся с числа
   const brandsByNumber = Object.keys(props.brandsItems)
@@ -140,6 +153,7 @@
         if (idx <= i) {
           element.classList.add('is-visible')
           visibleElements.push(element)
+          items = visibleElements.length;
         }
       })
     }
@@ -156,8 +170,6 @@
     }
   }
 
-  let items = 0
-
   function showMore() {
     items += 6
     const array = Array.from(document.querySelector('.alphabet__body').children)
@@ -167,6 +179,22 @@
 
     if (visibleItems.length === brands.length) {
       btnShowMore.style.display = 'none'
+    }
+  }
+
+  function adaptiveAlphabet() {
+    windowWidth = window.innerWidth;
+  }
+
+  const debounce = (func, wait) => {
+    let timeout
+    return function executedFunction (...args) {
+      const later = () => {
+        timeout = null
+        func(...args)
+      }
+      clearTimeout(timeout)
+      timeout = setTimeout(later, wait)
     }
   }
 </script>
