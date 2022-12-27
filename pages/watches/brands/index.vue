@@ -2,7 +2,7 @@
   <main id="brands-page" class="catalog">
     <SCatalogTop
       :title="title"
-      :count="brandsCardsTop.length"
+      :count="brandsCardsTop?.length"
       :on-show-counter="false"
       :on-show-categories="false"
       :on-show-bookmark="false"
@@ -14,8 +14,8 @@
 
 <script setup>
   import { getBrands } from '@/api/getBrands'
-
-  const { data: brandsCardsTop } = await useFetch('http://185.20.226.229/api/v1/lots/brands/?is_show_on_main=true&brand_type=WATCH')
+  const config = useRuntimeConfig()
+  const { data: brandsCardsTop } = await useFetch(`${config.public.apiBase}/lots/brands/?is_show_on_main=true&brand_type=WATCH`)
   const brandsCards = await getBrands({ isShowOnMain: 'false', brandType: 'WATCH', })
   const title = 'Все бренды швейцарских часов'
 </script>
