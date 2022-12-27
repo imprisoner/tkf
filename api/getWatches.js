@@ -8,10 +8,3 @@ export function getWatches(params) {
     },
   })
 }
-export function getWatchesFilterAggregation(params) {
-  return useApi('/lots/watches/filter-aggregations/', {
-    query: {
-      ...params,
-    },
-  }).data
-}
