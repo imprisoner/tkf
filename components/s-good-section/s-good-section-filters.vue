@@ -97,12 +97,6 @@
           :selected-prop="selectedBrands"
           @update-selection="updateBrandsSelection"
         />
-        <s-good-section-filters-model
-          v-if="content.value === 'model'"
-          :list="getBrandsList"
-          :selected-prop="selectedBrands"
-          @update-selection="updateBrandsSelection"
-        />
         <s-good-section-filters-price
           v-if="content.value === 'price'"
           v-model="selectedPrice"
@@ -193,12 +187,6 @@
       fullLabel: 'Бренды',
       value: 'brand',
       icon: 'tag',
-    },
-    {
-      label: 'Модель',
-      fullLabel: 'Модель',
-      value: 'model',
-      icon: 'box',
     },
     {
       label: 'Цена',
