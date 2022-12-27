@@ -18,9 +18,9 @@
 
 <script setup>
   import {isDesktop} from "@/utils/queries";
-  import { getContact } from '@/api/getContact';
+  import { getContacts } from '@/api/getContacts';
 
-  const contacts = await getContact();
+  const contacts = await getContacts();
 
   const phone = computed(() => {
     return contacts.value?.phones?.[0]

@@ -102,9 +102,9 @@
   import useSeo from "../../composables/useSeo";
 
   const regExp = /(\d)(?=(\d\d\d)+([^\d]|$))/g
-
+  const config = useRuntimeConfig()
   const { slug } = useRoute().params
-  const uri = 'http://185.20.226.229/api/v1/lots/jewelry/' + slug
+  const uri = `${config.public.apiBase}/lots/jewelry/` + slug
   const { data: lot } = await useFetch(uri, { key: slug });
   const stubBrandImageUrl = '/img/brand_stub.png'
 
