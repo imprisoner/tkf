@@ -97,12 +97,6 @@
           :selected-prop="selectedBrands"
           @update-selection="updateBrandsSelection"
         />
-        <s-good-section-filters-model
-          v-if="content.value === 'model'"
-          :list="getBrandsList"
-          :selected-prop="selectedBrands"
-          @update-selection="updateBrandsSelection"
-        />
         <s-good-section-filters-price
           v-if="content.value === 'price'"
           v-model="selectedPrice"
@@ -195,12 +189,6 @@
       icon: 'tag',
     },
     {
-      label: 'Модель',
-      fullLabel: 'Модель',
-      value: 'model',
-      icon: 'box',
-    },
-    {
       label: 'Цена',
       fullLabel: 'Цена',
       value: 'price',
@@ -245,7 +233,7 @@
 
 
 const filteredFilterTabs = computed(()=>{
-  return props.goodType.value === 'watches'? filterTabs.value : filterTabs.value.filter(tab=>tab.value!=='diametr')
+  return props.goodType === 'watches' ? filterTabs.value : filterTabs.value.filter(tab=>tab.value!=='diametr')
 })
   // !brands filter ----------------------!
   const selectedBrands = ref([])
