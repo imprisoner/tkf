@@ -18,9 +18,9 @@
 
 <script setup>
   import './s-intro-main.scss';
-  import { getContact } from '@/api/getContact';
+  import { getContacts } from '@/api/getContacts';
 
-  const contacts = await getContact();
+  const contacts = await getContacts();
 
   defineProps({
     offersCards: {

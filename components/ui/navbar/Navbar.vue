@@ -66,7 +66,7 @@
   import { isDesktop } from '@/utils/queries'
   import { getBrands } from '@/api/getBrands'
   import { getCategories } from '@/api/getCategories'
-  import { getContacts } from '@/api/pages'
+  import { getContacts } from '@/api/getContacts'
 
   import { WATCH, JEWELRY } from '@/constants/brandTypes'
 

@@ -27,7 +27,7 @@
                 :key="id"
                 class="text-16"
               >
-                <NuxtLink :to="`${item.is_watch_brand == true ? 'watches' : 'jewelry'}?brand=${item.id}`">{{ item.name }}</NuxtLink>
+                <NuxtLink :to="`/${item.is_watch_brand == true ? 'watches' : 'jewelry'}?brand=${item.id}`">{{ item.name }}</NuxtLink>
               </li>
               <li class="text-16 alphabet__more">+ Показать ещё 10</li>
             </ul>
