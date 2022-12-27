@@ -4,3 +4,11 @@ export function getFilterObject(slug) {
     query: {},
   })
 }
+
+export function getFilterAggregation(slug, params) {
+  return useApi(`/lots/${slug}/filter-aggregations/`, {
+    query: {
+      ...params,
+    },
+  }).data
+}

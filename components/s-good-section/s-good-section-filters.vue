@@ -160,7 +160,7 @@
   import { getFilterObject } from '~/api/getFilterObject'
   import declOfNum from '~/composables/declOfNum'
   import useQueryString from '~/composables/useQueryString'
-  import {getWatchesFilterAggregation} from "../../api/getWatches";
+  import { getFilterAggregation } from "../../api/getFilterObject";
 
   const props = defineProps({
     commonLotsCount: {
@@ -326,7 +326,7 @@
   const filtersAggregation = ref({})
 
   watch(() => [selectedGender.value,selectedCondition.value,...selectedBrands.value], async () => {
-    filtersAggregation.value = await getWatchesFilterAggregation(filterParams.value)
+    filtersAggregation.value = await getFilterAggregation(props.goodType,filterParams.value)
   }, {immediate: true})
 
   const setFilteredUrlParams = () => {
