@@ -86,12 +86,12 @@
 
   const rubRangeValues = computed(()=>{
     const {modelValue, aggregations} = props
-    return [modelValue.price_rub_min || aggregations.price_rub_min || 0, modelValue.price_rub_max || aggregations.price_rub_max || 0]
+    return [modelValue?.price_rub_min || aggregations?.price_rub_min || 0, modelValue?.price_rub_max || aggregations?.price_rub_max || 0]
   })
 
   const usdRangeValues = computed(()=>{
     const {modelValue, aggregations} = props
-    return [modelValue.price_usd_min || aggregations.price_usd_min || 0, modelValue.price_usd_max || aggregations.price_usd_max || 0]
+    return [modelValue?.price_usd_min || aggregations?.price_usd_min || 0, modelValue?.price_usd_max || aggregations?.price_usd_max || 0]
   })
 
   const currentPriceRangeValue = computed({
@@ -103,10 +103,10 @@
       const isRub = currencyIsRub.value
 
       const newValues = {
-        price_rub_min: isRub && minValue > props.aggregations.price_rub_min && minValue || undefined,
-        price_rub_max: isRub && maxValue < props.aggregations.price_rub_max && maxValue || undefined,
-        price_usd_min: !isRub && minValue > props.aggregations.price_usd_min && minValue || undefined,
-        price_usd_max: !isRub && maxValue < props.aggregations.price_usd_max && maxValue || undefined,
+        price_rub_min: isRub && minValue > props.aggregations?.price_rub_min && minValue || undefined,
+        price_rub_max: isRub && maxValue < props.aggregations?.price_rub_max && maxValue || undefined,
+        price_usd_min: !isRub && minValue > props.aggregations?.price_usd_min && minValue || undefined,
+        price_usd_max: !isRub && maxValue < props.aggregations?.price_usd_max && maxValue || undefined,
       }
 
       emits('update:modelValue', newValues)
@@ -114,7 +114,7 @@
   })
 
   const priceRangeLimit=computed(()=>{
-    return currencyIsRub.value ? [props.aggregations.price_rub_min || 0, props.aggregations.price_rub_max || 0] : [props.aggregations.price_usd_min || 0,props.aggregations.price_usd_max || 0]
+    return currencyIsRub.value ? [props.aggregations?.price_rub_min || 0, props.aggregations?.price_rub_max || 0] : [props.aggregations?.price_usd_min || 0,props.aggregations?.price_usd_max || 0]
   })
 
   const selectCurrency = (item) => {
