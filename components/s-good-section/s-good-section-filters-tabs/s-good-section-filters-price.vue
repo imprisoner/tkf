@@ -1,25 +1,24 @@
 <template>
   <div class="filter__main">
-    <h4 class="filter__subtitle mobile-caret">Популярные бренды</h4>
-    <div class="filter__popular-list">
-      <button
-        v-for="popularBrand in getPopularBrands"
-        :key="popularBrand"
-        :class="[
-          'filter__popular-item',
-          'button',
-          'button--text-sm',
-          'button--gray',
-        ]"
-        type="button"
-      >
-        {{ popularBrand.label }}
-      </button>
-    </div>
-    <h4 class="filter__subtitle-two">Диапозон цен</h4>
+<!--    <h4 class="filter__subtitle mobile-caret">Популярные бренды</h4>-->
+<!--    <div class="filter__popular-list">-->
+<!--      <button-->
+<!--        v-for="popularBrand in getPopularBrands"-->
+<!--        :key="popularBrand"-->
+<!--        :class="[-->
+<!--          'filter__popular-item',-->
+<!--          'button',-->
+<!--          'button&#45;&#45;text-sm',-->
+<!--          'button&#45;&#45;gray',-->
+<!--        ]"-->
+<!--        type="button"-->
+<!--      >-->
+<!--        {{ popularBrand.label }}-->
+<!--      </button>-->
+<!--    </div>-->
+    <h4 class="filter__subtitle-two">Диапазон цен</h4>
     <div class="filter__options">
       <div class="price-filter__currency">
-        <MRangeSlider />
         <div class="price-filter__currency-button--group">
           <button
             v-for="item in currencyList"
@@ -35,27 +34,29 @@
             {{ item.label }}
           </button>
         </div>
+
+        <MRangeSlider v-model="currentPriceRangeValue" :range="priceRangeLimit" :currency="currency.label"/>
         <fieldset class="filter__range-fields">
           <div class="input-group filter__range-input">
-            <span class="button button--square button--gray">min</span>
+            <span class="button button--square button--gray" @click="currentPriceRangeValue=[undefined,currentPriceRangeValue[1]]">min</span>
             <input
-              v-model="range[`price_${currency.value}_min`]"
+              :value="currentPriceRangeValue[0]"
               type="text"
               inputmode="number"
-              :placeholder="`40 000 ${currency.label}`"
+              :placeholder="`${priceRangeLimit[0]} ${currency.label}`"
               class="input-group__field"
-              @input="updateSelection"
+              @input="currentPriceRangeValue=[$event.target.value, currentPriceRangeValue[1]]"
             />
           </div>
           <div class="input-group filter__range-input">
-            <span class="button button--square button--gray">max</span>
+            <span class="button button--square button--gray" @click="currentPriceRangeValue=[currentPriceRangeValue[0], undefined]">max</span>
             <input
-              v-model="range[`price_${currency.value}_max`]"
+              :value="currentPriceRangeValue[1]"
               type="text"
               inputmode="number"
-              :placeholder="`100 000 ${currency.label}`"
+              :placeholder="`${priceRangeLimit[1]} ${currency.label}`"
               class="input-group__field"
-              @input="updateSelection"
+              @input="currentPriceRangeValue=[currentPriceRangeValue[0],$event.target.value]"
             />
           </div>
         </fieldset>
@@ -65,20 +66,28 @@
 </template>
 
 <script setup>
-  const getPopularBrands = ref([
-    { value: 'da', label: 'Casio' },
-    { value: 'da', label: 'Casio' },
-    { value: 'da', label: 'Casio' },
-  ])
+  // const getPopularBrands = ref([
+  //   { value: 'da', label: 'Casio' },
+  //   { value: 'da', label: 'Casio' },
+  //   { value: 'da', label: 'Casio' },
+  // ])
 
   const props = defineProps({
-    rangeProp: {
+    modelValue: {
       type: Object,
-      default: () => ({}),
+      default: () => {
+        return {}
+      },
     },
+    aggregations: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
   })
 
-  const emit = defineEmits(['updateSelection'])
+  const emits = defineEmits(['update:modelValue'])
 
   const currencyList = ref([
     {
@@ -91,19 +100,53 @@
     },
   ])
 
-  const currency = ref(currencyList.value[0])
+  let currency = ref(currencyList.value.find(currency => currency.value === `${props.modelValue?.price_usd_min || props.modelValue?.price_usd_max ? 'usd':'rub'}`))
 
-  const range = ref(props.rangeProp)
+  const currencyIsRub = computed(()=>{
+    return currency.value.value === 'rub'
+  })
 
-  const updateSelection = () => {
-    emit('updateSelection', range.value)
-  }
+  const rubRangeValues = computed(()=>{
+    const {modelValue, aggregations} = props
+    return [modelValue.price_rub_min || aggregations.price_rub_min || 0, modelValue.price_rub_max || aggregations.price_rub_max || 100]
+  })
+
+  const usdRangeValues = computed(()=>{
+    const {modelValue, aggregations} = props
+    return [modelValue.price_usd_min || aggregations.price_usd_min || 0, modelValue.price_usd_max || aggregations.price_usd_max || 100]
+  })
+
+  const currentPriceRangeValue = computed({
+    get() {
+      return currencyIsRub.value ? rubRangeValues.value : usdRangeValues.value
+    },
+    set(newValue) {
+      const[minValue,maxValue] = newValue
+      const isRub = currencyIsRub.value
+
+      const newValues = {
+        price_rub_min: isRub && minValue!==props.aggregations.price_rub_min && minValue || undefined,
+        price_rub_max: isRub && maxValue!==props.aggregations.price_rub_max && maxValue || undefined,
+        price_usd_min: !isRub && minValue!==props.aggregations.price_usd_min && minValue || undefined,
+        price_usd_max: !isRub && maxValue!==props.aggregations.price_usd_max && maxValue || undefined,
+      }
+
+      emits('update:modelValue', newValues)
+    },
+  })
+
+  const priceRangeLimit=computed(()=>{
+    return currencyIsRub.value ? [props.aggregations.price_rub_min || 0, props.aggregations.price_rub_max || 100] : [props.aggregations.price_usd_min || 0,props.aggregations.price_usd_max || 100]
+  })
 
   const selectCurrency = (item) => {
     currency.value = item
-    range.value = {}
-    updateSelection()
-    // [`price_${currency.value.value}_min`]: null,
-    // [`price_${currency.value.value}_max`]: null,
+    const newValues = {
+      price_rub_min: undefined,
+      price_rub_max: undefined,
+      price_usd_min: undefined,
+      price_usd_max: undefined,
+    }
+    emits('update:modelValue', newValues)
   }
 </script>

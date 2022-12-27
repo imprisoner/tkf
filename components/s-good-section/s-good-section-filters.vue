@@ -105,7 +105,8 @@
         />
         <s-good-section-filters-price
           v-if="content.value === 'price'"
-          @update-selection="updatePriceSelection"
+          v-model="selectedPrice"
+          :aggregations="filtersAggregation.value"
         />
         <s-good-section-filters-diametr
           v-if="content.value === 'diametr'"
@@ -159,6 +160,7 @@
   import { getFilterObject } from '~/api/getFilterObject'
   import declOfNum from '~/composables/declOfNum'
   import useQueryString from '~/composables/useQueryString'
+  import { getFilterAggregation } from "../../api/getFilterObject";
 
   const props = defineProps({
     commonLotsCount: {
@@ -179,6 +181,7 @@
   const getBrandsList = computed(() =>
     filterObjects.value?.brands.map((i) => ({ value: i.id, label: i.name }))
   )
+
   // !-------------------------------------!
 
   // tabs-------------------------------------
@@ -258,11 +261,11 @@
 
   const getGenderList = computed(() => [
     {
-      label: 'Мужчина',
+      label: 'Мужское',
       value: 'MALE',
     },
     {
-      label: 'Женщина',
+      label: 'Женское',
       value: 'FEMALE',
     },
     {
@@ -282,11 +285,11 @@
 
   const getConditionList = computed(() => [
     {
-      label: 'Новое',
+      label: 'Новые',
       value: 'NEW',
     },
     {
-      label: 'Б/У',
+      label: 'Подержанные',
       value: 'USED',
     },
   ])
@@ -301,30 +304,33 @@
   // !price filter ----------------------!
 
   const selectedPrice = ref({
-    price_usd_min: getUrlSearchParams.value.price_usd_min || [],
-    price_usd_max: getUrlSearchParams.value.price_usd_max || [],
-    price_rub_min: getUrlSearchParams.value.price_rub_min || [],
-    price_rub_max: getUrlSearchParams.value.price_rub_max || [],
+    price_usd_min: getUrlSearchParams.value.price_usd_min || undefined,
+    price_usd_max: getUrlSearchParams.value.price_usd_max || undefined,
+    price_rub_min: getUrlSearchParams.value.price_rub_min || undefined,
+    price_rub_max: getUrlSearchParams.value.price_rub_max || undefined
   })
 
-  const updatePriceSelection = (val) => {
-    console.log(val)
-    selectedPrice.value = val
-  }
   // !-------------------------------------!
 
-  const setFilteredUrlParams = () => {
-    const params = {
-      brand: [...selectedBrands.value],
-      gender: selectedGender.value || [],
-      condition: selectedCondition.value || [],
-      price_usd_min: selectedPrice.value.price_usd_min || [],
-      price_usd_max: selectedPrice.value.price_usd_max || [],
-      price_rub_min: selectedPrice.value.price_rub_min || [],
-      price_rub_max: selectedPrice.value.price_rub_max || [],
-    }
+  const filterParams=computed(()=> ({
+      brand: [...selectedBrands.value].length ? [...selectedBrands.value] : undefined,
+      gender: selectedGender.value || undefined,
+      condition: selectedCondition.value || undefined,
+      price_usd_min: selectedPrice.value.price_usd_min || undefined,
+      price_usd_max: selectedPrice.value.price_usd_max || undefined,
+      price_rub_min: selectedPrice.value.price_rub_min || undefined,
+      price_rub_max: selectedPrice.value.price_rub_max || undefined,
+    })
+  )
 
-    setUrlSearchParams(params)
+  const filtersAggregation = ref({})
+
+  watch(() => [selectedGender.value,selectedCondition.value,...selectedBrands.value], async () => {
+    filtersAggregation.value = await getFilterAggregation(props.goodType,filterParams.value)
+  }, {immediate: true})
+
+  const setFilteredUrlParams = () => {
+    setUrlSearchParams(filterParams.value)
   }
 
   const applyFilters = () => {
