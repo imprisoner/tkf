@@ -3,7 +3,7 @@
     <div class="filters__triggers">
       <div class="filters__tabs">
         <button
-          v-for="item in filterTabs.slice(0, 5)"
+          v-for="item in filteredFilterTabs.slice(0, 5)"
           :key="item.value"
           type="button"
           :class="[
@@ -38,7 +38,7 @@
         </div>
         <ul class="filters__list">
           <li
-            v-for="item in filterTabs"
+            v-for="item in filteredFilterTabs"
             :key="item.value"
             :class="[
               'filters__list-item',
@@ -71,7 +71,7 @@
       </aside>
 
       <main
-        v-for="content in filterTabs"
+        v-for="content in filteredFilterTabs"
         :key="content.value"
         class="filters__main filter"
         :class="{ show: content.value === activeFiltersTab?.value }"
@@ -106,13 +106,12 @@
         <s-good-section-filters-price
           v-if="content.value === 'price'"
           v-model="selectedPrice"
-          :aggregations="filtersAggregation.value"
+          :aggregations="priceFiltersAggregation.value"
         />
         <s-good-section-filters-diametr
-          v-if="content.value === 'diametr'"
-          :list="getBrandsList"
-          :selected-prop="selectedBrands"
-          @update-selection="updateBrandsSelection"
+          v-if="content.value === 'diametr' && goodType === 'watches'"
+          v-model="selectedDiameter"
+          :aggregations="diameterFiltersAggregation.value"
         />
         <s-good-section-filters-place
           v-if="content.value === 'place'"
@@ -160,7 +159,10 @@
   import { getFilterObject } from '~/api/getFilterObject'
   import declOfNum from '~/composables/declOfNum'
   import useQueryString from '~/composables/useQueryString'
-  import { getFilterAggregation } from "../../api/getFilterObject";
+  import {
+    getDiameterFilterAggregation,
+    getPriceFilterAggregation
+  } from "../../api/getFilterObject";
 
   const props = defineProps({
     commonLotsCount: {
@@ -234,15 +236,18 @@
 
   const toggleFilterTab = (item) => {
     if (item === null && activeFiltersTab.value === null) {
-      activeFiltersTab.value = filterTabs.value[0]
+      activeFiltersTab.value = filteredFilterTabs.value[0]
     } else {
       activeFiltersTab.value = activeFiltersTab.value === item ? null : item
     }
   }
   // !-------------------------------------!
 
-  // !brands filter ----------------------!
 
+const filteredFilterTabs = computed(()=>{
+  return props.goodType.value === 'watches'? filterTabs.value : filterTabs.value.filter(tab=>tab.value!=='diametr')
+})
+  // !brands filter ----------------------!
   const selectedBrands = ref([])
   if (typeof getUrlSearchParams.value.brand === 'string') {
     selectedBrands.value = [+getUrlSearchParams.value.brand]
@@ -309,8 +314,12 @@
     price_rub_min: getUrlSearchParams.value.price_rub_min || undefined,
     price_rub_max: getUrlSearchParams.value.price_rub_max || undefined
   })
-
   // !-------------------------------------!
+
+  const selectedDiameter = ref({
+    diameter_min: getUrlSearchParams.value.diameter_min || undefined,
+    diameter_max: getUrlSearchParams.value.diameter_max || undefined
+  })
 
   const filterParams=computed(()=> ({
       brand: [...selectedBrands.value].length ? [...selectedBrands.value] : undefined,
@@ -320,14 +329,23 @@
       price_usd_max: selectedPrice.value.price_usd_max || undefined,
       price_rub_min: selectedPrice.value.price_rub_min || undefined,
       price_rub_max: selectedPrice.value.price_rub_max || undefined,
+      diameter_min: selectedDiameter.value.diameter_min || undefined,
+      diameter_max: selectedDiameter.value.diameter_max || undefined,
     })
   )
 
-  const filtersAggregation = ref({})
+  const priceFiltersAggregation = ref({})
+  const diameterFiltersAggregation = ref({})
 
-  watch(() => [selectedGender.value,selectedCondition.value,...selectedBrands.value], async () => {
-    filtersAggregation.value = await getFilterAggregation(props.goodType,filterParams.value)
+  watch(() => [selectedGender.value, selectedCondition.value, selectedDiameter.value, ...selectedBrands.value], async () => {
+    priceFiltersAggregation.value = await getPriceFilterAggregation(props.goodType,filterParams.value)
   }, {immediate: true})
+
+  watch(() => [selectedGender.value, selectedCondition.value, selectedPrice.value, ...selectedBrands.value], async () => {
+    if (props.goodType === 'watches') {
+      diameterFiltersAggregation.value = await getDiameterFilterAggregation(props.goodType, filterParams.value)
+    }
+    }, {immediate: true})
 
   const setFilteredUrlParams = () => {
     setUrlSearchParams(filterParams.value)
@@ -342,10 +360,14 @@
     selectedGender.value = null
     selectedCondition.value = null
     selectedPrice.value = {
-      price_usd_min: [],
-      price_usd_max: [],
-      price_rub_min: [],
-      price_rub_max: [],
+      price_usd_min: undefined,
+      price_usd_max: undefined,
+      price_rub_min: undefined,
+      price_rub_max: undefined,
+    }
+    selectedDiameter.value = {
+      diameter_min: undefined,
+      diameter_max: undefined
     }
     setFilteredUrlParams()
   }

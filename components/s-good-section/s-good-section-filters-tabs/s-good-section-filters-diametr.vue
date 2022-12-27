@@ -1,90 +1,80 @@
 <template>
   <div class="filter__main">
-    <h4 class="filter__subtitle mobile-caret">Популярные</h4>
-    <div class="filter__popular-list">
-      <button
-        v-for="popularBrand in getPopularBrands"
-        :key="popularBrand"
-        :class="[
-          'filter__popular-item',
-          'button',
-          'button--text-sm',
-          'button--gray',
-        ]"
-        type="button"
-      >
-        {{ popularBrand.label }}
-      </button>
-    </div>
     <h4 class="filter__subtitle-two">Все диаметры</h4>
     <div class="filter__options">
-      <div class="filter__search search">
-        <div class="search input-group">
-          <input
-            id="navbar_search"
-            v-model="searchString"
-            class="input-group__field"
-            type="text"
-            placeholder="Найти лучшие в мире часы"
-          />
-          <button class="button button--square button--black" type="button">
-            <BaseIcon name="search" />
-          </button>
-        </div>
+
+      <div class="price-filter__currency">
+        <MRangeSlider v-model="currentDiameterRangeValue" :range="diameterRangeLimit" currency="mm"/>
+        <fieldset class="filter__range-fields">
+          <div class="input-group filter__range-input">
+            <span class="button button--square button--gray" @click="currentDiameterRangeValue=[undefined,currentDiameterRangeValue[1]]">min</span>
+            <input
+              :value="currentDiameterRangeValue[0]"
+              type="text"
+              inputmode="number"
+              :placeholder="`${diameterRangeLimit[0]} mm`"
+              class="input-group__field"
+              @input="currentDiameterRangeValue=[$event.target.value, currentDiameterRangeValue[1]]"
+            />
+          </div>
+          <div class="input-group filter__range-input">
+            <span class="button button--square button--gray" @click="currentDiameterRangeValue=[currentDiameterRangeValue[0], undefined]">max</span>
+            <input
+              :value="currentDiameterRangeValue[1]"
+              type="text"
+              inputmode="number"
+              :placeholder="`${diameterRangeLimit[1]} mm`"
+              class="input-group__field"
+              @input="currentDiameterRangeValue=[currentDiameterRangeValue[0],$event.target.value]"
+            />
+          </div>
+        </fieldset>
       </div>
-      <SGoodSectionCheckboxGroup
-        :list="getFilteredList"
-        :selected-prop="getSelected"
-        @update-selection="updateSelection"
-      />
     </div>
   </div>
 </template>
 
 <script setup>
-  const getPopularBrands = ref([
-    { value: 'da', label: 'Casio' },
-    { value: 'da', label: 'Casio' },
-    { value: 'da', label: 'Casio' },
-    { value: 'da', label: 'Casio' },
-    { value: 'da', label: 'Casio' },
-    { value: 'da', label: 'Casio' },
-    { value: 'da', label: 'Casio' },
-  ])
-
-  const props = defineProps({
-    list: {
-      type: Array,
-      default: () => [],
+const props = defineProps({
+  modelValue: {
+    type: Object,
+    default: () => {
+      return {}
     },
-    selectedProp: {
-      type: Array,
-      default: () => [],
-    },
-  })
-
-  const emit = defineEmits(['updateSelection'])
-
-  const searchString = ref('')
-
-  const selected = ref([...props.selectedProp])
-
-  const getFilteredList = computed(() =>
-    props.list.filter((i) =>
-      i.label.toLowerCase().includes(searchString.value.toLowerCase())
-    )
-  )
-
-  const updateSelection = (val) => {
-    selected.value = val
-    emit('updateSelection', selected.value)
+  },
+  aggregations: {
+    type: Object,
+    default: () => {
+      return {}
+    }
   }
+})
 
-  const getSelected = computed(() =>
-    selected.value.filter(
-      (i) => !!getFilteredList.value.findIndex((fi) => fi.value === i)
-    )
-  )
+const emits = defineEmits(['update:modelValue'])
 
-  watch(props.selectedProp, () => (selected.value = [...props.selectedProp]))
+
+const rangeValues = computed(()=>{
+  const {modelValue, aggregations} = props
+  return [modelValue.diameter_min || aggregations.diameter_min || 0, modelValue.diameter_max || aggregations.diameter_max || 0]
+})
+
+const currentDiameterRangeValue = computed({
+  get() {
+    return rangeValues.value
+  },
+  set(newValue) {
+    const[minValue,maxValue] = newValue
+
+    const newValues = {
+      diameter_min: minValue > props.aggregations.diameter_min && minValue || undefined,
+      diameter_max: maxValue < props.aggregations.diameter_max && maxValue || undefined
+    }
+
+    emits('update:modelValue', newValues)
+  },
+})
+
+const diameterRangeLimit=computed(()=>{
+  return [props.aggregations.diameter_min || 0, props.aggregations.diameter_max || 0]
+})
 </script>
