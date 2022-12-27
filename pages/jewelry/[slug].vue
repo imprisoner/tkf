@@ -187,7 +187,7 @@
     .replace(/.ru/, '')
     .replace(/\/.*/, '')
     .replace(/-/, ' ')
-    .replace(/Wwww/, '');
+    .replace(/Wwww/, ''); 
   salerName = salerName[0].toUpperCase() + salerName.slice(1);
 </script>
 
