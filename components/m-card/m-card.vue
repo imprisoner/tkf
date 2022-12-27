@@ -18,7 +18,7 @@
 <script setup>
   import './m-card.scss'
 
-  const props = defineProps({
+  defineProps({
     title: {
       type: String,
       default: '',
