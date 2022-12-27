@@ -1,16 +1,22 @@
 <template>
   <main id="brands-page" class="catalog">
-    <SCatalogTop :title="title" :count="brandsItems.length"/>
-    <SBrandsSection :brands-cards="brandsItems" />
-    <SAlphabet :brands-items="brandsItems"/>
+    <SCatalogTop
+      :title="title"
+      :count="brandsCardsTop.length"
+      :on-show-counter="false"
+      :on-show-categories="false"
+      :on-show-bookmark="false"
+    />
+    <SBrandsSection :brands-cards="brandsCardsTop" />
+    <SAlphabet :brands-items="brandsCards"/>
   </main>
 </template>
 
 <script setup>
   import { getBrands } from '@/api/getBrands'
 
+  const brandsCardsTop = await getBrands({ isShowOnMain: 'true', brandType: 'WATCH', })
   const brandsCards = await getBrands({ isShowOnMain: false, brandType: 'JEWELRY' })
-  const brandsItems = brandsCards
   const title = 'Все бренды ювелирных украшений'
 </script>
 
