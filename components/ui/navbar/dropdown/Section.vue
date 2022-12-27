@@ -17,7 +17,7 @@
     <expand-transition>
     <ul v-show="isMobileListActive" class="navbar-menu__list text-16">
       <li class="navbar-menu__list-item" @click="onLinkClick">
-        <nuxt-link :to="`/${name}/${repository}`">
+        <nuxt-link :to="`/${repository}/${name}/`">
           Показать все {{ title.toLowerCase() }}
         </nuxt-link>
       </li>
