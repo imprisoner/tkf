@@ -55,7 +55,7 @@ const emits = defineEmits(['update:modelValue'])
 
 const rangeValues = computed(()=>{
   const {modelValue, aggregations} = props
-  return [modelValue.diameter_min || aggregations.diameter_min || 0, modelValue.diameter_max || aggregations.diameter_max || 0]
+  return [modelValue?.diameter_min || aggregations?.diameter_min || 0, modelValue?.diameter_max || aggregations?.diameter_max || 0]
 })
 
 const currentDiameterRangeValue = computed({
@@ -66,8 +66,8 @@ const currentDiameterRangeValue = computed({
     const[minValue,maxValue] = newValue
 
     const newValues = {
-      diameter_min: minValue > props.aggregations.diameter_min && minValue || undefined,
-      diameter_max: maxValue < props.aggregations.diameter_max && maxValue || undefined
+      diameter_min: minValue > props.aggregations?.diameter_min && minValue || undefined,
+      diameter_max: maxValue < props.aggregations?.diameter_max && maxValue || undefined
     }
 
     emits('update:modelValue', newValues)
@@ -75,6 +75,6 @@ const currentDiameterRangeValue = computed({
 })
 
 const diameterRangeLimit=computed(()=>{
-  return [props.aggregations.diameter_min || 0, props.aggregations.diameter_max || 0]
+  return [props.aggregations?.diameter_min || 0, props.aggregations?.diameter_max || 0]
 })
 </script>
