@@ -18,8 +18,9 @@
             {{ item.label }}
           </button>
         </div>
-
+<client-only>
         <MRangeSlider v-model="currentPriceRangeValue" :range="priceRangeLimit" :currency="currency.label"/>
+</client-only>
         <fieldset class="filter__range-fields">
           <div class="input-group filter__range-input">
             <span class="button button--square button--gray" @click="currentPriceRangeValue=[undefined,currentPriceRangeValue[1]]">min</span>

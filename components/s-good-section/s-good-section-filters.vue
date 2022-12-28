@@ -101,12 +101,12 @@
         <s-good-section-filters-price
           v-if="content.value === 'price'"
           v-model="selectedPrice"
-          :aggregations="priceFiltersAggregation"
+          :aggregations="priceFiltersAggregation.value"
         />
         <s-good-section-filters-diametr
           v-if="content.value === 'diametr' && goodType === 'watches'"
           v-model="selectedDiameter"
-          :aggregations="diameterFiltersAggregation"
+          :aggregations="diameterFiltersAggregation.value"
         />
         <s-good-section-filters-place
           v-if="content.value === 'place'"
@@ -410,16 +410,16 @@ const filteredFilterTabs = computed(()=>{
     })
   )
 
-  const priceFiltersAggregation = ref(null)
-  const diameterFiltersAggregation = ref(null)
+  const priceFiltersAggregation = ref({})
+  const diameterFiltersAggregation = ref({})
 
   watch(() => [selectedGender.value, selectedCondition.value, selectedDiameter.value, ...selectedBrands.value, ...selectedPlaces.value, ...selectedStones.value, ...selectedCategories.value], async () => {
-    priceFiltersAggregation.value = await getPriceFilterAggregation(props.goodType,filterParams.value).value
+    priceFiltersAggregation.value = await getPriceFilterAggregation(props.goodType,filterParams.value)
   }, {immediate: true})
 
   watch(() => [selectedGender.value, selectedCondition.value, selectedPrice.value, ...selectedBrands.value, ...selectedPlaces.value, ...selectedStones.value, ...selectedCategories.value], async () => {
     if (props.goodType === 'watches') {
-      diameterFiltersAggregation.value = await getDiameterFilterAggregation(props.goodType, filterParams.value).value
+      diameterFiltersAggregation.value = await getDiameterFilterAggregation(props.goodType, filterParams.value)
     }
     }, {immediate: true})
 
