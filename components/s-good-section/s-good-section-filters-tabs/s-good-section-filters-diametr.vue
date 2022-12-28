@@ -4,7 +4,9 @@
     <div class="filter__options">
 
       <div class="price-filter__currency">
+        <client-only>
         <MRangeSlider v-model="currentDiameterRangeValue" :range="diameterRangeLimit" currency="mm"/>
+        </client-only>
         <fieldset class="filter__range-fields">
           <div class="input-group filter__range-input">
             <span class="button button--square button--gray" @click="currentDiameterRangeValue=[undefined,currentDiameterRangeValue[1]]">min</span>
