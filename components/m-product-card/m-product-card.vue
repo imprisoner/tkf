@@ -1,7 +1,7 @@
 <template>
   <div class="product-card">
     <div v-if="lot.condition == 'NEW'" class="new new--lot">
-      <span>Новый</span>
+      <span>{{ lot.type === 'watch' ? 'Новые' : 'Новое' }}</span>
     </div>
     <div class="button button--square button--neutral">
       <base-icon name="heart"></base-icon>
