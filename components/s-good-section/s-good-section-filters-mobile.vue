@@ -4,7 +4,7 @@
       <BaseIcon name="x" />
     </div>
     <header class="filters-mobile__header">
-      <span class="filters-mobile__current-page">{{activeFiltersTab?.fullLabel || 'Фильтры'}}</span>
+      <span class="filters-mobile__current-page">{{activeFiltersTab?.fullLabel || activeFiltersTab?.label || 'Фильтры'}}</span>
       <span class="filters-mobile__found-count">{{getCounterString}}</span>
     </header>
 
@@ -63,10 +63,11 @@
         :aggregations="diameterFiltersAggregation"
       />
       <s-good-section-filters-place
+        class="filters-mobile__place-filter"
         v-if="activeFiltersTab.value === 'place'"
-        :list="getBrandsList"
-        :selected-prop="selectedBrands"
-        @update-selection="updateBrandsSelection"
+        :list="getPlacesList"
+        :selected-prop="selectedPlaces"
+        @update-selection="updatePlaceSelection"
       />
       <s-good-section-filters-gender
         v-if="activeFiltersTab.value === 'gender'"
@@ -131,31 +132,40 @@ const { data: filterObjects } = await getFilterObject(props.goodType)
 const getBrandsList = computed(() =>
   filterObjects.value?.brands.map((i) => ({ value: i.id, label: i.name }))
 )
-
+const getPlacesList = computed(() => {
+    let cities = []
+    filterObjects.value?.countries.map((country) => {
+      country.cities.map((city) => {
+        cities.push({ value: city.id, label:city.name})
+      })
+    })
+    return cities
+  }
+)
 // !-------------------------------------!
 function getMobileFilterItemValues(item){
   switch (item){
     case 'brand':
-      return getBrandsList.value.filter(brand => selectedBrands.value.includes(brand.value)).map((brand)=>brand.label).join(', ')
+      return getBrandsList.value.filter(brand => selectedBrands.value.includes(brand.value))?.map((brand)=>brand.label).join(', ') || 'Все'
     case 'price':
       const {price_usd_min, price_usd_max, price_rub_min, price_rub_max} = selectedPrice.value
       const currencyName = price_rub_min || price_rub_max ? 'Руб' : 'Usd'
       const minVal = price_usd_min || price_rub_min
       const maxVal = price_usd_max || price_rub_max
-      return `${minVal ? `от ${minVal} ${currencyName}`:''}
+      return minVal||maxVal ? `${minVal ? `от ${minVal} ${currencyName}`:''}
               ${minVal&&maxVal?' - ':''}
-              ${maxVal ? `до ${maxVal} ${currencyName}`:''}`
+              ${maxVal ? `до ${maxVal} ${currencyName}`:''}` : 'Все'
     case 'diametr':
       const {diameter_min, diameter_max} = selectedDiameter.value
-      return `${diameter_min ? `от ${diameter_min}mm`:''}
+      return diameter_min || diameter_max ? `${diameter_min ? `от ${diameter_min}mm`:''}
               ${diameter_min&&diameter_max?' - ':''}
-              ${diameter_max ? `до ${diameter_max}mm`:''}`
+              ${diameter_max ? `до ${diameter_max}mm`:''}` : 'Все'
     case 'place':
-      return ''
+      return getPlacesList.value.filter(place => selectedPlaces.value.includes(place.value))?.map((place)=>place.label).join(', ') || 'Все'
     case 'gender':
-      return getGenderList.value.find(item=>item.value===selectedGender.value)?.label || ''
+      return getGenderList.value.find(item=>item.value===selectedGender.value)?.label || 'Все'
     case 'condition':
-      return getConditionList.value.find(item=>item.value===selectedCondition.value)?.label || ''
+      return getConditionList.value.find(item=>item.value===selectedCondition.value)?.label || 'Все'
   }
 }
 // tabs-------------------------------------
@@ -228,7 +238,19 @@ const updateBrandsSelection = (val) => {
 }
 
 // !-------------------------------------!
+// !Place filter ----------------------!
+const selectedPlaces = ref([])
+if (typeof getUrlSearchParams.value.city_location === 'string') {
+  selectedPlaces.value = [+getUrlSearchParams.value.city_location]
+}
+if (typeof getUrlSearchParams.value.city_location === 'object') {
+  selectedPlaces.value = [...getUrlSearchParams.value.city_location].map((i) => +i)
+}
+const updatePlaceSelection = (val) => {
+  selectedPlaces.value = val
+}
 
+// !-------------------------------------!
 // !gender filter ----------------------!
 
 const getGenderList = computed(() => [
@@ -290,6 +312,7 @@ const selectedDiameter = ref({
 
 const filterParams=computed(()=> ({
     brand: [...selectedBrands.value].length ? [...selectedBrands.value] : undefined,
+    city_location: [...selectedPlaces.value].length ? [...selectedPlaces.value] : undefined,
     gender: selectedGender.value || undefined,
     condition: selectedCondition.value || undefined,
     price_usd_min: selectedPrice.value.price_usd_min || undefined,
@@ -304,11 +327,11 @@ const filterParams=computed(()=> ({
 const priceFiltersAggregation = ref(null)
 const diameterFiltersAggregation = ref(null)
 
-watch(() => [selectedGender.value, selectedCondition.value, selectedDiameter.value, ...selectedBrands.value], async () => {
+watch(() => [selectedGender.value, selectedCondition.value, selectedDiameter.value, ...selectedBrands.value, ...selectedPlaces.value], async () => {
   priceFiltersAggregation.value = await getPriceFilterAggregation(props.goodType,filterParams.value).value
 }, {immediate: true})
 
-watch(() => [selectedGender.value, selectedCondition.value, selectedPrice.value, ...selectedBrands.value], async () => {
+watch(() => [selectedGender.value, selectedCondition.value, selectedPrice.value, ...selectedBrands.value, ...selectedPlaces.value], async () => {
   if (props.goodType === 'watches') {
     diameterFiltersAggregation.value = await getDiameterFilterAggregation(props.goodType, filterParams.value).value
   }
@@ -324,6 +347,7 @@ const applyFilters = () => {
 
 const resetFilters = () => {
   selectedBrands.value = []
+  selectedPlaces.value = []
   selectedGender.value = null
   selectedCondition.value = null
   selectedPrice.value = {
@@ -438,7 +462,7 @@ const getCounterString = computed(() =>
   &__price-filter, &__diameter-filter{
     padding: 16px 14px;
   }
-  &__brand-filter{
+  &__brand-filter, &__place-filter{
     overflow-y: auto;
   }
 &__footer{
