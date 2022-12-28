@@ -74,7 +74,7 @@
                 <p class="features__prop"> {{ characteristic.text }} </p>
                 <div class="features__vals">
                   <p v-for="(stone, idx) in characteristic.value" :key="idx" class="features__val">
-                    {{ stone }}
+                    {{ stone.name }}
                   </p>
                 </div>
               </template>
