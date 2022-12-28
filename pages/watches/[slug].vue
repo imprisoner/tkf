@@ -110,16 +110,16 @@
       </div>
       <div class="lot__seller seller row">
         <div class="seller__wrap offset-lg-1 col-md-6 col-12">
-          <div v-if="lot.city_location" class="seller__info">
+          <div class="seller__info">
             <h6 class="seller__subtitle text-16">Продавец</h6>
-            <h3>{{ salerName }}</h3>
-            <address class="seller__address">
+            <h3>{{ sellerName }}</h3>
+            <address v-if="lot.city_location" class="seller__address" >
               {{ lot.city_location.country.name }}, {{ lot.city_location.name }}
             </address>
           </div>
           <nuxt-link
             class="seller__positions button button--black"
-            :to="`${salerNameLink[0]}//${salerNameLink[2]}`"
+            :to="`${sellerNameLink[0]}//${sellerNameLink[2]}`"
             target="_blank"
           >
             <base-icon name="arrow-down-right"></base-icon>
@@ -237,9 +237,9 @@ const characteristics = computed(() => {
       },
     ]
   })
-  const salerNameLink = lot._value.original_link.split('/');
-  let salerName = lot._value.original_link.replace(/https:\/\//, '').replace(/.ru/, '').replace(/\/.*/, '').replace(/-/, ' ');
-  salerName = salerName[0].toUpperCase() + salerName.slice(1);
+  const sellerNameLink = lot._value.original_link.split('/');
+  let sellerName = lot._value.original_link.replace(/https:\/\//, '').replace(/.ru/, '').replace(/\/.*/, '').replace(/-/, ' ');
+  sellerName = sellerName[0].toUpperCase() + sellerName.slice(1);
 </script>
 
 <style lang="scss" scoped>
