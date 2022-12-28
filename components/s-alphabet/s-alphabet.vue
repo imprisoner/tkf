@@ -17,10 +17,13 @@
     <div class="alphabet__body row">
       <template v-for="(brandItem, id) in brands" :key="id">
         <div :id="`alphabet_${id}`" class="alphabet__item col-12 row">
-          <div class="alphabet__title offset-lg-1 col-md-2 col-12">
+          <div class="alphabet__title offset-lg-1 col-md-2 col-12" @click="showList(brandItem)">
             <p>{{ brandItem.letter.name }}</p>
           </div>
-          <div class="alphabet__list row offset-lg-3 col-xl-8 col-md-10 col-12">
+          <div
+            v-if="dom.width > 767 || (dom.width < 767 && brandItem.isShowMobile)"
+            class="alphabet__list row offset-lg-3 col-xl-8 col-md-10 col-12"
+          >
             <ul class="col-12 alphabet__listing">
               <template v-for="(item, idx) in brandItem.items" :key="idx">
                 <li
@@ -66,14 +69,6 @@
     },
   })
 
-  onMounted(() => {
-    window.addEventListener('resize', debounce(() =>adaptiveAlphabet()))
-  })
-
-  onUnmounted(() => {
-    window.removeEventListener('resize', debounce())
-  })
-
   let alphabet = [
     { name: '0-9', id: 0 },
     { name: 'a', id: 0 },
@@ -109,10 +104,23 @@
     letter: item,
     items: getItems(props.brandsItems, item),
     count: 10,
+    isShowMobile: false,
   })))
 
   let items = 0
-  let windowWidth = 0
+
+  const dom = reactive ({
+    width: 0,
+  }) 
+
+  onMounted(() => {
+    adaptiveAlphabet();
+    window.addEventListener('resize', debounce(() => adaptiveAlphabet()))
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', debounce())
+  })
 
   // Собираем названия начинающиеся с числа
   const brandsByNumber = Object.keys(props.brandsItems)
@@ -152,6 +160,8 @@
     const elements = document.querySelectorAll('.alphabet__item')
     const visibleElements = []
     const btnShowMore = document.querySelector('.button-showMore')
+    
+    brands[i].isShowMobile = true;
 
     if (!elementToScroll.classList.contains('is-visible')) {
       elements.forEach((element, idx) => {
@@ -188,7 +198,7 @@
   }
 
   function adaptiveAlphabet() {
-    windowWidth = window.innerWidth;
+    dom.width = window.innerWidth; 
   }
 
   const debounce = (func, wait) => {
@@ -206,6 +216,12 @@
   function loadMore(item) {
     if (item.count <= item.items.length) {
       item.count += 10;
+    }
+  }
+  
+  function showList(item) {
+    if (dom.width < 767) {
+      item.isShowMobile = !item.isShowMobile;
     }
   }
 </script>
