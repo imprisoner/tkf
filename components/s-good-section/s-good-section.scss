@@ -11,7 +11,7 @@
     padding-bottom: 60px;
   }
 
-  &__button-group {
+  &__button--group {
     justify-self: end;
     display: flex;
   }
@@ -64,8 +64,6 @@
 }
 
 .price-filter {
-
-
   &__currency-button--group {
     display: flex;
     position: absolute;

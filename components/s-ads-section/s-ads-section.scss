@@ -4,8 +4,8 @@
 
     .row {
       display: flex;
-      flex-direction: column;
       row-gap: 20px;
+      flex-direction: column;
     }
   }
 
@@ -22,6 +22,7 @@
 
   .card {
     padding: 36px;
+    background: transparent;
 
     @include max-width('md') {
       padding: 16px;
