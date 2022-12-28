@@ -134,8 +134,8 @@ const getBrandsList = computed(() =>
 )
 const getPlacesList = computed(() => {
     let cities = []
-    filterObjects.value?.countries.map((country) => {
-      country.cities.map((city) => {
+    filterObjects.value?.countries.forEach((country) => {
+      country.cities.forEach((city) => {
         cities.push({ value: city.id, label:city.name})
       })
     })

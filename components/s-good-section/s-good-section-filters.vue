@@ -176,14 +176,15 @@
   const getBrandsList = computed(() =>
     filterObjects.value?.brands.map((i) => ({ value: i.id, label: i.name }))
   )
+
   const getPlacesList = computed(() => {
-    let cities = []
-      filterObjects.value?.countries.map((country) => {
-        country.cities.map((city) => {
+      let cities = []
+      filterObjects.value?.countries.forEach((country) => {
+        country.cities.forEach((city) => {
           cities.push({ value: city.id, label:city.name})
         })
       })
-    return cities
+      return cities
     }
   )
 
