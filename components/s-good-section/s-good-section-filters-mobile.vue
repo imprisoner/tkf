@@ -1,6 +1,6 @@
 <template>
   <div class="filters-mobile">
-    <div class="filters-mobile__close" @click="$emit('close')">
+    <div class="filters-mobile__close" @click="emit('close')">
       <BaseIcon name="x" />
     </div>
     <header class="filters-mobile__header">
@@ -123,7 +123,7 @@ const props = defineProps({
     default: 'watches',
   },
 })
-
+const emit = defineEmits(['close'])
 // data fetching-----------------------------
 const { getUrlSearchParams, setUrlSearchParams } = useQueryString()
 
@@ -144,29 +144,22 @@ const getPlacesList = computed(() => {
 )
 // !-------------------------------------!
 function getMobileFilterItemValues(item){
-  switch (item){
-    case 'brand':
-      return getBrandsList.value.filter(brand => selectedBrands.value.includes(brand.value))?.map((brand)=>brand.label).join(', ') || 'Все'
-    case 'price':
-      const {price_usd_min, price_usd_max, price_rub_min, price_rub_max} = selectedPrice.value
-      const currencyName = price_rub_min || price_rub_max ? 'Руб' : 'Usd'
-      const minVal = price_usd_min || price_rub_min
-      const maxVal = price_usd_max || price_rub_max
-      return minVal||maxVal ? `${minVal ? `от ${minVal} ${currencyName}`:''}
+  if (item === 'brand'){return getBrandsList.value.filter(brand => selectedBrands.value.includes(brand.value))?.map((brand)=>brand.label).join(', ') || 'Все'}
+  if (item === 'price'){
+    const currencyName = selectedPrice.value.price_rub_min || selectedPrice.value.price_rub_max ? 'Руб' : 'Usd'
+    const minVal = selectedPrice.value.price_usd_min || selectedPrice.value.price_rub_min
+    const maxVal = selectedPrice.value.price_usd_max || selectedPrice.value.price_rub_max
+    return minVal||maxVal ? `${minVal ? `от ${minVal} ${currencyName}`:''}
               ${minVal&&maxVal?' - ':''}
-              ${maxVal ? `до ${maxVal} ${currencyName}`:''}` : 'Все'
-    case 'diametr':
-      const {diameter_min, diameter_max} = selectedDiameter.value
-      return diameter_min || diameter_max ? `${diameter_min ? `от ${diameter_min}mm`:''}
-              ${diameter_min&&diameter_max?' - ':''}
-              ${diameter_max ? `до ${diameter_max}mm`:''}` : 'Все'
-    case 'place':
-      return getPlacesList.value.filter(place => selectedPlaces.value.includes(place.value))?.map((place)=>place.label).join(', ') || 'Все'
-    case 'gender':
-      return getGenderList.value.find(item=>item.value===selectedGender.value)?.label || 'Все'
-    case 'condition':
-      return getConditionList.value.find(item=>item.value===selectedCondition.value)?.label || 'Все'
-  }
+              ${maxVal ? `до ${maxVal} ${currencyName}`:''}`: 'Все'}
+  if (item === 'diametr'){
+    return selectedDiameter.value.diameter_min || selectedDiameter.value.diameter_max?`${selectedDiameter.value.diameter_min ? `от ${selectedDiameter.value.diameter_min}mm`:''}
+              ${selectedDiameter.value.diameter_min&&selectedDiameter.value.diameter_max?' - ':''}
+              ${selectedDiameter.value.diameter_max ? `до ${selectedDiameter.value.diameter_max}mm`:''}`: 'Все'}
+  if (item === 'place'){return getPlacesList.value.filter(place => selectedPlaces.value.includes(place.value))?.map((place)=>place.label).join(', ') || 'Все'}
+  if (item === 'gender'){return getGenderList.value.find(item=>item.value===selectedGender.value)?.label || 'Все'}
+  if (item === 'condition'){return getConditionList.value.find(item=>item.value===selectedCondition.value)?.label || 'Все'}
+  return ''
 }
 // tabs-------------------------------------
 
