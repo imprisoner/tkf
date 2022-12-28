@@ -23,7 +23,7 @@
               <p>{{ lot.brand.name }}</p>
             </div>
             <h3 class="details__price">
-              ${{ priceUsd }}
+              <span v-if="priceUsd">${{ priceUsd }}</span>
               <span v-if="priceRub" class="details__price--gray"
                 >{{ priceRub }} ₽</span
               >
@@ -187,7 +187,7 @@
     .replace(/.ru/, '')
     .replace(/\/.*/, '')
     .replace(/-/, ' ')
-    .replace(/Wwww/, ''); 
+    .replace(/Wwww/, '');
   salerName = salerName[0].toUpperCase() + salerName.slice(1);
 </script>
 
@@ -303,8 +303,15 @@
       &__tags {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         height: 60px;
         gap: 20px;
+
+        @include max-width('sm') {
+          .details__tag {
+            padding: 0;
+          }
+        }
 
         @include max-width('md') {
           gap: 14px;
