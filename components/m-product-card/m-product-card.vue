@@ -17,7 +17,7 @@
     <NuxtLink :to="`/${type}/${lot.slug}/`">
       <h6 v-if="lot.brand" class="product-card__title">
         {{ lot.brand.name }}
-        <span v-if="lot.model.name">{{ lot.model.name }}</span>
+        <span v-if="lot.model">{{ lot.model.name }}</span>
       </h6>
       <h6 v-if="lot.brand_name" class="product-card__title">
         {{ lot.brand_name }}
