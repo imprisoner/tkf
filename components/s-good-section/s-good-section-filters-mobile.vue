@@ -70,13 +70,13 @@
         @update-selection="updatePlaceSelection"
       />
       <s-good-section-filters-stones
-        v-if="content.value === 'stones' && goodType === 'jewelry'"
+        v-if="activeFiltersTab.value === 'stones' && goodType === 'jewelry'"
         :list="getStonesList"
         :selected-prop="selectedStones"
         @update-selection="updateStonesSelection"
       />
       <s-good-section-filters-category
-        v-if="content.value === 'category' && goodType === 'jewelry'"
+        v-if="activeFiltersTab.value === 'category' && goodType === 'jewelry'"
         :list="getCategoryList"
         :selected-prop="selectedCategories"
         @update-selection="updateCategorySelection"
