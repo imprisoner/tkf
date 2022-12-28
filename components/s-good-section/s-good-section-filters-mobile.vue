@@ -135,17 +135,17 @@ const getBrandsList = computed(() =>
 // !-------------------------------------!
 function getMobileFilterItemValues(item){
   if (item === 'brand'){return getBrandsList.value.filter(brand => selectedBrands.value.includes(brand.value)).map((brand)=>brand.label).join(', ')}
-  if (item === 'price'){const {price_usd_min, price_usd_max, price_rub_min, price_rub_max} = selectedPrice.value
-    const currencyName = price_rub_min || price_rub_max ? 'Руб' : 'Usd'
-    const minVal = price_usd_min || price_rub_min
-    const maxVal = price_usd_max || price_rub_max
+  if (item === 'price'){
+    const currencyName = selectedPrice.value.price_rub_min || selectedPrice.value.price_rub_max ? 'Руб' : 'Usd'
+    const minVal = selectedPrice.value.price_usd_min || selectedPrice.value.price_rub_min
+    const maxVal = selectedPrice.value.price_usd_max || selectedPrice.value.price_rub_max
     return `${minVal ? `от ${minVal} ${currencyName}`:''}
               ${minVal&&maxVal?' - ':''}
               ${maxVal ? `до ${maxVal} ${currencyName}`:''}`}
-  if (item === 'diametr'){const {diameter_min, diameter_max} = selectedDiameter.value
-    return `${diameter_min ? `от ${diameter_min}mm`:''}
-              ${diameter_min&&diameter_max?' - ':''}
-              ${diameter_max ? `до ${diameter_max}mm`:''}`}
+  if (item === 'diametr'){
+    return `${selectedDiameter.value.diameter_min ? `от ${selectedDiameter.value.diameter_min}mm`:''}
+              ${selectedDiameter.value.diameter_min&&selectedDiameter.value.diameter_max?' - ':''}
+              ${selectedDiameter.value.diameter_max ? `до ${selectedDiameter.value.diameter_max}mm`:''}`}
   if (item === 'place'){return ''}
   if (item === 'gender'){return getGenderList.value.find(item=>item.value===selectedGender.value)?.label || ''}
   if (item === 'condition'){return getConditionList.value.find(item=>item.value===selectedCondition.value)?.label || ''}
