@@ -27,6 +27,7 @@
       </div>
     </div>
 
+    <ExpandTransition>
     <div v-show="activeFiltersTab" class="filters__window">
       <aside class="filters__sidebar">
         <div class="filters__mobile">
@@ -146,16 +147,15 @@
         </button>
       </footer>
     </div>
+    </ExpandTransition>
   </div>
 </template>
 
 <script setup>
-  import {
-    getDiameterFilterAggregation,
-    getPriceFilterAggregation
-  , getFilterObject } from "../../api/getFilterObject";
+  import {getDiameterFilterAggregation, getPriceFilterAggregation, getFilterObject } from "../../api/getFilterObject";
     import declOfNum from '~/composables/declOfNum'
   import useQueryString from '~/composables/useQueryString'
+  import ExpandTransition from "../ui/transitions/ExpandTransition";
 
   const props = defineProps({
     commonLotsCount: {

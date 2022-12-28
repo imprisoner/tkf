@@ -1,10 +1,12 @@
 <template>
   <section class="goods-section container">
+    <slide-transition>
     <SGoodSectionFiltersMobile v-if="mobileFiltersShow"
                                :common-lots-count="commonLotsCount"
                                :good-type="goodType"
                                @close="toggleMobileFilters">
     </SGoodSectionFiltersMobile>
+    </slide-transition>
     <div class="row goods-section__top">
       <div
         v-if="showFilters === true && isDesktop"
@@ -88,6 +90,7 @@
   import useSort from '~/composables/useSort'
   import usePagination from '~/composables/usePagination'
   import {isDesktop} from "@/utils/queries";
+  import SlideTransition from "../ui/transitions/SlideTransition";
 
   const mobileFiltersShow = ref(false)
   function toggleMobileFilters(){
