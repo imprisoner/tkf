@@ -248,7 +248,7 @@ const toggleFilterTab = (item) => {
 const filteredFilterTabs = computed(()=>{
   return props.goodType === 'watches' ?
     filterTabs.value.filter(tab=> {
-      return tab.value !== 'categories' || tab.value !== 'stones'
+      return tab.value !== 'category' && tab.value !== 'stones'
     }) :
     filterTabs.value.filter(tab=>tab.value!=='diametr')
 })
