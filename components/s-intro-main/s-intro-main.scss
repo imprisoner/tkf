@@ -15,10 +15,6 @@
     margin-bottom: 46px;
 
     @include max-width('lg') {
-      margin: 22px 0;
-    }
-
-    @include max-width('md') {
       display: none;
     }
   }
@@ -30,6 +26,10 @@
 
     h1 {
       margin-bottom: 24px;
+
+      @include max-width('lg') {
+        margin-top: 22px;
+      }
     }
 
     p {
