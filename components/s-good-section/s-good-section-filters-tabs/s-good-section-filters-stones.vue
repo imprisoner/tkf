@@ -16,22 +16,8 @@
 <!--        {{ popularBrand.label }}-->
 <!--      </button>-->
 <!--    </div>-->
-    <h4 v-if="isDesktop" class="filter__subtitle-two">Поиск местоположения</h4>
+    <h4 v-if="isDesktop" class="filter__subtitle-two">Все вставки</h4>
     <div class="filter__options">
-      <div class="filter__search search">
-        <div class="search input-group">
-          <input
-            id="navbar_search"
-            v-model="searchString"
-            class="input-group__field"
-            type="text"
-            placeholder="Найти лучшие в мире часы"
-          />
-          <button class="button button--square button--black" type="button">
-            <BaseIcon name="search" />
-          </button>
-        </div>
-      </div>
       <SGoodSectionCheckboxGroup
         :list="getFilteredList"
         :selected-prop="getSelected"

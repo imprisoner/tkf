@@ -221,14 +221,14 @@
     {
       label: 'Тип',
       fullLabel: 'Тип украшения',
-      value: 'categories',
-      icon: 'tag',
+      value: 'category',
+      icon: 'command',
     },
     {
-      label: 'Вставки',
-      fullLabel: 'Вставки',
+      label: 'Вставка',
+      fullLabel: 'Вставка',
       value: 'stones',
-      icon: 'tag',
+      icon: 'triangle',
     },
     {
       label: 'Цена',
@@ -413,11 +413,11 @@ const filteredFilterTabs = computed(()=>{
   const priceFiltersAggregation = ref(null)
   const diameterFiltersAggregation = ref(null)
 
-  watch(() => [selectedGender.value, selectedCondition.value, selectedDiameter.value, ...selectedBrands.value, ...selectedPlaces.value, ...selectedStones.value,, ...selectedCategories.value], async () => {
+  watch(() => [selectedGender.value, selectedCondition.value, selectedDiameter.value, ...selectedBrands.value, ...selectedPlaces.value, ...selectedStones.value, ...selectedCategories.value], async () => {
     priceFiltersAggregation.value = await getPriceFilterAggregation(props.goodType,filterParams.value).value
   }, {immediate: true})
 
-  watch(() => [selectedGender.value, selectedCondition.value, selectedPrice.value, ...selectedBrands.value, ...selectedPlaces.value, ...selectedStones.value,, ...selectedCategories.value], async () => {
+  watch(() => [selectedGender.value, selectedCondition.value, selectedPrice.value, ...selectedBrands.value, ...selectedPlaces.value, ...selectedStones.value, ...selectedCategories.value], async () => {
     if (props.goodType === 'watches') {
       diameterFiltersAggregation.value = await getDiameterFilterAggregation(props.goodType, filterParams.value).value
     }
