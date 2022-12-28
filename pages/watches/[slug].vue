@@ -238,7 +238,13 @@ const characteristics = computed(() => {
     ]
   })
   const sellerNameLink = lot._value.original_link.split('/');
-  let sellerName = lot._value.original_link.replace(/https:\/\//, '').replace(/.ru/, '').replace(/\/.*/, '').replace(/-/, ' ');
+  let sellerName = lot._value.original_link
+    .replace(/https:\/\//, '')
+    .replace(/.ru/, '')
+    .replace(/\/.*/, '')
+    .replace(/-/, ' ')
+    .replace(/Www/, '')
+    .replace(/www/, '');
   sellerName = sellerName[0].toUpperCase() + sellerName.slice(1);
 </script>
 

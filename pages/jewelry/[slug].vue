@@ -195,7 +195,8 @@
     .replace(/.ru/, '')
     .replace(/\/.*/, '')
     .replace(/-/, ' ')
-    .replace(/Wwww/, '');
+    .replace(/Www/, '')
+    .replace(/www/, '');
   sellerName = sellerName[0].toUpperCase() + sellerName.slice(1);
 </script>
 
