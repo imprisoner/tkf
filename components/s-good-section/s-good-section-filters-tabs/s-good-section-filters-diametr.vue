@@ -1,6 +1,6 @@
 <template>
   <div class="filter__main">
-    <h4 class="filter__subtitle-two">Все диаметры</h4>
+    <h4 v-if="isDesktop" class="filter__subtitle-two">Все диаметры</h4>
     <div class="filter__options">
 
       <div class="price-filter__currency">
@@ -35,6 +35,8 @@
 </template>
 
 <script setup>
+import { isDesktop } from '@/utils/queries'
+
 const props = defineProps({
   modelValue: {
     type: Object,

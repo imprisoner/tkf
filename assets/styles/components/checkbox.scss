@@ -4,7 +4,7 @@
   gap: 8px;
   user-select: none;
 
-  @include max-width('md') {
+  @include max-width('lg') {
     gap: 4px;
   }
 
@@ -24,7 +24,7 @@
       display: none;
     }
 
-    @include max-width('md') {
+    @include max-width('lg') {
       background: transparent;
       color: $light-gray;
       svg {
@@ -40,7 +40,7 @@
       color: $input;
     }
 
-    @include max-width('md') {
+    @include max-width('lg') {
       color: $input;
     }
   }
@@ -59,7 +59,7 @@
       height: 12px;
     }
 
-    @include max-width('md') {
+    @include max-width('lg') {
       background-color: transparent;
       svg {
         color: $input;
