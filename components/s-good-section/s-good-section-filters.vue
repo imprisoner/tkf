@@ -114,6 +114,18 @@
           :selected-prop="selectedPlaces"
           @update-selection="updatePlaceSelection"
         />
+        <s-good-section-filters-stones
+          v-if="content.value === 'stones' && goodType === 'jewelry'"
+          :list="getStonesList"
+          :selected-prop="selectedStones"
+          @update-selection="updateStonesSelection"
+        />
+        <s-good-section-filters-category
+          v-if="content.value === 'category' && goodType === 'jewelry'"
+          :list="getCategoryList"
+          :selected-prop="selectedCategories"
+          @update-selection="updateCategorySelection"
+        />
         <s-good-section-filters-gender
           v-if="content.value === 'gender'"
           :list="getGenderList"
@@ -153,9 +165,11 @@
 
 <script setup>
   import {getDiameterFilterAggregation, getPriceFilterAggregation, getFilterObject } from "../../api/getFilterObject";
-  import ExpandTransition from "../ui/transitions/ExpandTransition";
     import declOfNum from '~/composables/declOfNum'
   import useQueryString from '~/composables/useQueryString'
+  import ExpandTransition from "../ui/transitions/ExpandTransition";
+  import SGoodSectionFiltersStones from "./s-good-section-filters-tabs/s-good-section-filters-stones";
+  import SGoodSectionFiltersCategory from "./s-good-section-filters-tabs/s-good-section-filters-category";
 
   const props = defineProps({
     commonLotsCount: {
@@ -187,6 +201,12 @@
       return cities
     }
   )
+  const getStonesList = computed(() =>
+    filterObjects.value?.stones.map((i) => ({ value: i.id, label: i.name }))
+  )
+  const getCategoryList = computed(() =>
+    filterObjects.value?.categories.map((i) => ({ value: i.id, label: i.name }))
+  )
 
   // !-------------------------------------!
 
@@ -197,6 +217,18 @@
       fullLabel: 'Бренды',
       value: 'brand',
       icon: 'tag',
+    },
+    {
+      label: 'Тип',
+      fullLabel: 'Тип украшения',
+      value: 'category',
+      icon: 'command',
+    },
+    {
+      label: 'Вставка',
+      fullLabel: 'Вставка',
+      value: 'stones',
+      icon: 'triangle',
     },
     {
       label: 'Цена',
@@ -243,7 +275,11 @@
 
 
 const filteredFilterTabs = computed(()=>{
-  return props.goodType === 'watches' ? filterTabs.value : filterTabs.value.filter(tab=>tab.value!=='diametr')
+  return props.goodType === 'watches' ?
+    filterTabs.value.filter(tab=> {
+      return tab.value !== 'categories' || tab.value !== 'stones'
+    }) :
+    filterTabs.value.filter(tab=>tab.value!=='diametr')
 })
   // !brands filter ----------------------!
   const selectedBrands = ref([])
@@ -273,7 +309,32 @@ const filteredFilterTabs = computed(()=>{
   }
 
   // !-------------------------------------!
+  // !Categories filter ----------------------!
+  const selectedCategories = ref([])
+  if (typeof getUrlSearchParams.value.category === 'string') {
+    selectedCategories.value = [+getUrlSearchParams.value.category]
+  }
+  if (typeof getUrlSearchParams.value.category === 'object') {
+    selectedCategories.value = [...getUrlSearchParams.value.category].map((i) => +i)
+  }
+  const updateCategorySelection = (val) => {
+    selectedCategories.value = val
+  }
 
+  // !-------------------------------------!
+  // !Stones filter ----------------------!
+  const selectedStones = ref([])
+  if (typeof getUrlSearchParams.value.stone === 'string') {
+    selectedStones.value = [+getUrlSearchParams.value.stone]
+  }
+  if (typeof getUrlSearchParams.value.stone === 'object') {
+    selectedStones.value = [...getUrlSearchParams.value.stone].map((i) => +i)
+  }
+  const updateStonesSelection = (val) => {
+    selectedStones.value = val
+  }
+
+  // !-------------------------------------!
   // !gender filter ----------------------!
 
   const getGenderList = computed(() => [
@@ -336,6 +397,8 @@ const filteredFilterTabs = computed(()=>{
   const filterParams=computed(()=> ({
       brand: [...selectedBrands.value].length ? [...selectedBrands.value] : undefined,
       city_location: [...selectedPlaces.value].length ? [...selectedPlaces.value] : undefined,
+      stone: [...selectedStones.value].length ? [...selectedStones.value] : undefined,
+      category: [...selectedCategories.value].length ? [...selectedCategories.value] : undefined,
       gender: selectedGender.value || undefined,
       condition: selectedCondition.value || undefined,
       price_usd_min: selectedPrice.value.price_usd_min || undefined,
@@ -350,11 +413,11 @@ const filteredFilterTabs = computed(()=>{
   const priceFiltersAggregation = ref({})
   const diameterFiltersAggregation = ref({})
 
-  watch(() => [selectedGender.value, selectedCondition.value, selectedDiameter.value, ...selectedBrands.value, ...selectedPlaces.value], async () => {
+  watch(() => [selectedGender.value, selectedCondition.value, selectedDiameter.value, ...selectedBrands.value, ...selectedPlaces.value, ...selectedStones.value, ...selectedCategories.value], async () => {
     priceFiltersAggregation.value = await getPriceFilterAggregation(props.goodType,filterParams.value)
   }, {immediate: true})
 
-  watch(() => [selectedGender.value, selectedCondition.value, selectedPrice.value, ...selectedBrands.value, ...selectedPlaces.value], async () => {
+  watch(() => [selectedGender.value, selectedCondition.value, selectedPrice.value, ...selectedBrands.value, ...selectedPlaces.value, ...selectedStones.value, ...selectedCategories.value], async () => {
     if (props.goodType === 'watches') {
       diameterFiltersAggregation.value = await getDiameterFilterAggregation(props.goodType, filterParams.value)
     }
@@ -371,6 +434,8 @@ const filteredFilterTabs = computed(()=>{
   const resetFilters = () => {
     selectedBrands.value = []
     selectedPlaces.value = []
+    selectedCategories.value = []
+    selectedStones.value = []
     selectedGender.value = null
     selectedCondition.value = null
     selectedPrice.value = {
