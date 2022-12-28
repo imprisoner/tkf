@@ -10,6 +10,11 @@
     left: 0;
     opacity: 0;
     transition: opacity 0.8s ease;
+    padding: 30px;
+
+    @include max-width('md') {
+      padding: 16px;
+    }
   }
 
   &:hover &__img {
