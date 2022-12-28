@@ -2,16 +2,20 @@
   &__wall {
     grid-template-columns: repeat(4, 1fr);
     row-gap: 24px;
+    column-gap: 24px;
 
     @include max-width('md') {
       grid-template-columns: repeat(2, 1fr);
+      column-gap: 6px;
       row-gap: 6px;
     }
   }
 
   .card {
+    min-height: 265px;
+
     @include max-width('md') {
-      padding: 6px;
+      min-height: 141px;
     }
   }
 
