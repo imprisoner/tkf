@@ -2,7 +2,7 @@
   <div class="range-slider">
     <div class="range-slider__wrap">
       <label for="a" class="range-slider__label">{{ `${range[0]} ${currency}` }}</label>
-      <Slider v-model="localValue" :min="range[0]" :max="range[1]" :format="format" />
+      <Slider v-model="localValue" :min="range[0]" :max="range[1]" :step="step" :format="format" />
       <label for="b" class="range-slider__label">{{ `${range[1]} ${currency}` }}</label>
     </div>
   </div>
@@ -29,6 +29,14 @@
     currency:{
       type:String,
       default:'RUB'
+    },
+    toFixedDigits:{
+      type:Number,
+      default:0
+    },
+    step:{
+      type:Number,
+      default:1
     }
   })
   const emit = defineEmits(['update:modelValue'])
@@ -42,7 +50,7 @@
     },
   });
   function format(value) {
-    return value.toFixed(1)
+    return value.toFixed(props.toFixedDigits)
   }
 </script>
 

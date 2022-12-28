@@ -149,7 +149,11 @@
       }
     }
   }
-
+&__button{
+  &:hover{
+    background-color: $light-gray;
+  }
+}
   &__save {
     margin-bottom: 20px;
     margin-left: 20px;
@@ -342,7 +346,8 @@ color: #EAEAEA;
     display: grid;
     grid-template-columns: repeat(3, auto);
     gap: 9px 60px;
-
+    max-height: 300px;
+    overflow: auto;
     @include max-width('xl') {
       column-gap: 32px;
     }

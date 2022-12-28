@@ -248,7 +248,7 @@ const toggleFilterTab = (item) => {
 const filteredFilterTabs = computed(()=>{
   return props.goodType === 'watches' ?
     filterTabs.value.filter(tab=> {
-      return tab.value !== 'categories' || tab.value !== 'stones'
+      return tab.value !== 'category' && tab.value !== 'stones'
     }) :
     filterTabs.value.filter(tab=>tab.value!=='diametr')
 })
@@ -398,6 +398,7 @@ const setFilteredUrlParams = () => {
 
 const applyFilters = () => {
   setFilteredUrlParams()
+  emit('close')
 }
 
 const resetFilters = () => {
@@ -430,7 +431,7 @@ const getCounterString = computed(() =>
 </script>
 <style lang="scss" scoped>
 .filters-mobile{
-  position: absolute;
+  position: fixed;
   top:0;
   bottom: 0;
   right: 0;
