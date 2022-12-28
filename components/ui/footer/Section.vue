@@ -103,7 +103,7 @@
         padding: 12px 16px;
       }
       &--open{
-        &:after{
+        &::after{
           background: url(/assets/svg/icons/chevron-up.svg) center / cover no-repeat;
         }
       }

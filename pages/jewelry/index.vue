@@ -80,25 +80,25 @@
       name: 'Мужские',
       classname: 'col-lg-3 col-md-6 col-12',
       link: '/jewelry?gender=MALE',
-      image: '/img/stub_jewelry.jpg',
+      image: '/img/stub_jewelry_1.png',
     },
     {
       name: 'Женские',
       classname: 'col-lg-3 col-md-6 col-12',
       link: '/jewelry?gender=FEMALE',
-      image: '/img/stub_jewelry.jpg',
+      image: '/img/stub_jewelry_2.png',
     },
     {
       name: 'Новые',
       classname: 'col-lg-3 col-md-6 col-12',
       link: '/jewelry?condition=NEW',
-      image: '/img/stub_jewelry.jpg',
+      image: '/img/stub_jewelry_3.png',
     },
     {
       name: 'Подержанные',
       classname: 'col-lg-3 col-md-6 col-12',
       link: '/jewelry?condition=USED',
-      image: '/img/stub_jewelry.jpg',
+      image: '/img/stub_jewelry_4.png',
     },
   ]
 </script>
