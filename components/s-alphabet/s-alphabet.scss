@@ -29,14 +29,6 @@
         line-height: 24px;
         width: 40px;
         height: 40px;
-
-        &:first-child {
-          order: 1;
-        }
-
-        &:nth-child(7) {
-          margin-right: 40px;
-        }
       }
 
       &:hover {

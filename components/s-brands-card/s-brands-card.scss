@@ -1,6 +1,5 @@
 .brands-logo {
   &__overlay {
-    padding: 36px;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -11,10 +10,6 @@
     left: 0;
     opacity: 0;
     transition: opacity 0.8s ease;
-
-    @include max-width('md') {
-      padding: 14px;
-    }
   }
 
   &:hover &__img {
