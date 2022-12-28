@@ -32,12 +32,9 @@
               <p v-if="lot.brand">{{ lot.brand.name }}</p>
             </div>
             <h3 class="details__price">
-              ${{ Math.ceil(lot.price_usd).toString().replace(regExp, '$1 ') }}
-              <span v-if="lot.price_rub" class="details__price--gray"
-                >{{
-                  Math.ceil(lot.price_rub).toString().replace(regExp, '$1 ')
-                }}
-                ₽</span
+              <span v-if="priceUsd">${{ priceUsd }}</span>
+              <span v-if="priceRub" class="details__price--gray"
+                >{{ priceRub }} ₽</span
               >
             </h3>
             <div class="details__tags">
@@ -146,6 +143,14 @@
       lotName: lot.value.name,
       lotImage: lot.value.image,
     }),
+  })
+
+  const priceRub = computed(() => {
+    return lot.value?.price_rub ? Math.ceil(lot.value.price_rub).toString().replace(regExp, '$1 ') : ''
+  })
+
+  const priceUsd = computed(() => {
+    return lot.value?.price_usd ? Math.ceil(lot.value.price_usd).toString().replace(regExp, '$1 ') : ''
   })
 
   const gender = computed(() => {
@@ -345,8 +350,15 @@ const characteristics = computed(() => {
       &__tags {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         height: 60px;
         gap: 20px;
+
+        @include max-width('sm') {
+          .details__tag {
+            padding: 0;
+          }
+        }
 
         @include max-width('md') {
           gap: 14px;
