@@ -30,9 +30,9 @@
   const bannersTop = []
   const bannersBottom = []
   const titleOffers = 'Лучшие предложения'
-  const subtitleOffers = 'People also search for this items'
+  const subtitleOffers = ''
   const titleNew = 'Новинки'
-  const subtitleNew = 'People also search for this items'
+  const subtitleNew = ''
   const bestOffers = await getBestLots()
   const newOffers = await getNewLots()
   const mainOffers = await getMainLots()
