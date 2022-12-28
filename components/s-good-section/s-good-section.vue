@@ -44,7 +44,7 @@
         </template>
         <div
           v-else
-          class="button button--square button--gray stroked-icon filters__button"
+          class="button button--square stroked-icon filters__button"
           @click="toggleMobileFilters"
         >
           <BaseIcon name="filters" />

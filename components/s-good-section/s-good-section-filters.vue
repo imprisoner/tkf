@@ -20,7 +20,7 @@
         </button>
       </div>
       <div
-        class="button button--square button--gray stroked-icon filters__button"
+        class="button button--square stroked-icon filters__button"
         @click="toggleFilterTab(null)"
       >
         <BaseIcon name="filters" />
