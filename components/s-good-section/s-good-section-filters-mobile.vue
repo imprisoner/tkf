@@ -44,27 +44,27 @@
         </div>
 
       <s-good-section-filters-brands
-        class="filters-mobile__brand-filter"
         v-if="activeFiltersTab.value === 'brand'"
+        class="filters-mobile__brand-filter"
         :list="getBrandsList"
         :selected-prop="selectedBrands"
         @update-selection="updateBrandsSelection"
       />
       <s-good-section-filters-price
-        class="filters-mobile__price-filter"
         v-if="activeFiltersTab.value === 'price'"
         v-model="selectedPrice"
+        class="filters-mobile__price-filter"
         :aggregations="priceFiltersAggregation"
       />
       <s-good-section-filters-diametr
-        class="filters-mobile__diameter-filter"
         v-if="activeFiltersTab.value === 'diametr' && goodType === 'watches'"
         v-model="selectedDiameter"
+        class="filters-mobile__diameter-filter"
         :aggregations="diameterFiltersAggregation"
       />
       <s-good-section-filters-place
-        class="filters-mobile__place-filter"
         v-if="activeFiltersTab.value === 'place'"
+        class="filters-mobile__place-filter"
         :list="getPlacesList"
         :selected-prop="selectedPlaces"
         @update-selection="updatePlaceSelection"
@@ -105,13 +105,12 @@
 </template>
 
 <script setup>
-import { getFilterObject } from '~/api/getFilterObject'
-import declOfNum from '~/composables/declOfNum'
-import useQueryString from '~/composables/useQueryString'
 import {
   getDiameterFilterAggregation,
   getPriceFilterAggregation
-} from "../../api/getFilterObject";
+, getFilterObject } from "../../api/getFilterObject";
+import declOfNum from '~/composables/declOfNum'
+import useQueryString from '~/composables/useQueryString'
 
 const props = defineProps({
   commonLotsCount: {
@@ -133,7 +132,7 @@ const getBrandsList = computed(() =>
   filterObjects.value?.brands.map((i) => ({ value: i.id, label: i.name }))
 )
 const getPlacesList = computed(() => {
-    let cities = []
+    const cities = []
     filterObjects.value?.countries.forEach((country) => {
       country.cities.forEach((city) => {
         cities.push({ value: city.id, label:city.name})

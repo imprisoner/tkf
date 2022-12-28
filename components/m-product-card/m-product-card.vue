@@ -6,7 +6,7 @@
     <div class="button button--square button--neutral">
       <base-icon name="heart"></base-icon>
     </div>
-    <NuxtLink class="product-card__img" :to="`/${type}/${lot.slug}`">
+    <NuxtLink class="product-card__img" :to="`/${type}/${lot.slug}/`">
       <img
         class="img-resp"
         :src="lot.image || stubBrandImageUrl"
@@ -14,14 +14,14 @@
         loading="lazy"
       />
     </NuxtLink>
-    <NuxtLink :to="`/${type}/${lot.slug}`">
+    <NuxtLink :to="`/${type}/${lot.slug}/`">
       <h6 v-if="lot.brand" class="product-card__title">
         {{ lot.brand.name }}
-        <span v-if="lot.v">{{ lot.model.name }}</span>
+        <span v-if="lot.model.name">{{ lot.model.name }}</span>
       </h6>
       <h6 v-if="lot.brand_name" class="product-card__title">
         {{ lot.brand_name }}
-        <span v-if="lot.brand_name">{{ lot.model_name }}</span>
+        <span v-if="lot.model_name">{{ lot.model_name }}</span>
       </h6>
     </NuxtLink>
     <p class="product-card__desc">{{ lot.name }}</p>
@@ -39,11 +39,10 @@
     </div>
     <strong class="product-card__price">
       <span v-if="lot.price_usd" class="product-card__price-usd">
-        ${{ Math.ceil(lot.price_usd).toString().replace(regExp, '$1 ') }}
+        $ {{ Math.ceil(lot.price_usd).toString().replace(regExp, '$1 ') }}
       </span>
       <span v-if="lot.price_rub" class="product-card__price-rub">
-        {{ Math.ceil(lot.price_rub).toString().replace(regExp, '$1 ') }}
-        ₽
+        {{ Math.ceil(lot.price_rub).toString().replace(regExp, '$1 ') }} ₽
       </span>
     </strong>
   </div>

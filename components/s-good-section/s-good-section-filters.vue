@@ -153,9 +153,9 @@
 
 <script setup>
   import {getDiameterFilterAggregation, getPriceFilterAggregation, getFilterObject } from "../../api/getFilterObject";
+  import ExpandTransition from "../ui/transitions/ExpandTransition";
     import declOfNum from '~/composables/declOfNum'
   import useQueryString from '~/composables/useQueryString'
-  import ExpandTransition from "../ui/transitions/ExpandTransition";
 
   const props = defineProps({
     commonLotsCount: {
@@ -178,7 +178,7 @@
   )
 
   const getPlacesList = computed(() => {
-      let cities = []
+      const cities = []
       filterObjects.value?.countries.forEach((country) => {
         country.cities.forEach((city) => {
           cities.push({ value: city.id, label:city.name})

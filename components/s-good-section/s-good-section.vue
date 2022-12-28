@@ -1,7 +1,8 @@
 <template>
   <section class="goods-section container">
     <slide-transition>
-    <SGoodSectionFiltersMobile v-if="mobileFiltersShow"
+    <SGoodSectionFiltersMobile
+v-if="mobileFiltersShow"
                                :common-lots-count="commonLotsCount"
                                :good-type="goodType"
                                @close="toggleMobileFilters">
@@ -86,11 +87,11 @@
 
 <script setup>
   import './s-good-section.scss'
+  import SlideTransition from "../ui/transitions/SlideTransition";
   import Pagination from '~/components/Pagination.vue'
   import useSort from '~/composables/useSort'
   import usePagination from '~/composables/usePagination'
   import {isDesktop} from "@/utils/queries";
-  import SlideTransition from "../ui/transitions/SlideTransition";
 
   const mobileFiltersShow = ref(false)
   function toggleMobileFilters(){
