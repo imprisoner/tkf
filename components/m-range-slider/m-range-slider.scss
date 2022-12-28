@@ -1,5 +1,8 @@
 .range-slider {
   margin: 52px 0 79px;
+  @include max-width('lg') {
+    margin: 60px 10px 60px;
+  }
   &__wrap {
     position: relative;
   }

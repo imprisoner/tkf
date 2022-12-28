@@ -17,7 +17,7 @@
     <!--        {{ popularBrand.label }}-->
     <!--      </button>-->
     <!--    </div>-->
-    <h4 class="filter__subtitle-two">Все бренды</h4>
+    <h4 v-if="isDesktop" class="filter__subtitle-two">Все бренды</h4>
     <div class="filter__options">
       <div class="filter__search search">
         <div class="search input-group">
@@ -26,7 +26,7 @@
             v-model="searchString"
             class="input-group__field"
             type="text"
-            placeholder="Найти лучшие в мире часы"
+            placeholder="Поиск по всем брендам"
           />
           <button class="button button--square button--black" type="button">
             <BaseIcon name="search" />
@@ -43,6 +43,9 @@
 </template>
 
 <script setup>
+
+import { isDesktop } from '@/utils/queries'
+
   const props = defineProps({
     list: {
       type: Array,

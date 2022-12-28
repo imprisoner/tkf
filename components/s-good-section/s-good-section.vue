@@ -1,8 +1,13 @@
 <template>
   <section class="goods-section container">
+    <SGoodSectionFiltersMobile v-if="mobileFiltersShow"
+                               :common-lots-count="commonLotsCount"
+                               :good-type="goodType"
+                               @close="toggleMobileFilters">
+    </SGoodSectionFiltersMobile>
     <div class="row goods-section__top">
       <div
-        v-if="showFilters === true"
+        v-if="showFilters === true && isDesktop"
         class="goods-section__filters offset-lg-1 col-lg-10 col-md-12"
       >
         <SGoodSectionFilters
@@ -11,7 +16,7 @@
         />
       </div>
       <div
-        class="goods-section__sort col-md-4 offset-lg-1 col-xl-3 col-sm-6 col-12"
+        class="goods-section__sort col-md-4 offset-lg-1 col-xl-3 col-11"
       >
         <SGoodSectionSort
           :sort-types="sortTypes"
@@ -19,7 +24,8 @@
           @sort="updateOrdering"
         />
       </div>
-      <div class="goods-section__button-group offset-md-9 col-lg-2 col-md-3">
+      <div class="goods-section__button-group offset-sm-11 col-lg-2 col-md-3">
+        <template v-if="isDesktop">
         <div
           v-for="item in limits"
           :key="item"
@@ -31,6 +37,14 @@
           @click="updateLimit(item, true)"
         >
           {{ item }}
+        </div>
+        </template>
+        <div
+          v-else
+          class="button button--square button--gray stroked-icon filters__button"
+          @click="toggleMobileFilters"
+        >
+          <BaseIcon name="filters" />
         </div>
       </div>
     </div>
@@ -73,6 +87,16 @@
   import Pagination from '~/components/Pagination.vue'
   import useSort from '~/composables/useSort'
   import usePagination from '~/composables/usePagination'
+  import {isDesktop} from "@/utils/queries";
+
+  const mobileFiltersShow = ref(false)
+  function toggleMobileFilters(){
+    mobileFiltersShow.value = !mobileFiltersShow.value
+    if (mobileFiltersShow.value){
+      document.documentElement.style.overflow = 'hidden'
+    }
+    else document.documentElement.style.overflow = 'unset'
+  }
 
   const props = defineProps({
     showFilters: {

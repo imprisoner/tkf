@@ -100,12 +100,12 @@
         <s-good-section-filters-price
           v-if="content.value === 'price'"
           v-model="selectedPrice"
-          :aggregations="priceFiltersAggregation.value"
+          :aggregations="priceFiltersAggregation"
         />
         <s-good-section-filters-diametr
           v-if="content.value === 'diametr' && goodType === 'watches'"
           v-model="selectedDiameter"
-          :aggregations="diameterFiltersAggregation.value"
+          :aggregations="diameterFiltersAggregation"
         />
         <s-good-section-filters-place
           v-if="content.value === 'place'"
@@ -316,21 +316,21 @@ const filteredFilterTabs = computed(()=>{
       price_usd_max: selectedPrice.value.price_usd_max || undefined,
       price_rub_min: selectedPrice.value.price_rub_min || undefined,
       price_rub_max: selectedPrice.value.price_rub_max || undefined,
-      diameter_min: selectedDiameter.value.diameter_min || undefined,
-      diameter_max: selectedDiameter.value.diameter_max || undefined,
+      diameter_range_min: selectedDiameter.value.diameter_min || undefined,
+      diameter_range_max: selectedDiameter.value.diameter_max || undefined,
     })
   )
 
-  const priceFiltersAggregation = ref({})
-  const diameterFiltersAggregation = ref({})
+  const priceFiltersAggregation = ref(null)
+  const diameterFiltersAggregation = ref(null)
 
   watch(() => [selectedGender.value, selectedCondition.value, selectedDiameter.value, ...selectedBrands.value], async () => {
-    priceFiltersAggregation.value = await getPriceFilterAggregation(props.goodType,filterParams.value)
+    priceFiltersAggregation.value = await getPriceFilterAggregation(props.goodType,filterParams.value).value
   }, {immediate: true})
 
   watch(() => [selectedGender.value, selectedCondition.value, selectedPrice.value, ...selectedBrands.value], async () => {
     if (props.goodType === 'watches') {
-      diameterFiltersAggregation.value = await getDiameterFilterAggregation(props.goodType, filterParams.value)
+      diameterFiltersAggregation.value = await getDiameterFilterAggregation(props.goodType, filterParams.value).value
     }
     }, {immediate: true})
 
