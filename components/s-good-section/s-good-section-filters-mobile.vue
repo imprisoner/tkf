@@ -1,6 +1,6 @@
 <template>
   <div class="filters-mobile">
-    <div class="filters-mobile__close" @click="$emit('close')">
+    <div class="filters-mobile__close" @click="emit('close')">
       <BaseIcon name="x" />
     </div>
     <header class="filters-mobile__header">
@@ -122,7 +122,7 @@ const props = defineProps({
     default: 'watches',
   },
 })
-
+const emit = defineEmits(['close'])
 // data fetching-----------------------------
 const { getUrlSearchParams, setUrlSearchParams } = useQueryString()
 
@@ -134,29 +134,22 @@ const getBrandsList = computed(() =>
 
 // !-------------------------------------!
 function getMobileFilterItemValues(item){
-  switch (item){
-    case 'brand':
-      return getBrandsList.value.filter(brand => selectedBrands.value.includes(brand.value)).map((brand)=>brand.label).join(', ')
-    case 'price':
-      const {price_usd_min, price_usd_max, price_rub_min, price_rub_max} = selectedPrice.value
-      const currencyName = price_rub_min || price_rub_max ? 'Руб' : 'Usd'
-      const minVal = price_usd_min || price_rub_min
-      const maxVal = price_usd_max || price_rub_max
-      return `${minVal ? `от ${minVal} ${currencyName}`:''}
+  if (item === 'brand'){return getBrandsList.value.filter(brand => selectedBrands.value.includes(brand.value)).map((brand)=>brand.label).join(', ')}
+  if (item === 'price'){const {price_usd_min, price_usd_max, price_rub_min, price_rub_max} = selectedPrice.value
+    const currencyName = price_rub_min || price_rub_max ? 'Руб' : 'Usd'
+    const minVal = price_usd_min || price_rub_min
+    const maxVal = price_usd_max || price_rub_max
+    return `${minVal ? `от ${minVal} ${currencyName}`:''}
               ${minVal&&maxVal?' - ':''}
-              ${maxVal ? `до ${maxVal} ${currencyName}`:''}`
-    case 'diametr':
-      const {diameter_min, diameter_max} = selectedDiameter.value
-      return `${diameter_min ? `от ${diameter_min}mm`:''}
+              ${maxVal ? `до ${maxVal} ${currencyName}`:''}`}
+  if (item === 'diametr'){const {diameter_min, diameter_max} = selectedDiameter.value
+    return `${diameter_min ? `от ${diameter_min}mm`:''}
               ${diameter_min&&diameter_max?' - ':''}
-              ${diameter_max ? `до ${diameter_max}mm`:''}`
-    case 'place':
-      return ''
-    case 'gender':
-      return getGenderList.value.find(item=>item.value===selectedGender.value)?.label || ''
-    case 'condition':
-      return getConditionList.value.find(item=>item.value===selectedCondition.value)?.label || ''
-  }
+              ${diameter_max ? `до ${diameter_max}mm`:''}`}
+  if (item === 'place'){return ''}
+  if (item === 'gender'){return getGenderList.value.find(item=>item.value===selectedGender.value)?.label || ''}
+  if (item === 'condition'){return getConditionList.value.find(item=>item.value===selectedCondition.value)?.label || ''}
+  return ''
 }
 // tabs-------------------------------------
 
