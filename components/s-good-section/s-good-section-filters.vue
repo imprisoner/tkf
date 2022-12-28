@@ -27,6 +27,7 @@
       </div>
     </div>
 
+    <ExpandTransition>
     <div v-show="activeFiltersTab" class="filters__window">
       <aside class="filters__sidebar">
         <div class="filters__mobile">
@@ -109,9 +110,9 @@
         />
         <s-good-section-filters-place
           v-if="content.value === 'place'"
-          :list="getBrandsList"
-          :selected-prop="selectedBrands"
-          @update-selection="updateBrandsSelection"
+          :list="getPlacesList"
+          :selected-prop="selectedPlaces"
+          @update-selection="updatePlaceSelection"
         />
         <s-good-section-filters-gender
           v-if="content.value === 'gender'"
@@ -146,16 +147,15 @@
         </button>
       </footer>
     </div>
+    </ExpandTransition>
   </div>
 </template>
 
 <script setup>
-  import {
-    getDiameterFilterAggregation,
-    getPriceFilterAggregation
-  , getFilterObject } from "../../api/getFilterObject";
+  import {getDiameterFilterAggregation, getPriceFilterAggregation, getFilterObject } from "../../api/getFilterObject";
     import declOfNum from '~/composables/declOfNum'
   import useQueryString from '~/composables/useQueryString'
+  import ExpandTransition from "../ui/transitions/ExpandTransition";
 
   const props = defineProps({
     commonLotsCount: {
@@ -175,6 +175,17 @@
 
   const getBrandsList = computed(() =>
     filterObjects.value?.brands.map((i) => ({ value: i.id, label: i.name }))
+  )
+
+  const getPlacesList = computed(() => {
+      let cities = []
+      filterObjects.value?.countries.forEach((country) => {
+        country.cities.forEach((city) => {
+          cities.push({ value: city.id, label:city.name})
+        })
+      })
+      return cities
+    }
   )
 
   // !-------------------------------------!
@@ -249,6 +260,20 @@ const filteredFilterTabs = computed(()=>{
 
   // !-------------------------------------!
 
+  // !Place filter ----------------------!
+  const selectedPlaces = ref([])
+  if (typeof getUrlSearchParams.value.city_location === 'string') {
+    selectedPlaces.value = [+getUrlSearchParams.value.city_location]
+  }
+  if (typeof getUrlSearchParams.value.city_location === 'object') {
+    selectedPlaces.value = [...getUrlSearchParams.value.city_location].map((i) => +i)
+  }
+  const updatePlaceSelection = (val) => {
+    selectedPlaces.value = val
+  }
+
+  // !-------------------------------------!
+
   // !gender filter ----------------------!
 
   const getGenderList = computed(() => [
@@ -310,6 +335,7 @@ const filteredFilterTabs = computed(()=>{
 
   const filterParams=computed(()=> ({
       brand: [...selectedBrands.value].length ? [...selectedBrands.value] : undefined,
+      city_location: [...selectedPlaces.value].length ? [...selectedPlaces.value] : undefined,
       gender: selectedGender.value || undefined,
       condition: selectedCondition.value || undefined,
       price_usd_min: selectedPrice.value.price_usd_min || undefined,
@@ -324,11 +350,11 @@ const filteredFilterTabs = computed(()=>{
   const priceFiltersAggregation = ref(null)
   const diameterFiltersAggregation = ref(null)
 
-  watch(() => [selectedGender.value, selectedCondition.value, selectedDiameter.value, ...selectedBrands.value], async () => {
+  watch(() => [selectedGender.value, selectedCondition.value, selectedDiameter.value, ...selectedBrands.value, ...selectedPlaces.value], async () => {
     priceFiltersAggregation.value = await getPriceFilterAggregation(props.goodType,filterParams.value).value
   }, {immediate: true})
 
-  watch(() => [selectedGender.value, selectedCondition.value, selectedPrice.value, ...selectedBrands.value], async () => {
+  watch(() => [selectedGender.value, selectedCondition.value, selectedPrice.value, ...selectedBrands.value, ...selectedPlaces.value], async () => {
     if (props.goodType === 'watches') {
       diameterFiltersAggregation.value = await getDiameterFilterAggregation(props.goodType, filterParams.value).value
     }
@@ -344,6 +370,7 @@ const filteredFilterTabs = computed(()=>{
 
   const resetFilters = () => {
     selectedBrands.value = []
+    selectedPlaces.value = []
     selectedGender.value = null
     selectedCondition.value = null
     selectedPrice.value = {

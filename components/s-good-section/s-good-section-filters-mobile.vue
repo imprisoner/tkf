@@ -4,7 +4,7 @@
       <BaseIcon name="x" />
     </div>
     <header class="filters-mobile__header">
-      <span class="filters-mobile__current-page">{{activeFiltersTab?.fullLabel || 'Фильтры'}}</span>
+      <span class="filters-mobile__current-page">{{activeFiltersTab?.fullLabel || activeFiltersTab?.label || 'Фильтры'}}</span>
       <span class="filters-mobile__found-count">{{getCounterString}}</span>
     </header>
 
@@ -63,10 +63,11 @@
         :aggregations="diameterFiltersAggregation"
       />
       <s-good-section-filters-place
+        class="filters-mobile__place-filter"
         v-if="activeFiltersTab.value === 'place'"
-        :list="getBrandsList"
-        :selected-prop="selectedBrands"
-        @update-selection="updateBrandsSelection"
+        :list="getPlacesList"
+        :selected-prop="selectedPlaces"
+        @update-selection="updatePlaceSelection"
       />
       <s-good-section-filters-gender
         v-if="activeFiltersTab.value === 'gender'"
@@ -131,24 +132,33 @@ const { data: filterObjects } = await getFilterObject(props.goodType)
 const getBrandsList = computed(() =>
   filterObjects.value?.brands.map((i) => ({ value: i.id, label: i.name }))
 )
-
+const getPlacesList = computed(() => {
+    let cities = []
+    filterObjects.value?.countries.forEach((country) => {
+      country.cities.forEach((city) => {
+        cities.push({ value: city.id, label:city.name})
+      })
+    })
+    return cities
+  }
+)
 // !-------------------------------------!
 function getMobileFilterItemValues(item){
-  if (item === 'brand'){return getBrandsList.value.filter(brand => selectedBrands.value.includes(brand.value)).map((brand)=>brand.label).join(', ')}
+  if (item === 'brand'){return getBrandsList.value.filter(brand => selectedBrands.value.includes(brand.value))?.map((brand)=>brand.label).join(', ') || 'Все'}
   if (item === 'price'){
     const currencyName = selectedPrice.value.price_rub_min || selectedPrice.value.price_rub_max ? 'Руб' : 'Usd'
     const minVal = selectedPrice.value.price_usd_min || selectedPrice.value.price_rub_min
     const maxVal = selectedPrice.value.price_usd_max || selectedPrice.value.price_rub_max
-    return `${minVal ? `от ${minVal} ${currencyName}`:''}
+    return minVal||maxVal ? `${minVal ? `от ${minVal} ${currencyName}`:''}
               ${minVal&&maxVal?' - ':''}
-              ${maxVal ? `до ${maxVal} ${currencyName}`:''}`}
+              ${maxVal ? `до ${maxVal} ${currencyName}`:''}`: 'Все'}
   if (item === 'diametr'){
-    return `${selectedDiameter.value.diameter_min ? `от ${selectedDiameter.value.diameter_min}mm`:''}
+    return selectedDiameter.value.diameter_min || selectedDiameter.value.diameter_max?`${selectedDiameter.value.diameter_min ? `от ${selectedDiameter.value.diameter_min}mm`:''}
               ${selectedDiameter.value.diameter_min&&selectedDiameter.value.diameter_max?' - ':''}
-              ${selectedDiameter.value.diameter_max ? `до ${selectedDiameter.value.diameter_max}mm`:''}`}
-  if (item === 'place'){return ''}
-  if (item === 'gender'){return getGenderList.value.find(item=>item.value===selectedGender.value)?.label || ''}
-  if (item === 'condition'){return getConditionList.value.find(item=>item.value===selectedCondition.value)?.label || ''}
+              ${selectedDiameter.value.diameter_max ? `до ${selectedDiameter.value.diameter_max}mm`:''}`: 'Все'}
+  if (item === 'place'){return getPlacesList.value.filter(place => selectedPlaces.value.includes(place.value))?.map((place)=>place.label).join(', ') || 'Все'}
+  if (item === 'gender'){return getGenderList.value.find(item=>item.value===selectedGender.value)?.label || 'Все'}
+  if (item === 'condition'){return getConditionList.value.find(item=>item.value===selectedCondition.value)?.label || 'Все'}
   return ''
 }
 // tabs-------------------------------------
@@ -221,7 +231,19 @@ const updateBrandsSelection = (val) => {
 }
 
 // !-------------------------------------!
+// !Place filter ----------------------!
+const selectedPlaces = ref([])
+if (typeof getUrlSearchParams.value.city_location === 'string') {
+  selectedPlaces.value = [+getUrlSearchParams.value.city_location]
+}
+if (typeof getUrlSearchParams.value.city_location === 'object') {
+  selectedPlaces.value = [...getUrlSearchParams.value.city_location].map((i) => +i)
+}
+const updatePlaceSelection = (val) => {
+  selectedPlaces.value = val
+}
 
+// !-------------------------------------!
 // !gender filter ----------------------!
 
 const getGenderList = computed(() => [
@@ -283,6 +305,7 @@ const selectedDiameter = ref({
 
 const filterParams=computed(()=> ({
     brand: [...selectedBrands.value].length ? [...selectedBrands.value] : undefined,
+    city_location: [...selectedPlaces.value].length ? [...selectedPlaces.value] : undefined,
     gender: selectedGender.value || undefined,
     condition: selectedCondition.value || undefined,
     price_usd_min: selectedPrice.value.price_usd_min || undefined,
@@ -297,11 +320,11 @@ const filterParams=computed(()=> ({
 const priceFiltersAggregation = ref(null)
 const diameterFiltersAggregation = ref(null)
 
-watch(() => [selectedGender.value, selectedCondition.value, selectedDiameter.value, ...selectedBrands.value], async () => {
+watch(() => [selectedGender.value, selectedCondition.value, selectedDiameter.value, ...selectedBrands.value, ...selectedPlaces.value], async () => {
   priceFiltersAggregation.value = await getPriceFilterAggregation(props.goodType,filterParams.value).value
 }, {immediate: true})
 
-watch(() => [selectedGender.value, selectedCondition.value, selectedPrice.value, ...selectedBrands.value], async () => {
+watch(() => [selectedGender.value, selectedCondition.value, selectedPrice.value, ...selectedBrands.value, ...selectedPlaces.value], async () => {
   if (props.goodType === 'watches') {
     diameterFiltersAggregation.value = await getDiameterFilterAggregation(props.goodType, filterParams.value).value
   }
@@ -317,6 +340,7 @@ const applyFilters = () => {
 
 const resetFilters = () => {
   selectedBrands.value = []
+  selectedPlaces.value = []
   selectedGender.value = null
   selectedCondition.value = null
   selectedPrice.value = {
@@ -431,7 +455,7 @@ const getCounterString = computed(() =>
   &__price-filter, &__diameter-filter{
     padding: 16px 14px;
   }
-  &__brand-filter{
+  &__brand-filter, &__place-filter{
     overflow-y: auto;
   }
 &__footer{
