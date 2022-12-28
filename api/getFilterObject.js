@@ -10,7 +10,13 @@ export function getPriceFilterAggregation(slug, params) {
     query: {
       ...params,
     },
-  }).data
+  }).then((res) => {
+    if (res.data) {
+      return res.data
+    }
+
+    return res
+  })
 }
 
 export function getDiameterFilterAggregation(slug, params) {
@@ -18,5 +24,11 @@ export function getDiameterFilterAggregation(slug, params) {
     query: {
       ...params,
     },
-  }).data
+  }).then((res) => {
+    if (res.data) {
+      return res.data
+    }
+
+    return res
+  })
 }
