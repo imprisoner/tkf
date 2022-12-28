@@ -43,7 +43,7 @@
               'filters__list-item',
               { active: item === activeFiltersTab },
             ]"
-            @click="toggleFilterTab(item)"
+            @click="toggleFilterTab(item,true)"
           >
             <div class="filters__list-btn button button--text-sm">
               <BaseIcon :name="item.icon" />
@@ -259,11 +259,11 @@
 
   const activeFiltersTab = ref(null)
 
-  const toggleFilterTab = (item) => {
+  const toggleFilterTab = (item,isAsideMenu=false) => {
     if (item === null && activeFiltersTab.value === null) {
       activeFiltersTab.value = filteredFilterTabs.value[0]
     } else {
-      activeFiltersTab.value = activeFiltersTab.value === item ? null : item
+      activeFiltersTab.value = activeFiltersTab.value === item && !isAsideMenu ? null : item
     }
   }
   // !-------------------------------------!
