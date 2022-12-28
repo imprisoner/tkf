@@ -3,7 +3,7 @@
     <SCatalogTop
       :count="lotsResponse.count"
       :title="titleCatalogTop"
-      :on-show-bookmark="onShowBookmark"
+      :on-show-bookmark="false"
     />
 
     <SGoodSection
@@ -61,7 +61,6 @@
   })
 
   const titleCatalogTop = 'Все мужские часы'
-  const onShowBookmark = false
   const banners = []
   await getBanners({ page: 'WATCH' }).then((response) => {
     Object.entries(response.value).forEach((banner) => {
