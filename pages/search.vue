@@ -8,6 +8,7 @@
           : 'Ничего не найдено'
       "
       :btn-show="true"
+      :on-show-bookmark="false"
     />
     <SGoodSection
       v-show="hasResults"

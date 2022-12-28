@@ -1,6 +1,10 @@
 <template>
   <main id="goods-page" class="catalog">
-    <SCatalogTop :count="lotsResponse.count" :title="titleCatalogTop" />
+    <SCatalogTop
+      :count="lotsResponse.count"
+      :title="titleCatalogTop"
+      :on-show-bookmark="false"
+    />
 
     <SGoodSection
       :show-filters="true"

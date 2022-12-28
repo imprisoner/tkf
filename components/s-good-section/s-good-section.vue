@@ -2,10 +2,10 @@
   <section class="goods-section container">
     <slide-transition>
     <SGoodSectionFiltersMobile
-v-if="mobileFiltersShow"
-                               :common-lots-count="commonLotsCount"
-                               :good-type="goodType"
-                               @close="toggleMobileFilters">
+      v-if="mobileFiltersShow"
+      :common-lots-count="commonLotsCount"
+      :good-type="goodType"
+      @close="toggleMobileFilters">
     </SGoodSectionFiltersMobile>
     </slide-transition>
     <div class="row goods-section__top">
@@ -27,7 +27,7 @@ v-if="mobileFiltersShow"
           @sort="updateOrdering"
         />
       </div>
-      <div class="goods-section__button-group offset-sm-11 col-lg-2 col-md-3">
+      <div class="goods-section__button--group offset-md-9 col-lg-2 col-md-3">
         <template v-if="isDesktop">
         <div
           v-for="item in limits"
