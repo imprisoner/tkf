@@ -1,7 +1,7 @@
 <template>
   <section class="s-catalog-top container">
     <div class="row">
-      <div class="s-catalog-top__breadcrumbs offset-lg-1 col-lg-10 col-12">
+      <div class="s-catalog-top__breadcrumbs offset-xl-1 col-lg-10 col-12">
         <ABreadcrumbs :name="name" />
       </div>
       <MCatalogInfo
