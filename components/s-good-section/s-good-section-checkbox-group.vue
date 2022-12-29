@@ -21,38 +21,42 @@
 
 <script setup>
   import CheckboxComponent from '~/components/ui/CheckboxComponent.vue'
+  import {computed} from "vue";
 
   const props = defineProps({
     list: {
       type: Array,
       default: () => [],
     },
-    selectedProp: {
+    modelValue: {
       type: Array,
       default: () => [],
     },
   })
 
-  const selected = ref([...props.selectedProp])
+  const emit = defineEmits(['update:modelValue'])
 
-  const emit = defineEmits(['updateSelection'])
+  const selected = computed({
+    get() {
+      return props.modelValue;
+    },
+    set(newValue) {
+      emit("update:modelValue", newValue);
+    }
+  });
 
   const selectAll = () => {
     selected.value.length === props.list.length
       ? (selected.value = [])
       : (selected.value = [...props.list.map((i) => i.value)])
-
-    emit('updateSelection', selected.value)
   }
 
   const handleSelection = (item, checked) => {
-    checked
-      ? selected.value.push(item)
-      : selected.value.splice(selected.value.indexOf(item), 1)
-    emit('updateSelection', selected.value)
+    if (checked){
+      selected.value = [...selected.value,item]
+    }
+    else {
+      selected.value.splice(selected.value.indexOf(item), 1)
+    }
   }
-
-  watch(props.selectedProp, () => {
-    selected.value = props.selectedProp
-  })
 </script>

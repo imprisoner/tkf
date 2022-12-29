@@ -23,25 +23,25 @@
 </client-only>
         <fieldset class="filter__range-fields">
           <div class="input-group filter__range-input">
-            <span class="button button--square button--gray" @click="currentPriceRangeValue=[undefined,currentPriceRangeValue[1]]">min</span>
+            <span class="button button--square button--gray" @click="setCurrentPriceRangeValue(undefined,true)">min</span>
             <input
               :value="currentPriceRangeValue[0]"
               type="text"
               inputmode="number"
               :placeholder="`${priceRangeLimit[0]} ${currency.label}`"
               class="input-group__field"
-              @input="currentPriceRangeValue=[$event.target.value, currentPriceRangeValue[1]]"
+              @input="setCurrentPriceRangeValue($event.target.value, true)"
             />
           </div>
           <div class="input-group filter__range-input">
-            <span class="button button--square button--gray" @click="currentPriceRangeValue=[currentPriceRangeValue[0], undefined]">max</span>
+            <span class="button button--square button--gray" @click="setCurrentPriceRangeValue(undefined)">max</span>
             <input
               :value="currentPriceRangeValue[1]"
               type="text"
               inputmode="number"
               :placeholder="`${priceRangeLimit[1]} ${currency.label}`"
               class="input-group__field"
-              @input="currentPriceRangeValue=[currentPriceRangeValue[0],$event.target.value]"
+              @input="setCurrentPriceRangeValue($event.target.value)"
             />
           </div>
         </fieldset>
@@ -52,6 +52,11 @@
 
 <script setup>
 import { isDesktop } from '@/utils/queries'
+import { useDebounceFn } from '@vueuse/core'
+
+const setCurrentPriceRangeValue = useDebounceFn((value,min=false) => {
+  currentPriceRangeValue.value = min ? [value, currentPriceRangeValue.value[1]] : [currentPriceRangeValue.value[0],value]
+}, 1000, { maxWait: 5000 })
 
   const props = defineProps({
     modelValue: {

@@ -1,23 +1,31 @@
 <template>
   <div class="filter__main">
-<!--    <h4 class="filter__subtitle mobile-caret">Популярное местоположение</h4>-->
-<!--    <div class="filter__popular-list">-->
-<!--      <button-->
-<!--        v-for="popularBrand in getPopularBrands"-->
-<!--        :key="popularBrand"-->
-<!--        :class="[-->
-<!--          'filter__popular-item',-->
-<!--          'button',-->
-<!--          'button&#45;&#45;text-sm',-->
-<!--          'button&#45;&#45;gray',-->
-<!--        ]"-->
-<!--        type="button"-->
-<!--      >-->
-<!--        {{ popularBrand.label }}-->
-<!--      </button>-->
-<!--    </div>-->
-    <h4 v-if="isDesktop" class="filter__subtitle-two">Поиск местоположения</h4>
-    <div class="filter__options">
+    <slot name="backButtons" :activeTabs="activeTabs" :backToFilterEnter="backToFilterEnter"></slot>
+    <h4 v-show="isDesktop || !activeTabs.popular && !activeTabs.all" @click="!isDesktop && (activeTabs.popular = true)" class="filter__subtitle mobile-caret">Популярное местоположение</h4>
+    <div v-show="isDesktop || activeTabs.popular" class="filter__popular-list">
+      <button
+        v-for="popularPlace in list.slice(0,3)"
+        :key="popularPlace"
+        :class="[
+              'filter__popular-item',
+              'button',
+              'button--text-sm',
+              { 'button--gray': isDesktop && selected === popularPlace.value },
+              { active: selected.indexOf(popularPlace.value) >= 0 },
+            ]"
+        type="button"
+        @click="handleSelection(popularPlace.value,selected.indexOf(popularPlace.value) >= 0)"
+      >
+        <BaseIcon
+          v-if="!isDesktop"
+          class="filter__mobile-item-check"
+          :class="{'filter__mobile-item-check--not-active': selected.indexOf(popularPlace.value) < 0}"
+          name="check"/>
+        {{ popularPlace.label }}
+      </button>
+    </div>
+    <h4 v-show="isDesktop || !activeTabs.popular && !activeTabs.all" @click="!isDesktop && (activeTabs.all = true)" class="filter__subtitle mobile-caret" :class="{'filter__subtitle-two':isDesktop}">Поиск местоположения</h4>
+    <div v-show="isDesktop || activeTabs.all"  class="filter__options">
       <div class="filter__search search">
         <div class="search input-group">
           <input
@@ -34,8 +42,7 @@
       </div>
       <SGoodSectionCheckboxGroup
         :list="getFilteredList"
-        :selected-prop="getSelected"
-        @update-selection="updateSelection"
+        v-model="selected"
       />
   </div>
   </div>
@@ -45,39 +52,47 @@
 
 import { isDesktop } from '@/utils/queries'
 
-  const props = defineProps({
-    list: {
-      type: Array,
-      default: () => [],
-    },
-    selectedProp: {
-      type: Array,
-      default: () => [],
-    },
-  })
-
-  const emit = defineEmits(['updateSelection'])
-
-  const searchString = ref('')
-
-  const selected = ref([...props.selectedProp])
-
-  const getFilteredList = computed(() =>
-    props.list.filter((i) =>
-      i.label.toLowerCase().includes(searchString.value.toLowerCase())
-    )
-  )
-
-  const updateSelection = (val) => {
-    selected.value = val
-    emit('updateSelection', selected.value)
+const activeTabs = ref({
+  popular:false,
+  all: false
+})
+const backToFilterEnter = () => {
+  activeTabs.value.popular = false
+  activeTabs.value.all = false
+}
+const props = defineProps({
+  list: {
+    type: Array,
+    default: () => [],
+  },
+  modelValue: {
+    type: Array,
+    default: () => [],
   }
+})
 
-  const getSelected = computed(() =>
-    selected.value.filter(
-      (i) => !!getFilteredList.value.findIndex((fi) => fi.value === i)
-    )
+const handleSelection = (item, checked) => {
+  if (checked){
+    selected.value.splice(selected.value.indexOf(item), 1)
+  }
+  else {
+    selected.value = [...selected.value,item]
+  }
+}
+const emit = defineEmits(['update:modelValue'])
+const selected = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(newValue) {
+    emit("update:modelValue", newValue);
+  }
+});
+const searchString = ref('')
+
+const getFilteredList = computed(() =>
+  props.list.filter((i) =>
+    i.label.toLowerCase().includes(searchString.value.toLowerCase())
   )
-
-  watch(props.selectedProp, () => (selected.value = [...props.selectedProp]))
+)
 </script>
