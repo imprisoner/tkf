@@ -23,7 +23,7 @@
 </client-only>
         <fieldset class="filter__range-fields">
           <div class="input-group filter__range-input">
-            <span class="button button--square button--gray" @click="setCurrentPriceRangeValue(undefined,true)">min</span>
+            <span class="button button--square button--gray" @click="currentPriceRangeValue=[undefined,currentPriceRangeValue[1]]">min</span>
             <input
               :value="currentPriceRangeValue[0]"
               type="text"
@@ -34,7 +34,7 @@
             />
           </div>
           <div class="input-group filter__range-input">
-            <span class="button button--square button--gray" @click="setCurrentPriceRangeValue(undefined)">max</span>
+            <span class="button button--square button--gray" @click="currentPriceRangeValue=[currentPriceRangeValue[0], undefined]">max</span>
             <input
               :value="currentPriceRangeValue[1]"
               type="text"
