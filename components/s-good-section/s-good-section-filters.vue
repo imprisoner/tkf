@@ -43,7 +43,7 @@
               'filters__list-item',
               { active: item === activeFiltersTab },
             ]"
-            @click="toggleFilterTab(item)"
+            @click="toggleFilterTab(item,true)"
           >
             <div class="filters__list-btn button button--text-sm">
               <BaseIcon :name="item.icon" />
@@ -89,9 +89,9 @@
 
         <s-good-section-filters-brands
           v-if="content.value === 'brand'"
+          v-model="selectedBrands"
           :list="getBrandsList"
-          :selected-prop="selectedBrands"
-          @update-selection="updateBrandsSelection"
+          :popular-brands="getPopularBrandsList"
         />
         <s-good-section-filters-price
           v-if="content.value === 'price'"
@@ -105,21 +105,18 @@
         />
         <s-good-section-filters-place
           v-if="content.value === 'place'"
+          v-model="selectedPlaces"
           :list="getPlacesList"
-          :selected-prop="selectedPlaces"
-          @update-selection="updatePlaceSelection"
         />
         <s-good-section-filters-stones
           v-if="content.value === 'stones' && goodType === 'jewelry'"
-          :list="getStonesList"
-          :selected-prop="selectedStones"
-          @update-selection="updateStonesSelection"
+          v-model="selectedStones"
+         :list="getStonesList"
         />
         <s-good-section-filters-category
           v-if="content.value === 'category' && goodType === 'jewelry'"
+          v-model="selectedCategories"
           :list="getCategoryList"
-          :selected-prop="selectedCategories"
-          @update-selection="updateCategorySelection"
         />
         <s-good-section-filters-gender
           v-if="content.value === 'gender'"
@@ -161,10 +158,11 @@
 <script setup>
   import {getDiameterFilterAggregation, getPriceFilterAggregation, getFilterObject } from "../../api/getFilterObject";
   import ExpandTransition from "../ui/transitions/ExpandTransition";
+  import {getBrands} from "../../api/getBrands";
   import SGoodSectionFiltersStones from "./s-good-section-filters-tabs/s-good-section-filters-stones";
   import SGoodSectionFiltersCategory from "./s-good-section-filters-tabs/s-good-section-filters-category";
+  import declOfNum from '~/composables/declOfNum'
   import useQueryString from '~/composables/useQueryString'
-    import declOfNum from '~/composables/declOfNum'
 
   const props = defineProps({
     commonLotsCount: {
@@ -178,12 +176,19 @@
   })
 
   // data fetching-----------------------------
+
+  const popularBrandsList = await getBrands({ isShowOnMain: true, brandType: props.goodType === 'watches'? 'WATCH' : 'JEWELRY' },true)
+
   const { getUrlSearchParams, setUrlSearchParams } = useQueryString()
 
   const { data: filterObjects } = await getFilterObject(props.goodType)
 
   const getBrandsList = computed(() =>
     filterObjects.value?.brands.map((i) => ({ value: i.id, label: i.name }))
+  )
+
+  const getPopularBrandsList = computed(() =>
+    popularBrandsList.map((i) => ({ value: i.id, label: i.name }))
   )
 
   const getPlacesList = computed(() => {
@@ -259,11 +264,11 @@
 
   const activeFiltersTab = ref(null)
 
-  const toggleFilterTab = (item) => {
+  const toggleFilterTab = (item,isAsideMenu=false) => {
     if (item === null && activeFiltersTab.value === null) {
       activeFiltersTab.value = filteredFilterTabs.value[0]
     } else {
-      activeFiltersTab.value = activeFiltersTab.value === item ? null : item
+      activeFiltersTab.value = activeFiltersTab.value === item && !isAsideMenu ? null : item
     }
   }
   // !-------------------------------------!
@@ -285,10 +290,6 @@
     selectedBrands.value = [...getUrlSearchParams.value.brand].map((i) => +i)
   }
 
-  const updateBrandsSelection = (val) => {
-    selectedBrands.value = val
-  }
-
   // !-------------------------------------!
 
   // !Place filter ----------------------!
@@ -298,9 +299,6 @@
   }
   if (typeof getUrlSearchParams.value.city_location === 'object') {
     selectedPlaces.value = [...getUrlSearchParams.value.city_location].map((i) => +i)
-  }
-  const updatePlaceSelection = (val) => {
-    selectedPlaces.value = val
   }
 
   // !-------------------------------------!
@@ -312,9 +310,6 @@
   if (typeof getUrlSearchParams.value.category === 'object') {
     selectedCategories.value = [...getUrlSearchParams.value.category].map((i) => +i)
   }
-  const updateCategorySelection = (val) => {
-    selectedCategories.value = val
-  }
 
   // !-------------------------------------!
   // !Stones filter ----------------------!
@@ -324,9 +319,6 @@
   }
   if (typeof getUrlSearchParams.value.stone === 'object') {
     selectedStones.value = [...getUrlSearchParams.value.stone].map((i) => +i)
-  }
-  const updateStonesSelection = (val) => {
-    selectedStones.value = val
   }
 
   // !-------------------------------------!

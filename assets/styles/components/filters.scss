@@ -30,7 +30,7 @@
   &__tab {
     flex: 1;
     height: 44px;
-    padding: unset;
+    //padding: unset;
     padding: 0 20px;
     border-left: $border;
 
@@ -252,7 +252,8 @@
   &__subtitle {
     margin-bottom: 24px;
 
-    @include max-width('md') {
+    @include max-width('lg') {
+      cursor: pointer;
       margin-bottom: unset;
       padding: 12px 14px;
       border-bottom: $border;
@@ -267,7 +268,7 @@
   }
 
   &__subtitle.show-menu {
-    @include max-width('md') {
+    @include max-width('lg') {
       &::after {
         transform: rotate(0);
       }
@@ -353,6 +354,7 @@ color: #EAEAEA;
     }
 
     @include max-width('lg') {
+      max-height: unset;
       grid-template-columns: auto;
       gap: unset;
     }

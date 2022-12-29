@@ -1,24 +1,31 @@
 <template>
   <div class="filter__main">
-    <!--    <h4 class="filter__subtitle mobile-caret">Популярные бренды</h4>-->
-    <!--    <div class="filter__popular-list">-->
-    <!--      <button-->
-    <!--        v-for="popularBrand in getPopularBrands"-->
-    <!--        :key="popularBrand"-->
-    <!--        :class="[-->
-    <!--          'filter__popular-item',-->
-    <!--          'button',-->
-    <!--          'button&#45;&#45;text-sm',-->
-    <!--          'button&#45;&#45;gray',-->
-    <!--          { active: selected.indexOf(popularBrand.value) >= 0 },-->
-    <!--        ]"-->
-    <!--        type="button"-->
-    <!--      >-->
-    <!--        {{ popularBrand.label }}-->
-    <!--      </button>-->
-    <!--    </div>-->
-    <h4 v-if="isDesktop" class="filter__subtitle-two">Все бренды</h4>
-    <div class="filter__options">
+      <slot name="backButtons" :active-tabs="activeTabs" :back-to-filter-enter="backToFilterEnter"></slot>
+      <h4 v-show="isDesktop || !activeTabs.popular && !activeTabs.all" class="filter__subtitle mobile-caret" @click="!isDesktop && (activeTabs.popular = true)">Популярные бренды</h4>
+        <div v-show="isDesktop || activeTabs.popular" class="filter__popular-list">
+          <button
+            v-for="popularBrand in popularBrands"
+            :key="popularBrand"
+            :class="[
+              'filter__popular-item',
+              'button',
+              'button--text-sm',
+              { 'button--gray': isDesktop && selected === popularBrand.value },
+              { active: selected.indexOf(popularBrand.value) >= 0 },
+            ]"
+            type="button"
+            @click="handleSelection(popularBrand.value,selected.indexOf(popularBrand.value) >= 0)"
+          >
+            <BaseIcon
+              v-if="!isDesktop"
+              class="filter__mobile-item-check"
+              :class="{'filter__mobile-item-check--not-active': selected.indexOf(popularBrand.value) < 0}"
+              name="check"/>
+            {{ popularBrand.label }}
+          </button>
+        </div>
+    <h4 v-show="isDesktop || !activeTabs.popular && !activeTabs.all" class="filter__subtitle mobile-caret" :class="{'filter__subtitle-two':isDesktop}" @click="!isDesktop && (activeTabs.all = true)">Все бренды</h4>
+    <div v-show="isDesktop || activeTabs.all"  class="filter__options">
       <div class="filter__search search">
         <div class="search input-group">
           <input
@@ -34,9 +41,8 @@
         </div>
       </div>
       <SGoodSectionCheckboxGroup
+        v-model="selected"
         :list="getFilteredList"
-        :selected-prop="getSelected"
-        @update-selection="updateSelection"
       />
     </div>
   </div>
@@ -46,39 +52,52 @@
 
 import { isDesktop } from '@/utils/queries'
 
+const activeTabs = ref({
+  popular:false,
+  all: false
+})
+
   const props = defineProps({
     list: {
       type: Array,
       default: () => [],
     },
-    selectedProp: {
+    modelValue: {
+      type: Array,
+      default: () => [],
+    },
+    popularBrands: {
       type: Array,
       default: () => [],
     },
   })
 
-  const emit = defineEmits(['updateSelection'])
-
+const backToFilterEnter = () => {
+  activeTabs.value.popular = false
+  activeTabs.value.all = false
+}
+const handleSelection = (item, checked) => {
+  if (checked){
+    selected.value.splice(selected.value.indexOf(item), 1)
+  }
+  else {
+    selected.value = [...selected.value,item]
+  }
+}
+  const emit = defineEmits(['update:modelValue'])
+  const selected = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(newValue) {
+    emit("update:modelValue", newValue);
+  }
+});
   const searchString = ref('')
-
-  const selected = ref([...props.selectedProp])
 
   const getFilteredList = computed(() =>
     props.list.filter((i) =>
       i.label.toLowerCase().includes(searchString.value.toLowerCase())
     )
   )
-
-  const updateSelection = (val) => {
-    selected.value = val
-    emit('updateSelection', selected.value)
-  }
-
-  const getSelected = computed(() =>
-    selected.value.filter(
-      (i) => !!getFilteredList.value.findIndex((fi) => fi.value === i)
-    )
-  )
-
-  watch(props.selectedProp, () => (selected.value = [...props.selectedProp]))
 </script>

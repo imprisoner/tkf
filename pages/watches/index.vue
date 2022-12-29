@@ -60,7 +60,7 @@
     lotsResponse.value = data.value
   })
 
-  const titleCatalogTop = 'Все мужские часы'
+  const titleCatalogTop = 'Швейцарские часы'
   const banners = []
   await getBanners({ page: 'WATCH' }).then((response) => {
     Object.entries(response.value).forEach((banner) => {

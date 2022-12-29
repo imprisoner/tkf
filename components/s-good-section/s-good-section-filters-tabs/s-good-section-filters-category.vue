@@ -19,9 +19,8 @@
     <h4 v-if="isDesktop" class="filter__subtitle-two">Выберите тип</h4>
     <div class="filter__options">
       <SGoodSectionCheckboxGroup
+        v-model="selected"
         :list="getFilteredList"
-        :selected-prop="getSelected"
-        @update-selection="updateSelection"
       />
   </div>
   </div>
@@ -31,39 +30,32 @@
 
 import { isDesktop } from '@/utils/queries'
 
-  const props = defineProps({
-    list: {
-      type: Array,
-      default: () => [],
-    },
-    selectedProp: {
-      type: Array,
-      default: () => [],
-    },
-  })
+const props = defineProps({
+  list: {
+    type: Array,
+    default: () => [],
+  },
+  modelValue: {
+    type: Array,
+    default: () => [],
+  }
+})
 
-  const emit = defineEmits(['updateSelection'])
+const emit = defineEmits(['update:modelValue'])
 
-  const searchString = ref('')
-
-  const selected = ref([...props.selectedProp])
+const selected = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(newValue) {
+    emit("update:modelValue", newValue);
+  }
+});
+const searchString = ref('')
 
   const getFilteredList = computed(() =>
     props.list.filter((i) =>
       i.label.toLowerCase().includes(searchString.value.toLowerCase())
     )
   )
-
-  const updateSelection = (val) => {
-    selected.value = val
-    emit('updateSelection', selected.value)
-  }
-
-  const getSelected = computed(() =>
-    selected.value.filter(
-      (i) => !!getFilteredList.value.findIndex((fi) => fi.value === i)
-    )
-  )
-
-  watch(props.selectedProp, () => (selected.value = [...props.selectedProp]))
 </script>

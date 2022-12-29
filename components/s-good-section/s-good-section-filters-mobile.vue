@@ -34,22 +34,30 @@
       v-else
       class="filters-mobile__category-page"
     >
-      <div v-if="false" class="filters-mobile__backdrop-home button button--text-sm filters-mobile__list-item" @click="toggleFilterTab(null)">
-        <BaseIcon name="home" />
-        <span>К фильтрам</span>
-      </div>
-        <div class="filters-mobile__backdrop button button--text-sm filters-mobile__list-item" @click="toggleFilterTab(null)">
+        <div v-if="!['brand','place', 'stones'].includes(activeFiltersTab.value)" class="filters-mobile__backdrop button button--text-sm filters-mobile__list-item" @click="toggleFilterTab(null)">
           <BaseIcon name="chevron-left" />
           <span>Назад</span>
         </div>
 
       <s-good-section-filters-brands
         v-if="activeFiltersTab.value === 'brand'"
+        v-model="selectedBrands"
         class="filters-mobile__brand-filter"
         :list="getBrandsList"
-        :selected-prop="selectedBrands"
-        @update-selection="updateBrandsSelection"
-      />
+        :popular-brands="getPopularBrandsList"
+      >
+        <template #backButtons="{activeTabs:{popular,all}, backToFilterEnter}">
+        <div v-if="popular || all" class="filters-mobile__backdrop-home button button--text-sm filters-mobile__list-item" @click="toggleFilterTab(null)">
+          <BaseIcon name="home" />
+          <span>К фильтрам</span>
+        </div>
+        <div class="filters-mobile__backdrop button button--text-sm filters-mobile__list-item" @click="popular || all ? backToFilterEnter() : toggleFilterTab(null)">
+          <BaseIcon name="chevron-left" />
+          <span>Назад</span>
+        </div>
+        </template>
+      </s-good-section-filters-brands>
+
       <s-good-section-filters-price
         v-if="activeFiltersTab.value === 'price'"
         v-model="selectedPrice"
@@ -64,22 +72,42 @@
       />
       <s-good-section-filters-place
         v-if="activeFiltersTab.value === 'place'"
+        v-model="selectedPlaces"
         class="filters-mobile__place-filter"
         :list="getPlacesList"
-        :selected-prop="selectedPlaces"
-        @update-selection="updatePlaceSelection"
-      />
+       >
+        <template #backButtons="{activeTabs:{popular,all}, backToFilterEnter}">
+          <div v-if="popular || all" class="filters-mobile__backdrop-home button button--text-sm filters-mobile__list-item" @click="toggleFilterTab(null)">
+            <BaseIcon name="home" />
+            <span>К фильтрам</span>
+          </div>
+          <div class="filters-mobile__backdrop button button--text-sm filters-mobile__list-item" @click="popular || all ? backToFilterEnter() : toggleFilterTab(null)">
+            <BaseIcon name="chevron-left" />
+            <span>Назад</span>
+          </div>
+        </template>
+      </s-good-section-filters-place>
       <s-good-section-filters-stones
         v-if="activeFiltersTab.value === 'stones' && goodType === 'jewelry'"
+        v-model="selectedStones"
+        class="filters-mobile__stone-filter"
         :list="getStonesList"
-        :selected-prop="selectedStones"
-        @update-selection="updateStonesSelection"
-      />
+      >
+        <template #backButtons="{activeTabs:{popular,all}, backToFilterEnter}">
+          <div v-if="popular || all" class="filters-mobile__backdrop-home button button--text-sm filters-mobile__list-item" @click="toggleFilterTab(null)">
+            <BaseIcon name="home" />
+            <span>К фильтрам</span>
+          </div>
+          <div class="filters-mobile__backdrop button button--text-sm filters-mobile__list-item" @click="popular || all ? backToFilterEnter() : toggleFilterTab(null)">
+            <BaseIcon name="chevron-left" />
+            <span>Назад</span>
+          </div>
+        </template>
+      </s-good-section-filters-stones>
       <s-good-section-filters-category
         v-if="activeFiltersTab.value === 'category' && goodType === 'jewelry'"
+        v-model="selectedCategories"
         :list="getCategoryList"
-        :selected-prop="selectedCategories"
-        @update-selection="updateCategorySelection"
       />
       <s-good-section-filters-gender
         v-if="activeFiltersTab.value === 'gender'"
@@ -121,6 +149,7 @@ import {
   getDiameterFilterAggregation,
   getPriceFilterAggregation
 , getFilterObject } from "../../api/getFilterObject";
+import {getBrands} from "../../api/getBrands";
 import declOfNum from '~/composables/declOfNum'
 import useQueryString from '~/composables/useQueryString'
 
@@ -136,6 +165,8 @@ const props = defineProps({
 })
 const emit = defineEmits(['close'])
 // data fetching-----------------------------
+const popularBrandsList = await getBrands({ isShowOnMain: true, brandType: props.goodType === 'watches'? 'WATCH' : 'JEWELRY' },true)
+
 const { getUrlSearchParams, setUrlSearchParams } = useQueryString()
 
 const { data: filterObjects } = await getFilterObject(props.goodType)
@@ -143,6 +174,11 @@ const { data: filterObjects } = await getFilterObject(props.goodType)
 const getBrandsList = computed(() =>
   filterObjects.value?.brands.map((i) => ({ value: i.id, label: i.name }))
 )
+
+const getPopularBrandsList = computed(() =>
+  popularBrandsList.map((i) => ({ value: i.id, label: i.name }))
+)
+
 const getPlacesList = computed(() => {
     const cities = []
     filterObjects.value?.countries.forEach((country) => {
@@ -261,10 +297,6 @@ if (typeof getUrlSearchParams.value.brand === 'object') {
   selectedBrands.value = [...getUrlSearchParams.value.brand].map((i) => +i)
 }
 
-const updateBrandsSelection = (val) => {
-  selectedBrands.value = val
-}
-
 // !-------------------------------------!
 // !Place filter ----------------------!
 const selectedPlaces = ref([])
@@ -274,9 +306,6 @@ if (typeof getUrlSearchParams.value.city_location === 'string') {
 if (typeof getUrlSearchParams.value.city_location === 'object') {
   selectedPlaces.value = [...getUrlSearchParams.value.city_location].map((i) => +i)
 }
-const updatePlaceSelection = (val) => {
-  selectedPlaces.value = val
-}
 // !Categories filter ----------------------!
 const selectedCategories = ref([])
 if (typeof getUrlSearchParams.value.category === 'string') {
@@ -284,9 +313,6 @@ if (typeof getUrlSearchParams.value.category === 'string') {
 }
 if (typeof getUrlSearchParams.value.category === 'object') {
   selectedCategories.value = [...getUrlSearchParams.value.category].map((i) => +i)
-}
-const updateCategorySelection = (val) => {
-  selectedCategories.value = val
 }
 
 // !-------------------------------------!
@@ -297,9 +323,6 @@ if (typeof getUrlSearchParams.value.stone === 'string') {
 }
 if (typeof getUrlSearchParams.value.stone === 'object') {
   selectedStones.value = [...getUrlSearchParams.value.stone].map((i) => +i)
-}
-const updateStonesSelection = (val) => {
-  selectedStones.value = val
 }
 
 // !-------------------------------------!
@@ -520,7 +543,9 @@ const getCounterString = computed(() =>
   &__price-filter, &__diameter-filter{
     padding: 16px 14px;
   }
-  &__brand-filter, &__place-filter{
+  &__brand-filter, &__place-filter, &__stone-filter{
+    display: flex;
+    flex-direction: column;
     overflow-y: auto;
   }
 &__footer{

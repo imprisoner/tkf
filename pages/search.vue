@@ -11,7 +11,6 @@
       :on-show-bookmark="false"
     />
     <SGoodSection
-      v-show="hasResults"
       :lots-list="lotsResponse.results"
       :common-lots-count="lotsResponse.count"
     />

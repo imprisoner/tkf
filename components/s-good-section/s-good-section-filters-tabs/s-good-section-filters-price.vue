@@ -30,7 +30,7 @@
               inputmode="number"
               :placeholder="`${priceRangeLimit[0]} ${currency.label}`"
               class="input-group__field"
-              @input="currentPriceRangeValue=[$event.target.value, currentPriceRangeValue[1]]"
+              @input="setCurrentPriceRangeValue($event.target.value, true)"
             />
           </div>
           <div class="input-group filter__range-input">
@@ -41,7 +41,7 @@
               inputmode="number"
               :placeholder="`${priceRangeLimit[1]} ${currency.label}`"
               class="input-group__field"
-              @input="currentPriceRangeValue=[currentPriceRangeValue[0],$event.target.value]"
+              @input="setCurrentPriceRangeValue($event.target.value)"
             />
           </div>
         </fieldset>
@@ -51,7 +51,12 @@
 </template>
 
 <script setup>
+import { useDebounceFn } from '@vueuse/core'
 import { isDesktop } from '@/utils/queries'
+
+const setCurrentPriceRangeValue = useDebounceFn((value,min=false) => {
+  currentPriceRangeValue.value = min ? [value, currentPriceRangeValue.value[1]] : [currentPriceRangeValue.value[0],value]
+}, 1000, { maxWait: 5000 })
 
   const props = defineProps({
     modelValue: {
