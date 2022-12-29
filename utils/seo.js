@@ -1,3 +1,5 @@
+const { public: { apiBase: baseUrl } } = useRuntimeConfig();
+
 export function getLotDynamicSeo({lotType, lotName, lotImage}){
     return {
         title: `Купить ${lotType} ${lotName} в ломбарде | TimeKeeper`,
@@ -16,7 +18,7 @@ export function getLotDynamicSeo({lotType, lotName, lotImage}){
             },
             {
                 name: 'og:image',
-                content: `${lotImage || '/img/brand_stub.png'}`
+                content: `${baseUrl}/${lotImage || '/img/brand_stub.png'}`
             }
         ]
     }
