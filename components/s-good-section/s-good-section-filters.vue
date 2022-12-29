@@ -161,7 +161,7 @@
   import {getBrands} from "../../api/getBrands";
   import SGoodSectionFiltersStones from "./s-good-section-filters-tabs/s-good-section-filters-stones";
   import SGoodSectionFiltersCategory from "./s-good-section-filters-tabs/s-good-section-filters-category";
-    import declOfNum from '~/composables/declOfNum'
+  import declOfNum from '~/composables/declOfNum'
   import useQueryString from '~/composables/useQueryString'
 
   const props = defineProps({
