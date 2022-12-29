@@ -34,7 +34,7 @@ export default defineNuxtConfig({
   // build: {
   //   transpile: ['swiper']
   // },
-  modules: ['@nuxtjs/device', '@vueuse/nuxt'],
+  modules: ['@nuxtjs/device', '@vueuse/nuxt','yandex-metrika-module-nuxt3'],
   device: {
     refreshOnResize: true,
   },
@@ -43,6 +43,10 @@ export default defineNuxtConfig({
     apiSecret: '123',
     // Public keys that are exposed to the client
     public: {
+      yandexMetrika: {
+        id: process.env.NODE_ENV === 'production'
+          ? '91882101' : '91891548'
+      },
       apiBase:
         process.env.NODE_ENV === 'production'
           ? `${process.env.VUE_APP_BASE_URL}/api/v1`
