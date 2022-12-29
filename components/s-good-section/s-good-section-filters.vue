@@ -160,11 +160,11 @@
 
 <script setup>
   import {getDiameterFilterAggregation, getPriceFilterAggregation, getFilterObject } from "../../api/getFilterObject";
-    import declOfNum from '~/composables/declOfNum'
-  import useQueryString from '~/composables/useQueryString'
   import ExpandTransition from "../ui/transitions/ExpandTransition";
   import SGoodSectionFiltersStones from "./s-good-section-filters-tabs/s-good-section-filters-stones";
   import SGoodSectionFiltersCategory from "./s-good-section-filters-tabs/s-good-section-filters-category";
+  import useQueryString from '~/composables/useQueryString'
+    import declOfNum from '~/composables/declOfNum'
 
   const props = defineProps({
     commonLotsCount: {

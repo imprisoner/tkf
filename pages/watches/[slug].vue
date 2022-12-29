@@ -6,22 +6,40 @@
         <div
           class="lot__imagebox imagebox offset-lg-1 col-lg-5 col-md-6 col-12"
         >
-          <div class="imagebox__image">
-            <div v-if="lot.condition == 'NEW'" class="new new--lot">Абсолютно новые</div>
+          <swiper v-if="lot.additional_images.length" :modules="[Thumbs]" :thumbs="{ swiper: thumbsSwiper }">
+            <swiper-slide v-for="(item, index) in lot.additional_images" :key="index">
+              <div class="imagebox__image">
+                <div v-if="lot.condition == 'NEW'" class="new new--lot">Абсолютно новые</div>
+                <img
+                  class="img-resp"
+                  :src="item.image || stubBrandImageUrl"
+                  alt=""
+                />
+              </div>
+            </swiper-slide>
+          </swiper>
+          <div v-else class="imagebox__image">
             <img
               class="img-resp"
               :src="lot.image || stubBrandImageUrl"
               alt=""
             />
           </div>
-          <div class="imagebox__thumbnails">
-            <div class="imagebox__thumb">
+          <swiper v-if="lot.additional_images.length" v-bind="swiperOptions" :modules="[Thumbs]" watch-slides-progress @swiper="setThumbsSwiper">
+            <swiper-slide v-for="(item, index) in lot.additional_images" :key="index" class="imagebox__thumb">
               <img
                 class="img-resp"
-                :src="lot.image || stubBrandImageUrl"
+                :src="item.image || stubBrandImageUrl"
                 alt=""
               />
-            </div>
+            </swiper-slide>
+          </swiper>
+          <div v-else class="imagebox__thumb">
+            <img
+              class="img-resp"
+              :src="lot.image || stubBrandImageUrl"
+              alt=""
+            />
           </div>
         </div>
         <div class="lot__details details offset-lg-7 col-lg-5 col-xl-4 col-12">
@@ -132,8 +150,24 @@
 </template>
 
 <script setup>
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+  import { ref } from 'vue';
+  import { Thumbs } from 'swiper';
   import useSeo from '../../composables/useSeo'
 
+  const swiperOptions = {
+    slidesPerView: 'auto',
+    spaceBetween: 8,
+    breakpoints: {
+      768: {
+        spaceBetween: 30,
+      }
+    }
+  }
+  const thumbsSwiper = ref(null);
+  const setThumbsSwiper = (swiper) => {
+    thumbsSwiper.value = swiper;
+  };
   const regExp = /(\d)(?=(\d\d\d)+([^\d]|$))/g
   const config = useRuntimeConfig()
   const { slug } = useRoute().params
@@ -239,12 +273,12 @@ const characteristics = computed(() => {
   })
   const sellerNameLink = lot._value.original_link.split('/');
   let sellerName = lot._value.original_link
-    .replace(/https:\/\//, '')
+  .replace(/https:\/\//, '')
     .replace(/.ru/, '')
     .replace(/\/.*/, '')
-    .replace(/-/, ' ')
-    .replace(/Www/, '')
-    .replace(/www/, '');
+    .replace(/Www./, '')
+    .replace(/www./, '')
+    .replace(/-/, ' ');
   sellerName = sellerName[0].toUpperCase() + sellerName.slice(1);
 </script>
 
@@ -301,8 +335,13 @@ const characteristics = computed(() => {
       }
 
       &__thumb {
+        max-width: 110px;
         aspect-ratio: 1 / 1;
         background-color: $shadow;
+        
+        @include max-width('md') {
+          max-width: 60px;
+        }
       }
     }
 
