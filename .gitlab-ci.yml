@@ -50,6 +50,7 @@ build-develop:
     - >
       docker build
       --build-arg VUE_APP_BASE_URL="$DEV_API_BASE_URL"
+      --build-arg VUE_APP_Y_METRIK_KEY="$DEV_Y_METRIK_KEY"
       --pull -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:develop-latest"
       . -f ./Dockerfile
     - docker push "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:develop-latest"
@@ -63,6 +64,7 @@ build-master:
     - >
       docker build
       --build-arg VUE_APP_BASE_URL="$PROD_API_BASE_URL"
+      --build-arg VUE_APP_Y_METRIK_KEY="$PROD_Y_METRIK_KEY"
       --pull -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:master-latest"
       . -f ./Dockerfile
     - docker push "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/client:master-latest"
