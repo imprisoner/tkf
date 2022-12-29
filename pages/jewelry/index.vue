@@ -7,11 +7,14 @@
     />
 
     <SGoodSection
+      v-if="lotsResponse.results != '' && lotsResponse.results"
       :show-filters="true"
       :lots-list="lotsResponse.results"
       :common-lots-count="lotsResponse.count"
       good-type="jewelry"
     />
+
+    <SGoodSectionEmpty v-else/>
 
     <SAdsSection :banners="banners" />
 

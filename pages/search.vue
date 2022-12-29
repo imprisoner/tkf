@@ -12,9 +12,11 @@
     />
     <SGoodSection
       v-show="hasResults"
+      v-if="hasResults"
       :lots-list="lotsResponse.results"
       :common-lots-count="lotsResponse.count"
     />
+    <SGoodSectionEmpty v-else/>
   </main>
 </template>
 
