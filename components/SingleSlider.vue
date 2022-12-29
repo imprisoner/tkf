@@ -1,6 +1,6 @@
 <template>
   <swiper
-    v-if="slides"
+    v-if="slides && slides != ''"
     class="single-slider"
     v-bind="swiperConfig"
     @real-index-change="onIndexChange"

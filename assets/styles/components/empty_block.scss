@@ -1,0 +1,30 @@
+.empty-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &__image {
+    margin-bottom: 32px;
+
+    @include min-width('md') {
+      margin-bottom: 60px;
+    }
+
+    svg {
+      width: 383px;
+      height: auto;
+      max-width: 100%;
+    }
+  }
+
+  &__title {
+    font-family: 'Montserrat';
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 21px;
+    text-align: center;
+    color: #6e6b7b;
+    font-style: normal;
+  }
+}
