@@ -2,6 +2,9 @@
 import svgLoader from 'vite-svg-loader'
 import { defineNuxtConfig } from 'nuxt/config'
 
+const Y_METRIK_KEY_PROD = '91882101'
+const Y_METRIK_KEY_TEST = '91891548'
+
 export default defineNuxtConfig({
   css: ['~/assets/styles/main.scss', 'swiper/scss', 'swiper/scss/scrollbar'],
   ssr: true,
@@ -50,7 +53,7 @@ export default defineNuxtConfig({
 
       yandexMetrika: {
         id: process.env.NODE_ENV === 'production'
-          ? '91882101' : '91891548'
+          ? Y_METRIK_KEY_PROD : Y_METRIK_KEY_TEST
       },
       apiBase:
         process.env.NODE_ENV === 'production'
