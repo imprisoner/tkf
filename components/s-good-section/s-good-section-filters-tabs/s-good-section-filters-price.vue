@@ -51,8 +51,8 @@
 </template>
 
 <script setup>
-import { isDesktop } from '@/utils/queries'
 import { useDebounceFn } from '@vueuse/core'
+import { isDesktop } from '@/utils/queries'
 
 const setCurrentPriceRangeValue = useDebounceFn((value,min=false) => {
   currentPriceRangeValue.value = min ? [value, currentPriceRangeValue.value[1]] : [currentPriceRangeValue.value[0],value]

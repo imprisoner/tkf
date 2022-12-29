@@ -20,8 +20,8 @@
 </template>
 
 <script setup>
-  import CheckboxComponent from '~/components/ui/CheckboxComponent.vue'
   import {computed} from "vue";
+  import CheckboxComponent from '~/components/ui/CheckboxComponent.vue'
 
   const props = defineProps({
     list: {

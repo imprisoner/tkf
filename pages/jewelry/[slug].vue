@@ -74,7 +74,7 @@
                 <p class="features__prop"> {{ characteristic.text }} </p>
                 <div class="features__vals">
                   <p v-for="(stone, idx) in characteristic.value" :key="idx" class="features__val">
-                    {{ stone }}
+                    {{ stone.name }}
                   </p>
                 </div>
               </template>
@@ -194,9 +194,9 @@
     .replace(/https:\/\//, '')
     .replace(/.ru/, '')
     .replace(/\/.*/, '')
-    .replace(/-/, ' ')
-    .replace(/Www/, '')
-    .replace(/www/, '');
+    .replace(/Www./, '')
+    .replace(/www./, '')
+    .replace(/-/, ' ');
   sellerName = sellerName[0].toUpperCase() + sellerName.slice(1);
 </script>
 

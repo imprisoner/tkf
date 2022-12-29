@@ -54,7 +54,10 @@
 
     <div class="row">
       <div class="offset-lg-1 col-lg-10 col-12">
-        <div class="goods-section__wall">
+        <div
+          v-if="lotsList != ''"
+          class="goods-section__wall"
+          >
           <div
             v-for="lot in lotsList"
             :key="lot.id"
@@ -63,6 +66,7 @@
             <m-product-card :lot="lot" />
           </div>
         </div>
+        <SGoodSectionEmpty v-else/>
       </div>
     </div>
 
