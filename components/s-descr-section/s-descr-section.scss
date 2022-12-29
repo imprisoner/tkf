@@ -36,6 +36,10 @@
       gap: 24px;
     }
 
+    @include max-width('md') {
+      gap: 8px;
+    }
+
     p,
     small {
       color: $input;
@@ -68,7 +72,7 @@
 
   .logo {
     @include max-width('md') {
-      font-size: 12px;
+      font-size: 15px;
       line-height: 15px;
       margin-bottom: 8px;
     }
