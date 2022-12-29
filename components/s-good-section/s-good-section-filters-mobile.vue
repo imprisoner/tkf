@@ -41,9 +41,9 @@
 
       <s-good-section-filters-brands
         v-if="activeFiltersTab.value === 'brand'"
+        v-model="selectedBrands"
         class="filters-mobile__brand-filter"
         :list="getBrandsList"
-        v-model="selectedBrands"
         :popular-brands="getPopularBrandsList"
       >
         <template #backButtons="{activeTabs:{popular,all}, backToFilterEnter}">
@@ -72,9 +72,9 @@
       />
       <s-good-section-filters-place
         v-if="activeFiltersTab.value === 'place'"
+        v-model="selectedPlaces"
         class="filters-mobile__place-filter"
         :list="getPlacesList"
-        v-model="selectedPlaces"
        >
         <template #backButtons="{activeTabs:{popular,all}, backToFilterEnter}">
           <div v-if="popular || all" class="filters-mobile__backdrop-home button button--text-sm filters-mobile__list-item" @click="toggleFilterTab(null)">
@@ -88,10 +88,10 @@
         </template>
       </s-good-section-filters-place>
       <s-good-section-filters-stones
-        class="filters-mobile__stone-filter"
         v-if="activeFiltersTab.value === 'stones' && goodType === 'jewelry'"
-        :list="getStonesList"
         v-model="selectedStones"
+        class="filters-mobile__stone-filter"
+        :list="getStonesList"
       >
         <template #backButtons="{activeTabs:{popular,all}, backToFilterEnter}">
           <div v-if="popular || all" class="filters-mobile__backdrop-home button button--text-sm filters-mobile__list-item" @click="toggleFilterTab(null)">
@@ -106,8 +106,8 @@
       </s-good-section-filters-stones>
       <s-good-section-filters-category
         v-if="activeFiltersTab.value === 'category' && goodType === 'jewelry'"
-        :list="getCategoryList"
         v-model="selectedCategories"
+        :list="getCategoryList"
       />
       <s-good-section-filters-gender
         v-if="activeFiltersTab.value === 'gender'"
@@ -149,9 +149,9 @@ import {
   getDiameterFilterAggregation,
   getPriceFilterAggregation
 , getFilterObject } from "../../api/getFilterObject";
+import {getBrands} from "../../api/getBrands";
 import declOfNum from '~/composables/declOfNum'
 import useQueryString from '~/composables/useQueryString'
-import {getBrands} from "../../api/getBrands";
 
 const props = defineProps({
   commonLotsCount: {

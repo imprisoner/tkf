@@ -19,8 +19,8 @@
     <h4 v-if="isDesktop" class="filter__subtitle-two">Выберите тип</h4>
     <div class="filter__options">
       <SGoodSectionCheckboxGroup
-        :list="getFilteredList"
         v-model="selected"
+        :list="getFilteredList"
       />
   </div>
   </div>
