@@ -242,9 +242,9 @@ const characteristics = computed(() => {
     .replace(/https:\/\//, '')
     .replace(/.ru/, '')
     .replace(/\/.*/, '')
-    .replace(/-/, ' ')
-    .replace(/Www/, '')
-    .replace(/www/, '');
+    .replace(/Www./, '')
+    .replace(/www./, '')
+    .replace(/-/, ' ');
   sellerName = sellerName[0].toUpperCase() + sellerName.slice(1);
 </script>
 
