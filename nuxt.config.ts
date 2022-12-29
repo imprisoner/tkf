@@ -48,7 +48,7 @@ export default defineNuxtConfig({
       urlBase:
         process.env.NODE_ENV === 'production'
           ? process.env.VUE_APP_BASE_URL
-          : 'http://185.20.226.229/',
+          : 'http://185.20.226.229',
 
       yandexMetrika: {
         id: process.env.NODE_ENV === 'production'
