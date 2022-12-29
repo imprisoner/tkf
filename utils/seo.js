@@ -1,3 +1,4 @@
+
 export function getLotDynamicSeo({lotType, lotName, lotImage}){
     return {
         title: `Купить ${lotType} ${lotName} в ломбарде | TimeKeeper`,
