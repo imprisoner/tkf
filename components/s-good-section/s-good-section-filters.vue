@@ -89,8 +89,8 @@
 
         <s-good-section-filters-brands
           v-if="content.value === 'brand'"
-          :list="getBrandsList"
           v-model="selectedBrands"
+          :list="getBrandsList"
           :popular-brands="getPopularBrandsList"
         />
         <s-good-section-filters-price
@@ -105,18 +105,18 @@
         />
         <s-good-section-filters-place
           v-if="content.value === 'place'"
-          :list="getPlacesList"
           v-model="selectedPlaces"
+          :list="getPlacesList"
         />
         <s-good-section-filters-stones
           v-if="content.value === 'stones' && goodType === 'jewelry'"
-          :list="getStonesList"
-         v-model="selectedStones"
+          v-model="selectedStones"
+         :list="getStonesList"
         />
         <s-good-section-filters-category
           v-if="content.value === 'category' && goodType === 'jewelry'"
-          :list="getCategoryList"
           v-model="selectedCategories"
+          :list="getCategoryList"
         />
         <s-good-section-filters-gender
           v-if="content.value === 'gender'"
@@ -157,12 +157,12 @@
 
 <script setup>
   import {getDiameterFilterAggregation, getPriceFilterAggregation, getFilterObject } from "../../api/getFilterObject";
-    import declOfNum from '~/composables/declOfNum'
-  import useQueryString from '~/composables/useQueryString'
   import ExpandTransition from "../ui/transitions/ExpandTransition";
+  import {getBrands} from "../../api/getBrands";
   import SGoodSectionFiltersStones from "./s-good-section-filters-tabs/s-good-section-filters-stones";
   import SGoodSectionFiltersCategory from "./s-good-section-filters-tabs/s-good-section-filters-category";
-  import {getBrands} from "../../api/getBrands";
+    import declOfNum from '~/composables/declOfNum'
+  import useQueryString from '~/composables/useQueryString'
 
   const props = defineProps({
     commonLotsCount: {

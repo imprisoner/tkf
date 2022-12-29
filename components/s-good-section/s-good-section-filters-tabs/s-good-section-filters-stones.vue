@@ -1,7 +1,7 @@
 <template>
   <div class="filter__main">
-    <slot name="backButtons" :activeTabs="activeTabs" :backToFilterEnter="backToFilterEnter"></slot>
-    <h4 v-show="isDesktop || !activeTabs.popular && !activeTabs.all" @click="!isDesktop && (activeTabs.popular = true)" class="filter__subtitle mobile-caret">Популярные вставки</h4>
+    <slot name="backButtons" :active-tabs="activeTabs" :back-to-filter-enter="backToFilterEnter"></slot>
+    <h4 v-show="isDesktop || !activeTabs.popular && !activeTabs.all" class="filter__subtitle mobile-caret" @click="!isDesktop && (activeTabs.popular = true)">Популярные вставки</h4>
     <div v-show="isDesktop || activeTabs.popular" class="filter__popular-list">
       <button
         v-for="popularStone in list.slice(0,5)"
@@ -24,11 +24,11 @@
         {{ popularStone.label }}
       </button>
     </div>
-    <h4  v-show="isDesktop || !activeTabs.popular && !activeTabs.all" @click="!isDesktop && (activeTabs.all = true)" class="filter__subtitle mobile-caret" :class="{'filter__subtitle-two':isDesktop}">Все вставки</h4>
+    <h4  v-show="isDesktop || !activeTabs.popular && !activeTabs.all" class="filter__subtitle mobile-caret" :class="{'filter__subtitle-two':isDesktop}" @click="!isDesktop && (activeTabs.all = true)">Все вставки</h4>
     <div v-show="isDesktop || activeTabs.all" class="filter__options">
       <SGoodSectionCheckboxGroup
-        :list="getFilteredList"
         v-model="selected"
+        :list="getFilteredList"
       />
   </div>
   </div>
