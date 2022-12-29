@@ -14,7 +14,7 @@
               inputmode="number"
               :placeholder="`${diameterRangeLimit[0]} mm`"
               class="input-group__field"
-              @input="currentDiameterRangeValue=[$event.target.value, currentDiameterRangeValue[1]]"
+              @input="setCurrentDiameterRangeValue($event.target.value, true)"
             />
           </div>
           <div class="input-group filter__range-input">
@@ -25,7 +25,7 @@
               inputmode="number"
               :placeholder="`${diameterRangeLimit[1]} mm`"
               class="input-group__field"
-              @input="currentDiameterRangeValue=[currentDiameterRangeValue[0],$event.target.value]"
+              @input="setCurrentDiameterRangeValue($event.target.value)"
             />
           </div>
         </fieldset>
@@ -36,6 +36,7 @@
 
 <script setup>
 import { isDesktop } from '@/utils/queries'
+import {useDebounceFn} from "@vueuse/core/index";
 
 const props = defineProps({
   modelValue: {
@@ -54,6 +55,9 @@ const props = defineProps({
 
 const emits = defineEmits(['update:modelValue'])
 
+const setCurrentDiameterRangeValue = useDebounceFn((value,min=false) => {
+  currentDiameterRangeValue.value = min ? [value, currentDiameterRangeValue.value[1]] : [currentDiameterRangeValue.value[0],value]
+}, 1000, { maxWait: 5000 })
 
 const rangeValues = computed(()=>{
   const {modelValue, aggregations} = props
