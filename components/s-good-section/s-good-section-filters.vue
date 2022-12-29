@@ -90,8 +90,8 @@
         <s-good-section-filters-brands
           v-if="content.value === 'brand'"
           :list="getBrandsList"
-          :selected-prop="selectedBrands"
-          @update-selection="updateBrandsSelection"
+          v-model="selectedBrands"
+          :popular-brands="getPopularBrandsList"
         />
         <s-good-section-filters-price
           v-if="content.value === 'price'"
@@ -106,20 +106,17 @@
         <s-good-section-filters-place
           v-if="content.value === 'place'"
           :list="getPlacesList"
-          :selected-prop="selectedPlaces"
-          @update-selection="updatePlaceSelection"
+          v-model="selectedPlaces"
         />
         <s-good-section-filters-stones
           v-if="content.value === 'stones' && goodType === 'jewelry'"
           :list="getStonesList"
-          :selected-prop="selectedStones"
-          @update-selection="updateStonesSelection"
+         v-model="selectedStones"
         />
         <s-good-section-filters-category
           v-if="content.value === 'category' && goodType === 'jewelry'"
           :list="getCategoryList"
-          :selected-prop="selectedCategories"
-          @update-selection="updateCategorySelection"
+          v-model="selectedCategories"
         />
         <s-good-section-filters-gender
           v-if="content.value === 'gender'"
@@ -165,6 +162,7 @@
   import ExpandTransition from "../ui/transitions/ExpandTransition";
   import SGoodSectionFiltersStones from "./s-good-section-filters-tabs/s-good-section-filters-stones";
   import SGoodSectionFiltersCategory from "./s-good-section-filters-tabs/s-good-section-filters-category";
+  import {getBrands} from "../../api/getBrands";
 
   const props = defineProps({
     commonLotsCount: {
@@ -178,12 +176,19 @@
   })
 
   // data fetching-----------------------------
+
+  const popularBrandsList = await getBrands({ isShowOnMain: true, brandType: props.goodType === 'watches'? 'WATCH' : 'JEWELRY' },true)
+
   const { getUrlSearchParams, setUrlSearchParams } = useQueryString()
 
   const { data: filterObjects } = await getFilterObject(props.goodType)
 
   const getBrandsList = computed(() =>
     filterObjects.value?.brands.map((i) => ({ value: i.id, label: i.name }))
+  )
+
+  const getPopularBrandsList = computed(() =>
+    popularBrandsList.map((i) => ({ value: i.id, label: i.name }))
   )
 
   const getPlacesList = computed(() => {
@@ -285,10 +290,6 @@
     selectedBrands.value = [...getUrlSearchParams.value.brand].map((i) => +i)
   }
 
-  const updateBrandsSelection = (val) => {
-    selectedBrands.value = val
-  }
-
   // !-------------------------------------!
 
   // !Place filter ----------------------!
@@ -298,9 +299,6 @@
   }
   if (typeof getUrlSearchParams.value.city_location === 'object') {
     selectedPlaces.value = [...getUrlSearchParams.value.city_location].map((i) => +i)
-  }
-  const updatePlaceSelection = (val) => {
-    selectedPlaces.value = val
   }
 
   // !-------------------------------------!
@@ -312,9 +310,6 @@
   if (typeof getUrlSearchParams.value.category === 'object') {
     selectedCategories.value = [...getUrlSearchParams.value.category].map((i) => +i)
   }
-  const updateCategorySelection = (val) => {
-    selectedCategories.value = val
-  }
 
   // !-------------------------------------!
   // !Stones filter ----------------------!
@@ -324,9 +319,6 @@
   }
   if (typeof getUrlSearchParams.value.stone === 'object') {
     selectedStones.value = [...getUrlSearchParams.value.stone].map((i) => +i)
-  }
-  const updateStonesSelection = (val) => {
-    selectedStones.value = val
   }
 
   // !-------------------------------------!

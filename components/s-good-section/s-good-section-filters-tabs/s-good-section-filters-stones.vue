@@ -1,27 +1,34 @@
 <template>
   <div class="filter__main">
-<!--    <h4 class="filter__subtitle mobile-caret">Популярное местоположение</h4>-->
-<!--    <div class="filter__popular-list">-->
-<!--      <button-->
-<!--        v-for="popularBrand in getPopularBrands"-->
-<!--        :key="popularBrand"-->
-<!--        :class="[-->
-<!--          'filter__popular-item',-->
-<!--          'button',-->
-<!--          'button&#45;&#45;text-sm',-->
-<!--          'button&#45;&#45;gray',-->
-<!--        ]"-->
-<!--        type="button"-->
-<!--      >-->
-<!--        {{ popularBrand.label }}-->
-<!--      </button>-->
-<!--    </div>-->
-    <h4 v-if="isDesktop" class="filter__subtitle-two">Все вставки</h4>
-    <div class="filter__options">
+    <slot name="backButtons" :activeTabs="activeTabs" :backToFilterEnter="backToFilterEnter"></slot>
+    <h4 v-show="isDesktop || !activeTabs.popular && !activeTabs.all" @click="!isDesktop && (activeTabs.popular = true)" class="filter__subtitle mobile-caret">Популярные вставки</h4>
+    <div v-show="isDesktop || activeTabs.popular" class="filter__popular-list">
+      <button
+        v-for="popularStone in list.slice(0,5)"
+        :key="popularStone"
+        :class="[
+              'filter__popular-item',
+              'button',
+              'button--text-sm',
+               { 'button--gray': isDesktop && selected === popularStone.value },
+              { active: selected.indexOf(popularStone.value) >= 0 },
+            ]"
+        type="button"
+        @click="handleSelection(popularStone.value,selected.indexOf(popularStone.value) >= 0)"
+      >
+        <BaseIcon
+          v-if="!isDesktop"
+          class="filter__mobile-item-check"
+          :class="{'filter__mobile-item-check--not-active': selected.indexOf(popularStone.value) < 0}"
+          name="check"/>
+        {{ popularStone.label }}
+      </button>
+    </div>
+    <h4  v-show="isDesktop || !activeTabs.popular && !activeTabs.all" @click="!isDesktop && (activeTabs.all = true)" class="filter__subtitle mobile-caret" :class="{'filter__subtitle-two':isDesktop}">Все вставки</h4>
+    <div v-show="isDesktop || activeTabs.all" class="filter__options">
       <SGoodSectionCheckboxGroup
         :list="getFilteredList"
-        :selected-prop="getSelected"
-        @update-selection="updateSelection"
+        v-model="selected"
       />
   </div>
   </div>
@@ -31,39 +38,46 @@
 
 import { isDesktop } from '@/utils/queries'
 
-  const props = defineProps({
-    list: {
-      type: Array,
-      default: () => [],
-    },
-    selectedProp: {
-      type: Array,
-      default: () => [],
-    },
-  })
-
-  const emit = defineEmits(['updateSelection'])
-
+const activeTabs = ref({
+  popular:false,
+  all: false
+})
+const backToFilterEnter = () => {
+  activeTabs.value.popular = false
+  activeTabs.value.all = false
+}
+const props = defineProps({
+  list: {
+    type: Array,
+    default: () => [],
+  },
+  modelValue: {
+    type: Array,
+    default: () => [],
+  }
+})
+const handleSelection = (item, checked) => {
+  if (checked){
+    selected.value.splice(selected.value.indexOf(item), 1)
+  }
+  else {
+    selected.value = [...selected.value,item]
+  }
+}
+const emit = defineEmits(['update:modelValue'])
+const selected = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(newValue) {
+    emit("update:modelValue", newValue);
+  }
+});
   const searchString = ref('')
-
-  const selected = ref([...props.selectedProp])
 
   const getFilteredList = computed(() =>
     props.list.filter((i) =>
       i.label.toLowerCase().includes(searchString.value.toLowerCase())
     )
   )
-
-  const updateSelection = (val) => {
-    selected.value = val
-    emit('updateSelection', selected.value)
-  }
-
-  const getSelected = computed(() =>
-    selected.value.filter(
-      (i) => !!getFilteredList.value.findIndex((fi) => fi.value === i)
-    )
-  )
-
-  watch(props.selectedProp, () => (selected.value = [...props.selectedProp]))
 </script>
