@@ -41,7 +41,7 @@ export const META_TAGS = {
       },
       {
         name: 'og:image',
-        content: 'img/logo.svg'
+        content: 'img/logo.png'
       }
     ]
   },
@@ -62,7 +62,7 @@ export const META_TAGS = {
       },
       {
         name: 'og:image',
-        content: 'img/logo.svg'
+        content: 'img/logo.png'
       }
     ]
   },
@@ -83,7 +83,7 @@ export const META_TAGS = {
       },
       {
         name: 'og:image',
-        content: 'img/logo.svg'
+        content: 'img/logo.png'
       }
     ],
   },
@@ -104,7 +104,7 @@ export const META_TAGS = {
       },
       {
         name: 'og:image',
-        content: 'img/logo.svg'
+        content: 'img/logo.png'
       }
     ],
   },
@@ -125,7 +125,7 @@ export const META_TAGS = {
       },
       {
         name: 'og:image',
-        content: 'img/logo.svg'
+        content: 'img/logo.png'
       }
     ],
   },
@@ -146,7 +146,7 @@ export const META_TAGS = {
       },
       {
         name: 'og:image',
-        content: 'img/logo.svg'
+        content: 'img/logo.png'
       }
     ],
   },
@@ -167,7 +167,7 @@ export const META_TAGS = {
       },
       {
         name: 'og:image',
-        content: 'img/logo.svg'
+        content: 'img/logo.png'
       }
     ],
   },
@@ -188,7 +188,7 @@ export const META_TAGS = {
       },
       {
         name: 'og:image',
-        content: 'img/logo.svg'
+        content: 'img/logo.png'
       }
     ],
   },
