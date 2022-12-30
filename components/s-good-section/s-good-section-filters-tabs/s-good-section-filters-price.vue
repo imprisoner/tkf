@@ -19,7 +19,7 @@
           </button>
         </div>
 <client-only>
-        <MRangeSlider v-model="currentPriceRangeValue" :range="priceRangeLimit" :currency="currency.label"/>
+        <MRangeSlider v-model="currentPriceRangeValue" :range="priceRangeLimit" :currency="currency.label" :format-function="formatMoney"/>
 </client-only>
         <fieldset class="filter__range-fields">
           <div class="input-group filter__range-input">
@@ -53,6 +53,7 @@
 <script setup>
 import { useDebounceFn } from '@vueuse/core'
 import { isDesktop } from '@/utils/queries'
+import {formatMoney} from "../../../utils/formatters";
 
 const setCurrentPriceRangeValue = useDebounceFn((value,min=false) => {
   currentPriceRangeValue.value = min ? [value, currentPriceRangeValue.value[1]] : [currentPriceRangeValue.value[0],value]
