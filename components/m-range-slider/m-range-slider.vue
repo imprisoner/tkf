@@ -2,7 +2,7 @@
   <div class="range-slider">
     <div class="range-slider__wrap">
       <label for="a" class="range-slider__label">{{ `${formatFunction?formatFunction(range[0]) : range[0]} ${currency}` }}</label>
-      <Slider :classes="{
+      <Slider  :disabled="!range[1]" :classes="{
         tooltip:`slider-tooltip ${tooltipPositionClass}`
       }" v-model="localValue" :min="range[0]" :max="range[1]" :step="step" :format="formatFunction || format" />
       <label for="b" class="range-slider__label">{{ `${formatFunction?formatFunction(range[1]) : range[1]} ${currency}` }}</label>
@@ -21,6 +21,10 @@
       default: () => {
         return [0,100]
       },
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     },
     range: {
       type: Array,
@@ -53,7 +57,7 @@
       value =  value + ' tooltip-translate-right'
     }
 
-     if (localValue.value[0] <= props.range[0] || localValue.value[0]<=props.range[1]*0.05) {
+     if (localValue.value[0] <= props.range[0] || localValue.value[0]<=props.range[0]+(props.range[1]-props.range[0])*0.05) {
        value =  value + ' tooltip-translate-left'
     }
 
