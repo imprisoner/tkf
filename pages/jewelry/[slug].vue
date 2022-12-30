@@ -4,7 +4,7 @@
     <article class="container lot">
       <div class="row lot__top">
         <div
-          class="lot__imagebox imagebox offset-lg-1 col-lg-5 col-md-6 col-12"
+          class="lot__imagebox imagebox offset-xl-1 col-lg-5 col-md-6 col-12"
         >
           <swiper v-if="lot.additional_images.length" :modules="[Thumbs]" :thumbs="{ swiper: thumbsSwiper }">
             <swiper-slide v-for="(item, index) in lot.additional_images" :key="index">
@@ -42,7 +42,7 @@
             />
           </div>
         </div>
-        <div class="lot__details details offset-lg-7 col-lg-5 col-xl-4 col-12">
+        <div class="lot__details details offset-xl-7 offset-lg-6 col-lg-5 col-xl-4 col-12">
           <div class="details__top">
             <div class="details__title">
               <h3 v-if="lot.model">{{ lot.model.name }}</h3>
