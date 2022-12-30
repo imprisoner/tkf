@@ -1,7 +1,7 @@
 <template>
-  <section v-if="banners.length" class="s-ads-section container">
+  <section v-if="banners != ''" class="s-ads-section container">
     <div class="row">
-      
+
       <template v-for="(banner, i) in banners" :key="i">
         <div
           v-if="i === 0 && !(banners.length % 2)"
