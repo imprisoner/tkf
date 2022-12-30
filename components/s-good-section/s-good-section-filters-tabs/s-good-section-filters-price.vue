@@ -19,16 +19,16 @@
           </button>
         </div>
 <client-only>
-        <MRangeSlider v-model="currentPriceRangeValue" :range="priceRangeLimit" :currency="currency.label"/>
+        <MRangeSlider v-model="currentPriceRangeValue" :range="priceRangeLimit" :currency="currency.label" :format-function="formatMoney"/>
 </client-only>
         <fieldset class="filter__range-fields">
           <div class="input-group filter__range-input">
             <span class="button button--square button--gray" @click="currentPriceRangeValue=[undefined,currentPriceRangeValue[1]]">min</span>
             <input
-              :value="currentPriceRangeValue[0]"
+              :value="formatMoney(currentPriceRangeValue[0])"
               type="text"
               inputmode="number"
-              :placeholder="`${priceRangeLimit[0]} ${currency.label}`"
+              :placeholder="`${formatMoney(priceRangeLimit[0])} ${currency.label}`"
               class="input-group__field"
               @input="setCurrentPriceRangeValue($event.target.value, true)"
             />
@@ -36,10 +36,10 @@
           <div class="input-group filter__range-input">
             <span class="button button--square button--gray" @click="currentPriceRangeValue=[currentPriceRangeValue[0], undefined]">max</span>
             <input
-              :value="currentPriceRangeValue[1]"
+              :value="formatMoney(currentPriceRangeValue[1])"
               type="text"
               inputmode="number"
-              :placeholder="`${priceRangeLimit[1]} ${currency.label}`"
+              :placeholder="`${formatMoney(priceRangeLimit[1])} ${currency.label}`"
               class="input-group__field"
               @input="setCurrentPriceRangeValue($event.target.value)"
             />
@@ -53,6 +53,7 @@
 <script setup>
 import { useDebounceFn } from '@vueuse/core'
 import { isDesktop } from '@/utils/queries'
+import {formatMoney} from "../../../utils/formatters";
 
 const setCurrentPriceRangeValue = useDebounceFn((value,min=false) => {
   currentPriceRangeValue.value = min ? [value, currentPriceRangeValue.value[1]] : [currentPriceRangeValue.value[0],value]
